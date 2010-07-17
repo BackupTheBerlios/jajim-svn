@@ -19,12 +19,10 @@
 package org.jajim.controladores;
 
 import org.jajim.excepciones.ContraseñaNoDisponibleException;
-import org.jajim.excepciones.FicheroNoEncontradoException;
 import org.jajim.excepciones.ImposibleCrearCuentaException;
 import org.jajim.excepciones.ImposibleEliminarCuentaException;
 import org.jajim.excepciones.ImposibleLoginException;
 import org.jajim.excepciones.ImposibleModificarContraseñaException;
-import org.jajim.excepciones.ImposibleRecuperarFicheroException;
 import org.jajim.excepciones.ImposibleValidarCuentaException;
 import org.jajim.excepciones.ServidorNoEncontradoException;
 import org.jajim.modelo.conexiones.FactoriaDeConexiones;
@@ -49,45 +47,42 @@ import org.jivesoftware.smack.XMPPException;
  */
 public class CuentaControlador {
 
+    private static CuentaControlador instancia ;
     private String ficheroCuentas = null;
     private Cuentas cs;
 
     /**
      * Constructor de la clase. Intenta cargar el fichero que almacena las cuentas
      * del usuario. Si no encuentra el fichero con las cuentas lanza una excepción.
-     * @throws FicheroNoEncontradoException Si no se encuentra el fichero en el
-     * que se almacenan las cuentas.
-     * @throws ImposibleRecuperarFicheroException Si no se puede recuperar el fichero en
-     * el que se almacenan las cuentas.
      */
-    public CuentaControlador(boolean buscar) throws FicheroNoEncontradoException, ImposibleRecuperarFicheroException{
+    private CuentaControlador(){
 
-        if(buscar){
-            // Intentar recuperar el fichero de cuentas
-            String ruta = System.getProperty("user.home");
-            ficheroCuentas = ruta + File.separator + ".JAJIM" + File.separator + "cuentas.xml";
-            File f = new File(ficheroCuentas);
+        // Intentar recuperar el fichero de cuentas
+        String ruta = System.getProperty("user.home");
+        ficheroCuentas = ruta + File.separator + ".JAJIM" + File.separator + "cuentas.xml";
+        File f = new File(ficheroCuentas);
 
-            // Si el fichero no existe se lanza una excepción
-            if(!f.exists())
-                throw new FicheroNoEncontradoException();
-            else{
+        // Si el fichero se crea la carpeta para el mismo y una lista de cuentas vacías
+        if(!f.exists()){
+            cs = new Cuentas();
+            String carpeta = ruta + File.separator + ".JAJIM";
+            File fc = new File(carpeta);
+            fc.mkdir();
+        }
+        else{            
+            try{
                 // Si el fichero existe se carga en memoria su contenido
-                try{
-                    XStream xs = new XStream();
-                    cs = (Cuentas) xs.fromXML(new FileInputStream(f));
-                }catch(Exception e){
-                    // En caso de que se produzca un error se escribe en el fichero
-                    // de log y se lanza una excepción
-                    e.printStackTrace();
-                    ManejadorDeLogs mdl = ManejadorDeLogs.getManejadorDeLogs();
-                    mdl.escribir("No se puede abrir el fichero de las cuentas del usuario");
-                    throw new ImposibleRecuperarFicheroException();
-                }
+                XStream xs = new XStream();
+                cs = (Cuentas) xs.fromXML(new FileInputStream(f));
+            }catch(Exception e){
+                // En caso de que se produzca un error se escribe en el fichero
+                // de log y se crea una lista de cuentas vacías
+                ManejadorDeLogs mdl = ManejadorDeLogs.getManejadorDeLogs();
+                mdl.escribir("No se puede abrir el fichero de las cuentas del usuario");
+                // Crear las cuentas
+                cs = new Cuentas();
             }
         }
-        else
-            cs = new Cuentas();
     }
 
     /**
@@ -368,16 +363,16 @@ public class CuentaControlador {
 
     /**
      * Modifica la contraseña en el servidor y en el sistema.
-     * @param cnc El controlador de la conexión.
      * @param contraseña La nueva contraseña a establecer.
      * @param guardarContraseña Valor booleano que indica si se debe guardar la
      * contraseña o no.
      * @throws ImposibleModificarContraseñaException Si no se puede cambiar la con
      * traseña de la cuenta.
      */
-    public void modificarContraseña(ConexionControlador cnc,String contraseña,boolean guardarContraseña) throws ImposibleModificarContraseñaException{
+    public void modificarContraseña(String contraseña,boolean guardarContraseña) throws ImposibleModificarContraseñaException{
 
         // Recuperar conexión y crear un manejador de cuentas
+        ConexionControlador cnc = ConexionControlador.getInstancia();
         XMPPConnection xc = cnc.getXc();
         AccountManager am = new AccountManager(xc);
 
@@ -481,5 +476,19 @@ public class CuentaControlador {
     public String[][] getInformacionDeCuentas(){
 
         return cs.getInformacionDeCuentas();
+    }
+
+    /**
+     * Método estático utilizado para implementar el Singleton.
+     * @return Retorna la única instancia que hay del controlador de cuentas en
+     * el sistema.
+     */
+    public static CuentaControlador getInstancia(){
+
+        // Si la instancia es nula, crea una nueva. Si no retorna la ya existente
+        if(instancia == null)
+            instancia = new CuentaControlador();
+
+        return instancia;
     }
 }

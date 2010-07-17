@@ -18,7 +18,6 @@
 
 package org.jajim.interfaz.ventanas;
 
-import org.jajim.controladores.ConexionControlador;
 import org.jajim.controladores.ContactosControlador;
 import org.jajim.controladores.CuentaControlador;
 import org.jajim.controladores.PreferenciasControlador;
@@ -54,7 +53,6 @@ import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.util.ResourceBundle;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -207,8 +205,6 @@ public class VentanaPrincipal extends JFrame{
     private JButton[] botonesBarraDeHerramientas = new JButton[itemsDeMenuCad[0].length];
 
     // Controladores utilizados
-    private CuentaControlador cc;
-    private ConexionControlador cnc;
     private ContactosControlador ctc;
     private TransferenciaFicherosControlador tfc;
     private PreferenciasControlador pfc;
@@ -326,9 +322,6 @@ public class VentanaPrincipal extends JFrame{
         
         this.setVisible(true);
 
-        // Iniciar el controlador de las conexiones
-        cnc = new ConexionControlador();
-
         // Iniciación del icono en la barra de herramientas
         if(SystemTray.isSupported()){
 
@@ -353,7 +346,7 @@ public class VentanaPrincipal extends JFrame{
                 for(int i = 0;i < itemsEstado.length;i++){
                     itemsEstado[i] = new MenuItem(estadosUsuario[i]);
                     menuEstado.add(itemsEstado[i]);
-                    itemsEstado[i].addActionListener(new CambiarEstadoActionListener(this,cnc));
+                    itemsEstado[i].addActionListener(new CambiarEstadoActionListener(this));
                     itemsEstado[i].setActionCommand(i + "");
                 }
                 popupMenu.add(menuEstado);
@@ -370,22 +363,14 @@ public class VentanaPrincipal extends JFrame{
             iconoBarraHerramientas = null;
 
         // Iniciación de los controladores
-        try{
-            cc = new CuentaControlador(true);
-        }catch(Exception e){
-            // Si no se encuentra el fichero se crea una carpeta en el directorio
-            // home del usuario con el nombre de nuestra aplicación.
-            String home = System.getProperty("user.home");
-            File f = new File(home + File.separator + ".JAJIM");
-            f.mkdir();
-
-            try{
-                cc = new CuentaControlador(false);
-            }catch(Exception ex){}
-
+        CuentaControlador cc = CuentaControlador.getInstancia();
+        if(cc.getCuenta() == null)
             new CrearOAñadirFormulario(this,cc);
-        }
 
+        // Poner la cuenta activa en el panel
+        String idCuenta = cc.getCuenta();
+        pc.cambiarCuenta(idCuenta);
+        
         ctc = new ContactosControlador();
         tfc = new TransferenciaFicherosControlador();
 
@@ -397,12 +382,8 @@ public class VentanaPrincipal extends JFrame{
         vgc = new VentanaGestorDeCuentas(this,cc);
 
         // Añadir el listener del combo
-        estado.addActionListener(new CambiarEstadoActionListener(this,cnc));
+        estado.addActionListener(new CambiarEstadoActionListener(this));
 
-        // Poner la cuenta activa en el panel        
-        String idCuenta = cc.getCuenta();
-        pc.cambiarCuenta(idCuenta);
-        
         // Añadir un oyente cuando se cierre la ventana, para guardar la informa
         // ción necesaria para la aplicación.
         this.addWindowListener(new VentanaPrincipalWindowListener(cc,pfc));
@@ -472,22 +453,6 @@ public class VentanaPrincipal extends JFrame{
                 }
             }
         }
-    }
-
-    /**
-     * Retorna el controlador de las cuentas que utiliza la aplicación.
-     * @return Controlador de las cuentas.
-     */
-    public CuentaControlador getCc(){
-        return cc;
-    }
-
-    /**
-     * Retorna el controlador de la conexión que utiliza la aplicación.
-     * @return Controlador de la conexión.
-     */
-    public ConexionControlador getCnc(){
-        return cnc;
     }
 
     /**

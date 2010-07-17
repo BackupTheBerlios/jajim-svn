@@ -50,7 +50,7 @@ public class SalirActionListener implements ActionListener{
     public void actionPerformed(ActionEvent e){
 
         // Recupera el gestor de cuentas y guarda las cuentas en el sistema
-        CuentaControlador cc = vp.getCc();
+        CuentaControlador cc = CuentaControlador.getInstancia();
         cc.guardarCuentas();
         System.exit(0);
     }

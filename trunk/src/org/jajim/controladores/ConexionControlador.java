@@ -41,18 +41,17 @@ import org.jivesoftware.smack.packet.Presence;
  */
 public class ConexionControlador{
 
+    private static ConexionControlador instancia;
     private XMPPConnection xc;
     private ConjuntoDeOyentes cdo;
 
     /**
      * Constructor de la clase.
      */
-    public ConexionControlador(){}
+    private ConexionControlador(){}
 
     /**
      * Conecta al usuario con su cuenta jabber activa.
-     * @param cc El controlador de las cuentas. Se utiliza para averiguar los da
-     * tos de la cuenta activa.
      * @param observador El observador que va a recibir los eventos importantes
      * de la conexión.
      * @return La lista de contactos del usuario.
@@ -63,9 +62,11 @@ public class ConexionControlador{
      * @throws ImposibleLoginException Si no se puede hacer login con el servidor.
      * @throws NoHayCuentaException Si no hay cuentas disponibles en el sistema.
      */
-    public Roster conectar(CuentaControlador cc,Observer observador) throws ServidorNoEncontradoException,ContraseñaNoDisponibleException,ImposibleLoginException,NoHayCuentaException{
+    public Roster conectar(Observer observador) throws ServidorNoEncontradoException,ContraseñaNoDisponibleException,ImposibleLoginException,NoHayCuentaException{
 
         // Comprobar si hay cuenta activa
+        CuentaControlador cc = CuentaControlador.getInstancia();
+
         if(cc.getCuenta() == null)
             throw new NoHayCuentaException();
 
@@ -101,8 +102,6 @@ public class ConexionControlador{
 
     /**
      * Conecta al usuario con su cuenta jabber activa.
-     * @param cc El controlador de las cuentas. Se utiliza para averiguar los da
-     * tos de la cuenta activa.
      * @param contraseña La contraseña introducida por el usuario en el formulario.
      * @param observador El observador que va a recibir los eventos importantes
      * de la conexión.
@@ -111,9 +110,11 @@ public class ConexionControlador{
      * con el que se iba a realizar la conexión
      * @throws ImposibleLoginException Si no se puede hacer login con el servidor.
      */
-    public Roster conectar(CuentaControlador cc,String contraseña,Observer observador) throws ServidorNoEncontradoException,ImposibleLoginException{
+    public Roster conectar(String contraseña,Observer observador) throws ServidorNoEncontradoException,ImposibleLoginException{
 
         // Recuperar los datos del servidor para conseguir una conexión
+        CuentaControlador cc = CuentaControlador.getInstancia();
+
         String servidor = cc.getServidor();
         try{
             xc = FactoriaDeConexiones.getInstancia().getConexion(servidor);
@@ -210,5 +211,17 @@ public class ConexionControlador{
      */
     public XMPPConnection getXc(){
         return xc;
+    }
+
+    /**
+     * Método para llevar a cabo el patrón Singleton.
+     * @return Retorna la única instancia del controlador de las conexiones.
+     */
+    public static synchronized ConexionControlador getInstancia(){
+
+        if(instancia == null)
+            instancia = new ConexionControlador();
+
+        return instancia;
     }
 }

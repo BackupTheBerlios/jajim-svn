@@ -62,8 +62,7 @@ public class ConectarActionListener implements ActionListener{
     public void actionPerformed(ActionEvent e){
 
         // Recupero los controladores necesarios
-        ConexionControlador ccn = vp.getCnc();
-        CuentaControlador cc = vp.getCc();
+        ConexionControlador ccn = ConexionControlador.getInstancia();
         ContactosControlador ctc = vp.getCtc();
         TransferenciaFicherosControlador tfc = vp.getTfc();
 
@@ -71,9 +70,9 @@ public class ConectarActionListener implements ActionListener{
         Roster r = null;
         try{
 
-            // Si no se ha intorducido la contraseña se busca en la información
+            // Si no se ha introducido la contraseña se busca en la información
             // de las cuentas. Si se ha introducido se pasa al controlador
-            r = ccn.conectar(cc,vp.getOc());
+            r = ccn.conectar(vp.getOc());
 
             // Asignar el roster al controlador de los contactos
             vp.conexionEstablecida();
@@ -97,7 +96,7 @@ public class ConectarActionListener implements ActionListener{
             }while(contraseña.compareTo("") == 0);
 
             try{
-                r = ccn.conectar(cc,contraseña,vp.getOc());
+                r = ccn.conectar(contraseña,vp.getOc());
                 // Asignar el roster al controlador de los contactos
                 vp.conexionEstablecida();
                 ctc.setListeners(vp.getPc(),vp.getOc());

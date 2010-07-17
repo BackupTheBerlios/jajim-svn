@@ -18,7 +18,6 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.controladores.ConexionControlador;
 import org.jajim.controladores.ContactosControlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,19 +33,16 @@ public class RechazarContactoActionListener implements ActionListener{
 
     private JDialog aorcf;
     private ContactosControlador ctc;
-    private ConexionControlador cnc;
     private String contacto;
 
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
      * @param aorcf Formulario desde el que se rechaza el contacto.
      * @param ctc El controlador de contactos.
-     * @param cnc El controlador de la conexión.
      */
-    public RechazarContactoActionListener(JDialog aorcf,ContactosControlador ctc,ConexionControlador cnc,String contacto){
+    public RechazarContactoActionListener(JDialog aorcf,ContactosControlador ctc,String contacto){
         this.aorcf = aorcf;
         this.ctc = ctc;
-        this.cnc = cnc;
         this.contacto = contacto;
     }
 
@@ -59,7 +55,7 @@ public class RechazarContactoActionListener implements ActionListener{
     public void actionPerformed(ActionEvent e) {
 
         // Llamar al controlador de contactos para que realice la operación
-        ctc.rechazarContacto(cnc,contacto);
+        ctc.rechazarContacto(contacto);
         aorcf.dispose();
     }
 }

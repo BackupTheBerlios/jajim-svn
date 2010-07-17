@@ -18,7 +18,6 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.controladores.ConexionControlador;
 import org.jajim.controladores.ConversacionControlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,20 +33,17 @@ import javax.swing.JDialog;
 public class RechazarInvitacionActionListener implements ActionListener{
 
     private JDialog dialogo;
-    private ConexionControlador cnc;
     private String room;
     private String contacto;
 
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
      * @param dialogo El formulario de aceptación o rechazo de la invitación.
-     * @param cnc El controlador de las conexiones.
      * @param contacto El contacto que envió la invitación.
      * @param room La sala donde tiene lugar la conversación.
      */
-    public RechazarInvitacionActionListener(JDialog dialogo,ConexionControlador cnc,String contacto,String room){
+    public RechazarInvitacionActionListener(JDialog dialogo,String contacto,String room){
         this.dialogo = dialogo;
-        this.cnc = cnc;
         this.contacto = contacto;
         this.room = room;
     }
@@ -64,7 +60,7 @@ public class RechazarInvitacionActionListener implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         
         // LLamar al controlador para que realice la operación.
-        ConversacionControlador.rechazarInvitacion(cnc,contacto,room);
+        ConversacionControlador.rechazarInvitacion(contacto,room);
         dialogo.dispose();
     }
 }

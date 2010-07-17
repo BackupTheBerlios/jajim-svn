@@ -38,7 +38,7 @@ public class ManejadorDeLogs {
     /**
      * Constructor de la clase. Inicializa la clase que maneja los ficheros de log.
      */
-    public ManejadorDeLogs(){
+    private ManejadorDeLogs(){
 
         // Instanciación un objeto Logger e inicialización del mismo.
         try{

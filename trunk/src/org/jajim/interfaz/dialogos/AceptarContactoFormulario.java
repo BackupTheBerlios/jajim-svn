@@ -116,9 +116,9 @@ public class AceptarContactoFormulario extends JDialog{
         botones.setBorder(BorderFactory.createEmptyBorder(0,10,6,10));
         botones.setLayout(new FlowLayout(FlowLayout.RIGHT));
         botonAceptar = new JButton(OK);
-        botonAceptar.addActionListener(new AceptarContactoActionListener(this,vp.getCtc(),vp.getCnc()));
+        botonAceptar.addActionListener(new AceptarContactoActionListener(this,vp.getCtc()));
         botonCancelar = new JButton(cancelar);
-        botonCancelar.addActionListener(new RechazarContactoActionListener(this,vp.getCtc(),vp.getCnc(),contacto));
+        botonCancelar.addActionListener(new RechazarContactoActionListener(this,vp.getCtc(),contacto));
         botones.add(botonAceptar);
         botones.add(botonCancelar);
         cp.add(BorderLayout.SOUTH,botones);

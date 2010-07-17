@@ -117,7 +117,7 @@ public class ModificarContraseñaFormulario extends JDialog implements ActionLis
         botones.setLayout(new FlowLayout(FlowLayout.RIGHT));
         botones.setBorder(BorderFactory.createEmptyBorder(0,10,6,10));
         botonAceptar = new JButton(OK);
-        botonAceptar.addActionListener(new ModificarContraseñaActionListener(this,vp.getCc(),vp.getCnc()));
+        botonAceptar.addActionListener(new ModificarContraseñaActionListener(this));
         botones.add(botonAceptar);
         botonCancelar = new JButton(cancelar);
         botonCancelar.addActionListener(this);

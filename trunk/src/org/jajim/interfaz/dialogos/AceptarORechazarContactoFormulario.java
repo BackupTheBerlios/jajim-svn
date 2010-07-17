@@ -87,7 +87,7 @@ public class AceptarORechazarContactoFormulario extends JDialog implements Actio
         botonAceptar = new JButton(aceptar);
         botonAceptar.addActionListener(this);
         botonRechazar = new JButton(rechazar);
-        botonRechazar.addActionListener(new RechazarContactoActionListener(this,vp.getCtc(),vp.getCnc(),contacto));
+        botonRechazar.addActionListener(new RechazarContactoActionListener(this,vp.getCtc(),contacto));
         botones.add(botonAceptar);
         botones.add(botonRechazar);
         cp.add(BorderLayout.SOUTH,botones);

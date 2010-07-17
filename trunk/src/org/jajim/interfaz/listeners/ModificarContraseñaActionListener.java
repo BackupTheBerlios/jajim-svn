@@ -18,7 +18,6 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.controladores.ConexionControlador;
 import org.jajim.controladores.CuentaControlador;
 import org.jajim.excepciones.ImposibleModificarContraseñaException;
 import org.jajim.interfaz.dialogos.MensajeError;
@@ -36,8 +35,6 @@ public class ModificarContraseñaActionListener implements ActionListener {
 
     // Varriables
     private ModificarContraseñaFormulario mcf;
-    private CuentaControlador cc;
-    private ConexionControlador cnc;
 
     /**
      * Constructor de la clase. Iniciliza las variables necesarias.
@@ -45,10 +42,8 @@ public class ModificarContraseñaActionListener implements ActionListener {
      * @param cc El controlador de las cuentas.
      * @param cnc El controlador de la connexión.
      */
-    public ModificarContraseñaActionListener(ModificarContraseñaFormulario mcf, CuentaControlador cc, ConexionControlador cnc) {
+    public ModificarContraseñaActionListener(ModificarContraseñaFormulario mcf) {
         this.mcf = mcf;
-        this.cc = cc;
-        this.cnc = cnc;
     }
 
     /**
@@ -80,7 +75,8 @@ public class ModificarContraseñaActionListener implements ActionListener {
 
         try{
             // Llamar al controlador para que realice la operación
-            cc.modificarContraseña(cnc,contraseña,guardarContraseña);
+            CuentaControlador cc = CuentaControlador.getInstancia();
+            cc.modificarContraseña(contraseña,guardarContraseña);
             // Cerrar el cuadro de diálogo
             mcf.dispose();
         }catch(ImposibleModificarContraseñaException imce){

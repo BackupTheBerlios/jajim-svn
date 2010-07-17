@@ -168,7 +168,7 @@ public class OyenteConexion implements Observer{
                 }
                 else{
                     try{
-                        ConversacionControlador.rechazarInvitacion(vp.getCnc(),contacto,room);
+                        ConversacionControlador.rechazarInvitacion(contacto,room);
                     }catch(Exception e){}
                 }
             }

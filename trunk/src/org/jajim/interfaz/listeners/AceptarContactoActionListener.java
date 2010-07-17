@@ -18,7 +18,6 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.controladores.ConexionControlador;
 import org.jajim.controladores.ContactosControlador;
 import org.jajim.excepciones.ImposibleAñadirContactoException;
 import org.jajim.interfaz.dialogos.AceptarContactoFormulario;
@@ -38,17 +37,14 @@ public class AceptarContactoActionListener implements ActionListener{
 
     private AceptarContactoFormulario acf;
     private ContactosControlador ctc;
-    private ConexionControlador cnc;
 
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
      * @param ctc Controlador de los contactos.
-     * @param cnc Controlador de la conexion.
      */
-    public AceptarContactoActionListener(AceptarContactoFormulario acf,ContactosControlador ctc,ConexionControlador cnc){
+    public AceptarContactoActionListener(AceptarContactoFormulario acf,ContactosControlador ctc){
         this.acf = acf;
         this.ctc = ctc;
-        this.cnc = cnc;
     }
 
     /**
@@ -76,7 +72,7 @@ public class AceptarContactoActionListener implements ActionListener{
         // Llamar al controlador de contactos para que realice las operaciones ne
         // cesarias.
         try{
-            ctc.aceptarContacto(cnc,contacto,alias,grupo);
+            ctc.aceptarContacto(contacto,alias,grupo);
             // Cerrar el cuadro de diálogo
             acf.dispose();
         }catch(ImposibleAñadirContactoException iace){

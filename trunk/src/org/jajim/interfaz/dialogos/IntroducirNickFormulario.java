@@ -102,7 +102,7 @@ public class IntroducirNickFormulario extends JDialog{
         botonAceptar = new JButton(OK);
         botonAceptar.addActionListener(new AceptarInvitacionActionListener(this,vp,alias,idInvitacion,room));
         botonCancelar = new JButton(cancelar);
-        botonCancelar.addActionListener(new RechazarInvitacionActionListener(this,vp.getCnc(),vp.getCtc().getContactoPorAlias(alias),room));
+        botonCancelar.addActionListener(new RechazarInvitacionActionListener(this,vp.getCtc().getContactoPorAlias(alias),room));
         botones.add(botonAceptar);
         botones.add(botonCancelar);
         cp.add(BorderLayout.SOUTH,botones);

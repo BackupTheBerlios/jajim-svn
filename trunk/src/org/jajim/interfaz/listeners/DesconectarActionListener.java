@@ -33,7 +33,6 @@ public class DesconectarActionListener implements ActionListener,Runnable{
 
     // Variables importantes
     private VentanaPrincipal vp;
-    private ConexionControlador cnc;
 
     /**
      * Constructor de la clase. Inicializa las variables importantes.
@@ -52,11 +51,8 @@ public class DesconectarActionListener implements ActionListener,Runnable{
     @Override
     public void actionPerformed(ActionEvent e){
 
-        // Recupera el controlador
-        cnc = vp.getCnc();
-
         // Abortar las conversaciones y las trasferencias
-        AbortarOperaciones ao = new AbortarOperaciones(vp,vp,cnc,vp.getVgt());
+        AbortarOperaciones ao = new AbortarOperaciones(vp,vp,vp.getVgt());
         ao.abortarConversaciones();
         ao.abortarTransferencias();
 
@@ -72,6 +68,7 @@ public class DesconectarActionListener implements ActionListener,Runnable{
      */
     @Override
     public void run(){
+        ConexionControlador cnc = ConexionControlador.getInstancia();
         cnc.desconectar();
     }
 }

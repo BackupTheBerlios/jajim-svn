@@ -73,6 +73,7 @@ import javax.swing.JTextArea;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 import javax.swing.text.Keymap;
+import org.jajim.controladores.CuentaControlador;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.util.StringUtils;
 
@@ -159,7 +160,6 @@ public class VentanaConversacion extends JFrame implements Observer{
     };
 
     // Controladores utilizados
-    private ConexionControlador cnc;
     private ContactosControlador ctc;
     private ConversacionControlador cvc;
     private TransferenciaFicherosControlador tfc;
@@ -232,7 +232,6 @@ public class VentanaConversacion extends JFrame implements Observer{
         this.setJMenuBar(barraMenu);
         
         // Inicialización de variables
-        cnc = vp.getCnc();
         ctc = vp.getCtc();
         tfc = vp.getTfc();
         vgt = vp.getVgt();
@@ -350,7 +349,7 @@ public class VentanaConversacion extends JFrame implements Observer{
         cvc.iniciarConversacion(tipo);
 
         // Asignar nombres
-        String identificador = vp.getCc().getIdentificador();
+        String identificador = CuentaControlador.getInstancia().getIdentificador();
         conversacion.añadirUsuario("Usuario",identificador);
         usuarioActual = identificador;
         conversacion.añadirUsuario(ctc.getContactoPorAlias(alias),alias);
@@ -386,7 +385,7 @@ public class VentanaConversacion extends JFrame implements Observer{
 
         // Arrancar el controlador
         try{
-            cvc.iniciarConversacion(cnc,ctc,room,nickname,tipo);
+            cvc.iniciarConversacion(ctc,room,nickname,tipo);
         }catch(ServicioDeChatMultiusuarioNoEncontradoException sdcmne){
             new MensajeError(this,"servicio_chat_multiusuairo_no_encontrado",MensajeError.ERR);
             this.dispose();
@@ -434,7 +433,7 @@ public class VentanaConversacion extends JFrame implements Observer{
         cvc.iniciarConversacion(idChat,tipo);
 
         // Asignar nombres
-        String identificador = vp.getCc().getIdentificador();
+        String identificador = CuentaControlador.getInstancia().getIdentificador();
         conversacion.añadirUsuario("Usuario",identificador);
         usuarioActual = identificador;
         conversacion.añadirUsuario(ctc.getContactoPorAlias(alias),alias);
@@ -470,7 +469,7 @@ public class VentanaConversacion extends JFrame implements Observer{
 
         // Iniciar la conversación
         try{
-            cvc.iniciarConversacion(cnc,idInvitacion,room,nickname,tipo);
+            cvc.iniciarConversacion(idInvitacion,room,nickname,tipo);
         }catch(ImposibleUnirseALaSalaException iualse){
             new MensajeError(this,"imposible_unirse_a_la_sala_error",MensajeError.ERR);
             this.dispose();

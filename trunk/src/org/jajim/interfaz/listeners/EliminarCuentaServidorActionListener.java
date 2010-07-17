@@ -46,20 +46,17 @@ public class EliminarCuentaServidorActionListener implements ActionListener{
     // Variables
     private VentanaGestorDeCuentas vgc;
     private CuentaControlador cc;
-    private ConexionControlador cnc;
     private VentanaPrincipal vp;
 
     /**
      * Constructor de la clase. Iniciliza las variables necesarias.
      * @param vgc Ventana del gestor de cuentas.
      * @param cc Controlador de las cuentas.
-     * @param cnc Controlador de la conexión.
      * @param vp Ventana principal de la aplicación.
      */
-    public EliminarCuentaServidorActionListener(VentanaGestorDeCuentas vgc,CuentaControlador cc,ConexionControlador cnc,VentanaPrincipal vp){
+    public EliminarCuentaServidorActionListener(VentanaGestorDeCuentas vgc,CuentaControlador cc,VentanaPrincipal vp){
         this.vgc = vgc;
         this.cc = cc;
-        this.cnc = cnc;
         this.vp = vp;
     }
 
@@ -85,9 +82,10 @@ public class EliminarCuentaServidorActionListener implements ActionListener{
 
         // Comprobar si se va a eliminar la cuenta activa y estamos conectados.
         String activa = cc.getCuenta();
+        ConexionControlador cnc = ConexionControlador.getInstancia();
         if(activa.compareTo(identificador + "@" + servidor) == 0 && cnc.isConectado()){
             // Abortar la conexión antes de borrar la cuenta
-            AbortarOperaciones ao = new AbortarOperaciones(vgc,vp,cnc,vp.getVgt());
+            AbortarOperaciones ao = new AbortarOperaciones(vgc,vp,vp.getVgt());
             if(!ao.abortarConexion())
                 return;
         }

@@ -39,7 +39,6 @@ public class AbortarOperaciones implements Runnable{
 
     private JFrame principal;
     private VentanaPrincipal vp;
-    private ConexionControlador cnc;
     private VentanaGestorDeTransferencias vgt;
 
     /**
@@ -47,10 +46,9 @@ public class AbortarOperaciones implements Runnable{
      * @param principal Ventana principal en este instante.
      * @param cnc El controlador de la conexión.
      */
-    public AbortarOperaciones(JFrame principal,VentanaPrincipal vp,ConexionControlador cnc,VentanaGestorDeTransferencias vgt){
+    public AbortarOperaciones(JFrame principal,VentanaPrincipal vp,VentanaGestorDeTransferencias vgt){
         this.principal = principal;
         this.vp = vp;
-        this.cnc = cnc;
         this.vgt = vgt;
     }
 
@@ -62,6 +60,8 @@ public class AbortarOperaciones implements Runnable{
     public boolean abortarConexion(){
 
         // Si el usuario está conectado mostrar mensaje para abortar la conexión
+        ConexionControlador cnc = ConexionControlador.getInstancia();
+
         if(cnc.isConectado()){
             int resultado = JOptionPane.showConfirmDialog(principal,texto.getString("abortar_conexion_dialogo_principal"),texto.getString("abortar_conexion_dialogo_title"),JOptionPane.YES_NO_OPTION);
             
@@ -101,6 +101,7 @@ public class AbortarOperaciones implements Runnable{
             JOptionPane.showMessageDialog(principal,texto.getString("abortar_conversaciones_dialogo_principal"),texto.getString("abortar_conversaciones_dialogo_title"),JOptionPane.INFORMATION_MESSAGE);
 
             // Cerrar la conversacion
+            ConexionControlador cnc = ConexionControlador.getInstancia();
             VentanaConversacion.cerrarConversaciones(cnc.getXc());
         }
     }
@@ -160,6 +161,7 @@ public class AbortarOperaciones implements Runnable{
      */
     @Override
     public void run(){
+        ConexionControlador cnc = ConexionControlador.getInstancia();
         cnc.desconectar();
     }
 }

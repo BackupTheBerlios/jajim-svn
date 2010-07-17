@@ -105,14 +105,13 @@ public class ContactosControlador {
     /**
      * Método que hace las operaciones necesarias para aceptar un contacto que ha
      * sido solicitado por otro usuario.
-     * @param cnc Controlador de la conexión.
      * @param contacto Cadena con el contacto que ha solicitado la conexión.
      * @param alias El alias que se le desea dar al contacto.
      * @param grupo El grupo al que va a pertenecer el contacto.
      * @throws ImposibleAñadirContactoException Si no se puede añadir el contacto
      * a nuestra lista de contactos.
      */
-    public void aceptarContacto(ConexionControlador cnc,String contacto,String alias,String grupo) throws ImposibleAñadirContactoException{
+    public void aceptarContacto(String contacto,String alias,String grupo) throws ImposibleAñadirContactoException{
 
         // Crear una entrada en el roster
         String grupos[] = new String[1];
@@ -138,22 +137,23 @@ public class ContactosControlador {
         // Enviar un mensaje que informa de que se ha aceptado la petición
         Presence presencia = new Presence(Presence.Type.subscribed);
         presencia.setTo(contacto);
+        ConexionControlador cnc = ConexionControlador.getInstancia();
         cnc.enviarPaquete(presencia);
     }
 
     /**
      * Método que rechaza una petición de contacto recibida por el contacto pasa
      * do como parámetro.
-     * @param cnc El controlador de la conexión.
      * @param contacto El contracto que solicitó la petción de contacto.
      */
-    public void rechazarContacto(ConexionControlador cnc,String contacto){
+    public void rechazarContacto(String contacto){
 
         // Crear un paquete de presencia de tipo rechazo
         Presence presenciaUnsubscribed = new Presence(Presence.Type.unsubscribed);
         presenciaUnsubscribed.setTo(contacto);
 
         // Enviar el paquete por la conexión
+        ConexionControlador cnc = ConexionControlador.getInstancia();
         cnc.enviarPaquete(presenciaUnsubscribed);
 
         // Dormir un poco

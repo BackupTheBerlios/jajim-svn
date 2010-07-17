@@ -108,7 +108,6 @@ public class ConversacionControlador {
 
     /**
      * Inicia una conversación multichat.
-     * @param cnc El controlador de la conexión.
      * @param ctc el controlador de contactos.
      * @param room El nombre de la sala.
      * @param nickname El nick que se va a utilizar en la conversación.
@@ -117,9 +116,10 @@ public class ConversacionControlador {
      * contrar el servicio de chats multiusuario.
      * @throws ImposibleCrearChatMultiusuarioException Si no se puede crear el chat.
      */
-    public void iniciarConversacion(final ConexionControlador cnc,ContactosControlador ctc,String room,String nickname,TiposDeChatEnumeracion tipo) throws ServicioDeChatMultiusuarioNoEncontradoException,ImposibleCrearChatMultiusuarioException{
+    public void iniciarConversacion(ContactosControlador ctc,String room,String nickname,TiposDeChatEnumeracion tipo) throws ServicioDeChatMultiusuarioNoEncontradoException,ImposibleCrearChatMultiusuarioException{
 
         // Obtener un ServiceDiscoveryManager asociado a la conexión.
+        ConexionControlador cnc = ConexionControlador.getInstancia();
         ServiceDiscoveryManager discoManager = ServiceDiscoveryManager.getInstanceFor(cnc.getXc());
 
         // Descubrir los servicios asociados al servidor
@@ -203,7 +203,6 @@ public class ConversacionControlador {
     /**
      * Acepta el chat multiusuario y prepara todo lo necesario para que el usuario
      * puede conversar.
-     * @param cnc El controlador de la conexión actual.
      * @param idInvitacion El identificador de la invitación recibida.
      * @param room La sala en la que tiene lugar la conversación.
      * @param nickname El nick que va a utilizar el usuairo.
@@ -211,11 +210,12 @@ public class ConversacionControlador {
      * @throws ImposibleUnirseALaSalaException Si no se puede añadir a la sala del
      * chat multiusuario.
      */
-    public void iniciarConversacion(ConexionControlador cnc,String idInvitacion,String room,String nickname,TiposDeChatEnumeracion tipo) throws ImposibleUnirseALaSalaException{
+    public void iniciarConversacion(String idInvitacion,String room,String nickname,TiposDeChatEnumeracion tipo) throws ImposibleUnirseALaSalaException{
 
         this.tipo = tipo;
 
         // Crear un chat multiusuario
+        ConexionControlador cnc = ConexionControlador.getInstancia();
         XMPPConnection xc = cnc.getXc();
         conversacionMultiusuario = new MultiUserChat(xc,room);
 
@@ -545,9 +545,10 @@ public class ConversacionControlador {
      * @param contacto El contacto que nos envió la invitación.
      * @param room La sala en la que tiene lugar la conversación.
      */
-    public static void rechazarInvitacion(ConexionControlador cnc,String contacto,String room){
+    public static void rechazarInvitacion(String contacto,String room){
 
         // Recuperar la conexión y rechazar la invitación.
+        ConexionControlador cnc = ConexionControlador.getInstancia();
         XMPPConnection xc = cnc.getXc();
         MultiUserChat.decline(xc,room,contacto,"");
     }

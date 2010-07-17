@@ -18,7 +18,6 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.controladores.ConexionControlador;
 import org.jajim.controladores.CuentaControlador;
 import org.jajim.interfaz.ventanas.VentanaGestorDeCuentas;
 import org.jajim.interfaz.ventanas.VentanaPrincipal;
@@ -36,7 +35,6 @@ public class CambiarCuentaActionListener implements ActionListener{
     private VentanaGestorDeCuentas vgt;
     private VentanaPrincipal vp;
     private CuentaControlador cc;
-    private ConexionControlador cnc;
 
     /**
      * Constructor de la clase. Inicializa las variables importantes.
@@ -44,11 +42,10 @@ public class CambiarCuentaActionListener implements ActionListener{
      * @param vp Ventana principal de la aplicación.
      * @param cc Controlador de las cuentas.
      */
-    public CambiarCuentaActionListener(VentanaGestorDeCuentas vgt,VentanaPrincipal vp,CuentaControlador cc,ConexionControlador cnc){
+    public CambiarCuentaActionListener(VentanaGestorDeCuentas vgt,VentanaPrincipal vp,CuentaControlador cc){
         this.vgt = vgt;
         this.vp = vp;
         this.cc = cc;
-        this.cnc = cnc;
     }
 
     /**
@@ -77,7 +74,7 @@ public class CambiarCuentaActionListener implements ActionListener{
         }
 
         // Abortar la conexión si es necesario
-        AbortarOperaciones ao = new AbortarOperaciones(vgt,vp,cnc,vp.getVgt());
+        AbortarOperaciones ao = new AbortarOperaciones(vgt,vp,vp.getVgt());
 
         if(!ao.abortarConexion())
             return;

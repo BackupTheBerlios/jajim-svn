@@ -34,7 +34,6 @@ public class CambiarEstadoActionListener implements ActionListener{
 
     // Variables importantes
     private VentanaPrincipal vp;
-    private ConexionControlador cnc;
     private int estadoActual = 0;
     private String[] valoresEstado ={
         "available",
@@ -47,11 +46,9 @@ public class CambiarEstadoActionListener implements ActionListener{
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
      * @param vp Ventana principal de la aplicación.
-     * @param cnc Controlador de la conexión.
      */
-    public CambiarEstadoActionListener(VentanaPrincipal vp,ConexionControlador cnc){
+    public CambiarEstadoActionListener(VentanaPrincipal vp){
         this.vp = vp;
-        this.cnc = cnc;
     }
 
     /**
@@ -63,6 +60,7 @@ public class CambiarEstadoActionListener implements ActionListener{
     public void actionPerformed(ActionEvent e){
 
         int a;
+        ConexionControlador cnc = ConexionControlador.getInstancia();
 
         // Recuperar el valor seleccionado
         int seleccionado = -1;
@@ -94,7 +92,7 @@ public class CambiarEstadoActionListener implements ActionListener{
         // Hay que desconectar al usuario de la sesión.
         else{
             // Abortar la conexión antes de borrar la cuenta
-            AbortarOperaciones ao = new AbortarOperaciones(vp,vp,cnc,vp.getVgt());
+            AbortarOperaciones ao = new AbortarOperaciones(vp,vp,vp.getVgt());
             // Si el usuario decide no abortar, dejar el combo como estaba.
             if(!ao.abortarConexion()){
                 estadoActual = a;
