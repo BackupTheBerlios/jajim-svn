@@ -36,10 +36,11 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import org.jajim.controladores.ContactosControlador;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase diálogo que muestra los campos que el usuario puede introducir a la hora
  * de aceptar un usuario propuesto.
  */
@@ -103,7 +104,7 @@ public class AceptarContactoFormulario extends JDialog{
                     formulario.add(grupoDeCampos[i]);
                     break;
                 case 1:
-                    String[] nombresGrupos = vp.getCtc().getGrupos();
+                    String[] nombresGrupos = ContactosControlador.getInstancia().getGrupos();
                     grupos = new JComboBox(nombresGrupos);
                     grupos.setEditable(false);
                     formulario.add(grupos);
@@ -116,9 +117,9 @@ public class AceptarContactoFormulario extends JDialog{
         botones.setBorder(BorderFactory.createEmptyBorder(0,10,6,10));
         botones.setLayout(new FlowLayout(FlowLayout.RIGHT));
         botonAceptar = new JButton(OK);
-        botonAceptar.addActionListener(new AceptarContactoActionListener(this,vp.getCtc()));
+        botonAceptar.addActionListener(new AceptarContactoActionListener(this));
         botonCancelar = new JButton(cancelar);
-        botonCancelar.addActionListener(new RechazarContactoActionListener(this,vp.getCtc(),contacto));
+        botonCancelar.addActionListener(new RechazarContactoActionListener(this,contacto));
         botones.add(botonAceptar);
         botones.add(botonCancelar);
         cp.add(BorderLayout.SOUTH,botones);

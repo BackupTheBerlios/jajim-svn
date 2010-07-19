@@ -35,7 +35,7 @@ import javax.swing.JPanel;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase diálogo que pregunta al usuario si quiere aceptar o rechazar la petición
  * de contacto de un usuario.
  */
@@ -87,7 +87,7 @@ public class AceptarORechazarContactoFormulario extends JDialog implements Actio
         botonAceptar = new JButton(aceptar);
         botonAceptar.addActionListener(this);
         botonRechazar = new JButton(rechazar);
-        botonRechazar.addActionListener(new RechazarContactoActionListener(this,vp.getCtc(),contacto));
+        botonRechazar.addActionListener(new RechazarContactoActionListener(this,contacto));
         botones.add(botonAceptar);
         botones.add(botonRechazar);
         cp.add(BorderLayout.SOUTH,botones);

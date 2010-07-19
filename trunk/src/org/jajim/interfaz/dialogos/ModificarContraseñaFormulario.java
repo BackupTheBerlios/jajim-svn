@@ -38,7 +38,7 @@ import javax.swing.JPasswordField;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Cuadro de diálogo para introducir el núevo valor de la contraseña.
  */
 public class ModificarContraseñaFormulario extends JDialog implements ActionListener{

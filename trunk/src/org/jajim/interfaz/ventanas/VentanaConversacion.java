@@ -79,7 +79,7 @@ import org.jivesoftware.smack.util.StringUtils;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase que representa una ventana de una conversación. Inicializa la interfaz
  * necesaria para que el usuario dialogue con un contacto.
  */

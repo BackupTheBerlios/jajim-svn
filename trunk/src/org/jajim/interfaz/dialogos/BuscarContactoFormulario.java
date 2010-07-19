@@ -44,7 +44,7 @@ import javax.swing.table.TableModel;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Formulario en el que el usuario puede realizar búsquedas de contactos.
  */
 public class BuscarContactoFormulario extends JDialog implements ActionListener{
@@ -136,7 +136,7 @@ public class BuscarContactoFormulario extends JDialog implements ActionListener{
         JPanel botones = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         botones.setBorder(BorderFactory.createEmptyBorder(0,10,6,10));
         botonBuscar = new JButton(buscar);
-        botonBuscar.addActionListener(new BuscarContactoActionListener(this,vp.getCtc()));
+        botonBuscar.addActionListener(new BuscarContactoActionListener(this));
         botones.add(botonBuscar);
         botonCerrar = new JButton(cerrar);
         botonCerrar.setActionCommand("Cerrar");

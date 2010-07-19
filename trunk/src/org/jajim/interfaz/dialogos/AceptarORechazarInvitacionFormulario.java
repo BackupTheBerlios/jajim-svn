@@ -36,7 +36,7 @@ import javax.swing.JPanel;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase formulario, crea la interfaz para que el usuario pueda aceptar o rechazar
  * uan invitación a un chat multiusuario.
  */
@@ -81,7 +81,7 @@ public class AceptarORechazarInvitacionFormulario extends JDialog implements Act
         Container cp = this.getContentPane();
 
         // Añadir etiqueta principal
-        ContactosControlador ctc = vp.getCtc();
+        ContactosControlador ctc = ContactosControlador.getInstancia();
         int posicion = contacto.indexOf("/");
         if(posicion != -1)
             contacto = contacto.substring(0,posicion);

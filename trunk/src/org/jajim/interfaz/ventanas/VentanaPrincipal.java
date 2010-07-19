@@ -67,7 +67,7 @@ import org.jajim.interfaz.listeners.LanzarAyudaActionListener;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Representa la ventana principal de la aplicación. Inicializa la interfaz y to
  * dos aquellos controladores necesarios para la llevar a cabo la funcionalidad
  * de la aplicación. También, muestra el roster del usuario en caso de que esté
@@ -205,7 +205,6 @@ public class VentanaPrincipal extends JFrame{
     private JButton[] botonesBarraDeHerramientas = new JButton[itemsDeMenuCad[0].length];
 
     // Controladores utilizados
-    private ContactosControlador ctc;
     private TransferenciaFicherosControlador tfc;
     private PreferenciasControlador pfc;
 
@@ -371,7 +370,6 @@ public class VentanaPrincipal extends JFrame{
         String idCuenta = cc.getCuenta();
         pc.cambiarCuenta(idCuenta);
         
-        ctc = new ContactosControlador();
         tfc = new TransferenciaFicherosControlador();
 
         // Iniciación del oyente de eventos
@@ -425,6 +423,7 @@ public class VentanaPrincipal extends JFrame{
     public void conexionCancelada(){
 
         // Desvincular al controlador de contactos de la conexión
+        ContactosControlador ctc = ContactosControlador.getInstancia();
         ctc.desconectar();
 
         // Desvincular al controlador de transferencias de la conexión.
@@ -453,14 +452,6 @@ public class VentanaPrincipal extends JFrame{
                 }
             }
         }
-    }
-
-    /**
-     * Retorna el controlador de los contactos que utiliza la aplicación.
-     * @return Controlador de los contactos.
-     */
-    public ContactosControlador getCtc(){
-        return ctc;
     }
 
     /**

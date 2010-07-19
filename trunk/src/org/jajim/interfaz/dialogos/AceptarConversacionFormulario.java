@@ -30,10 +30,11 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import org.jajim.controladores.ContactosControlador;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Formulario que informa al usuario de que se ha solicitado chatear con él. El
  * usuario puede aceptar o rechazar la solicitud.
  */
@@ -70,7 +71,7 @@ public class AceptarConversacionFormulario extends JDialog{
         Container cp = this.getContentPane();
 
         // Añadir etiqueta principal
-        String alias = vp.getCtc().getAliasPorContacto(contacto);
+        String alias = ContactosControlador.getInstancia().getAliasPorContacto(contacto);
         cadenaPrincipal = new JLabel(alias + " " + principal);
         cadenaPrincipal.setHorizontalAlignment(JLabel.CENTER);
         cadenaPrincipal.setBorder(BorderFactory.createEmptyBorder(15,10,15,10));

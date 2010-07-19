@@ -52,7 +52,7 @@ import javax.swing.event.ListSelectionListener;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * La interfaz a partir de la cual se le permite al usuario gestionar las cuentas
  * dadas de alta en el sistema.
  */
@@ -120,9 +120,9 @@ public class VentanaGestorDeCuentas extends JFrame implements ListSelectionListe
         this.cc = cc;
         this.vp = vp;
         listeners[0] = new CrearOAñadirActionListener(this,vp,cc);
-        listeners[1] = new CambiarCuentaActionListener(this,vp,cc,vp.getCnc());
-        listeners[2] = new EliminarCuentaSistemaActionListener(this,cc,vp.getCnc(),vp);
-        listeners[3] = new EliminarCuentaServidorActionListener(this,cc,vp.getCnc(),vp);
+        listeners[1] = new CambiarCuentaActionListener(this,vp);
+        listeners[2] = new EliminarCuentaSistemaActionListener(this,vp);
+        listeners[3] = new EliminarCuentaServidorActionListener(this,vp);
 
         // Creación de la interfaz
         Container cp = this.getContentPane();

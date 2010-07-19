@@ -36,7 +36,7 @@ import javax.swing.JTextField;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase formulario que permite al usuario introducir el nick que va a utilizar
  * en una conversación.
  */
