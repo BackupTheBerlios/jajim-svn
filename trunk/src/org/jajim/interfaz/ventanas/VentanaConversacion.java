@@ -18,7 +18,6 @@
 
 package org.jajim.interfaz.ventanas;
 
-import org.jajim.controladores.ConexionControlador;
 import org.jajim.controladores.ContactosControlador;
 import org.jajim.controladores.ConversacionControlador;
 import org.jajim.controladores.PreferenciasControlador;
@@ -160,7 +159,6 @@ public class VentanaConversacion extends JFrame implements Observer{
     };
 
     // Controladores utilizados
-    private ContactosControlador ctc;
     private ConversacionControlador cvc;
     private TransferenciaFicherosControlador tfc;
     private PreferenciasControlador pfc;
@@ -232,7 +230,6 @@ public class VentanaConversacion extends JFrame implements Observer{
         this.setJMenuBar(barraMenu);
         
         // Inicialización de variables
-        ctc = vp.getCtc();
         tfc = vp.getTfc();
         vgt = vp.getVgt();
         pfc = vp.getPfc();
@@ -314,7 +311,7 @@ public class VentanaConversacion extends JFrame implements Observer{
 
         // Creación del controlador de la conversación e iniciación de la conver
         // sación
-        String usuario = ctc.getContactoPorAlias(alias);
+        String usuario = ContactosControlador.getInstancia().getContactoPorAlias(alias);
         cvc = new ConversacionControlador(this,usuario,conversacion);
 
         // Añadir la conversación a la lista
@@ -352,7 +349,7 @@ public class VentanaConversacion extends JFrame implements Observer{
         String identificador = CuentaControlador.getInstancia().getIdentificador();
         conversacion.añadirUsuario("Usuario",identificador);
         usuarioActual = identificador;
-        conversacion.añadirUsuario(ctc.getContactoPorAlias(alias),alias);
+        conversacion.añadirUsuario(ContactosControlador.getInstancia().getContactoPorAlias(alias),alias);
 
         // Habilitar o deshabilitar los botones
         for(int i = 0;i < itemsDeMenu.length;i++){
@@ -385,7 +382,7 @@ public class VentanaConversacion extends JFrame implements Observer{
 
         // Arrancar el controlador
         try{
-            cvc.iniciarConversacion(ctc,room,nickname,tipo);
+            cvc.iniciarConversacion(room,nickname,tipo);
         }catch(ServicioDeChatMultiusuarioNoEncontradoException sdcmne){
             new MensajeError(this,"servicio_chat_multiusuairo_no_encontrado",MensajeError.ERR);
             this.dispose();
@@ -436,7 +433,7 @@ public class VentanaConversacion extends JFrame implements Observer{
         String identificador = CuentaControlador.getInstancia().getIdentificador();
         conversacion.añadirUsuario("Usuario",identificador);
         usuarioActual = identificador;
-        conversacion.añadirUsuario(ctc.getContactoPorAlias(alias),alias);
+        conversacion.añadirUsuario(ContactosControlador.getInstancia().getContactoPorAlias(alias),alias);
 
         // Habilitar o deshabilitar los botones
         for(int i = 0;i < itemsDeMenu.length;i++){
@@ -665,14 +662,6 @@ public class VentanaConversacion extends JFrame implements Observer{
     }
 
     /**
-     * Método que devuelve el controlador de los contactos.
-     * @return El controlador de los contactos.
-     */
-    public ContactosControlador getCtc(){
-        return ctc;
-    }
-
-    /**
      * Método que devuelve el controlador de la transferencia de ficheros.
      * @return El controlador de la transferencia de ficheros.
      */
@@ -795,8 +784,7 @@ public class VentanaConversacion extends JFrame implements Observer{
         
         // Recuperar el contacto por el alias
         if(conversaciones != null && conversaciones.size() > 0){
-            VentanaConversacion vc = conversaciones.get(0);
-            contacto = vc.getCtc().getContactoPorAlias(alias);
+            contacto = ContactosControlador.getInstancia().getContactoPorAlias(alias);
         }
         else
             return chatPrivado;
