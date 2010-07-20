@@ -35,7 +35,7 @@ import java.util.ResourceBundle;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Oyente que recibe la petición de eliminar la cuenta seleccionada del servidor
  * en el que se encuentra almacenada.
  */
@@ -45,18 +45,15 @@ public class EliminarCuentaServidorActionListener implements ActionListener{
 
     // Variables
     private VentanaGestorDeCuentas vgc;
-    private CuentaControlador cc;
     private VentanaPrincipal vp;
 
     /**
      * Constructor de la clase. Iniciliza las variables necesarias.
      * @param vgc Ventana del gestor de cuentas.
-     * @param cc Controlador de las cuentas.
      * @param vp Ventana principal de la aplicación.
      */
-    public EliminarCuentaServidorActionListener(VentanaGestorDeCuentas vgc,CuentaControlador cc,VentanaPrincipal vp){
+    public EliminarCuentaServidorActionListener(VentanaGestorDeCuentas vgc,VentanaPrincipal vp){
         this.vgc = vgc;
-        this.cc = cc;
         this.vp = vp;
     }
 
@@ -81,6 +78,7 @@ public class EliminarCuentaServidorActionListener implements ActionListener{
         String servidor = cuenta[1];
 
         // Comprobar si se va a eliminar la cuenta activa y estamos conectados.
+        CuentaControlador cc = CuentaControlador.getInstancia();
         String activa = cc.getCuenta();
         ConexionControlador cnc = ConexionControlador.getInstancia();
         if(activa.compareTo(identificador + "@" + servidor) == 0 && cnc.isConectado()){

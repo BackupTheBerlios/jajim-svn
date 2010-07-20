@@ -27,7 +27,7 @@ import java.awt.event.ActionListener;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que se activa cuando el usuario selecciona el botón Aceptar del
  * cuadro de diálogo que informa de que una petición de contacto ha sido rechaza
  * da.
@@ -35,18 +35,15 @@ import java.awt.event.ActionListener;
 public class EliminarCandidatoActionListener implements ActionListener{
 
     private PeticionRechazadaFormulario prf;
-    private ContactosControlador ctc;
     private String contacto;
 
     /**
      * Constructor de la clase. Iniciliza las variables necesarias.
      * @param prf El formulario que informa del rechazo.
-     * @param ctc El controlador de los contactos.
      * @param contacto El contacto que ha rechazado la petición.
      */
-    public EliminarCandidatoActionListener(PeticionRechazadaFormulario prf,ContactosControlador ctc,String contacto){
+    public EliminarCandidatoActionListener(PeticionRechazadaFormulario prf,String contacto){
         this.prf = prf;
-        this.ctc = ctc;
         this.contacto = contacto;
     }
 
@@ -61,6 +58,7 @@ public class EliminarCandidatoActionListener implements ActionListener{
 
         // Llamar al constructor para que rezalice la operación.
         try{
+            ContactosControlador ctc = ContactosControlador.getInstancia();
             ctc.eliminarContacto(contacto);
         }catch(ImposibleEliminarContactoException iece){
             new MensajeError(prf,"imposible_eliminar_contacto",MensajeError.ERR);

@@ -28,23 +28,20 @@ import java.util.Arrays;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que reacciona a los eventos de creación de grupo de contactos pro
  * venientes del formulario activo para dicho propósito.
  */
 public class CrearGrupoDeContactosActionListener implements ActionListener{
 
     private CrearGrupoDeContactosFormulario cgdcf;
-    private ContactosControlador ctc;
 
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
      * @param cgdcf El formulario de creación de grupo de contactos.
-     * @param ctc El controlador del los contactos.
      */
-    public CrearGrupoDeContactosActionListener(CrearGrupoDeContactosFormulario cgdcf,ContactosControlador ctc){
+    public CrearGrupoDeContactosActionListener(CrearGrupoDeContactosFormulario cgdcf){
         this.cgdcf = cgdcf;
-        this.ctc = ctc;
     }
 
     /**
@@ -69,6 +66,7 @@ public class CrearGrupoDeContactosActionListener implements ActionListener{
 
         // LLamar al controlador para que realice la operación
         try{
+            ContactosControlador ctc = ContactosControlador.getInstancia();
             ctc.crearGrupoDeContactos(nombre,contactos);
         }catch(ImposibleAñadirContactoAGrupoException iacage){
             new MensajeError(cgdcf,"imposible_añadir_contacto_a_grupo",MensajeError.ERR);

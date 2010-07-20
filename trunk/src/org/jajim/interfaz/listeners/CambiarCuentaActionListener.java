@@ -26,7 +26,7 @@ import java.awt.event.ActionListener;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que se activa cuando se selecciona la opción de activar cuenta.
  */
 public class CambiarCuentaActionListener implements ActionListener{
@@ -34,18 +34,15 @@ public class CambiarCuentaActionListener implements ActionListener{
     // Variables importantes
     private VentanaGestorDeCuentas vgt;
     private VentanaPrincipal vp;
-    private CuentaControlador cc;
 
     /**
      * Constructor de la clase. Inicializa las variables importantes.
      * @param vgt El gestor de las cuentas del sistema.
      * @param vp Ventana principal de la aplicación.
-     * @param cc Controlador de las cuentas.
      */
-    public CambiarCuentaActionListener(VentanaGestorDeCuentas vgt,VentanaPrincipal vp,CuentaControlador cc){
+    public CambiarCuentaActionListener(VentanaGestorDeCuentas vgt,VentanaPrincipal vp){
         this.vgt = vgt;
         this.vp = vp;
-        this.cc = cc;
     }
 
     /**
@@ -68,6 +65,7 @@ public class CambiarCuentaActionListener implements ActionListener{
         String servidor = cuenta[1];
 
         // Si ya estaba activa, se cancela la activación
+        CuentaControlador cc = CuentaControlador.getInstancia();
         String comprobar = identificador + "@" + servidor;
         if(comprobar.compareTo(cc.getCuenta()) == 0){
             return;

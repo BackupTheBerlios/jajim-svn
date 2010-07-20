@@ -30,23 +30,20 @@ import java.awt.event.ActionListener;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que escucha los eventos de búsqueda de contactos procedentes del
  * formulario creado para dicha tarea.
  */
 public class BuscarContactoActionListener implements ActionListener{
 
     private BuscarContactoFormulario bcf;
-    private ContactosControlador ctc;
 
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
-     * @param bcf El formulario de búsqueda de contactos.
-     * @param ctc El controlador de los contactos.
+     * @param bcf El formulario de búsqueda de contactos..
      */
-    public BuscarContactoActionListener(BuscarContactoFormulario bcf,ContactosControlador ctc){
+    public BuscarContactoActionListener(BuscarContactoFormulario bcf){
         this.bcf = bcf;
-        this.ctc = ctc;
     }
 
     /**
@@ -71,6 +68,7 @@ public class BuscarContactoActionListener implements ActionListener{
         // Llamar al controlador de contactos para que realice la operación
         String[][] resultados = null;
         try{
+            ContactosControlador ctc = ContactosControlador.getInstancia();
             resultados = ctc.buscarContacto(cadena,servidor);
         }catch(ServidorNoEncontradoException snee){
             new MensajeError(bcf,"servidor_no_encontrado_error",MensajeError.ERR);

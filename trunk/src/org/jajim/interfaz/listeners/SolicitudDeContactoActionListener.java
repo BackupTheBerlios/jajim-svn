@@ -28,23 +28,20 @@ import java.util.List;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase que se activa cuando se selecciona la opción de añadir contacto. Dialoga
  * con el controlador para que lleve a cabo dicha operación.
  */
 public class SolicitudDeContactoActionListener implements ActionListener{
 
     private SolicitudDeContactoFormulario sdcf;
-    private ContactosControlador cc;
 
     /**
      * Constructor de la clase. Inicializa los campos.
      * @param sdcf El formulario de solicitud de contacto.
-     * @param cc El controlador de las cuentas.
      */
-    public SolicitudDeContactoActionListener(SolicitudDeContactoFormulario sdcf,ContactosControlador cc){
+    public SolicitudDeContactoActionListener(SolicitudDeContactoFormulario sdcf){
         this.sdcf = sdcf;
-        this.cc = cc;
     }
 
     /**
@@ -71,7 +68,8 @@ public class SolicitudDeContactoActionListener implements ActionListener{
 
         // Solicitar contacto al controlador
         try{
-            cc.solicitarContacto(identificador,servidor,alias,grupo);
+            ContactosControlador ctc = ContactosControlador.getInstancia();
+            ctc.solicitarContacto(identificador,servidor,alias,grupo);
             sdcf.dispose();
         }catch(ImposibleSolicitarContactoException isce){
             new MensajeError(sdcf,"imposible_solicitar_contacto_error",MensajeError.ERR);

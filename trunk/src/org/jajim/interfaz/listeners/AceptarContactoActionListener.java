@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que se ejecuta cuando se selecciona la opción aceptar del cuadro
  * de diálogo de aceptar contacto. Utiliza los controladores para dar de alta al
  * contacto.
@@ -36,15 +36,13 @@ import java.util.List;
 public class AceptarContactoActionListener implements ActionListener{
 
     private AceptarContactoFormulario acf;
-    private ContactosControlador ctc;
 
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
      * @param ctc Controlador de los contactos.
      */
-    public AceptarContactoActionListener(AceptarContactoFormulario acf,ContactosControlador ctc){
+    public AceptarContactoActionListener(AceptarContactoFormulario acf){
         this.acf = acf;
-        this.ctc = ctc;
     }
 
     /**
@@ -72,6 +70,7 @@ public class AceptarContactoActionListener implements ActionListener{
         // Llamar al controlador de contactos para que realice las operaciones ne
         // cesarias.
         try{
+            ContactosControlador ctc = ContactosControlador.getInstancia();
             ctc.aceptarContacto(contacto,alias,grupo);
             // Cerrar el cuadro de diálogo
             acf.dispose();

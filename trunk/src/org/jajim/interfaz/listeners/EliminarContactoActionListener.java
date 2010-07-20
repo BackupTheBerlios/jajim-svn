@@ -27,7 +27,7 @@ import java.awt.event.ActionListener;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que escucha las peticiones de eliminación de contactos provenien
  * tes del panel de contactos.
  */
@@ -54,17 +54,16 @@ public class EliminarContactoActionListener implements ActionListener{
         // Cerrar el popup y recuperar el contacto
         pc.cerrarPopupContactos();
         String contacto = e.getActionCommand();
-        contacto = pc.getCtc().getContactoPorAlias(contacto);
+        ContactosControlador ctc = ContactosControlador.getInstancia();
+        contacto = ctc.getContactoPorAlias(contacto);
 
         // Abortar las conversaciones y las transferencias mantenidas con este
         // usuario
         AbortarOperaciones ao = new AbortarOperaciones(pc.getVp(),pc.getVp(),pc.getVp().getVgt());
         ao.abortarConversaciones(contacto);
-        ao.abortarTransferencias(contacto);
-        
+        ao.abortarTransferencias(contacto);        
 
-        // Llamar al controlador de los contactos
-        ContactosControlador ctc = pc.getCtc();
+        // Llamar al controlador de los contactos        
         try{
             ctc.eliminarContacto(contacto);
         }catch(ImposibleEliminarContactoException iece){

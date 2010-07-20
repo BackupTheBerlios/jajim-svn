@@ -26,25 +26,22 @@ import java.awt.event.ActionListener;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que escucha las peticiones de modificación de grupo provenientes
  * del formulario de modificación de grupo.
  */
 public class ModificarGrupoDeContactosActionListener implements ActionListener{
 
     private ModificarGrupoDeContactosFormulario mgdcf;
-    private ContactosControlador ctc;
     private String grupo;
 
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
      * @param mgdcf El formulario de modificación de grupo.
-     * @param ctc El controlador de los contactos.
      * @param grupo El grupo sobre el que se van a realizar los cambios.
      */
-    public ModificarGrupoDeContactosActionListener(ModificarGrupoDeContactosFormulario mgdcf,ContactosControlador ctc,String grupo){
+    public ModificarGrupoDeContactosActionListener(ModificarGrupoDeContactosFormulario mgdcf,String grupo){
         this.mgdcf = mgdcf;
-        this.ctc = ctc;
         this.grupo = grupo;
     }
 
@@ -68,6 +65,7 @@ public class ModificarGrupoDeContactosActionListener implements ActionListener{
         }
 
         // Llamar al controlador de los contactos para que realice la operación
+        ContactosControlador ctc = ContactosControlador.getInstancia();
         ctc.modificarGrupoDeContactos(grupo,nombre);
 
         mgdcf.dispose();

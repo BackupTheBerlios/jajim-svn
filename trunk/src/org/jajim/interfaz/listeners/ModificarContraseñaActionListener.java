@@ -27,7 +27,7 @@ import java.awt.event.ActionListener;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que interactúa con el controlador de cuentas para modificar la
  * contraseña de una de las cuentas del sistema.
  */

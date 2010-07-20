@@ -26,7 +26,7 @@ import javax.swing.JComboBox;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que se ejecuta cuando se modifica el estado de una conexión. En
  * vía su nuevo estado al resto de contactos.
  */

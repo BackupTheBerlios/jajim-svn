@@ -27,26 +27,23 @@ import java.awt.event.ActionListener;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que escucha los eventos de adición de usuarios a grupos proveni
  * entes del formulario correspondiente.
  */
 public class AñadirContactoAGrupoActionListener implements ActionListener{
 
     private AñadirContactoAGrupoFormulario acagf;
-    private ContactosControlador ctc;
     private String contacto;
 
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
      * @param acagf El formulario de adición de contactos.
-     * @param ctc El controlador de contactos.
      * @param contacto El contacto que se va a añadir a los grupos correspondien
      * tes.
      */
-    public AñadirContactoAGrupoActionListener(AñadirContactoAGrupoFormulario acagf,ContactosControlador ctc,String contacto){
+    public AñadirContactoAGrupoActionListener(AñadirContactoAGrupoFormulario acagf,String contacto){
         this.acagf = acagf;
-        this.ctc = ctc;
         this.contacto = contacto;
     }
 
@@ -71,6 +68,7 @@ public class AñadirContactoAGrupoActionListener implements ActionListener{
         // Añadir el contacto a cada uno de los grupos especificados
         for(int i = 0;i < grupos.length;i++){
             try{
+                ContactosControlador ctc = ContactosControlador.getInstancia();
                 ctc.añadirContactoAGrupo(contacto,grupos[i]);
             }catch(ImposibleAñadirContactoAGrupoException iacage){
                 new MensajeError(acagf,"imposible_añadir_contacto_a_grupo",MensajeError.ERR);

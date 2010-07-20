@@ -29,7 +29,7 @@ import java.awt.event.ActionListener;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que escucha los eventos de eliminación de grupo provenientes del
  * panel de contactos.
  */
@@ -64,7 +64,7 @@ public class EliminarGrupoDeContactosActionListener implements ActionListener{
             nombre = "";
 
         // LLamar al controlador de los contactos para que realice la operación
-        ContactosControlador ctc = pc.getCtc();
+        ContactosControlador ctc = ContactosControlador.getInstancia();
         try{
             ctc.eliminarGrupoDeContactos(nombre);
         }catch(ImposibleAñadirContactoAGrupoException iacage){

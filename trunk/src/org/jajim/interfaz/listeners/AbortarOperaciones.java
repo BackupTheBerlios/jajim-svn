@@ -29,7 +29,7 @@ import javax.swing.JOptionPane;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase que se encarga de abortar la conexión, las conversaciones y las transfe
  * rencias.
  */

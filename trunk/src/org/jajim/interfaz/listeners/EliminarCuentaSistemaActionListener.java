@@ -27,25 +27,22 @@ import java.awt.event.ActionListener;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que se ejecuta cuando se desea eliminar una cuenta del sistema.
  */
 public class EliminarCuentaSistemaActionListener implements ActionListener{
 
     // Variables importantes
     private VentanaGestorDeCuentas vgc;
-    private CuentaControlador cc;
     private VentanaPrincipal vp;
 
     /**
      * Constructor de la clase. Inicializa las variables adecuadas.
      * @param vgc El gestor de las cuentas del sistema.
-     * @param cc El controlador de las cuentas del sistema.
      * @param vp La ventana principal de la aplicación.
      */
-    public EliminarCuentaSistemaActionListener(VentanaGestorDeCuentas vgc,CuentaControlador cc,VentanaPrincipal vp){
+    public EliminarCuentaSistemaActionListener(VentanaGestorDeCuentas vgc,VentanaPrincipal vp){
         this.vgc = vgc;
-        this.cc = cc;
         this.vp = vp;
     }
 
@@ -71,6 +68,7 @@ public class EliminarCuentaSistemaActionListener implements ActionListener{
 
         // Comprobar si se va a eliminar la cuenta activa y estamos conectados.
         ConexionControlador cnc = ConexionControlador.getInstancia();
+        CuentaControlador cc = CuentaControlador.getInstancia();
         String activa = cc.getCuenta();
         if(activa.compareTo(identificador + "@" + servidor) == 0 && cnc.isConectado()){
             // Abortar la conexión antes de borrar la cuenta

@@ -25,7 +25,7 @@ import java.awt.event.ActionListener;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase que se ejecuta cuando el usuario selecciona la opción Salir de la herra
  * mienta.
  */

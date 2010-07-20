@@ -25,7 +25,7 @@ import java.awt.event.ActionListener;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que se activa para realizar las operaciones relativas a la
  * desconexión del sistema.
  */

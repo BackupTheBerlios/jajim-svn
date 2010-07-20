@@ -25,24 +25,21 @@ import javax.swing.JDialog;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que actúa cuando el usuario selecciona la opción de Rechazar pe
  * tición de contacto del sistema.
  */
 public class RechazarContactoActionListener implements ActionListener{
 
     private JDialog aorcf;
-    private ContactosControlador ctc;
     private String contacto;
 
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
      * @param aorcf Formulario desde el que se rechaza el contacto.
-     * @param ctc El controlador de contactos.
      */
-    public RechazarContactoActionListener(JDialog aorcf,ContactosControlador ctc,String contacto){
+    public RechazarContactoActionListener(JDialog aorcf,String contacto){
         this.aorcf = aorcf;
-        this.ctc = ctc;
         this.contacto = contacto;
     }
 
@@ -55,6 +52,7 @@ public class RechazarContactoActionListener implements ActionListener{
     public void actionPerformed(ActionEvent e) {
 
         // Llamar al controlador de contactos para que realice la operación
+        ContactosControlador ctc = ContactosControlador.getInstancia();
         ctc.rechazarContacto(contacto);
         aorcf.dispose();
     }

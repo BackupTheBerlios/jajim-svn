@@ -29,7 +29,7 @@ import javax.swing.JMenuItem;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Oyente que escucha los eventos de eliminación de un contacto de un grupo prove
  * nientes de el menú popup del panel de contactos.
  */
@@ -63,7 +63,7 @@ public class EliminarContactoDeGrupoActionListener implements ActionListener{
         String grupo = jmi.getName();
 
         // Llamar al controlador para que realice la operación
-        ContactosControlador ctc = pc.getCtc();
+        ContactosControlador ctc = ContactosControlador.getInstancia();
         try{
             ctc.eliminarContactoDeGrupo(contacto,grupo);
         }catch(ImposibleAñadirContactoAGrupoException iacage){

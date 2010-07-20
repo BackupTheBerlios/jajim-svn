@@ -25,7 +25,7 @@ import javax.swing.JDialog;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que escucha los eventos de rechazo de invitación a una conversa
  * ción, provenientes del formulario en el que se ofrece la posibilidad de aceptar
  * o rechazar y del formulario en el que se introduce el nick para conversar.
