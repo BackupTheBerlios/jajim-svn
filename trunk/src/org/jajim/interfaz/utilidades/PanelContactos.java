@@ -54,7 +54,7 @@ import javax.swing.tree.TreePath;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase que maneja los contactos a nivel de interfaz. Implementa el oyente del
  * roster para realizar los cambios oportunos.
  */
@@ -396,14 +396,6 @@ public class PanelContactos extends MouseAdapter implements Observer{
             if(menuGrupos.isVisible())
                 menuGrupos.setVisible(false);
         }
-    }
-
-    /**
-     * Devuelve el controlador de contactos del sistema.
-     * @return El controlador de contactos de la aplicación.
-     */
-    public ContactosControlador getCtc(){
-        return vp.getCtc();
     }
 
     /**

@@ -34,10 +34,11 @@ import org.jajim.modelo.transferencias.RecepcionFicherosListener;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.SwingUtilities;
+import org.jajim.controladores.ContactosControlador;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase que recibe los eventos que importantes que se reciben a través de la co
  * nexión.
  */
@@ -117,7 +118,7 @@ public class OyenteConexion implements Observer{
                 }
                 else{
                     try{
-                        vp.getCtc().eliminarContacto(contacto);
+                        ContactosControlador.getInstancia().eliminarContacto(contacto);
                     }catch(Exception e){}
                 }
             }
