@@ -25,7 +25,7 @@ import java.util.logging.Logger;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase que realiza las operaciones de escritura y mantenimiento del fichero de
  * log. Implementa el patrón Singleton de modo que una sóla instancia permanece
  * en el sistema a la vez.
