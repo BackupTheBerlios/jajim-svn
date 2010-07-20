@@ -35,7 +35,7 @@ import org.jivesoftware.smack.packet.Presence;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase controladora. Utiliza las clases del modelo para proveer todo aquella fun
  * cionalidad asociada a la conexiones y desconexiones con un servidor.
  */

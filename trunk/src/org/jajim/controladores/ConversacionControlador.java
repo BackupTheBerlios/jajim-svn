@@ -59,7 +59,7 @@ import org.jivesoftware.smackx.packet.DiscoverItems;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase que gestiona todas aquellas operaciones relacinadas con las conversacio
  * nes.
  */
@@ -108,7 +108,6 @@ public class ConversacionControlador {
 
     /**
      * Inicia una conversación multichat.
-     * @param ctc el controlador de contactos.
      * @param room El nombre de la sala.
      * @param nickname El nick que se va a utilizar en la conversación.
      * @param tipo El tipo de conversación.
@@ -116,7 +115,7 @@ public class ConversacionControlador {
      * contrar el servicio de chats multiusuario.
      * @throws ImposibleCrearChatMultiusuarioException Si no se puede crear el chat.
      */
-    public void iniciarConversacion(ContactosControlador ctc,String room,String nickname,TiposDeChatEnumeracion tipo) throws ServicioDeChatMultiusuarioNoEncontradoException,ImposibleCrearChatMultiusuarioException{
+    public void iniciarConversacion(String room,String nickname,TiposDeChatEnumeracion tipo) throws ServicioDeChatMultiusuarioNoEncontradoException,ImposibleCrearChatMultiusuarioException{
 
         // Obtener un ServiceDiscoveryManager asociado a la conexión.
         ConexionControlador cnc = ConexionControlador.getInstancia();
@@ -184,7 +183,7 @@ public class ConversacionControlador {
         // Invitar al usuario al chat
         mcml.setAlias(nickname);
         conversacionMultiusuario.addMessageListener(mcml);
-        conversacionMultiusuario.invite(ctc.getJID(usuario),"");
+        conversacionMultiusuario.invite(ContactosControlador.getInstancia().getJID(usuario),"");
     }
 
     /**

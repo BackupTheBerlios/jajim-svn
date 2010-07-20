@@ -50,19 +50,20 @@ import org.jivesoftware.smackx.search.UserSearchManager;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase que controla las operaciones realizadas sobre los contactos de una cuen
  * ta.
  */
 public class ContactosControlador {
 
+    private static ContactosControlador instancia;
     private Roster contactos;
     private ContactosListener cl;
 
     /**
      * Constructor de la clase.
      */
-    public ContactosControlador(){
+    private ContactosControlador(){
         cl = new ContactosListener();
         Roster.setDefaultSubscriptionMode(Roster.SubscriptionMode.manual);
     }
@@ -638,5 +639,17 @@ public class ContactosControlador {
     public void setContactos(Roster contactos) {
         this.contactos = contactos;
         cl.setContactos(contactos);
+    }
+
+    /**
+     * Método para implementar el patrón Singleton
+     * @return La única instancia del sistema del controlador de contactos.
+     */
+    public static ContactosControlador getInstancia(){
+
+        if(instancia == null)
+            instancia = new ContactosControlador();
+
+        return instancia;
     }
 }

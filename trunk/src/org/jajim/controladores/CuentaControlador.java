@@ -41,7 +41,7 @@ import org.jivesoftware.smack.XMPPException;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase que controla la ejecución de los casos de uso relacionados con las cuen
  * tas de los usuarios.
  */
