@@ -37,10 +37,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import org.jajim.controladores.ContactosControlador;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase formulario que permite al usuario introducir los datos necesarios para
  * crear un nuevo grupo de contactos.
  */
@@ -109,7 +110,7 @@ public class CrearGrupoDeContactosFormulario extends JDialog implements ActionLi
                     break;
                 case 1:
                     lista.add(grupoDeEtiquetas[i]);
-                    String[] contactos = vp.getCtc().getContactosPorNombre();
+                    String[] contactos = ContactosControlador.getInstancia().getContactosPorNombre();
                     listaDeContactos = new JList(contactos);
                     listaDeContactos.setVisibleRowCount(5);
                     listaDeContactos.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -127,7 +128,7 @@ public class CrearGrupoDeContactosFormulario extends JDialog implements ActionLi
         botones.setLayout(new FlowLayout(FlowLayout.RIGHT));
         botones.setBorder(BorderFactory.createEmptyBorder(0,10,6,10));
         botonAceptar = new JButton(OK);
-        botonAceptar.addActionListener(new CrearGrupoDeContactosActionListener(this,vp.getCtc()));
+        botonAceptar.addActionListener(new CrearGrupoDeContactosActionListener(this));
         botonCancelar = new JButton(cancelar);
         botonCancelar.addActionListener(this);
         botones.add(botonAceptar);

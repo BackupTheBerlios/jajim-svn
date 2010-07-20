@@ -36,10 +36,11 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
+import org.jajim.controladores.ContactosControlador;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase que representa el formulario en el que el usuario introduce los grupos
  * a los que se va a añadir un determinado contacto.
  */
@@ -93,7 +94,7 @@ public class AñadirContactoAGrupoFormulario extends JDialog implements ActionLi
             grupoDeEtiquetas[i] = new JLabel(etiquetas[i]);
             grupoDeEtiquetas[i].setHorizontalAlignment(JLabel.CENTER);
             formulario.add(grupoDeEtiquetas[i]);
-            String[] grupos = pc.getCtc().getGrupos(contacto);
+            String[] grupos = ContactosControlador.getInstancia().getGrupos(contacto);
             // Si no se recupera ningún grupo se añade un texto con dicha información
             if(grupos.length == 0){
                 grupos = new String[1];
@@ -123,7 +124,7 @@ public class AñadirContactoAGrupoFormulario extends JDialog implements ActionLi
         botonAceptar = new JButton(OK);
         if(sinGrupos)
             botonAceptar.setEnabled(false);
-        botonAceptar.addActionListener(new AñadirContactoAGrupoActionListener(this,pc.getCtc(),contacto));
+        botonAceptar.addActionListener(new AñadirContactoAGrupoActionListener(this,contacto));
         botonCancelar = new JButton(cancelar);
         botonCancelar.addActionListener(this);
         botones.add(botonAceptar);

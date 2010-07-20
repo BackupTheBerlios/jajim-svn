@@ -37,7 +37,7 @@ import javax.swing.JTextField;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase formulario que recoge los datos que del grupo que el usuario desea modi
  * ficar.
  */
@@ -100,7 +100,7 @@ public class ModificarGrupoDeContactosFormulario extends JDialog implements Acti
         botones.setLayout(new FlowLayout(FlowLayout.RIGHT));
         botones.setBorder(BorderFactory.createEmptyBorder(0,10,6,10));
         botonAceptar = new JButton(OK);
-        botonAceptar.addActionListener(new ModificarGrupoDeContactosActionListener(this,pc.getCtc(),grupo));
+        botonAceptar.addActionListener(new ModificarGrupoDeContactosActionListener(this,grupo));
         botones.add(botonAceptar);
         botonCancelar = new JButton(cancelar);
         botonCancelar.addActionListener(this);

@@ -37,10 +37,11 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import org.jajim.controladores.ContactosControlador;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase diálogo que muestra un formulario para que el usuario introduzca los da
  * tos del contacto que quiere establecer. Controla la selección del botón Cance
  * lar cerrando el cuadro de diálogo en caso de que se produzca.
@@ -150,7 +151,7 @@ public class SolicitudDeContactoFormulario extends JDialog implements ActionList
                     formulario.add(grupoDeCampos[i]);
                     break;
                 case 3:
-                    String[] nombresGrupos = vp.getCtc().getGrupos();
+                    String[] nombresGrupos = ContactosControlador.getInstancia().getGrupos();
                     grupos = new JComboBox(nombresGrupos);
                     formulario.add(grupos);
                     break;
@@ -163,7 +164,7 @@ public class SolicitudDeContactoFormulario extends JDialog implements ActionList
          botones.setLayout(new FlowLayout(FlowLayout.RIGHT));
         botones.setBorder(BorderFactory.createEmptyBorder(0,10,6,10));
         botonAceptar = new JButton(OK);
-        botonAceptar.addActionListener(new SolicitudDeContactoActionListener(this,vp.getCtc()));
+        botonAceptar.addActionListener(new SolicitudDeContactoActionListener(this));
         botonCancelar = new JButton(cancelar);
         botonCancelar.addActionListener(this);
         botonCancelar.setActionCommand("Cancelar");

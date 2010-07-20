@@ -33,6 +33,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import org.jajim.controladores.ContactosControlador;
 
 /**
  * @author Florencio Cañizal Calles
@@ -102,7 +103,7 @@ public class IntroducirNickFormulario extends JDialog{
         botonAceptar = new JButton(OK);
         botonAceptar.addActionListener(new AceptarInvitacionActionListener(this,vp,alias,idInvitacion,room));
         botonCancelar = new JButton(cancelar);
-        botonCancelar.addActionListener(new RechazarInvitacionActionListener(this,vp.getCtc().getContactoPorAlias(alias),room));
+        botonCancelar.addActionListener(new RechazarInvitacionActionListener(this,ContactosControlador.getInstancia().getContactoPorAlias(alias),room));
         botones.add(botonAceptar);
         botones.add(botonCancelar);
         cp.add(BorderLayout.SOUTH,botones);

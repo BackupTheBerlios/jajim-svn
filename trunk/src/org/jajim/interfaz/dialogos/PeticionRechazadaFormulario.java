@@ -33,7 +33,7 @@ import javax.swing.JPanel;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase que representa un formulario en el que se informa al usuario de que una
  * petición de contacto que ha solicitdo ha sido rechazada.
  */
@@ -74,7 +74,7 @@ public class PeticionRechazadaFormulario extends JDialog{
         JPanel botones = new JPanel(new FlowLayout(FlowLayout.CENTER));
         botones.setBorder(BorderFactory.createEmptyBorder(0,10,6,10));
         botonAceptar = new JButton(aceptar);
-        botonAceptar.addActionListener(new EliminarCandidatoActionListener(this,vp.getCtc(),contacto));
+        botonAceptar.addActionListener(new EliminarCandidatoActionListener(this,contacto));
         botones.add(botonAceptar);
         cp.add(BorderLayout.SOUTH,botones);
 
