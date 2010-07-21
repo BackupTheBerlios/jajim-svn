@@ -26,7 +26,7 @@ import javax.swing.JButton;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase que escucha los eventos de activació o desactivación de cursiva proceden
  * tes de la ventana de la conversación.
  */
@@ -54,7 +54,7 @@ public class CursivaMenuActionListener implements ActionListener{
         JButton cursiva = (JButton) e.getSource();
 
         // Actualizar las preferencias y el estado del botón.
-        PreferenciasControlador pfc = vc.getPfc();
+        PreferenciasControlador pfc = PreferenciasControlador.getInstancia();
         if(cursiva.isSelected()){
             cursiva.setSelected(false);
             pfc.setCursiva(false);

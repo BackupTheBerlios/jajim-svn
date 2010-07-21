@@ -28,23 +28,20 @@ import javax.swing.JFrame;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase que escucha los eventos que proceden de una de las ventanas de una con
  * versación.
  */
 public class VentanaConversacionWindowListener extends WindowAdapter{
 
     private VentanaConversacion vc;
-    private PreferenciasControlador pfc;
 
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
      * @param vc Ventana de una conversación.
-     * @param pfc Controlador de las preferencias.
      */
-    public VentanaConversacionWindowListener(VentanaConversacion vc,PreferenciasControlador pfc){
+    public VentanaConversacionWindowListener(VentanaConversacion vc){
         this.vc = vc;
-        this.pfc = pfc;
     }
 
     /**
@@ -56,6 +53,7 @@ public class VentanaConversacionWindowListener extends WindowAdapter{
     public void windowClosing(WindowEvent e){
 
         // Guardar las preferencias de la ventana
+        PreferenciasControlador pfc = PreferenciasControlador.getInstancia();
         if(vc.getExtendedState() == JFrame.MAXIMIZED_BOTH)
             pfc.setVentanaConversacionMaximizada(true);
         else{

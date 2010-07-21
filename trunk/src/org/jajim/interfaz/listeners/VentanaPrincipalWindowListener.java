@@ -19,7 +19,6 @@
 package org.jajim.interfaz.listeners;
 
 import org.jajim.controladores.CuentaControlador;
-import org.jajim.controladores.PreferenciasControlador;
 import org.jajim.interfaz.utilidades.PanelContactos;
 import org.jajim.interfaz.ventanas.VentanaGestorDeCuentas;
 import org.jajim.interfaz.ventanas.VentanaGestorDeTransferencias;
@@ -29,26 +28,24 @@ import java.awt.Point;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
+import org.jajim.controladores.PreferenciasControlador;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Realiza todas las acciones necesarias para cerrar correctamente la aplicación:
  * guardado de cuentas de usuario.
  */
 public class VentanaPrincipalWindowListener extends WindowAdapter{
 
     private CuentaControlador cc;
-    private PreferenciasControlador pfc;
 
     /**
      * Constructor de la clase. Inicializa los campos de la misma.
      * @param cc Controlador de las cuentas.
-     * @param pfc Controlador de las preferencias.
      */
-    public VentanaPrincipalWindowListener(CuentaControlador cc,PreferenciasControlador pfc){
+    public VentanaPrincipalWindowListener(CuentaControlador cc){
         this.cc = cc;
-        this.pfc = pfc;
     }
 
     /**
@@ -65,6 +62,7 @@ public class VentanaPrincipalWindowListener extends WindowAdapter{
         // Guardar las preferencias
         // Ventana principal
         VentanaPrincipal vp = (VentanaPrincipal) e.getWindow();
+        PreferenciasControlador pfc = PreferenciasControlador.getInstancia();
         if(vp.getExtendedState() == JFrame.MAXIMIZED_BOTH)
             pfc.setVentanaPrincipalMaximizada(true);
         else

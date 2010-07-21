@@ -29,7 +29,7 @@ import javax.swing.JColorChooser;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase que escucha los eventos de modificación del color de los mensajes prove
  * nientes de la ventana de la conversación.
  */
@@ -57,7 +57,7 @@ public class ColorMenuActionListener implements ActionListener{
     public void actionPerformed(ActionEvent e) {
 
         // Recuperar el color de las preferencias
-        PreferenciasControlador pfc = vc.getPfc();
+        PreferenciasControlador pfc = PreferenciasControlador.getInstancia();
         Color colorAntiguo = new Color(pfc.getColorRojo(),pfc.getColorVerde(),pfc.getColorAzul());
 
         // Mostrar el cuadro de diálogo en el que elegir los colores

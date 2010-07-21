@@ -26,7 +26,7 @@ import java.awt.event.ActionListener;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase que escucha los eventos de modificación de fuente provenientes del for
  * mulario de las fuentes.
  */
@@ -34,18 +34,15 @@ public class FuenteActionListener implements ActionListener{
 
     private FuenteFormulario ff;
     private VentanaConversacion vc;
-    private PreferenciasControlador pfc;
 
     /**
      * Constructor del clase. Inicializa las variables necesarias.
      * @param ff El formulario donde se introducen las fuentes.
      * @param vc La ventana de la conversación.
-     * @param pfc El controlador de las preferencias.
      */
-    public FuenteActionListener(FuenteFormulario ff,VentanaConversacion vc,PreferenciasControlador pfc){
+    public FuenteActionListener(FuenteFormulario ff,VentanaConversacion vc){
         this.ff = ff;
         this.vc = vc;
-        this.pfc = pfc;
     }
 
     /**
@@ -63,6 +60,7 @@ public class FuenteActionListener implements ActionListener{
         String tamaño = campos[1];
 
         // Actualizar las preferencias
+        PreferenciasControlador pfc = PreferenciasControlador.getInstancia();
         pfc.setFuente(fuente);
         pfc.setTamaño(Integer.parseInt(tamaño));
 

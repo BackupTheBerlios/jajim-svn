@@ -34,7 +34,7 @@ import java.util.List;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que interactua con el controlador de las transferencias para en
  * viar un fichero cuando se activa el botón Aceptar del formulario de envío de
  * ficheros.
@@ -43,7 +43,6 @@ public class EnviarFicheroActionListener implements ActionListener{
 
     private EnviarFicheroFormulario eff;
     private TransferenciaFicherosControlador tfc;
-    private ContactosControlador ctc;
     private ConversacionControlador cvc;
     private VentanaGestorDeTransferencias vgt;
 
@@ -51,11 +50,11 @@ public class EnviarFicheroActionListener implements ActionListener{
      * Constructor de la clase. Inicializa las variables necesarias.
      * @param eff El formulario de envío de ficheros.
      * @param tfc El controlador de transferencia de ficheros.
+     * @param vgt La ventana del gestor de transferencias.
      */
-    public EnviarFicheroActionListener(EnviarFicheroFormulario eff,TransferenciaFicherosControlador tfc,ContactosControlador ctc,ConversacionControlador cvc,VentanaGestorDeTransferencias vgt){
+    public EnviarFicheroActionListener(EnviarFicheroFormulario eff,TransferenciaFicherosControlador tfc,ConversacionControlador cvc,VentanaGestorDeTransferencias vgt){
         this.eff = eff;
         this.tfc = tfc;
-        this.ctc = ctc;
         this.cvc = cvc;
         this.vgt = vgt;
     }
@@ -88,7 +87,7 @@ public class EnviarFicheroActionListener implements ActionListener{
 
         // Llamar al controlador para que realice la operación
         try{
-            String id = tfc.enviarFichero(ctc,cvc,contactos,ruta,descripcion);
+            String id = tfc.enviarFichero(cvc,contactos,ruta,descripcion);
             int posicion = ruta.lastIndexOf(File.separator);
             String nombre = ruta.substring(posicion + 1);
             vgt.añadirTransferenciaDeFichero(nombre,id,VentanaGestorDeTransferencias.EMISOR);

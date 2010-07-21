@@ -26,7 +26,7 @@ import javax.swing.JButton;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase que escucha los eventos de modficación de letra en negrita procedentes
  * de la ventana de la conversación.
  */
@@ -54,7 +54,7 @@ public class NegritaMenuActionListener implements ActionListener{
         JButton negrita = (JButton) e.getSource();
 
         // Actualizar las preferencias y el estado del botón.
-        PreferenciasControlador pfc = vc.getPfc();
+        PreferenciasControlador pfc = PreferenciasControlador.getInstancia();
         if(negrita.isSelected()){
             negrita.setSelected(false);
             pfc.setNegrita(false);

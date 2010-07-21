@@ -27,7 +27,7 @@ import java.awt.event.ActionListener;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que atiende las invitaciones a otros contactos para añadirse a la
  * conversación. Dichas peticiones provienen del formulario de invitar contactos.
  */
@@ -35,18 +35,15 @@ public class InvitarContactoActionListener implements ActionListener{
 
     private InvitarContactoFormulario icf;
     private ConversacionControlador cvc;
-    private ContactosControlador ctc;
 
     /**
      * Constructor de la clase. Inicializa las varibles necesarias.
      * @param icf El formulario de invitación de contactos.
      * @param cvc El controlador de la conversación.
-     * @param ctc El controlador de los contactos.
      */
-    public InvitarContactoActionListener(InvitarContactoFormulario icf,ConversacionControlador cvc,ContactosControlador ctc){
+    public InvitarContactoActionListener(InvitarContactoFormulario icf,ConversacionControlador cvc){
         this.icf = icf;
         this.cvc = cvc;
-        this.ctc = ctc;
     }
 
     /**
@@ -68,7 +65,7 @@ public class InvitarContactoActionListener implements ActionListener{
         }
 
         // Llamar al controlador para que realice la operación
-        cvc.invitarContactos(ctc,campos);
+        cvc.invitarContactos(campos);
 
         // Cerrar el formulario
         icf.dispose();
