@@ -39,10 +39,11 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
+import org.jajim.controladores.ContactosControlador;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Formulario en el que el usuario introduce aquellos contactos que desea que no
  * se incorporen a la conversación.
  */
@@ -99,7 +100,7 @@ public class VetarContactoFormulario extends JDialog implements ActionListener{
             try{
                 participantes = vc.getParticipantes();
             }catch(Exception e){}
-            String[] contactos = vc.getCtc().getContactosPorNombre();
+            String[] contactos = ContactosControlador.getInstancia().getContactosPorNombre();
             List<String> aux = Arrays.asList(contactos);
             List<String> listaContactos = new ArrayList<String>();
             listaContactos.addAll(aux);

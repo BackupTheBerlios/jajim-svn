@@ -44,7 +44,7 @@ import javax.swing.event.ListSelectionListener;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase formulario que permite cambiar el estilo de la fuente que se está utili
  * zando en una conversación.
  */
@@ -151,7 +151,7 @@ public class FuenteFormulario extends JDialog implements ListSelectionListener,A
         panelCentral.add(BorderLayout.SOUTH,panelPrueba);
 
         // Seleccionar los valores utilizados en este momento
-        PreferenciasControlador pfc = vc.getPfc();
+        PreferenciasControlador pfc = PreferenciasControlador.getInstancia();
         String fuenteUtilizada = pfc.getFuente();
         int tamañoUtilizado = pfc.getTamaño();
 
@@ -171,7 +171,7 @@ public class FuenteFormulario extends JDialog implements ListSelectionListener,A
         botones.setBorder(BorderFactory.createEmptyBorder(15,10,6,10));
         botones.setLayout(new FlowLayout(FlowLayout.RIGHT));
         botonAceptar = new JButton(OK);
-        botonAceptar.addActionListener(new FuenteActionListener(this,vc,vc.getPfc()));
+        botonAceptar.addActionListener(new FuenteActionListener(this,vc));
         botonCancelar = new JButton(cancelar);
         botonCancelar.addActionListener(this);
         botones.add(botonAceptar);

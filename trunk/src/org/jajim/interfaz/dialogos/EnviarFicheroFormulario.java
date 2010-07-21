@@ -46,7 +46,7 @@ import org.jivesoftware.smack.util.StringUtils;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase diálog que muestra un formulario al usuario para que rellene la informa
  * cion necesaria para enviar un fichero.
  */
@@ -149,7 +149,7 @@ public class EnviarFicheroFormulario extends JDialog implements ActionListener{
         botones.setLayout(new FlowLayout(FlowLayout.RIGHT));
         botones.setBorder(BorderFactory.createEmptyBorder(0,10,6,10));
         botonAceptar = new JButton(OK);
-        botonAceptar.addActionListener(new EnviarFicheroActionListener(this,vc.getTfc(),vc.getCtc(),vc.getCvc(),vc.getVgt()));
+        botonAceptar.addActionListener(new EnviarFicheroActionListener(this,vc.getTfc(),vc.getCvc(),vc.getVgt()));
         botonCancelar = new JButton(cancelar);
         botonCancelar.setActionCommand("cancelar");
         botonCancelar.addActionListener(this);
