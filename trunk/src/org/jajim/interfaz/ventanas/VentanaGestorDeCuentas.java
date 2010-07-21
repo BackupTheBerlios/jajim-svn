@@ -219,7 +219,7 @@ public class VentanaGestorDeCuentas extends JFrame implements ListSelectionListe
         Image image = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("icons/gestor_de_cuentas.png"));
         this.setIconImage(image);
         this.setTitle(texto.getString("gestor_de_cuentas_title"));
-        PreferenciasControlador pfc = vp.getPfc();
+        PreferenciasControlador pfc = PreferenciasControlador.getInstancia();
         this.setLocation(pfc.getGestorDeCuentasX(),pfc.getGestorDeCuentasY());
         this.setSize(580,370);
         this.setResizable(false);

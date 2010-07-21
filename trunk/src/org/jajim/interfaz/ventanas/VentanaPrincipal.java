@@ -206,7 +206,6 @@ public class VentanaPrincipal extends JFrame{
 
     // Controladores utilizados
     private TransferenciaFicherosControlador tfc;
-    private PreferenciasControlador pfc;
 
     // Oyente de eventos de la conexión
     private OyenteConexion oc;
@@ -308,13 +307,12 @@ public class VentanaPrincipal extends JFrame{
         cp.add(BorderLayout.SOUTH,estado);
 
         // Iniciación de la interfaz
-        pfc = new PreferenciasControlador();
         Image image = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("icons/jabber.png"));
         this.setTitle("JAJIM 1.0.1");
         this.setIconImage(image);
-        if(!pfc.isVentanaPrincipalMaximizada()){
-            this.setLocation(pfc.getVentanaPrincipalX(),pfc.getVentanaPrincipalY());
-            this.setSize(pfc.getVentanaPrincipalAncho(),pfc.getVentanaPrincipalLargo());
+        if(!PreferenciasControlador.getInstancia().isVentanaPrincipalMaximizada()){
+            this.setLocation(PreferenciasControlador.getInstancia().getVentanaPrincipalX(),PreferenciasControlador.getInstancia().getVentanaPrincipalY());
+            this.setSize(PreferenciasControlador.getInstancia().getVentanaPrincipalAncho(),PreferenciasControlador.getInstancia().getVentanaPrincipalLargo());
         }
         else
             this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -384,7 +382,7 @@ public class VentanaPrincipal extends JFrame{
 
         // Añadir un oyente cuando se cierre la ventana, para guardar la informa
         // ción necesaria para la aplicación.
-        this.addWindowListener(new VentanaPrincipalWindowListener(cc,pfc));
+        this.addWindowListener(new VentanaPrincipalWindowListener(cc));
     }
 
     /**
@@ -461,14 +459,6 @@ public class VentanaPrincipal extends JFrame{
      */
     public TransferenciaFicherosControlador getTfc(){
         return tfc;
-    }
-
-    /**
-     * Retorna el controlador de las preferencias del sistema.
-     * @return El controlador de las preferencias del sistema.
-     */
-    public PreferenciasControlador getPfc(){
-        return pfc;
     }
 
     /**

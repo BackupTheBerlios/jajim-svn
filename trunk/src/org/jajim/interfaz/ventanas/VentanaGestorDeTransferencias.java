@@ -58,7 +58,7 @@ import javax.swing.table.TableColumn;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Supone la interfaz del gestor de transferencias de la aplicación.
  */
 public class VentanaGestorDeTransferencias extends JFrame implements ActionListener{
@@ -167,7 +167,7 @@ public class VentanaGestorDeTransferencias extends JFrame implements ActionListe
         this.setIconImage(image);
         this.setTitle(texto.getString("gestor_de_transferencias_title"));
         this.setResizable(false);
-        PreferenciasControlador pfc = vp.getPfc();
+        PreferenciasControlador pfc = PreferenciasControlador.getInstancia();
         this.setLocation(pfc.getGestorDeTransferenciasX(),pfc.getGestorDeTransferenciasY());
         this.setSize(500,400);
         this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);

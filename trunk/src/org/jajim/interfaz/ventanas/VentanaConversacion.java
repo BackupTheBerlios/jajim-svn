@@ -161,7 +161,6 @@ public class VentanaConversacion extends JFrame implements Observer{
     // Controladores utilizados
     private ConversacionControlador cvc;
     private TransferenciaFicherosControlador tfc;
-    private PreferenciasControlador pfc;
 
     // Panel de conversaciones
     private PanelConversacion conversacion;
@@ -232,7 +231,6 @@ public class VentanaConversacion extends JFrame implements Observer{
         // Inicialización de variables
         tfc = vp.getTfc();
         vgt = vp.getVgt();
-        pfc = vp.getPfc();
 
         // Creación de la interfaz
         Container cp = this.getContentPane();
@@ -276,11 +274,11 @@ public class VentanaConversacion extends JFrame implements Observer{
             botonesBarraDeEstilos[i] = new JButton(new ImageIcon(ClassLoader.getSystemResource(iconosEstilo[i])));
             botonesBarraDeEstilos[i].addActionListener(actionListenersEstilos[i]);
             if(i == 2){
-                if(pfc.isNegrita())
+                if(PreferenciasControlador.getInstancia().isNegrita())
                     botonesBarraDeEstilos[i].setSelected(true);
             }
             if(i == 3){
-                if(pfc.isCursiva())
+                if(PreferenciasControlador.getInstancia().isCursiva())
                     botonesBarraDeEstilos[i].setSelected(true);
             }
             botonesBarraDeEstilos[i].setToolTipText(itemsDeMenuEstilo[i]);
@@ -319,15 +317,15 @@ public class VentanaConversacion extends JFrame implements Observer{
 
         // Iniciación de la interfaz
         Image image = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("icons/conversacion.png"));
-        this.setTitle(alias + " - JIM_1.0");
+        this.setTitle(alias + " - JIM_1.1");
         this.setIconImage(image);
-        if(pfc.isVentanaConversacionMaximizada())
+        if(PreferenciasControlador.getInstancia().isVentanaConversacionMaximizada())
             this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         else{
-            this.setLocation(pfc.getVentanaConversacionX(),pfc.getVentanaConversacionY());
-            this.setSize(pfc.getVentanaConversacionAncho(),pfc.getVentanaConversacionLargo());
+            this.setLocation(PreferenciasControlador.getInstancia().getVentanaConversacionX(),PreferenciasControlador.getInstancia().getVentanaConversacionY());
+            this.setSize(PreferenciasControlador.getInstancia().getVentanaConversacionAncho(),PreferenciasControlador.getInstancia().getVentanaConversacionLargo());
         }
-        this.addWindowListener(new VentanaConversacionWindowListener(this,pfc));
+        this.addWindowListener(new VentanaConversacionWindowListener(this));
         this.setVisible(true);
     }
 
@@ -631,6 +629,7 @@ public class VentanaConversacion extends JFrame implements Observer{
     public void actualizarPreferenciasMensajes(){
 
         // Recuperar las preferencias y notificarselas a la clase
+        PreferenciasControlador pfc = PreferenciasControlador.getInstancia();
         String fuente = pfc.getFuente();
         int tamaño = pfc.getTamaño();
         int rojo = pfc.getColorRojo();
@@ -675,10 +674,6 @@ public class VentanaConversacion extends JFrame implements Observer{
      */
     public VentanaGestorDeTransferencias getVgt(){
         return vgt;
-    }
-
-    public PreferenciasControlador getPfc(){
-        return pfc;
     }
 
     /**
