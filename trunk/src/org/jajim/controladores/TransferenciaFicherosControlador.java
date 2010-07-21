@@ -53,7 +53,7 @@ import org.jivesoftware.smackx.filetransfer.OutgoingFileTransfer;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase controlador que gestiona todas las operaciones vinculadas a la transfe
  * rencia de ficheros.
  */
@@ -97,7 +97,7 @@ public class TransferenciaFicherosControlador {
      * el JID de los participantes de la conversación a los que se ca a mandar el
      * fichero.
      */
-    public String enviarFichero(ContactosControlador ctc,ConversacionControlador cvc,String[] contactos,String ruta,String descripcion) throws FicheroNoEncontradoException,ImposibleEnviarFicheroException,ImposibleRecuperarParticipanteException{
+    public String enviarFichero(ConversacionControlador cvc,String[] contactos,String ruta,String descripcion) throws FicheroNoEncontradoException,ImposibleEnviarFicheroException,ImposibleRecuperarParticipanteException{
 
         String id = null;
 
@@ -123,7 +123,7 @@ public class TransferenciaFicherosControlador {
                 if(!s.contains("."))
                     JID = cvc.getJIDParticipante(s);
                 else
-                    JID = ctc.getJID(s);
+                    JID = ContactosControlador.getInstancia().getJID(s);
                 oft = ftm.createOutgoingFileTransfer(JID);
 
                 oft.sendFile(fichero,descripcion);

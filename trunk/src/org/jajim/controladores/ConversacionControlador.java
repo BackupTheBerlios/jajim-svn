@@ -279,11 +279,11 @@ public class ConversacionControlador {
      * @param contactos Array con los contactos que se van a invitar a la conver
      * sación.
      */
-    public void invitarContactos(ContactosControlador ctc,String[] contactos){
+    public void invitarContactos(String[] contactos){
 
         // Inivitar uno a uno los contactos a la conversación
         for(int i = 0;i < contactos.length;i++){
-            conversacionMultiusuario.invite(ctc.getJID(contactos[i]),"");
+            conversacionMultiusuario.invite(ContactosControlador.getInstancia().getJID(contactos[i]),"");
         }
     }
 

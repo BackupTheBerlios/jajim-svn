@@ -22,13 +22,16 @@ import java.util.prefs.Preferences;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase que gestiona el guardado y utilización de las preferencias del usuario.
  * Mantiene información de la posición de todas las ventanas y del tamaño de la
  * ventana principal y de la ventana de la conversación. También contiene informa
  * ción acerca del estilo de los mensajes utilizados por el usuario.
  */
 public class PreferenciasControlador {
+
+    // Instancia de la clase
+    private static PreferenciasControlador instancia;
 
     // Valores a almacenar
     // Ventana principal
@@ -64,7 +67,7 @@ public class PreferenciasControlador {
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
      */
-    public PreferenciasControlador(){
+    private PreferenciasControlador(){
 
         // Recuperar las preferencias de aquellas alamacenadas en el sistema
 		p = Preferences.userNodeForPackage(this.getClass());
@@ -457,5 +460,17 @@ public class PreferenciasControlador {
      */
     public void setColorAzul(int colorAzul) {
         this.colorAzul = colorAzul;
+    }
+
+    /**
+     * Método para implementar el patrón Singleton
+     * @return Retorna la única instancia del controlador de preferencias.
+     */
+    public static PreferenciasControlador getInstancia(){
+
+        if(instancia == null)
+            instancia = new PreferenciasControlador();
+
+        return instancia;
     }
 }
