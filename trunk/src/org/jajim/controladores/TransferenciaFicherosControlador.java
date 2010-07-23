@@ -59,6 +59,7 @@ import org.jivesoftware.smackx.filetransfer.OutgoingFileTransfer;
  */
 public class TransferenciaFicherosControlador {
 
+    private static TransferenciaFicherosControlador instancia;
     private FileTransferManager ftm;
     private RecepcionFicherosListener rfl;
     private Map<String,FileTransfer> enCurso;
@@ -67,7 +68,7 @@ public class TransferenciaFicherosControlador {
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
      */
-    public TransferenciaFicherosControlador(){
+    private TransferenciaFicherosControlador(){
         enCurso = Collections.synchronizedMap(new HashMap<String,FileTransfer>());
         rutas = Collections.synchronizedMap(new HashMap<String,String>());
     }
@@ -526,5 +527,18 @@ public class TransferenciaFicherosControlador {
         identificadores = auxiliar.toArray(new String[0]);
 
         return identificadores;
+    }
+
+    /**
+     * Método para implementar el patrón Singleton.
+     * @return La única instancia disponible del gestor de transferencias de
+     * ficheros.
+     */
+    public static synchronized TransferenciaFicherosControlador getInstancia(){
+
+        if(instancia == null)
+            instancia = new TransferenciaFicherosControlador();
+
+        return instancia;
     }
 }
