@@ -35,6 +35,7 @@ import java.util.Observable;
 import java.util.Observer;
 import javax.swing.SwingUtilities;
 import org.jajim.controladores.ContactosControlador;
+import org.jajim.controladores.TransferenciaFicherosControlador;
 
 /**
  * @author Florencio Cañizal Calles
@@ -192,7 +193,7 @@ public class OyenteConexion implements Observer{
                 }
                 else{
                     try{
-                        vp.getTfc().rechazarFichero(idTransferencia);
+                        TransferenciaFicherosControlador.getInstancia().rechazarFichero(idTransferencia);
                     }catch(Exception e){}
                 }
             }
