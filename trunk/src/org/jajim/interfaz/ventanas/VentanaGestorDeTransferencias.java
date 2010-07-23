@@ -110,9 +110,6 @@ public class VentanaGestorDeTransferencias extends JFrame implements ActionListe
     private JTable tablaDeFicheros;
     private JButton botonCerrar;
 
-    // Controladores utilizados
-    private TransferenciaFicherosControlador tfc;
-
     // Tipos de transferencias
     public final static int EMISOR = 0;
     public final static int RECEPTOR = 1;
@@ -130,12 +127,10 @@ public class VentanaGestorDeTransferencias extends JFrame implements ActionListe
      * Constructor de la clase. Inicializa las variables necesarias. Crea la inter
      * faz de usuario.
      * @param vp La ventana principal de la aplicación.
-     * @param tfc El controlador de las transferencias.
      */
-    public VentanaGestorDeTransferencias(VentanaPrincipal vp,TransferenciaFicherosControlador tfc){
+    public VentanaGestorDeTransferencias(VentanaPrincipal vp){
 
         // Inicializar variables
-        this.tfc = tfc;
         estado = VentanaGestorDeTransferencias.SIN_TRANSFERENCIAS;
         workers = new ArrayList<BarraProgresoSwingWorker>();
         paneles = new HashMap<String,JPanel>();
@@ -266,11 +261,11 @@ public class VentanaGestorDeTransferencias extends JFrame implements ActionListe
         JPanel panelBarra = new JPanel(new BorderLayout());
         panelBarra.setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
         JProgressBar barraDeProgreso = new JProgressBar(0,100);        
-        BarraProgresoSwingWorker bpsw = new BarraProgresoSwingWorker(this,barraDeProgreso,tfc,idTransferencia,tipo);
+        BarraProgresoSwingWorker bpsw = new BarraProgresoSwingWorker(this,barraDeProgreso,idTransferencia,tipo);
         panelBarra.add(BorderLayout.CENTER,barraDeProgreso);
         transferencia.add(BorderLayout.CENTER,panelBarra);
         JButton botonCancelar = new JButton(new ImageIcon(ClassLoader.getSystemResource("icons/cancelar_transferencia.png")));
-        botonCancelar.addActionListener(new CancelarTransferenciaActionListener(this,tfc,idTransferencia));
+        botonCancelar.addActionListener(new CancelarTransferenciaActionListener(this,idTransferencia));
         transferencia.add(BorderLayout.EAST,botonCancelar);
 
         // Añadir al cuadro de transferencias
@@ -370,6 +365,7 @@ public class VentanaGestorDeTransferencias extends JFrame implements ActionListe
         paneles.clear();
         
         // LLamar al controlador para que realice la operación
+        TransferenciaFicherosControlador tfc = TransferenciaFicherosControlador.getInstancia();
         tfc.abortarTransferencias();
     }
 
@@ -380,6 +376,7 @@ public class VentanaGestorDeTransferencias extends JFrame implements ActionListe
     public void abortarTransferencias(String contacto){
 
         // Recuperar las transferencias iniciadas por el contacto
+        TransferenciaFicherosControlador tfc = TransferenciaFicherosControlador.getInstancia();
         String[] identificadores = tfc.getIdentificadoresTransferencias(contacto);
     
         // Cancelar todos los hilos que manejen dichas tranferencias
@@ -439,14 +436,6 @@ public class VentanaGestorDeTransferencias extends JFrame implements ActionListe
      */
     public JTable getTablaDeFicheros(){
         return this.tablaDeFicheros;
-    }
-
-    /**
-     * Retorna el controlador de las transferencias de ficheros.
-     * @return El controlador de las transferencias de ficheros.
-     */
-    public TransferenciaFicherosControlador getTfc(){
-        return tfc;
     }
 
     /**

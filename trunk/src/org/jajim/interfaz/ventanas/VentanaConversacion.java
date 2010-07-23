@@ -160,7 +160,6 @@ public class VentanaConversacion extends JFrame implements Observer{
 
     // Controladores utilizados
     private ConversacionControlador cvc;
-    private TransferenciaFicherosControlador tfc;
 
     // Panel de conversaciones
     private PanelConversacion conversacion;
@@ -229,7 +228,6 @@ public class VentanaConversacion extends JFrame implements Observer{
         this.setJMenuBar(barraMenu);
         
         // Inicialización de variables
-        tfc = vp.getTfc();
         vgt = vp.getVgt();
 
         // Creación de la interfaz
@@ -658,14 +656,6 @@ public class VentanaConversacion extends JFrame implements Observer{
      */
     public ConversacionControlador getCvc(){
         return cvc;
-    }
-
-    /**
-     * Método que devuelve el controlador de la transferencia de ficheros.
-     * @return El controlador de la transferencia de ficheros.
-     */
-    public TransferenciaFicherosControlador getTfc(){
-        return tfc;
     }
 
     /**

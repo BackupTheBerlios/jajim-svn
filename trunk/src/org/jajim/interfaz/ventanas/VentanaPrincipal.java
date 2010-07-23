@@ -204,9 +204,6 @@ public class VentanaPrincipal extends JFrame{
     private JToolBar barraDeHerramientas;
     private JButton[] botonesBarraDeHerramientas = new JButton[itemsDeMenuCad[0].length];
 
-    // Controladores utilizados
-    private TransferenciaFicherosControlador tfc;
-
     // Oyente de eventos de la conexión
     private OyenteConexion oc;
 
@@ -362,20 +359,18 @@ public class VentanaPrincipal extends JFrame{
         // Iniciación de los controladores
         CuentaControlador cc = CuentaControlador.getInstancia();
         if(cc.getCuenta() == null)
-            new CrearOAñadirFormulario(this,cc);
+            new CrearOAñadirFormulario(this);
 
         // Poner la cuenta activa en el panel
         String idCuenta = cc.getCuenta();
         pc.cambiarCuenta(idCuenta);
-        
-        tfc = new TransferenciaFicherosControlador();
 
         // Iniciación del oyente de eventos
         oc = new OyenteConexion(this);
 
         // Iniciar el gestor de transfenrencias y el gestor de cuentas
-        vgt = new VentanaGestorDeTransferencias(this,tfc);
-        vgc = new VentanaGestorDeCuentas(this,cc);
+        vgt = new VentanaGestorDeTransferencias(this);
+        vgc = new VentanaGestorDeCuentas(this);
 
         // Añadir el listener del combo
         estado.addActionListener(new CambiarEstadoActionListener(this));
@@ -425,7 +420,7 @@ public class VentanaPrincipal extends JFrame{
         ctc.desconectar();
 
         // Desvincular al controlador de transferencias de la conexión.
-        tfc.desconectar();
+        TransferenciaFicherosControlador.getInstancia().desconectar();
 
         // Desctivar el roster
         pc.conexionCancelada();
@@ -450,15 +445,6 @@ public class VentanaPrincipal extends JFrame{
                 }
             }
         }
-    }
-
-    /**
-     * Retorna el controlador de la transferencia de ficheros que utiliza la apli
-     * cación.
-     * @return Controlador de la transferencia de ficheros.
-     */
-    public TransferenciaFicherosControlador getTfc(){
-        return tfc;
     }
 
     /**

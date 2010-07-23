@@ -95,9 +95,6 @@ public class VentanaGestorDeCuentas extends JFrame implements ListSelectionListe
     private JLabel[] informacion = new JLabel[etiquetas.length];
     private JButton botonCerrar;
 
-    // Controladores utilizados
-    private CuentaControlador cc;
-
     // Ventana principal
     private VentanaPrincipal vp;
 
@@ -111,15 +108,13 @@ public class VentanaGestorDeCuentas extends JFrame implements ListSelectionListe
     /**
      * Constructor de la clase. Inicializa las variables necesarias. Crea la inter
      * faz de usuario.
-     * @param cc El controlador de las cuentas.
      * @param vp La ventana principal de la aplicación.
      */
-    public VentanaGestorDeCuentas(VentanaPrincipal vp,CuentaControlador cc){
+    public VentanaGestorDeCuentas(VentanaPrincipal vp){
 
         // Inicialización
-        this.cc = cc;
         this.vp = vp;
-        listeners[0] = new CrearOAñadirActionListener(this,vp,cc);
+        listeners[0] = new CrearOAñadirActionListener(this,vp);
         listeners[1] = new CambiarCuentaActionListener(this,vp);
         listeners[2] = new EliminarCuentaSistemaActionListener(this,vp);
         listeners[3] = new EliminarCuentaServidorActionListener(this,vp);
@@ -143,7 +138,7 @@ public class VentanaGestorDeCuentas extends JFrame implements ListSelectionListe
                 case 0:
                     // Añadir el título, la lista y los botones
                     JPanel listaYBotones = new JPanel(new GridBagLayout());
-                    // Atirbutos de la disposición de la lista de cuentas
+                    // Atributos de la disposición de la lista de cuentas
                     GridBagConstraints constraints = new GridBagConstraints();
                     constraints.gridx = 0;
                     constraints.gridy = 0;
@@ -232,7 +227,7 @@ public class VentanaGestorDeCuentas extends JFrame implements ListSelectionListe
     public void añadirCuentas(){
 
         // Recuperar la información de las cuentas
-        cuentas = cc.getInformacionDeCuentas();
+        cuentas = CuentaControlador.getInstancia().getInformacionDeCuentas();
 
         // Asignar la información del JList
         String[] informacionLista = new String[cuentas.length];
