@@ -18,7 +18,6 @@
 
 package org.jajim.interfaz.dialogos;
 
-import org.jajim.controladores.CuentaControlador;
 import org.jajim.interfaz.listeners.AñadirCuentaActionListener;
 import org.jajim.interfaz.ventanas.VentanaGestorDeCuentas;
 import org.jajim.interfaz.ventanas.VentanaPrincipal;
@@ -27,7 +26,7 @@ import java.util.ResourceBundle;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * La clase hereda de CuentaFormulario, añadiendo las operaciones especiales para
  * poder añadir una nueva cuenta al sistema. Dicha cuenta ya se encuentra registra
  * da en un servidor
@@ -43,43 +42,40 @@ public class AñadirCuentaFormulario extends CuentaFormulario{
      * Constructor de la clase. Gestiona la funcionalidad propia del formulario de
      * adición de una nueva cuenta.
      * @param vp Ventana principal de la que depende el formulario.
-     * @param cc Controlador de cuentas para realizar las operaciones adecuadas.
      */
-    public AñadirCuentaFormulario(VentanaPrincipal vp,CuentaControlador cc){
+    public AñadirCuentaFormulario(VentanaPrincipal vp){
 
         // Inicialización
         super(vp);
         this.vp = vp;
         this.vgc = null;
-        this.inicializar(cc);
+        this.inicializar();
     }
     
     /**
      * Constructor de la clase. Gestiona la funcionalidad propia del formulario de
      * adición de una nueva cuenta.
      * @param vp Ventana principal de la que depende el formulario.
-     * @param cc Controlador de cuentas para realizar las operaciones adecuadas.
      */
-    public AñadirCuentaFormulario(VentanaPrincipal vp,CuentaControlador cc,VentanaGestorDeCuentas vgc){
+    public AñadirCuentaFormulario(VentanaPrincipal vp,VentanaGestorDeCuentas vgc){
 
         // Inicialización
         super(vgc);
         this.vp = vp;
         this.vgc = vgc;
-        this.inicializar(cc);
+        this.inicializar();
     }
 
     /**
      * Inicializa los elementos de la interfaz necesarios
-     * @param cc Controlador de las cuentas.
      */
-    private void inicializar(CuentaControlador cc){
+    private void inicializar(){
         
         // Asignar el título a la ventana
         this.setTitle(texto.getString("añadir_cuenta_formulario"));
 
         // Asignar un oyente al botón de Aceptar
-        botonAceptar.addActionListener(new AñadirCuentaActionListener(this,cc));
+        botonAceptar.addActionListener(new AñadirCuentaActionListener(this));
         this.setVisible(true);
     }
 

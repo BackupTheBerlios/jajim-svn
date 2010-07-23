@@ -40,7 +40,7 @@ import javax.swing.JTextField;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase diálogo que muestra recoge los datos necesarios para poder guardar el
  * fichero.
  */
@@ -115,9 +115,9 @@ public class AceptarFicheroFormulario extends JDialog implements ActionListener{
         botones.setLayout(new FlowLayout(FlowLayout.RIGHT));
         botones.setBorder(BorderFactory.createEmptyBorder(0,10,6,10));
         botonAceptar = new JButton(OK);
-        botonAceptar.addActionListener(new AceptarFicheroActionListener(this,vp.getTfc(),vp.getVgt()));
+        botonAceptar.addActionListener(new AceptarFicheroActionListener(this,vp.getVgt()));
         botonCancelar = new JButton(cancelar);
-        botonCancelar.addActionListener(new RechazarFicheroActionListener(this,vp.getTfc(),idTransferencia));
+        botonCancelar.addActionListener(new RechazarFicheroActionListener(this,idTransferencia));
         botones.add(botonAceptar);
         botones.add(botonCancelar);
         cp.add(BorderLayout.SOUTH,botones);

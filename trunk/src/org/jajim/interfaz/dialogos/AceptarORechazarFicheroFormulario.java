@@ -36,7 +36,7 @@ import javax.swing.JPanel;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase formulario que informa al usuario de la llegada de una petición de trans
  * ferencia e invita a éste a aceptarla o rechazarla.
  */
@@ -110,7 +110,7 @@ public class AceptarORechazarFicheroFormulario extends JDialog implements Action
         botonAceptar = new JButton(aceptar);
         botonAceptar.addActionListener(this);
         botonRechazar = new JButton(rechazar);
-        botonRechazar.addActionListener(new RechazarFicheroActionListener(this,vp.getTfc(),idTransferencia));
+        botonRechazar.addActionListener(new RechazarFicheroActionListener(this,idTransferencia));
         botones.add(botonAceptar);
         botones.add(botonRechazar);
         cp.add(BorderLayout.SOUTH,botones);

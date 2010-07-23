@@ -39,7 +39,7 @@ import javax.swing.JRadioButton;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase que crea un formulario en el que se le dan, al usuario, las opciones de
  * crear una nueva cuenta o añadir una existente.
  */
@@ -67,7 +67,6 @@ public class CrearOAñadirFormulario extends JDialog implements ActionListener{
 
     // Atributos interesantes
     private VentanaPrincipal vp;
-    private CuentaControlador cc;
     private VentanaGestorDeCuentas vgc;
 
 
@@ -75,15 +74,12 @@ public class CrearOAñadirFormulario extends JDialog implements ActionListener{
      * Inicializa la interfaz del formulario y controla la selección de los boto
      * nes del mismo.
      * @param vp Ventana desde la que se invoca el cuadro de diálogo.
-     * @param cc Controlador de las cuentas. Se pasa a los objetos correspondien
-     * tes para poder hacer las operaciones adecuadas sobre las cuentas.
      */
-    public CrearOAñadirFormulario(VentanaPrincipal vp,CuentaControlador cc){
+    public CrearOAñadirFormulario(VentanaPrincipal vp){
 
         // Inicialización
         super(vp,true);
         this.vp = vp;
-        this.cc = cc;
         this.vgc = null;
         this.setLocationRelativeTo(vp);
 
@@ -95,16 +91,13 @@ public class CrearOAñadirFormulario extends JDialog implements ActionListener{
      * Inicializa la interfaz del formulario y controla la selección de los boto
      * nes del mismo.
      * @param vp Ventana desde la que se invoca el cuadro de diálogo.
-     * @param cc Controlador de las cuentas. Se pasa a los objetos correspondien
-     * tes para poder hacer las operaciones adecuadas sobre las cuentas.
      * @param vgc El gestor de las cuentas del sistema.
      */
-    public CrearOAñadirFormulario(VentanaPrincipal vp,CuentaControlador cc,VentanaGestorDeCuentas vgc){
+    public CrearOAñadirFormulario(VentanaPrincipal vp,VentanaGestorDeCuentas vgc){
         
         // Inicailización
         super(vgc,true);
         this.vp = vp;
-        this.cc = cc;
         this.vgc = vgc;
         this.setLocationRelativeTo(vgc);
 
@@ -127,15 +120,15 @@ public class CrearOAñadirFormulario extends JDialog implements ActionListener{
         else if(opciones[0].isSelected()){
             this.dispose();
             if(vgc == null)
-                new CrearCuentaFormulario(vp,cc);
+                new CrearCuentaFormulario(vp);
             else
-                new CrearCuentaFormulario(vp,cc,vgc);
+                new CrearCuentaFormulario(vp,vgc);
         }else if(opciones[1].isSelected()){
             this.dispose();
             if(vgc == null)
-                new AñadirCuentaFormulario(vp,cc);
+                new AñadirCuentaFormulario(vp);
             else
-                new AñadirCuentaFormulario(vp,cc,vgc);
+                new AñadirCuentaFormulario(vp,vgc);
         }
     }
 
