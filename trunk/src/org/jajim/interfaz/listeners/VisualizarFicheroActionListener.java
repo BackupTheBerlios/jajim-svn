@@ -29,7 +29,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que escucha los eventos de visualización de fichero procedentes
  * de la barra de acciones del gestor de ventanas.
  */
@@ -68,7 +68,7 @@ public class VisualizarFicheroActionListener implements ActionListener{
         String ruta = (String) dtm.getValueAt(filaSeleccionada,1);
 
         // Llamar al controlador para que realice la operación.
-        TransferenciaFicherosControlador tfc = vgt.getTfc();
+        TransferenciaFicherosControlador tfc = TransferenciaFicherosControlador.getInstancia();
         try{
             tfc.visualizarFichero(nombre,ruta);
         }catch(ImposibleVisualizarFicheroException ivfe){

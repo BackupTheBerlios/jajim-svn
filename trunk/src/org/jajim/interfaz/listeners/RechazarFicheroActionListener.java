@@ -25,26 +25,23 @@ import javax.swing.JDialog;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que reacciona cuando se desea rechazar la transferencia de un fi
  * chero. Delega en el controlador de las transferencias dicha operación.
  */
 public class RechazarFicheroActionListener implements ActionListener{
 
     private JDialog aorff;
-    private TransferenciaFicherosControlador tfc;
     private int idTransferencia;
 
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
      * @param aorff El formulario desde el que se generará el rechazo de la trans
      * ferencia.
-     * @param tfc El controlador de las transferencias.
      * @param idTransferencia El identificador de la transferencia.
      */
-    public RechazarFicheroActionListener(JDialog aorff,TransferenciaFicherosControlador tfc,int idTransferencia){
+    public RechazarFicheroActionListener(JDialog aorff,int idTransferencia){
         this.aorff = aorff;
-        this.tfc = tfc;
         this.idTransferencia = idTransferencia;
     }
 
@@ -58,6 +55,7 @@ public class RechazarFicheroActionListener implements ActionListener{
     public void actionPerformed(ActionEvent e) {
 
         // LLamar al controlador para que rechace la transferencia.
+        TransferenciaFicherosControlador tfc = TransferenciaFicherosControlador.getInstancia();
         tfc.rechazarFichero(idTransferencia);
 
         // Cerrar el cuadro de diálogo

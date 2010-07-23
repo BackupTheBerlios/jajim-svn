@@ -25,26 +25,23 @@ import java.awt.event.ActionListener;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que escucha los eventos procedentes de la opción cancelar trans
  * ferencia disponible en la ventana del gestor de transferencias.
  */
 public class CancelarTransferenciaActionListener implements ActionListener{
 
     private VentanaGestorDeTransferencias vgt;
-    private TransferenciaFicherosControlador tfc;
     private String idTransferencia;
 
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
      * @param vgt La ventana del gestor de transferencias.
-     * @param tfc El controlador de las transferencias.
      * @param idTransferencia El identificador de la transferencia que se desea
      * eliminar.
      */
-    public CancelarTransferenciaActionListener(VentanaGestorDeTransferencias vgt,TransferenciaFicherosControlador tfc,String idTransferencia){
+    public CancelarTransferenciaActionListener(VentanaGestorDeTransferencias vgt,String idTransferencia){
         this.vgt = vgt;
-        this.tfc = tfc;
         this.idTransferencia = idTransferencia;
     }
 
@@ -58,6 +55,7 @@ public class CancelarTransferenciaActionListener implements ActionListener{
     public void actionPerformed(ActionEvent e) {
 
         // Llamar al controlador para que cancele la transferencia
+        TransferenciaFicherosControlador tfc = TransferenciaFicherosControlador.getInstancia();
         tfc.cancelarTransferencia(idTransferencia);
 
         // Eliminar la transferencia del gestor de las mismas

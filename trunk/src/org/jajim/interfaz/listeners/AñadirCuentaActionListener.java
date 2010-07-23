@@ -29,22 +29,19 @@ import java.util.List;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase que gestiona la acción de añadir una cuenta ya existente en el sistema.
  */
 public class AñadirCuentaActionListener implements ActionListener{
 
     private AñadirCuentaFormulario acf;
-    private CuentaControlador cc;
 
     /**
      * Constructor de la clase. Iniciliza los elementos necesarios
      * @param acf El formulario de adición de cuentas
-     * @param cc El controlador de las cuentas.
      */
-    public AñadirCuentaActionListener(AñadirCuentaFormulario acf,CuentaControlador cc){
+    public AñadirCuentaActionListener(AñadirCuentaFormulario acf){
         this.acf = acf;
-        this.cc = cc;
     }
 
     /**
@@ -79,6 +76,7 @@ public class AñadirCuentaActionListener implements ActionListener{
         // Llamar al controlador para que gestione la operación de añadir la cuen
         // ta.
         try{
+            CuentaControlador cc = CuentaControlador.getInstancia();
             boolean activa = cc.añadirCuenta(identificador,servidor,contraseña,guardarContraseña);
             // Si la cuenta se establece como la activa se modifica la etiqueta
             // de la ventana principal

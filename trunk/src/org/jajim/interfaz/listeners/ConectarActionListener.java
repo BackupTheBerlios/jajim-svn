@@ -64,7 +64,7 @@ public class ConectarActionListener implements ActionListener{
         // Recupero los controladores necesarios
         ConexionControlador ccn = ConexionControlador.getInstancia();
         ContactosControlador ctc = ContactosControlador.getInstancia();
-        TransferenciaFicherosControlador tfc = vp.getTfc();
+        TransferenciaFicherosControlador tfc = TransferenciaFicherosControlador.getInstancia();
 
         // Invocar al controlador de las coenxiones para que realice la operación
         Roster r = null;

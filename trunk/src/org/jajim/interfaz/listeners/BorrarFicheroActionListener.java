@@ -29,7 +29,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que escucha los eventos de borrado de ficheros procedentes de la
  * ventana del gestor de transferencia de ficheros.
  */
@@ -68,7 +68,7 @@ public class BorrarFicheroActionListener implements ActionListener{
         String ruta = (String) dtm.getValueAt(filaSeleccionada,1);
 
         // Llamar al controlador para que realice la operación.
-        TransferenciaFicherosControlador tfc = vgt.getTfc();
+        TransferenciaFicherosControlador tfc = TransferenciaFicherosControlador.getInstancia();
         try{
             tfc.borrarFichero(nombre,ruta);
         }catch(ImposibleBorrarFicheroException ibfe){

@@ -29,25 +29,22 @@ import java.awt.event.ActionListener;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que se activa cuando el usuario decide aceptar una tansferencia
  * de fichero.
  */
 public class AceptarFicheroActionListener implements ActionListener{
 
     private AceptarFicheroFormulario aff;
-    private TransferenciaFicherosControlador tfc;
     private VentanaGestorDeTransferencias vgt;
 
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
      * @param aff El formulario de aceptación del fichero.
-     * @param tfc El controlador de las transferencias de ficheros.
      * @param vgt La ventana del gestor de cuentas.
      */
-    public AceptarFicheroActionListener(AceptarFicheroFormulario aff,TransferenciaFicherosControlador tfc,VentanaGestorDeTransferencias vgt){
+    public AceptarFicheroActionListener(AceptarFicheroFormulario aff,VentanaGestorDeTransferencias vgt){
         this.aff = aff;
-        this.tfc = tfc;
         this.vgt = vgt;
     }
 
@@ -73,6 +70,7 @@ public class AceptarFicheroActionListener implements ActionListener{
         // LLamar al controlador de transferencia para que lleve a cabo la opera
         //ción
         try{
+            TransferenciaFicherosControlador tfc = TransferenciaFicherosControlador.getInstancia();
             String[] valores = tfc.aceptarFichero(idTransferencia,ruta);
             aff.dispose();
             vgt.añadirTransferenciaDeFichero(valores[0],valores[1],VentanaGestorDeTransferencias.RECEPTOR);

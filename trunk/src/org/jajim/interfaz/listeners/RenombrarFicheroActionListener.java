@@ -30,7 +30,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que escucha los eventos de renombrado de fichero procedentes del
  * formulario habilitado para introducir el nuevo nombre del fichero.
  */
@@ -80,7 +80,7 @@ public class RenombrarFicheroActionListener implements ActionListener{
 
         try{
             // Llamar al controlador para que realice la operación.
-            TransferenciaFicherosControlador tfc = vgt.getTfc();
+            TransferenciaFicherosControlador tfc = TransferenciaFicherosControlador.getInstancia();
             tfc.renombrarFichero(nombre,ruta,nuevoNombre);
 
             // Cerrar el cuadro de diálogo y actualizar la interfaz

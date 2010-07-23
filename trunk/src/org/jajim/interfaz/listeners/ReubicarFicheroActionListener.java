@@ -30,7 +30,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que escucha los eventos para mover un fichero procedentes del for
  * mulario habilitado para introducir la nueva ruta del fichero.
  */
@@ -79,7 +79,7 @@ public class ReubicarFicheroActionListener implements ActionListener{
 
         try{
             // Llamar al controlador para que realice la operación.
-            TransferenciaFicherosControlador tfc = vgt.getTfc();
+            TransferenciaFicherosControlador tfc = TransferenciaFicherosControlador.getInstancia();
             tfc.reubicarFichero(nombre,ruta,nuevaRuta);
 
             // Cerrar el cuadro de diálogo y actualizar la interfaz

@@ -18,7 +18,6 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.controladores.ContactosControlador;
 import org.jajim.controladores.ConversacionControlador;
 import org.jajim.excepciones.ImposibleRecuperarParticipanteException;
 import org.jajim.controladores.TransferenciaFicherosControlador;
@@ -42,19 +41,17 @@ import java.util.List;
 public class EnviarFicheroActionListener implements ActionListener{
 
     private EnviarFicheroFormulario eff;
-    private TransferenciaFicherosControlador tfc;
     private ConversacionControlador cvc;
     private VentanaGestorDeTransferencias vgt;
 
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
      * @param eff El formulario de envío de ficheros.
-     * @param tfc El controlador de transferencia de ficheros.
+     * @param cvc El controlador de la conversación actual
      * @param vgt La ventana del gestor de transferencias.
      */
-    public EnviarFicheroActionListener(EnviarFicheroFormulario eff,TransferenciaFicherosControlador tfc,ConversacionControlador cvc,VentanaGestorDeTransferencias vgt){
+    public EnviarFicheroActionListener(EnviarFicheroFormulario eff,ConversacionControlador cvc,VentanaGestorDeTransferencias vgt){
         this.eff = eff;
-        this.tfc = tfc;
         this.cvc = cvc;
         this.vgt = vgt;
     }
@@ -87,6 +84,7 @@ public class EnviarFicheroActionListener implements ActionListener{
 
         // Llamar al controlador para que realice la operación
         try{
+            TransferenciaFicherosControlador tfc = TransferenciaFicherosControlador.getInstancia();
             String id = tfc.enviarFichero(cvc,contactos,ruta,descripcion);
             int posicion = ruta.lastIndexOf(File.separator);
             String nombre = ruta.substring(posicion + 1);

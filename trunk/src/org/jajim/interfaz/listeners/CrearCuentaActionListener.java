@@ -29,23 +29,19 @@ import java.util.List;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase que gestiona como se lleva a cabo la creación de la cuenta.
  */
 public class CrearCuentaActionListener implements ActionListener{
 
     private CrearCuentaFormulario ccf;
-    private CuentaControlador cc;
 
     /**
      * Constructor de la clase. Inicialia los elementos necesarios
      * @param ccf Cuadro de diálogo desde el que se invocó el oyente.
-     * @param cc Controlador de las cuentas para poder realizar operaciones sobre
-     * él.
      */
-    public CrearCuentaActionListener(CrearCuentaFormulario ccf,CuentaControlador cc){
+    public CrearCuentaActionListener(CrearCuentaFormulario ccf){
         this.ccf = ccf;
-        this.cc = cc;
     }
 
     /**
@@ -79,6 +75,7 @@ public class CrearCuentaActionListener implements ActionListener{
         // LLamar al controlador de las cuentas para que gestione la realización
         // de la operación.
         try{
+            CuentaControlador cc = CuentaControlador.getInstancia();
             boolean activa = cc.crearCuenta(identificador, servidor, contraseña, guardarContraseña);
             // Si la cuenta se establece como la activa se modifica la etiqueta
             // de la ventana principal
