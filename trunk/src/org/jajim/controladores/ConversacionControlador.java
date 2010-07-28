@@ -101,8 +101,6 @@ public class ConversacionControlador {
     public void iniciarConversacion(TiposDeChatEnumeracion tipo){
         // Crear la conversación privada
         this.tipo = tipo;
-        if(cm == null)
-            System.out.println("No se dispone de un chat manager");
         conversacionPrivada = cm.createChat(usuario,mcpl);
     }
 
