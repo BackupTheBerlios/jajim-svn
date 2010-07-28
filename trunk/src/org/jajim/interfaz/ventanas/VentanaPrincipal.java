@@ -177,7 +177,7 @@ public class VentanaPrincipal extends JFrame{
 
     private final ActionListener actionListenersMenuPopup[] = {
         new VisualizarVentanaActionListener(this),
-        new SalirActionListener(this)
+        new SalirActionListener()
     };
 
     // Matriz que determina si los botones están activados
@@ -377,7 +377,7 @@ public class VentanaPrincipal extends JFrame{
 
         // Añadir un oyente cuando se cierre la ventana, para guardar la informa
         // ción necesaria para la aplicación.
-        this.addWindowListener(new VentanaPrincipalWindowListener(cc));
+        this.addWindowListener(new VentanaPrincipalWindowListener());
     }
 
     /**
