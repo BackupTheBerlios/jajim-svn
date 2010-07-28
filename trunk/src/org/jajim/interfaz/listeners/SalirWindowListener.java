@@ -24,20 +24,17 @@ import java.awt.event.WindowEvent;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Realiza todas las acciones necesarias para cerrar correctamente la aplicación:
  * guardado de cuentas de usuario.
  */
 public class SalirWindowListener extends WindowAdapter{
 
-    private CuentaControlador cc;
 
     /**
      * Constructor de la clase. Inicializa los campos de la misma.
-     * @param cc Controlador de las cuentas.
-     */
-    public SalirWindowListener(CuentaControlador cc){
-        this.cc = cc;
+     * @param cc Controlador de las cuentas     */
+    public SalirWindowListener(){
     }
 
         /**
@@ -49,6 +46,7 @@ public class SalirWindowListener extends WindowAdapter{
     public void windowClosing(WindowEvent e){
 
         // Guardar las cuentas del usuario
+        CuentaControlador cc = CuentaControlador.getInstancia();
         cc.guardarCuentas();
         System.exit(0);
     }

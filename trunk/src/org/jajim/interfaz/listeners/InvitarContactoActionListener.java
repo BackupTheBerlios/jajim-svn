@@ -18,7 +18,6 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.controladores.ContactosControlador;
 import org.jajim.controladores.ConversacionControlador;
 import org.jajim.interfaz.dialogos.InvitarContactoFormulario;
 import org.jajim.interfaz.dialogos.MensajeError;

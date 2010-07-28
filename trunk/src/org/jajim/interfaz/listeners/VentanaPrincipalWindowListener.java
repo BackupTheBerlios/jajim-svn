@@ -38,14 +38,10 @@ import org.jajim.controladores.PreferenciasControlador;
  */
 public class VentanaPrincipalWindowListener extends WindowAdapter{
 
-    private CuentaControlador cc;
-
     /**
      * Constructor de la clase. Inicializa los campos de la misma.
-     * @param cc Controlador de las cuentas.
      */
-    public VentanaPrincipalWindowListener(CuentaControlador cc){
-        this.cc = cc;
+    public VentanaPrincipalWindowListener(){
     }
 
     /**
@@ -57,6 +53,7 @@ public class VentanaPrincipalWindowListener extends WindowAdapter{
     public void windowClosing(WindowEvent e){
 
         // Guardar las cuentas del usuario
+        CuentaControlador cc = CuentaControlador.getInstancia();
         cc.guardarCuentas();
 
         // Guardar las preferencias
