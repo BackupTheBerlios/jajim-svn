@@ -34,11 +34,12 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
+import org.jajim.interfaz.ventanas.VentanaConversacionNueva;
 import org.jivesoftware.smack.util.StringUtils;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase que presenta el editor en el que se muestra los mensajes intercambiados
  * entre los miembros de la conversación. Se ocupa de actualizar los mensajes de
  * la misma.
@@ -49,6 +50,7 @@ public class PanelConversacion implements Observer{
 
     // Ventana principal
     private VentanaConversacion vc;
+    private VentanaConversacionNueva v;
 
     // Presentación
     private JTextPane contenidoConversacion;
@@ -80,6 +82,45 @@ public class PanelConversacion implements Observer{
 
         // Inicialización de variables
         this.vc = vc;
+
+        // Presentación de la ventana de conversaciones
+        JPanel panelConversacion = new JPanel(new BorderLayout());
+        panelConversacion.setBorder(BorderFactory.createEmptyBorder(0,10,15,10));
+        contenidoConversacion = new JTextPane();
+        contenidoConversacion.setEditable(false);
+        contenidoConversacion.setContentType("text/html");
+        contenidoConversacion.setBackground(Color.WHITE);
+        JScrollPane scrollPane = new JScrollPane(contenidoConversacion);
+        panelConversacion.add(BorderLayout.CENTER,scrollPane);
+        Container cp = vc.getContentPane();
+        cp.add(BorderLayout.CENTER,panelConversacion);
+
+        // Iniciar cadenas
+        mensajes = new StringBuffer();
+        total = new StringBuffer();
+
+        // Iniciar contenedor de usuarios
+        usuarios = new HashMap<String,String>();
+
+        // Iniciar las cadenas de los eventos
+        eventos = new HashMap<EventosConversacionEnumeracion,String>();
+        eventos.put(EventosConversacionEnumeracion.participanteAñadido,texto.getString("añadir_participante_evento"));
+        eventos.put(EventosConversacionEnumeracion.invitacionRechazada,texto.getString("rechazo_invitacion_evento"));
+        eventos.put(EventosConversacionEnumeracion.participanteDesconectado,texto.getString("participante_desconectado_evento"));
+
+        // Iniciar el mapa de preferencias
+        estilos = new HashMap<String,String[]>();
+    }
+
+    /**
+     * Constructor de la clase. Inicializa las variables necesarias y crea la
+     * presentación.
+     * @param vc La ventana de la conversación
+     */
+    public PanelConversacion(VentanaConversacionNueva vc){
+
+        // Inicialización de variables
+        this.v = vc;
 
         // Presentación de la ventana de conversaciones
         JPanel panelConversacion = new JPanel(new BorderLayout());
