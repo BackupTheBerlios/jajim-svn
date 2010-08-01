@@ -60,7 +60,7 @@ import org.jivesoftware.smackx.packet.DiscoverItems;
 /**
  * @author Florencio Cañizal Calles
  * @version 1.1
- * Clase que gestiona todas aquellas operaciones relacinadas con las conversacio
+ * Clase que gestiona todas aquellas operaciones relacionadas con las conversacio
  * nes.
  */
 public class ConversacionControlador {
