@@ -22,10 +22,11 @@ import org.jajim.interfaz.dialogos.InvitarContactoFormulario;
 import org.jajim.interfaz.ventanas.VentanaConversacion;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import org.jajim.interfaz.ventanas.VentanaConversacionNueva;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que escucha los eventos de invitación de contactos procedentes del
  * menú de la ventana de la conversación.
  */
@@ -39,6 +40,14 @@ public class InvitarContactoMenuActionListener implements ActionListener{
      */
     public InvitarContactoMenuActionListener(VentanaConversacion vc){
         this.vc = vc;
+    }
+
+    /**
+     * Constructor de la clase. Inicializa las variables necesarias.
+     * @param vc La ventana de la conversación.
+     */
+    public InvitarContactoMenuActionListener(VentanaConversacionNueva vc){
+        //this.vc = vc;
     }
 
     /**

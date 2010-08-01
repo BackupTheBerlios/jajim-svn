@@ -23,6 +23,7 @@ import org.jajim.interfaz.ventanas.VentanaConversacion;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import org.jajim.interfaz.ventanas.VentanaConversacionNueva;
 
 /**
  * @author Florencio Cañizal Calles
@@ -40,6 +41,14 @@ public class CursivaMenuActionListener implements ActionListener{
      */
     public CursivaMenuActionListener(VentanaConversacion vc){
         this.vc = vc;
+    }
+
+    /**
+     * Constrcutor de la clase. Inicializa las variables necesarias.
+     * @param vc La ventana donde tiene lugar la conversación.
+     */
+    public CursivaMenuActionListener(VentanaConversacionNueva vc){
+        //this.vc = vc;
     }
 
     /**

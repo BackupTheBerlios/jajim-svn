@@ -25,6 +25,7 @@ import java.awt.Point;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
+import org.jajim.interfaz.ventanas.VentanaConversacionNueva;
 
 /**
  * @author Florencio Cañizal Calles
@@ -42,6 +43,14 @@ public class VentanaConversacionWindowListener extends WindowAdapter{
      */
     public VentanaConversacionWindowListener(VentanaConversacion vc){
         this.vc = vc;
+    }
+
+    /**
+     * Constructor de la clase. Inicializa las variables necesarias.
+     * @param vc Ventana de una conversación.
+     */
+    public VentanaConversacionWindowListener(VentanaConversacionNueva vc){
+        //this.vc = vc;
     }
 
     /**

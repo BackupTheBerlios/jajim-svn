@@ -19,14 +19,14 @@
 package org.jajim.interfaz.listeners;
 
 import org.jajim.interfaz.utilidades.PanelContactos;
-import org.jajim.interfaz.ventanas.VentanaConversacion;
-import org.jajim.modelo.conversaciones.TiposDeChatEnumeracion;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import org.jajim.interfaz.ventanas.VentanaConversacionChatPrivado;
+import org.jajim.interfaz.ventanas.VentanaConversacionNueva;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Oyente que escucha eventos procedentes de la opción de iniciar chat privados
  * del sistema.
  */
@@ -56,7 +56,7 @@ public class IniciarChatPrivadoActionListener implements ActionListener{
         // Recuperar el alias del contacto y lanzar una ventana de conversación
         String alias = e.getActionCommand();
 
-        if(!VentanaConversacion.hayChatPrivado(alias))
-            new VentanaConversacion(pc.getVp(),alias,TiposDeChatEnumeracion.chatPrivado);
+        if(!VentanaConversacionNueva.hayChatPrivado(alias))
+            new VentanaConversacionChatPrivado(pc.getVp(),alias);
     }
 }

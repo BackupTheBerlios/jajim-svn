@@ -26,6 +26,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
 import javax.swing.JColorChooser;
+import org.jajim.interfaz.ventanas.VentanaConversacionNueva;
 
 /**
  * @author Florencio Cañizal Calles
@@ -44,6 +45,14 @@ public class ColorMenuActionListener implements ActionListener{
      */
     public ColorMenuActionListener(VentanaConversacion vc){
         this.vc = vc;
+    }
+
+    /**
+     * Constructor de la clase. Inicializa las variables necesarias.
+     * @param vc La ventana de la conversación.
+     */
+    public ColorMenuActionListener(VentanaConversacionNueva vc){
+        //this.vc = vc;
     }
 
     /**

@@ -22,10 +22,11 @@ import org.jajim.interfaz.dialogos.GuardarConversacionFormulario;
 import org.jajim.interfaz.ventanas.VentanaConversacion;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import org.jajim.interfaz.ventanas.VentanaConversacionNueva;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que escucha los eventos de guardado de conversación procedentes
  * del menú de la conversación.
  */
@@ -39,6 +40,14 @@ public class GuardarConversacionMenuActionListener implements ActionListener{
      */
     public GuardarConversacionMenuActionListener(VentanaConversacion vc){
         this.vc = vc;
+    }
+
+    /**
+     * Constructor de la clase. Inicializa las variables necesarias.
+     * @param vc La ventana de la conversación.
+     */
+    public GuardarConversacionMenuActionListener(VentanaConversacionNueva vc){
+        //this.vc = vc;
     }
 
     /**

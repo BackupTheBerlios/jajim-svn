@@ -18,27 +18,32 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.controladores.ConversacionControlador;
 import org.jajim.excepciones.ImposibleEnviarMensajeException;
 import org.jajim.interfaz.dialogos.MensajeError;
-import org.jajim.interfaz.ventanas.VentanaConversacion;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.Action;
+import org.jajim.controladores.ConversacionControladorNuevo;
+import org.jajim.interfaz.ventanas.VentanaConversacionNueva;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Se ocupa de enviar un gestionar el envía de un mensaje de texto en una conver
  * sación.
  */
 public class EnviarMensajeAction extends Observable implements Action{
     
-    private VentanaConversacion vc;
+    private VentanaConversacionNueva vc;
 
-    public EnviarMensajeAction(VentanaConversacion vc,Observer observador){
+    /**
+     * Constructor de la clase. Inicializa las variables necesarias.
+     * @param vc La ventana de la conversación.
+     * @param observador El observador al que se le notificarán el envío de mensajes
+     */
+    public EnviarMensajeAction(VentanaConversacionNueva vc,Observer observador){
         this.vc = vc;
         this.addObserver(observador);
     }
@@ -87,7 +92,7 @@ public class EnviarMensajeAction extends Observable implements Action{
 
         // Llamar al controlador para enviar el mensaje al resto de miembros de
         // la conversación
-        ConversacionControlador cvc = vc.getCvc();
+        ConversacionControladorNuevo cvc = vc.getCvc();
         try{
             cvc.enviarMensaje(mensaje);
         }catch(ImposibleEnviarMensajeException ieme){

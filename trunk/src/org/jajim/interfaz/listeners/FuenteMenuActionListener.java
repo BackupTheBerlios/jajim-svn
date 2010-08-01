@@ -22,10 +22,11 @@ import org.jajim.interfaz.dialogos.FuenteFormulario;
 import org.jajim.interfaz.ventanas.VentanaConversacion;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import org.jajim.interfaz.ventanas.VentanaConversacionNueva;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que escucha los eventos de modificación de fuente provenientes de
  * el menú de estilo de la ventana de la conversación.
  */
@@ -39,6 +40,14 @@ public class FuenteMenuActionListener implements ActionListener{
      */
     public FuenteMenuActionListener(VentanaConversacion vc){
         this.vc = vc;
+    }
+
+    /**
+     * Constructor de la clase. Inicializa las variables necesarias.
+     * @param vc La ventana de la conversación actual.
+     */
+    public FuenteMenuActionListener(VentanaConversacionNueva vc){
+        //this.vc = vc;
     }
 
     /**

@@ -19,15 +19,14 @@
 package org.jajim.interfaz.listeners;
 
 import org.jajim.interfaz.dialogos.AceptarORechazarChatPrivadoFormulario;
-import org.jajim.interfaz.ventanas.VentanaConversacion;
 import org.jajim.interfaz.ventanas.VentanaPrincipal;
-import org.jajim.modelo.conversaciones.TiposDeChatEnumeracion;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import org.jajim.interfaz.ventanas.VentanaConversacionChatPrivado;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que escucha los eventos de aceptar conversación provenientes del
  * formulario correspondiente.
  */
@@ -66,6 +65,6 @@ public class AceptarChatPrivadoActionListener implements ActionListener{
         acf.dispose();
         // LLamar al constructor de las ventanas de la conversación para crear
         // una nueva
-        VentanaConversacion vc = new VentanaConversacion(vp,idChat,alias,TiposDeChatEnumeracion.chatPrivado);
+        new VentanaConversacionChatPrivado(vp,alias,idChat);
     }
 }

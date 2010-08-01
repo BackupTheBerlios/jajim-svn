@@ -22,10 +22,11 @@ import org.jajim.interfaz.dialogos.EnviarFicheroFormulario;
 import org.jajim.interfaz.ventanas.VentanaConversacion;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import org.jajim.interfaz.ventanas.VentanaConversacionNueva;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que se ejecuta cuando se selecciona la opción de enviar un fiche
  * ro. Abre el formulario de envío.
  */
@@ -39,6 +40,14 @@ public class EnviarFicheroMenuActionListener implements ActionListener{
      */
     public EnviarFicheroMenuActionListener(VentanaConversacion vc){
         this.vc = vc;
+    }
+
+    /**
+     * Constructor de la clase. Inicializa las variables necesarias.
+     * @param vc Ventana de la conversación.
+     */
+    public EnviarFicheroMenuActionListener(VentanaConversacionNueva vc){
+        //this.vc = vc;
     }
 
     /**
