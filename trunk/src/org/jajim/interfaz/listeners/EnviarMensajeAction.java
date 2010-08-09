@@ -25,8 +25,8 @@ import java.beans.PropertyChangeListener;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.Action;
-import org.jajim.controladores.ConversacionControladorNuevo;
-import org.jajim.interfaz.ventanas.VentanaConversacionNueva;
+import org.jajim.controladores.ConversacionControlador;
+import org.jajim.interfaz.ventanas.VentanaConversacion;
 
 /**
  * @author Florencio Cañizal Calles
@@ -36,14 +36,14 @@ import org.jajim.interfaz.ventanas.VentanaConversacionNueva;
  */
 public class EnviarMensajeAction extends Observable implements Action{
     
-    private VentanaConversacionNueva vc;
+    private VentanaConversacion vc;
 
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
      * @param vc La ventana de la conversación.
      * @param observador El observador al que se le notificarán el envío de mensajes
      */
-    public EnviarMensajeAction(VentanaConversacionNueva vc,Observer observador){
+    public EnviarMensajeAction(VentanaConversacion vc,Observer observador){
         this.vc = vc;
         this.addObserver(observador);
     }
@@ -92,7 +92,7 @@ public class EnviarMensajeAction extends Observable implements Action{
 
         // Llamar al controlador para enviar el mensaje al resto de miembros de
         // la conversación
-        ConversacionControladorNuevo cvc = vc.getCvc();
+        ConversacionControlador cvc = vc.getCvc();
         try{
             cvc.enviarMensaje(mensaje);
         }catch(ImposibleEnviarMensajeException ieme){

@@ -19,10 +19,9 @@
 package org.jajim.interfaz.listeners;
 
 import org.jajim.interfaz.dialogos.EnviarFicheroFormulario;
-import org.jajim.interfaz.ventanas.VentanaConversacion;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import org.jajim.interfaz.ventanas.VentanaConversacionNueva;
+import org.jajim.interfaz.ventanas.VentanaConversacion;
 
 /**
  * @author Florencio Cañizal Calles
@@ -40,14 +39,6 @@ public class EnviarFicheroMenuActionListener implements ActionListener{
      */
     public EnviarFicheroMenuActionListener(VentanaConversacion vc){
         this.vc = vc;
-    }
-
-    /**
-     * Constructor de la clase. Inicializa las variables necesarias.
-     * @param vc Ventana de la conversación.
-     */
-    public EnviarFicheroMenuActionListener(VentanaConversacionNueva vc){
-        //this.vc = vc;
     }
 
     /**

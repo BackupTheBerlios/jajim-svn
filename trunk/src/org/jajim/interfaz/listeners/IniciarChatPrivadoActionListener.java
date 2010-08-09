@@ -22,7 +22,7 @@ import org.jajim.interfaz.utilidades.PanelContactos;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import org.jajim.interfaz.ventanas.VentanaConversacionChatPrivado;
-import org.jajim.interfaz.ventanas.VentanaConversacionNueva;
+import org.jajim.interfaz.ventanas.VentanaConversacion;
 
 /**
  * @author Florencio Cañizal Calles
@@ -56,7 +56,7 @@ public class IniciarChatPrivadoActionListener implements ActionListener{
         // Recuperar el alias del contacto y lanzar una ventana de conversación
         String alias = e.getActionCommand();
 
-        if(!VentanaConversacionNueva.hayChatPrivado(alias))
+        if(!VentanaConversacion.hayChatPrivado(alias))
             new VentanaConversacionChatPrivado(pc.getVp(),alias);
     }
 }

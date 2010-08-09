@@ -19,13 +19,12 @@
 package org.jajim.interfaz.listeners;
 
 import org.jajim.controladores.PreferenciasControlador;
-import org.jajim.interfaz.ventanas.VentanaConversacion;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
-import org.jajim.interfaz.ventanas.VentanaConversacionNueva;
+import org.jajim.interfaz.ventanas.VentanaConversacion;
 
 /**
  * @author Florencio Cañizal Calles
@@ -43,14 +42,6 @@ public class VentanaConversacionWindowListener extends WindowAdapter{
      */
     public VentanaConversacionWindowListener(VentanaConversacion vc){
         this.vc = vc;
-    }
-
-    /**
-     * Constructor de la clase. Inicializa las variables necesarias.
-     * @param vc Ventana de una conversación.
-     */
-    public VentanaConversacionWindowListener(VentanaConversacionNueva vc){
-        //this.vc = vc;
     }
 
     /**

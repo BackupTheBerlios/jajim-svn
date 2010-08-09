@@ -24,8 +24,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
-import org.jajim.controladores.ConversacionControladorNuevo;
-import org.jajim.interfaz.ventanas.VentanaConversacionNueva;
+import org.jajim.controladores.ConversacionControlador;
+import org.jajim.interfaz.ventanas.VentanaConversacion;
 
 /**
  * @author Florencio Cañizal Calles
@@ -34,14 +34,14 @@ import org.jajim.interfaz.ventanas.VentanaConversacionNueva;
  */
 public class EnviarMensajeActionListener extends Observable implements ActionListener{
 
-    private VentanaConversacionNueva vc;
+    private VentanaConversacion vc;
 
      /**
      * Constructor de la clase. Inicializa las variables necesarias.
      * @param vc La ventana de la conversación
      * @param observador El panel de la conversación.
      */
-    public EnviarMensajeActionListener(VentanaConversacionNueva vc,Observer observador){
+    public EnviarMensajeActionListener(VentanaConversacion vc,Observer observador){
         this.vc = vc;
         this.addObserver(observador);
     }
@@ -68,7 +68,7 @@ public class EnviarMensajeActionListener extends Observable implements ActionLis
 
         // Llamar al controlador para enviar el mensaje al resto de miembros de
         // la conversación
-        ConversacionControladorNuevo cvc = vc.getCvc();
+        ConversacionControlador cvc = vc.getCvc();
         try{
             cvc.enviarMensaje(mensaje);
         }catch(ImposibleEnviarMensajeException ieme){

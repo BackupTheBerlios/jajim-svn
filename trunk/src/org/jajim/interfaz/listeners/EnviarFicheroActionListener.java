@@ -18,7 +18,6 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.controladores.ConversacionControlador;
 import org.jajim.excepciones.ImposibleRecuperarParticipanteException;
 import org.jajim.controladores.TransferenciaFicherosControlador;
 import org.jajim.excepciones.FicheroNoEncontradoException;
@@ -30,6 +29,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.List;
+import org.jajim.controladores.ConversacionControlador;
 
 /**
  * @author Florencio Cañizal Calles

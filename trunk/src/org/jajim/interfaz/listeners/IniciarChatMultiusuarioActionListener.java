@@ -20,15 +20,15 @@ package org.jajim.interfaz.listeners;
 
 import org.jajim.interfaz.dialogos.IniciarChatMultiusuarioFormulario;
 import org.jajim.interfaz.dialogos.MensajeError;
-import org.jajim.interfaz.ventanas.VentanaConversacion;
 import org.jajim.interfaz.ventanas.VentanaPrincipal;
 import org.jajim.modelo.conversaciones.TiposDeChatEnumeracion;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import org.jajim.interfaz.ventanas.VentanaConversacionChatMultiusuario;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que escucha los eventos de iniciación de chat multiusuario procen
  * dentes del formulario habilitado a tal efecto.
  */
@@ -72,6 +72,6 @@ public class IniciarChatMultiusuarioActionListener implements ActionListener{
 
         // Cerrar el cuadro de diálogo y lanzar una nueva conversación
         icmf.dispose();
-        new VentanaConversacion(vp,alias,room,nick,TiposDeChatEnumeracion.chatMultiUsuario);
+        new VentanaConversacionChatMultiusuario(vp,alias,room,nick);
     }
 }

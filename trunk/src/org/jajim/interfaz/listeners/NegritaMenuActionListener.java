@@ -19,11 +19,10 @@
 package org.jajim.interfaz.listeners;
 
 import org.jajim.controladores.PreferenciasControlador;
-import org.jajim.interfaz.ventanas.VentanaConversacion;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import org.jajim.interfaz.ventanas.VentanaConversacionNueva;
+import org.jajim.interfaz.ventanas.VentanaConversacion;
 
 /**
  * @author Florencio Cañizal Calles
@@ -41,14 +40,6 @@ public class NegritaMenuActionListener implements ActionListener{
      */
     public NegritaMenuActionListener(VentanaConversacion vc){
         this.vc = vc;
-    }
-
-    /**
-     * Constructor de la clase. Inicializa las variables necesarias.
-     * @param vc La ventana de la conversación.
-     */
-    public NegritaMenuActionListener(VentanaConversacionNueva vc){
-        //this.vc = vc;
     }
 
     /**

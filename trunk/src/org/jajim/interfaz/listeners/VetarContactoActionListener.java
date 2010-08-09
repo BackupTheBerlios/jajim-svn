@@ -18,16 +18,17 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.controladores.ConversacionControlador;
 import org.jajim.excepciones.ImposibleVetarContactosException;
 import org.jajim.interfaz.dialogos.MensajeError;
 import org.jajim.interfaz.dialogos.VetarContactoFormulario;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import org.jajim.controladores.ConversacionControladorChatMultiusuario;
+import org.jajim.controladores.ConversacionControlador;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que escucha los eventos para la vetación de contactos procedentes
  * del formulario habilitado para tal función.
  */
@@ -66,7 +67,10 @@ public class VetarContactoActionListener implements ActionListener{
 
         // Llamar al controlador para que realice la operación
         try{
-            cvc.vetarContactos(campos);
+            if(cvc instanceof ConversacionControladorChatMultiusuario){
+                ConversacionControladorChatMultiusuario cccm = (ConversacionControladorChatMultiusuario) cvc;
+                cccm.vetarContactos(campos);
+            }
         }catch(ImposibleVetarContactosException ivce){
             new MensajeError(vcf,"imposible_vetar_contactos_error",MensajeError.ERR);
         }

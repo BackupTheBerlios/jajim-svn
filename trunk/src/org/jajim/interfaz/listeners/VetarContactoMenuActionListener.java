@@ -19,10 +19,9 @@
 package org.jajim.interfaz.listeners;
 
 import org.jajim.interfaz.dialogos.VetarContactoFormulario;
-import org.jajim.interfaz.ventanas.VentanaConversacion;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import org.jajim.interfaz.ventanas.VentanaConversacionNueva;
+import org.jajim.interfaz.ventanas.VentanaConversacion;
 
 /**
  * @author Florencio Cañizal Calles
@@ -40,14 +39,6 @@ public class VetarContactoMenuActionListener implements ActionListener{
      */
     public VetarContactoMenuActionListener(VentanaConversacion vc){
         this.vc = vc;
-    }
-
-    /**
-     * Constructor de la clase. Iniciliza las variables necesarias.
-     * @param vc La ventana de la conversación.
-     */
-    public VetarContactoMenuActionListener(VentanaConversacionNueva vc){
-        //this.vc = vc;
     }
 
     /**

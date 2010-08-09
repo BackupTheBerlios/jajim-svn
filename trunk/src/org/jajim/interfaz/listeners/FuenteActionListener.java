@@ -20,9 +20,9 @@ package org.jajim.interfaz.listeners;
 
 import org.jajim.controladores.PreferenciasControlador;
 import org.jajim.interfaz.dialogos.FuenteFormulario;
-import org.jajim.interfaz.ventanas.VentanaConversacion;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import org.jajim.interfaz.ventanas.VentanaConversacion;
 
 /**
  * @author Florencio Cañizal Calles

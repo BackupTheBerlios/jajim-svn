@@ -20,11 +20,11 @@ package org.jajim.interfaz.listeners;
 
 import org.jajim.interfaz.dialogos.IntroducirNickFormulario;
 import org.jajim.interfaz.dialogos.MensajeError;
-import org.jajim.interfaz.ventanas.VentanaConversacion;
 import org.jajim.interfaz.ventanas.VentanaPrincipal;
 import org.jajim.modelo.conversaciones.TiposDeChatEnumeracion;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import org.jajim.interfaz.ventanas.VentanaConversacionChatMultiusuario;
 
 /**
  * @author Florencio Cañizal Calles
@@ -78,6 +78,6 @@ public class AceptarInvitacionActionListener implements ActionListener{
 
         // Lanzar la conversación y cerrar el formulario
         inf.dispose();
-        new VentanaConversacion(vp,alias,idInvitacion,room,nickname,TiposDeChatEnumeracion.chatMultiUsuario);
+        new VentanaConversacionChatMultiusuario(vp,alias,room,nickname,idInvitacion);
     }
 }

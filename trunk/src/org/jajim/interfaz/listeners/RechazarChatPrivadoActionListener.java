@@ -18,14 +18,14 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.controladores.ConversacionControlador;
 import org.jajim.interfaz.dialogos.AceptarORechazarChatPrivadoFormulario;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import org.jajim.controladores.ConversacionControladorChatPrivado;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que escucha los eventos de rechazo de chat privado, procedentes
  * del formulario habilitado para dicha función.
  */
@@ -55,7 +55,7 @@ public class RechazarChatPrivadoActionListener implements ActionListener{
     public void actionPerformed(ActionEvent e) {
 
         // LLamar al controlador de las conversaciones para que rechace el chat
-        ConversacionControlador.rechazarChatPrivado(idChat);
+        ConversacionControladorChatPrivado.rechazarChatPrivado(idChat);
 
         // Cerrar el formulario
         acpf.dispose();

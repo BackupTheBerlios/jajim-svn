@@ -18,10 +18,10 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.controladores.ConversacionControlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JDialog;
+import org.jajim.controladores.ConversacionControladorChatMultiusuario;
 
 /**
  * @author Florencio Cañizal Calles
@@ -60,7 +60,7 @@ public class RechazarInvitacionActionListener implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         
         // LLamar al controlador para que realice la operación.
-        ConversacionControlador.rechazarInvitacion(contacto,room);
+        ConversacionControladorChatMultiusuario.rechazarInvitacion(contacto,room);
         dialogo.dispose();
     }
 }

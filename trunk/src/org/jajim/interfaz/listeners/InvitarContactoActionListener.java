@@ -18,11 +18,12 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.controladores.ConversacionControlador;
 import org.jajim.interfaz.dialogos.InvitarContactoFormulario;
 import org.jajim.interfaz.dialogos.MensajeError;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import org.jajim.controladores.ConversacionControladorChatMultiusuario;
+import org.jajim.controladores.ConversacionControlador;
 
 /**
  * @author Florencio Cañizal Calles
@@ -64,7 +65,10 @@ public class InvitarContactoActionListener implements ActionListener{
         }
 
         // Llamar al controlador para que realice la operación
-        cvc.invitarContactos(campos);
+        if(cvc instanceof ConversacionControladorChatMultiusuario){
+            ConversacionControladorChatMultiusuario cccm = (ConversacionControladorChatMultiusuario) cvc;
+            cccm.invitarContactos(campos);
+        }
 
         // Cerrar el formulario
         icf.dispose();
