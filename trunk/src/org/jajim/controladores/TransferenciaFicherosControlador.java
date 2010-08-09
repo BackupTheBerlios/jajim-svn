@@ -121,8 +121,12 @@ public class TransferenciaFicherosControlador {
             String JID = null;
             try{
                 // Recuperar el JID del usuario para poder enviar el mensaje.
-                if(!s.contains("."))
-                    JID = cvc.getJIDParticipante(s);
+                if(!s.contains(".")){
+                    if(cvc instanceof ConversacionControladorChatMultiusuario){
+                        ConversacionControladorChatMultiusuario cccm = (ConversacionControladorChatMultiusuario) cvc;
+                        JID = cccm.getJIDParticipante(s);
+                    }
+                }
                 else
                     JID = ContactosControlador.getInstancia().getJID(s);
                 oft = ftm.createOutgoingFileTransfer(JID);

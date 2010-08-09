@@ -32,7 +32,7 @@ import org.jivesoftware.smack.packet.Message;
  * Clase que gestiona todas aquellas operaciones relacionadas con las conversacio
  * nes llevadas a cabo en un chat privado.
  */
-public class ConversacionControladorChatPrivado extends ConversacionControladorNuevo{
+public class ConversacionControladorChatPrivado extends ConversacionControlador{
 
     private Chat conversacionPrivada;
     private MensajesChatPrivadoListener mcpl;
@@ -100,6 +100,18 @@ public class ConversacionControladorChatPrivado extends ConversacionControladorN
     }
 
     /**
+     * Cierra un chat privado de manera correcta en el sistema.
+     */
+    @Override
+    public void cerrarConversacion(){
+
+        try{
+            this.enviarMensaje("Exit");
+            cl.eliminarChat(conversacionPrivada);
+        }catch(ImposibleEnviarMensajeException ieme){}
+    }
+
+    /**
      * Retorna la lista de participantes del chat.
      * @return La lista de participantes del chat.
      */
@@ -114,5 +126,23 @@ public class ConversacionControladorChatPrivado extends ConversacionControladorN
         participantes[0] = participante;
 
         return participantes;
+    }
+
+    /**
+     * Rechaza una de las peticiones de chat privado.
+     * @param idChat El identificador del chat privado.
+     */
+    public static void rechazarChatPrivado(String idChat){
+
+        // Recuperar el chat
+        Chat chat = cl.getChat(idChat);
+
+        // Enviar un mensaje rechazando la conversación.
+        try{
+            chat.sendMessage("Exit");
+        }catch(XMPPException xe){}
+
+        // Eliminar el chat
+        cl.eliminarChat(chat);
     }
 }
