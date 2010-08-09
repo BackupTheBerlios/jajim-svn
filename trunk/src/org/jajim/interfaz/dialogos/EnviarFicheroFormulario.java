@@ -18,9 +18,7 @@
 
 package org.jajim.interfaz.dialogos;
 
-import org.jajim.controladores.ConversacionControlador;
 import org.jajim.interfaz.listeners.EnviarFicheroActionListener;
-import org.jajim.interfaz.ventanas.VentanaConversacion;
 import org.jajim.main.Main;
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -42,6 +40,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import org.jajim.controladores.ConversacionControladorChatMultiusuario;
+import org.jajim.controladores.ConversacionControlador;
+import org.jajim.interfaz.ventanas.VentanaConversacion;
 import org.jivesoftware.smack.util.StringUtils;
 
 /**
@@ -102,9 +103,12 @@ public class EnviarFicheroFormulario extends JDialog implements ActionListener{
         formulario.setBorder(BorderFactory.createEmptyBorder(0,10,15,10));
 
         JPanel panelContactos = new JPanel();
-        ConversacionControlador cvc = vc.getCvc();
         String[] participantes = null;
-        participantes = cvc.getParticipantes();
+        ConversacionControlador cvc = vc.getCvc();
+        if(cvc instanceof ConversacionControladorChatMultiusuario){
+            ConversacionControladorChatMultiusuario cccm = (ConversacionControladorChatMultiusuario) cvc;
+            participantes = cccm.getParticipantesComoJID();
+        }
         panelContactos.setLayout(new GridLayout(participantes.length + 1,1));
         etiquetaContactos = new JLabel(etiquetas[0]);
         panelContactos.add(etiquetaContactos);

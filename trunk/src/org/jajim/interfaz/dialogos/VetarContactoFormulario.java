@@ -19,7 +19,6 @@
 package org.jajim.interfaz.dialogos;
 
 import org.jajim.interfaz.listeners.VetarContactoActionListener;
-import org.jajim.interfaz.ventanas.VentanaConversacion;
 import org.jajim.main.Main;
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -40,6 +39,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import org.jajim.controladores.ContactosControlador;
+import org.jajim.controladores.ConversacionControladorChatMultiusuario;
+import org.jajim.controladores.ConversacionControlador;
+import org.jajim.interfaz.ventanas.VentanaConversacion;
 
 /**
  * @author Florencio Cañizal Calles
@@ -90,16 +92,18 @@ public class VetarContactoFormulario extends JDialog implements ActionListener{
         // Creación del formulario
         boolean sinContactos = false;
         JPanel formulario = new JPanel();
-         formulario.setBorder(BorderFactory.createEmptyBorder(0,10,15,10));
+        formulario.setBorder(BorderFactory.createEmptyBorder(0,10,15,10));
         formulario.setLayout(new GridLayout(etiquetas.length,2,5,10));
         for(int i = 0;i < etiquetas.length;i++){
             grupoDeEtiquetas[i] = new JLabel(etiquetas[i]);
             grupoDeEtiquetas[i].setHorizontalAlignment(JLabel.CENTER);
             formulario.add(grupoDeEtiquetas[i]);
             String[] participantes = null;
-            try{
-                participantes = vc.getParticipantes();
-            }catch(Exception e){}
+            ConversacionControlador cvc = vc.getCvc();
+            if(cvc instanceof ConversacionControladorChatMultiusuario){
+                ConversacionControladorChatMultiusuario cccm = (ConversacionControladorChatMultiusuario) cvc;
+                participantes = cccm.getParticipantesComoJID();
+            }
             String[] contactos = ContactosControlador.getInstancia().getContactosPorNombre();
             List<String> aux = Arrays.asList(contactos);
             List<String> listaContactos = new ArrayList<String>();

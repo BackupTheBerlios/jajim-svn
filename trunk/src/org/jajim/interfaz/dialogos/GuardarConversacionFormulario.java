@@ -19,7 +19,6 @@
 package org.jajim.interfaz.dialogos;
 
 import org.jajim.interfaz.listeners.GuardarConversacionActionListener;
-import org.jajim.interfaz.ventanas.VentanaConversacion;
 import org.jajim.main.Main;
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -36,10 +35,11 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import org.jajim.interfaz.ventanas.VentanaConversacion;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase formulario en la que se introducen los datos para poder guardar una con
  * versación.
  */
