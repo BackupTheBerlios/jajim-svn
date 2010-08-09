@@ -18,30 +18,6 @@
 
 package org.jajim.interfaz.ventanas;
 
-import org.jajim.controladores.ContactosControlador;
-import org.jajim.controladores.ConversacionControlador;
-import org.jajim.controladores.PreferenciasControlador;
-import org.jajim.excepciones.ImposibleCrearChatMultiusuarioException;
-import org.jajim.excepciones.ImposibleUnirseALaSalaException;
-import org.jajim.excepciones.ServicioDeChatMultiusuarioNoEncontradoException;
-import org.jajim.interfaz.dialogos.MensajeError;
-import org.jajim.interfaz.listeners.ColorMenuActionListener;
-import org.jajim.interfaz.listeners.CursivaMenuActionListener;
-import org.jajim.interfaz.listeners.EnviarFicheroMenuActionListener;
-import org.jajim.interfaz.listeners.EnviarMensajeAction;
-import org.jajim.interfaz.listeners.EnviarMensajeActionListener;
-import org.jajim.interfaz.listeners.FuenteMenuActionListener;
-import org.jajim.interfaz.listeners.GuardarConversacionMenuActionListener;
-import org.jajim.interfaz.listeners.InvitarContactoMenuActionListener;
-import org.jajim.interfaz.listeners.NegritaMenuActionListener;
-import org.jajim.interfaz.listeners.VentanaConversacionWindowListener;
-import org.jajim.interfaz.listeners.VetarContactoMenuActionListener;
-import org.jajim.interfaz.utilidades.PanelConversacion;
-import org.jajim.main.Main;
-import org.jajim.modelo.conversaciones.EventosConversacionEnumeracion;
-import org.jajim.modelo.conversaciones.ParticipantesListener;
-import org.jajim.modelo.conversaciones.RechazoInvitacionListener;
-import org.jajim.modelo.conversaciones.TiposDeChatEnumeracion;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -71,9 +47,26 @@ import javax.swing.JTextArea;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 import javax.swing.text.Keymap;
-import org.jajim.controladores.CuentaControlador;
+import org.jajim.controladores.ContactosControlador;
+import org.jajim.controladores.ConversacionControlador;
+import org.jajim.controladores.PreferenciasControlador;
+import org.jajim.interfaz.listeners.ColorMenuActionListener;
+import org.jajim.interfaz.listeners.CursivaMenuActionListener;
+import org.jajim.interfaz.listeners.EnviarFicheroMenuActionListener;
+import org.jajim.interfaz.listeners.EnviarMensajeAction;
+import org.jajim.interfaz.listeners.EnviarMensajeActionListener;
+import org.jajim.interfaz.listeners.FuenteMenuActionListener;
+import org.jajim.interfaz.listeners.GuardarConversacionMenuActionListener;
+import org.jajim.interfaz.listeners.InvitarContactoMenuActionListener;
+import org.jajim.interfaz.listeners.NegritaMenuActionListener;
+import org.jajim.interfaz.listeners.VentanaConversacionWindowListener;
+import org.jajim.interfaz.listeners.VetarContactoMenuActionListener;
+import org.jajim.interfaz.utilidades.PanelConversacion;
+import org.jajim.main.Main;
+import org.jajim.modelo.conversaciones.EventosConversacionEnumeracion;
+import org.jajim.modelo.conversaciones.ParticipantesListener;
+import org.jajim.modelo.conversaciones.RechazoInvitacionListener;
 import org.jivesoftware.smack.XMPPConnection;
-import org.jivesoftware.smack.util.StringUtils;
 
 /**
  * @author Florencio Cañizal Calles
@@ -86,7 +79,7 @@ public class VentanaConversacion extends JFrame implements Observer{
     private ResourceBundle texto = ResourceBundle.getBundle("resources.Idioma",Main.loc);
 
     // Cadenas constantes para impresión
-    private final String principal = texto.getString("conversacion_etiqueta_principal");
+    protected final String principal = texto.getString("conversacion_etiqueta_principal");
     private final String enviar = texto.getString("conversacion_enviar");
 
     private final String [] menusCad = {
@@ -148,20 +141,11 @@ public class VentanaConversacion extends JFrame implements Observer{
         new CursivaMenuActionListener(this)
     };
 
-    // Matriz que determina si los botones están activados
-    private final boolean activadosPrivado[][] = {
-        {true,true,false,false}
-    };
-
-    private final boolean activadosMultiusuario[][] = {
-        {true,true,true,true}
-    };
-
     // Controladores utilizados
-    private ConversacionControlador cvc;
+    protected ConversacionControlador cvc;
 
     // Panel de conversaciones
-    private PanelConversacion conversacion;
+    protected PanelConversacion conversacion;
 
     // Gestor de transferencias
     private VentanaGestorDeTransferencias vgt;
@@ -170,15 +154,15 @@ public class VentanaConversacion extends JFrame implements Observer{
     // Menú
     private JMenuBar barraMenu;
     private JMenu menus[] = new JMenu[menusCad.length];
-    private JMenuItem[][] itemsDeMenu = new JMenuItem[menusCad.length][];
+    protected JMenuItem[][] itemsDeMenu = new JMenuItem[menusCad.length][];
 
     // Barra de herramientas
     private JToolBar barraDeHerramientas;
-    private JButton[] botonesBarraDeHerramientas = new JButton[itemsDeMenuCad[0].length];
+    protected JButton[] botonesBarraDeHerramientas = new JButton[itemsDeMenuCad[0].length];
 
     // Componentes de la interfaz
-    private JLabel etiquetaPrincipal;
-    private JTextArea nuevoMensaje;
+    protected JLabel etiquetaPrincipal;
+    protected JTextArea nuevoMensaje;
     private JButton botonEnviar;
 
     // Barra de estilos
@@ -186,7 +170,7 @@ public class VentanaConversacion extends JFrame implements Observer{
     private JButton[] botonesBarraDeEstilos = new JButton[itemsDeMenuEstilo.length];
 
     // El usuario actual
-    private String usuarioActual;
+    protected String usuarioActual;
 
     // Conjunto de conversaciones abiertas
     private static List<VentanaConversacion> conversaciones;
@@ -197,8 +181,8 @@ public class VentanaConversacion extends JFrame implements Observer{
      * @param vp Ventana principal de la aplicación.
      * @param alias Alias del contacto con el que se va a establecer la conversacion.
      */
-    private VentanaConversacion(VentanaPrincipal vp,String alias){
-    
+    public VentanaConversacion(VentanaPrincipal vp,String alias){
+
         // Creación del menú de la aplicación
         barraMenu = new JMenuBar();
 
@@ -225,7 +209,7 @@ public class VentanaConversacion extends JFrame implements Observer{
         }
 
         this.setJMenuBar(barraMenu);
-        
+
         // Inicialización de variables
         vgt = vp.getVgt();
 
@@ -253,7 +237,7 @@ public class VentanaConversacion extends JFrame implements Observer{
         etiquetaPrincipal = new JLabel(principal + " - " + alias);
         etiquetaPrincipal.setBorder(BorderFactory.createEmptyBorder(15,10,15,10));
         barraDeHerramientasYTitulo.add(BorderLayout.CENTER,etiquetaPrincipal);
-        
+
         cp.add(BorderLayout.NORTH,barraDeHerramientasYTitulo);
 
         // Creación del panel en el que se visualizan los mensajes de la conver
@@ -294,20 +278,20 @@ public class VentanaConversacion extends JFrame implements Observer{
         nuevoMensaje.setWrapStyleWord(true);
         Keymap keymap = nuevoMensaje.addKeymap("MiKeymap",nuevoMensaje.getKeymap());
         KeyStroke key = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER,0);
-        //keymap.addActionForKeyStroke(key,new EnviarMensajeAction(this,conversacion));
+        keymap.addActionForKeyStroke(key,new EnviarMensajeAction(this,conversacion));
         nuevoMensaje.setKeymap(keymap);
         JScrollPane scrollPane = new JScrollPane(nuevoMensaje);
         mensajes.add(BorderLayout.CENTER,scrollPane);
         botonEnviar = new JButton(enviar,new ImageIcon(ClassLoader.getSystemResource("icons/enviar_mensaje.png")));
-        //botonEnviar.addActionListener(new EnviarMensajeActionListener(this,conversacion));
+        botonEnviar.addActionListener(new EnviarMensajeActionListener(this,conversacion));
         mensajes.add(BorderLayout.EAST,botonEnviar);
         barraYMensajes.add(BorderLayout.CENTER,mensajes);
         cp.add(BorderLayout.SOUTH,barraYMensajes);
 
         // Creación del controlador de la conversación e iniciación de la conver
         // sación
-        String usuario = ContactosControlador.getInstancia().getContactoPorAlias(alias);
-        cvc = new ConversacionControlador(this,usuario,conversacion);
+        //String usuario = ContactosControlador.getInstancia().getContactoPorAlias(alias);
+        //cvc = new ConversacionControlador(this,usuario,conversacion);
 
         // Añadir la conversación a la lista
         VentanaConversacion.añadirConversacion(this);
@@ -327,190 +311,6 @@ public class VentanaConversacion extends JFrame implements Observer{
     }
 
     /**
-     * Constructor de la clase. Inicializa las variables necesarias.
-     * @param vp La ventana principal de la aplicación.
-     * @param alias El alias del contacto con el que se va a establecer la conversación.
-     * @param tipo El tipo de conversación que se va a iniciar.
-     */
-    public VentanaConversacion(VentanaPrincipal vp,String alias,TiposDeChatEnumeracion tipo){
-        
-        // Iniciar interfaz
-        this(vp,alias);
-
-        // Arrancar controlador
-        cvc.iniciarConversacion(tipo);
-
-        // Asignar nombres
-        String identificador = CuentaControlador.getInstancia().getIdentificador();
-        conversacion.añadirUsuario("Usuario",identificador);
-        usuarioActual = identificador;
-        conversacion.añadirUsuario(ContactosControlador.getInstancia().getContactoPorAlias(alias),alias);
-
-        // Habilitar o deshabilitar los botones
-        for(int i = 0;i < itemsDeMenu.length;i++){
-            for(int j = 0;j < itemsDeMenu[i].length;j++){
-                itemsDeMenu[i][j].setEnabled(activadosPrivado[i][j]);
-                botonesBarraDeHerramientas[j].setEnabled(activadosPrivado[0][j]);
-            }
-        }
-
-        // Actualizar preferencias
-        this.actualizarPreferenciasMensajes();
-
-        // Establecer el foco en el mensaje de texto
-        nuevoMensaje.requestFocusInWindow();
-    }
-
-    /**
-     * Constructor de la clase. Inicializa las variables necesarias.
-     * @param vp La ventana principal de la aplicación.
-     * @param alias El alias del contacto con el que se va a establecer la conver
-     * sación.
-     * @param room El nombre de la sala.
-     * @param nickname El nick que va a utilizar nuestro usuario.
-     * @param tipo El tipo de chat que se va a utilizar.
-     */
-    public VentanaConversacion(VentanaPrincipal vp,String alias,String room,String nickname,TiposDeChatEnumeracion tipo){
-        
-        // Iniciar la interfaz
-        this(vp,alias);
-
-        // Arrancar el controlador
-        try{
-            cvc.iniciarConversacion(room,nickname,tipo);
-        }catch(ServicioDeChatMultiusuarioNoEncontradoException sdcmne){
-            new MensajeError(this,"servicio_chat_multiusuairo_no_encontrado",MensajeError.ERR);
-            this.dispose();
-            return;
-        }catch(ImposibleCrearChatMultiusuarioException iccme){
-            new MensajeError(this,"imposible_crear_chat_multiusuario_error",MensajeError.ERR);
-            this.dispose();
-            return;
-        }
-
-        etiquetaPrincipal.setText(principal + " - ");
-
-        // Asignar nombres
-        conversacion.añadirUsuario("Usuario",nickname);
-        usuarioActual = nickname;
-
-        // Habilitar o deshabilitar los botones
-        for(int i = 0;i < itemsDeMenu.length;i++){
-            for(int j = 0;j < itemsDeMenu[i].length;j++){
-                itemsDeMenu[i][j].setEnabled(activadosMultiusuario[i][j]);
-                botonesBarraDeHerramientas[j].setEnabled(activadosMultiusuario[0][j]);
-            }
-        }
-
-        // Actualizar preferencias
-        this.actualizarPreferenciasMensajes();
-
-        // Establecer el foco en el mensaje de texto
-        nuevoMensaje.requestFocusInWindow();
-    }
-
-    /**
-     * Constuctor de la clase. Inicializa las variables necesarias.
-     * @param vp La ventana principal de la aplicación.
-     * @param idChat El identificador del chat que se va a mantener.
-     * @param alias El alias del usuario que a solicitado la conversación.
-     * @param tipo El tipo de conversación que se va a mantener.
-     */
-    public VentanaConversacion(VentanaPrincipal vp,String idChat,String alias,TiposDeChatEnumeracion tipo){
-
-        // Iniciar la interfaz
-        this(vp,alias);
-
-        // Arrancar el controlador
-        cvc.iniciarConversacion(idChat,tipo);
-
-        // Asignar nombres
-        String identificador = CuentaControlador.getInstancia().getIdentificador();
-        conversacion.añadirUsuario("Usuario",identificador);
-        usuarioActual = identificador;
-        conversacion.añadirUsuario(ContactosControlador.getInstancia().getContactoPorAlias(alias),alias);
-
-        // Habilitar o deshabilitar los botones
-        for(int i = 0;i < itemsDeMenu.length;i++){
-            for(int j = 0;j < itemsDeMenu[i].length;j++){
-                itemsDeMenu[i][j].setEnabled(activadosPrivado[i][j]);
-                botonesBarraDeHerramientas[j].setEnabled(activadosPrivado[0][j]);
-            }
-        }
-
-        // Actualizar preferencias
-        this.actualizarPreferenciasMensajes();
-
-        // Establecer el foco en el mensaje de texto
-        nuevoMensaje.requestFocusInWindow();
-    }
-
-    /**
-     * Constructor de la clase. Iniciliza las variables necesarias.
-     * @param vp La ventana principal de la aplicación.
-     * @param alias El alias del contacto que solicita la conversación.
-     * @param idInvitacion El identificador de la invitación recibida.
-     * @param room La sala donde transcurrirá la conversación.
-     * @param nickname El nick que va a utilizar el usuario.
-     * @param tipo El tipo de chat que se va a utilizar.
-     */
-    public VentanaConversacion(VentanaPrincipal vp,String alias,String idInvitacion,String room,String nickname,TiposDeChatEnumeracion tipo){
-
-        // Iniciar la interfaz
-        this(vp,alias);
-
-        // Iniciar la conversación
-        try{
-            cvc.iniciarConversacion(idInvitacion,room,nickname,tipo);
-        }catch(ImposibleUnirseALaSalaException iualse){
-            new MensajeError(this,"imposible_unirse_a_la_sala_error",MensajeError.ERR);
-            this.dispose();
-            return;
-        }
-
-        // Asignar nombres
-        etiquetaPrincipal.setText(principal + " - ");
-        boolean primero = true;
-        conversacion.añadirUsuario("Usuario",nickname);
-        usuarioActual = nickname;
-        String[] participantes = cvc.getParticipantesComoRecurso();
-
-        for(String participante : participantes){
-            
-            String n = StringUtils.parseResource(participante);
-            if(n == null)
-                continue;
-
-            // Si no es el usuario actual
-            if(n.compareTo(nickname) != 0){
-                // Añadir el nick del participante a la etiqueta principal
-                if(primero){
-                    etiquetaPrincipal.setText(etiquetaPrincipal.getText() + n);
-                    primero = false;
-                }
-                else
-                    etiquetaPrincipal.setText(etiquetaPrincipal.getText() + ", " + n);
-                // Añadri el usuario y el nick a el panel de la conversación
-                conversacion.añadirUsuario(participante,n);
-            }
-        }
-
-        // Habilitar o deshabilitar los botones
-        for(int i = 0;i < itemsDeMenu.length;i++){
-            for(int j = 0;j < itemsDeMenu[i].length;j++){
-                itemsDeMenu[i][j].setEnabled(activadosMultiusuario[i][j]);
-                botonesBarraDeHerramientas[j].setEnabled(activadosMultiusuario[0][j]);
-            }
-        }
-
-        // Actualizar preferencias
-        this.actualizarPreferenciasMensajes();
-
-        // Establecer el foco en el mensaje de texto
-        nuevoMensaje.requestFocusInWindow();
-    }
-
-    /**
      * Recupera el mensaje introducido en el campo y resetea el campo.
      * @return El mensaje introducido en el campo.
      */
@@ -521,20 +321,6 @@ public class VentanaConversacion extends JFrame implements Observer{
         nuevoMensaje.setText("");
 
         return mensaje;
-    }
-
-    /**
-     * Devuelve un array con los participantes de la conversación.
-     * @return Un array con los participantes de la conversación.
-     */
-    public String[] getParticipantes(){
-        
-        String[] participantes = null;
-
-        //Recuperar los participantes del controlador de conversaciones
-        participantes = cvc.getParticipantesComoJID();
-
-        return participantes;
     }
 
     /**
@@ -674,8 +460,7 @@ public class VentanaConversacion extends JFrame implements Observer{
     }
 
     /**
-     * Añade una conversación a la lista de conversaciones gestionada por la cla
-     * se.
+     * Añade una conversación a la lista de conversaciones gestionada por la clase.
      * @param vc La conversación que se va a añadir.
      */
     private static void añadirConversacion(VentanaConversacion vc){
@@ -765,7 +550,7 @@ public class VentanaConversacion extends JFrame implements Observer{
 
         boolean chatPrivado = false;
         String contacto = null;
-        
+
         // Recuperar el contacto por el alias
         if(conversaciones != null && conversaciones.size() > 0){
             contacto = ContactosControlador.getInstancia().getContactoPorAlias(alias);
@@ -777,7 +562,7 @@ public class VentanaConversacion extends JFrame implements Observer{
         // el usuario
         for(VentanaConversacion vc : conversaciones){
             String[] participantes = vc.getCvc().getParticipantes();
-            if(participantes.length == 1 && vc.getCvc().getTipo() == TiposDeChatEnumeracion.chatPrivado && contacto.compareTo(participantes[0]) == 0){
+            if(participantes.length == 1 && vc instanceof VentanaConversacionChatPrivado && contacto.compareTo(participantes[0]) == 0){
                 chatPrivado = true;
                 break;
             }

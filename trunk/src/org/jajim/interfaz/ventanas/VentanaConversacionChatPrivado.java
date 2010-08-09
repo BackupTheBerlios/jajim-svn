@@ -28,7 +28,7 @@ import org.jajim.controladores.CuentaControlador;
  * Clase que representa una ventana de un chat privado. Inicializa la interfaz
  * necesaria para que el usuario dialogue con un contacto.
  */
-public class VentanaConversacionChatPrivado extends VentanaConversacionNueva{
+public class VentanaConversacionChatPrivado extends VentanaConversacion{
 
     // Matriz que determina si los botones están activados
     private final boolean activadosPrivado[][] = {
