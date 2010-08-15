@@ -20,7 +20,6 @@ package org.jajim.interfaz.listeners;
 
 import org.jajim.controladores.ConexionControlador;
 import org.jajim.controladores.ContactosControlador;
-import org.jajim.controladores.ConversacionControlador;
 import org.jajim.controladores.TransferenciaFicherosControlador;
 import org.jajim.excepciones.ContraseñaNoDisponibleException;
 import org.jajim.excepciones.ImposibleLoginException;
@@ -31,7 +30,7 @@ import org.jajim.interfaz.dialogos.MensajeError;
 import org.jajim.interfaz.ventanas.VentanaPrincipal;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import org.jajim.controladores.ConversacionControladorNuevo;
+import org.jajim.controladores.ConversacionControlador;
 import org.jivesoftware.smack.Roster;
 
 /**
@@ -78,8 +77,8 @@ public class ConectarActionListener implements ActionListener{
             vp.conexionEstablecida();
             ctc.setListeners(vp.getPc(),vp.getOc());
             ctc.setContactos(r);
-            ConversacionControladorNuevo.crearListener(ccn.getXc(),vp.getOc());
-            tfc.crearManager(ccn.getXc(),vp.getOc());
+            ConversacionControlador.crearListener(vp.getOc());
+            tfc.crearManager(vp.getOc());
         }catch(ServidorNoEncontradoException snee){
             new MensajeError(vp,"servidor_no_encontrado_error",MensajeError.ERR);
         }catch(ContraseñaNoDisponibleException cnde){
@@ -101,8 +100,8 @@ public class ConectarActionListener implements ActionListener{
                 vp.conexionEstablecida();
                 ctc.setListeners(vp.getPc(),vp.getOc());
                 ctc.setContactos(r);
-                ConversacionControlador.crearListener(ccn.getXc(),vp.getOc());
-                tfc.crearManager(ccn.getXc(),vp.getOc());
+                ConversacionControlador.crearListener(vp.getOc());
+                tfc.crearManager(vp.getOc());
             }catch(ServidorNoEncontradoException snee){
                 new MensajeError(vp,"servidor_no_encontrado_error",MensajeError.ERR);
             }catch(ImposibleLoginException ile){
