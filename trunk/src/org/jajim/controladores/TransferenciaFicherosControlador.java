@@ -75,9 +75,16 @@ public class TransferenciaFicherosControlador {
 
     /**
      * Crea un manager de transferencia de ficheros a partir de una conexión.
-     * @param xc Conexión que se ha establecido.
+     * @param observer El observador que será notificado de la llegada de peticiones
+     * de transferencia de ficheros.
      */
-    public void crearManager(XMPPConnection xc,Observer observer){
+    public void crearManager(Observer observer){
+
+        // Recuperar la conexión
+        ConexionControlador cnc = ConexionControlador.getInstancia();
+        XMPPConnection xc = cnc.getXc();
+
+        // Inicializar los elementos necesarios
         ftm = new FileTransferManager(xc);
         rfl = new RecepcionFicherosListener(observer);
         ftm.addFileTransferListener(rfl);
