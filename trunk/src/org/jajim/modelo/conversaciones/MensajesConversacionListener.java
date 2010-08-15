@@ -18,45 +18,67 @@
 
 package org.jajim.modelo.conversaciones;
 
-import java.util.Observable;
-import java.util.Observer;
-import org.jivesoftware.smack.Chat;
-import org.jivesoftware.smack.MessageListener;
+import java.util.Collection;
+import org.jivesoftware.smack.PacketListener;
+import org.jivesoftware.smack.XMPPConnection;
+import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Message;
+import org.jivesoftware.smack.packet.Packet;
+import org.jivesoftware.smack.util.StringUtils;
+import org.jivesoftware.smackx.muc.HostedRoom;
+import org.jivesoftware.smackx.muc.MultiUserChat;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
- * Captura los mensajes recibidos por otros miembros de la conversación y los pa
- * sa a la interfaz.
+ * @version 1.1
+ * Cachea los mensajes recibidos en chats privados para recuperar, el primer mensaje
+ * de un chat privado.
  */
-public class MensajesConversacionListener extends Observable implements MessageListener{
+public class MensajesConversacionListener implements PacketListener{
 
     /**
      * Constructor de la clase. Inicializa las variables adecuadas.
-     * @param observador El observador de la interfaz que recibirá los mensajes
-     * recibidos.
      */
-    public MensajesConversacionListener(Observer observador){
-        this.addObserver(observador);
+    public MensajesConversacionListener(){
     }
 
     /**
-     * Método que se ejecuta cuando llega un mensaje de un contacto de la conver
-     * sación.
-     * @param char Chat para el que se ha recibido el mensaje.
-     * @param mensaje Mensaje que se ha recibido.
+     * Método que se ejecuta cada vez que se recibe un mensaje de conversación.
+     * Recupera el contenido del mensaje y lo guarda en una pila.
+     * @param arg0 El paquete que se acaba de recibir.
      */
     @Override
-    public void processMessage(Chat chat, Message mensaje) {
+    public void processPacket(Packet arg0) {
 
-        // Extraer la información del mensaje
-        String[] contenido = new String[2];
-        contenido[0] = mensaje.getFrom();
-        contenido[1] = mensaje.getBody();
+        Message m = null;
+        
+        // Recuperar el mensaje
+        if(arg0 instanceof Message)
+            m = (Message) arg0;
+        else
+            return;
 
-        // Pasar la información a la interfaz
-        this.setChanged();
-        this.notifyObservers(contenido);
+        // Comprobar si el mensaje es de chat privado
+        String servicio = StringUtils.parseServer(m.getFrom());
+        int posicion = servicio.indexOf('.');
+        String s = servicio.substring(0,posicion);
+
+        System.out.println("----- MENSAJE -----");
+        if(s.compareTo("conf") == 0 || s.compareTo("conference") == 0 || s.compareTo("chat") == 0 || s.compareTo("muc") == 0)
+            System.out.println("Mensaje de chat multiusuario");
+        else
+            System.out.println("Mensaje de chat privado");
+
+        // DEBUG
+        System.out.println("El servicio es: " + s);
+        System.out.println("Cuerpo: " + m.getBody());
+        System.out.println("Desde: " + m.getFrom());
+        System.out.println("Identificador: " + m.getPacketID());
+        System.out.println("Tema: " + m.getSubject());
+        System.out.println("Hilo: " + m.getThread());
+        System.out.println("Para: " + m.getTo());
+        System.out.println("Xmlns: " + m.getXmlns());
+        System.out.println("-------------------");
+
     }
 }

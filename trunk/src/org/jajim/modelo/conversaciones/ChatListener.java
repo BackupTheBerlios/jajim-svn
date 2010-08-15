@@ -28,6 +28,10 @@ import java.util.Observer;
 import java.util.Set;
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.ChatManagerListener;
+import org.jivesoftware.smack.XMPPConnection;
+import org.jivesoftware.smack.filter.PacketFilter;
+import org.jivesoftware.smack.filter.PacketTypeFilter;
+import org.jivesoftware.smack.packet.Message;
 
 /**
  * @author Florencio Cañizal Calles
@@ -38,15 +42,20 @@ public class ChatListener extends Observable implements ChatManagerListener{
 
     private Map<String,Chat> listaDeChats;
     private String idChat;
+    private MensajesConversacionListener mcl;
 
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
      * @param o El observador que será notificado de los eventos de creación de
      * chat.
+     * @param xc La conexión actual.
      */
-    public ChatListener(Observer o){
+    public ChatListener(Observer o,XMPPConnection xc){
         this.addObserver(o);
         listaDeChats = new HashMap<String,Chat>();
+        PacketFilter pf = new PacketTypeFilter(Message.class);
+        mcl = new MensajesConversacionListener();
+        xc.addPacketListener(mcl,pf);
     }
 
     /**
