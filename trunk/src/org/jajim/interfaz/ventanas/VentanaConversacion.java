@@ -517,7 +517,7 @@ public class VentanaConversacion extends JFrame implements Observer{
         conversaciones.clear();
 
         // Resetear el oyente.
-        ConversacionControlador.eliminarListener(xc);
+        ConversacionControlador.eliminarListener();
     }
 
     /**
