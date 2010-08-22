@@ -18,7 +18,6 @@
 
 package org.jajim.interfaz.utilidades;
 
-import org.jajim.controladores.ConversacionControlador;
 import org.jajim.interfaz.dialogos.AceptarORechazarChatPrivadoFormulario;
 import org.jajim.interfaz.dialogos.AceptarORechazarContactoFormulario;
 import org.jajim.interfaz.dialogos.AceptarORechazarFicheroFormulario;
@@ -35,6 +34,8 @@ import java.util.Observable;
 import java.util.Observer;
 import javax.swing.SwingUtilities;
 import org.jajim.controladores.ContactosControlador;
+import org.jajim.controladores.ConversacionControladorChatMultiusuario;
+import org.jajim.controladores.ConversacionControladorChatPrivado;
 import org.jajim.controladores.TransferenciaFicherosControlador;
 
 /**
@@ -144,7 +145,7 @@ public class OyenteConexion implements Observer{
                 }
                 else{
                     try{
-                        ConversacionControlador.rechazarChatPrivado(idChat);
+                        ConversacionControladorChatPrivado.rechazarChatPrivado(idChat);
                     }catch(Exception e){}
                 }
             }
@@ -170,7 +171,7 @@ public class OyenteConexion implements Observer{
                 }
                 else{
                     try{
-                        ConversacionControlador.rechazarInvitacion(contacto,room);
+                        ConversacionControladorChatMultiusuario.rechazarInvitacion(contacto,room);
                     }catch(Exception e){}
                 }
             }
