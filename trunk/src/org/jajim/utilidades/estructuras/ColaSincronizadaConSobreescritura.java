@@ -34,6 +34,7 @@ public class ColaSincronizadaConSobreescritura<E> extends AbstractQueue<E>{
     private Object[] cola;
     private int head;
     private int tail;
+    private int elementos;
     
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
@@ -43,6 +44,7 @@ public class ColaSincronizadaConSobreescritura<E> extends AbstractQueue<E>{
         cola = new Object[tam];
         head = 0;
         tail = 0;
+        elementos = 0;
     }
 
     /**
@@ -52,19 +54,22 @@ public class ColaSincronizadaConSobreescritura<E> extends AbstractQueue<E>{
      * @return Devuelve siempre true.
      */
     @Override
-    public boolean offer(E e){
+    public synchronized boolean offer(E e){
 
-        // Comprobar si la cola está llena
-        if((head + 1) % cola.length == tail){
-            // Si está llena, borrar el elemento más antiguo y guardar el nuevo
-            head = (head + 1) % cola.length;
+        if(tail == head && elementos != 0){
+            // Si la cola está llena eliminar el elemento más antiguo y poner el
+            // nuevo
             cola[head] = e;
+            head = (head + 1) % cola.length;
             tail = (tail + 1) % cola.length;
         }else{
-            // Si no está llena se guarda el elemento en la siguiente posición disponible
-            head = (head + 1) % cola.length;
             cola[head] = e;
+            head = (head + 1) % cola.length;
         }
+
+        // Aumentar el número de elementos de la cola
+        if(elementos != cola.length)
+            elementos++;
 
         return true;
     }
@@ -75,7 +80,7 @@ public class ColaSincronizadaConSobreescritura<E> extends AbstractQueue<E>{
      * @return El elemento más antiguo de la cola.
      */
     @Override
-    public E poll(){
+    public synchronized E poll(){
 
         // Si la cola está vacía devuelve null
         if(this.isEmpty())
@@ -84,6 +89,7 @@ public class ColaSincronizadaConSobreescritura<E> extends AbstractQueue<E>{
             // Recupera el elemento más antiguo y retorna
             E elemento = (E) cola[tail];
             tail = (tail + 1) % cola.length;
+            elementos--;
             return elemento;
         }
     }
@@ -94,7 +100,7 @@ public class ColaSincronizadaConSobreescritura<E> extends AbstractQueue<E>{
      * @return El elemento más antiguo de la cola.
      */
     @Override
-    public E peek(){
+    public synchronized E peek(){
 
         // Si la cola está vacía devuelve null
         if(this.isEmpty())
@@ -110,12 +116,8 @@ public class ColaSincronizadaConSobreescritura<E> extends AbstractQueue<E>{
      * @return El tamaño de la cola.
      */
     @Override
-    public int size(){
-
-        if(tail < head)
-            return (head - tail) + 1;
-        else
-            return (cola.length - (tail - head)) + 1;
+    public synchronized int size(){
+        return elementos;
     }
 
     /**
@@ -123,7 +125,7 @@ public class ColaSincronizadaConSobreescritura<E> extends AbstractQueue<E>{
      * @return Un iterador que actúa sobre la cola.
      */
     @Override
-    public Iterator<E> iterator(){
+    public synchronized Iterator<E> iterator(){
 
         // Conseguimos una cola a partir del array y retornamos un iterador a la
         // misma.
