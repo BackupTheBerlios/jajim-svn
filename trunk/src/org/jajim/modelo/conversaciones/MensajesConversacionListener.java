@@ -18,15 +18,11 @@
 
 package org.jajim.modelo.conversaciones;
 
-import java.util.Collection;
+import org.jajim.utilidades.estructuras.ColaSincronizadaConSobreescritura;
 import org.jivesoftware.smack.PacketListener;
-import org.jivesoftware.smack.XMPPConnection;
-import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.packet.Packet;
 import org.jivesoftware.smack.util.StringUtils;
-import org.jivesoftware.smackx.muc.HostedRoom;
-import org.jivesoftware.smackx.muc.MultiUserChat;
 
 /**
  * @author Florencio Cañizal Calles
@@ -36,10 +32,13 @@ import org.jivesoftware.smackx.muc.MultiUserChat;
  */
 public class MensajesConversacionListener implements PacketListener{
 
+    private ColaSincronizadaConSobreescritura<Message> cscs;
+
     /**
      * Constructor de la clase. Inicializa las variables adecuadas.
      */
     public MensajesConversacionListener(){
+        cscs = new ColaSincronizadaConSobreescritura<Message>(5);
     }
 
     /**
@@ -63,22 +62,35 @@ public class MensajesConversacionListener implements PacketListener{
         int posicion = servicio.indexOf('.');
         String s = servicio.substring(0,posicion);
 
-        System.out.println("----- MENSAJE -----");
         if(s.compareTo("conf") == 0 || s.compareTo("conference") == 0 || s.compareTo("chat") == 0 || s.compareTo("muc") == 0)
-            System.out.println("Mensaje de chat multiusuario");
-        else
-            System.out.println("Mensaje de chat privado");
+            return;
+        else{
+            cscs.offer(m);
+        }
+    }
 
-        // DEBUG
-        System.out.println("El servicio es: " + s);
-        System.out.println("Cuerpo: " + m.getBody());
-        System.out.println("Desde: " + m.getFrom());
-        System.out.println("Identificador: " + m.getPacketID());
-        System.out.println("Tema: " + m.getSubject());
-        System.out.println("Hilo: " + m.getThread());
-        System.out.println("Para: " + m.getTo());
-        System.out.println("Xmlns: " + m.getXmlns());
-        System.out.println("-------------------");
+    /**
+     * Retorna el mensaje que ha dado lugar al chat privado.
+     * @param idChat El identificador del chat.
+     * @return El mensaje que da lugar al chat privado.
+     */
+    public Message getPrimerMensaje(String idChat){
+        
+        Message m = null;
+        boolean finalizado = false;
 
+        // Sacar los mensajes almacenados en la cola hasta dar con el apropiado
+        while(!finalizado){
+            if(!cscs.isEmpty()){
+                m = cscs.poll();
+                if(idChat.compareTo(m.getThread()) == 0){
+                    return m;
+                }
+            }else{
+                finalizado = true;
+            }
+        }
+
+        return null;
     }
 }

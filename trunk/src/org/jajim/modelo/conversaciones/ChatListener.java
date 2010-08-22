@@ -35,7 +35,7 @@ import org.jivesoftware.smack.packet.Message;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que reacciona a los eventos de chat recibidos a través de la conexión.
  */
 public class ChatListener extends Observable implements ChatManagerListener{
@@ -80,8 +80,8 @@ public class ChatListener extends Observable implements ChatManagerListener{
             }
             // Si no es chat multiusuario
             if(chat.getParticipant().contains("/")){
-                listaDeChats.put(chat.getThreadID(),chat);
                 idChat = chat.getThreadID();
+                listaDeChats.put(idChat,chat);
                 this.setChanged();
                 this.notifyObservers(EventosDeConexionEnumeracion.peticionDeChat);
             }
@@ -142,7 +142,20 @@ public class ChatListener extends Observable implements ChatManagerListener{
 
         // Recuperar el chat y retornarlo
         Chat chat = listaDeChats.get(idChat);
-
+        
         return chat;
+    }
+
+    /**
+     * Retorna el primer mensaje recibido durante un chat privado.
+     * @param idChat El identificador del chat.
+     * @return El primer mensaje que se obtuvo del chat.
+     */
+    public Message getPrimerMensaje(String idChat){
+
+        // Recuperar el primer mensaje para cuando haga falta
+        Message m = mcl.getPrimerMensaje(idChat);
+
+        return m;
     }
 }
