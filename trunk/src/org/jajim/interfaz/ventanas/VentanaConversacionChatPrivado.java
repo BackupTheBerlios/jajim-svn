@@ -91,17 +91,17 @@ public class VentanaConversacionChatPrivado extends VentanaConversacion{
         String usuario = ContactosControlador.getInstancia().getContactoPorAlias(alias);
         cvc = new ConversacionControladorChatPrivado(usuario,conversacion);
 
-        // LLamar al controlador para crear un nuevo chat
-        if(cvc instanceof ConversacionControladorChatPrivado){
-            ConversacionControladorChatPrivado cccp = (ConversacionControladorChatPrivado) cvc;
-            cccp.aceptarChatPrivado(idChat);
-        }
-
         // Asignar nombres
         String identificador = CuentaControlador.getInstancia().getIdentificador();
         conversacion.añadirUsuario("Usuario",identificador);
         usuarioActual = identificador;
         conversacion.añadirUsuario(ContactosControlador.getInstancia().getContactoPorAlias(alias),alias);
+
+        // LLamar al controlador para crear un nuevo chat
+        if(cvc instanceof ConversacionControladorChatPrivado){
+            ConversacionControladorChatPrivado cccp = (ConversacionControladorChatPrivado) cvc;
+            cccp.aceptarChatPrivado(idChat);
+        }
 
         // Habilitar o deshabilitar los botones
         for(int i = 0;i < itemsDeMenu.length;i++){

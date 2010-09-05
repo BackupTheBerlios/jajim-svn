@@ -63,10 +63,12 @@ public class VentanaConversacionChatMultiusuario extends VentanaConversacion{
         }catch(ServicioDeChatMultiusuarioNoEncontradoException sdcmne){
             new MensajeError(this,"servicio_chat_multiusuairo_no_encontrado",MensajeError.ERR);
             this.dispose();
+            VentanaConversacion.eliminarConversacion(this);
             return;
         }catch(ImposibleCrearChatMultiusuarioException iccme){
             new MensajeError(this,"imposible_crear_chat_multiusuario_error",MensajeError.ERR);
             this.dispose();
+            VentanaConversacion.eliminarConversacion(this);
             return;
         }
 
@@ -115,6 +117,7 @@ public class VentanaConversacionChatMultiusuario extends VentanaConversacion{
         }catch(ImposibleUnirseALaSalaException iualse){
             new MensajeError(this,"imposible_unirse_a_la_sala_error",MensajeError.ERR);
             this.dispose();
+            VentanaConversacion.eliminarConversacion(this);
             return;
         }
 
@@ -145,7 +148,9 @@ public class VentanaConversacionChatMultiusuario extends VentanaConversacion{
                 }
                 else
                     etiquetaPrincipal.setText(etiquetaPrincipal.getText() + ", " + n);
-                // Añadri el usuario y el nick a el panel de la conversación
+                // Añadir el usuario y el nick a el panel de la conversación
+                // El formato es participante: misala83@conf.jabberes.org/fppfc83
+                //               n : fppfc83
                 conversacion.añadirUsuario(participante,n);
             }
         }
