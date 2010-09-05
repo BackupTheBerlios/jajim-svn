@@ -26,6 +26,7 @@ import javax.swing.UIManager;
 import org.jvnet.substance.SubstanceLookAndFeel;
 import org.jvnet.substance.fonts.FontPolicies;
 import org.jvnet.substance.skin.SubstanceMistSilverLookAndFeel;
+import org.jivesoftware.smack.XMPPConnection;
 
 /**
  * @author Florencio Cañizal Calles
