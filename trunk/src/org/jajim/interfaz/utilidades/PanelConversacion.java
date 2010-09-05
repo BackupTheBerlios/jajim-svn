@@ -29,11 +29,15 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import org.jajim.interfaz.ventanas.VentanaConversacion;
+import org.jajim.interfaz.ventanas.VentanaConversacionChatPrivado;
+import org.jajim.utilidades.log.ManejadorDeLogs;
 import org.jivesoftware.smack.util.StringUtils;
 
 /**
@@ -49,7 +53,6 @@ public class PanelConversacion implements Observer{
 
     // Ventana principal
     private VentanaConversacion vc;
-    private VentanaConversacion v;
 
     // Presentación
     private JTextPane contenidoConversacion;
@@ -72,6 +75,9 @@ public class PanelConversacion implements Observer{
         {"georgia","11","128","0","128","false","false"}
     };
     private int actualEstiloPorDefecto = 0;
+
+    // Gestión de ventana minimizada - Sonido
+    private Clip sonido;
 
     /**
      * Constructor de la clase. Inicializa las variables necesarias y crea la
@@ -109,6 +115,17 @@ public class PanelConversacion implements Observer{
 
         // Iniciar el mapa de preferencias
         estilos = new HashMap<String,String[]>();
+
+        // Iniciar los sonidos
+        try{
+            sonido = AudioSystem.getClip();
+            sonido.open(AudioSystem.getAudioInputStream(this.getClass().getResourceAsStream("/sounds/button-9.wav")));
+        }catch(Exception e){
+            // En caso de que se produzca un error se escribe en el fichero
+            // de log.
+            ManejadorDeLogs mdl = ManejadorDeLogs.getManejadorDeLogs();
+            mdl.escribir("No se puede iniciar el sistema de sonido");
+        }
     }
 
     @Override
@@ -119,19 +136,17 @@ public class PanelConversacion implements Observer{
         String usuario = informacion[0];
         String contenido = informacion[1];
 
+        // Evitar los mensajes informando de que la sala es anónima
         if(contenido.compareTo("Sala no anónima") == 0)
             return;
-        
-        // Recuperar usuario
-        String servidor = StringUtils.parseServer(usuario);
-        if(servidor.indexOf(".") == servidor.lastIndexOf(".")){
-            int posicion = usuario.indexOf("/");
-            if(posicion != -1)
-                usuario = usuario.substring(0,posicion);
-        }
+
+        // Recuperar el usuario y la hora
+        if(vc instanceof VentanaConversacionChatPrivado)
+            usuario = StringUtils.parseBareAddress(usuario);
+
         usuario = usuarios.get(usuario);
-        
         StringBuffer hora = this.getHora();
+        
         // Recuperar el estilo
         String[] estilo;
         if(informacion.length == 2){
@@ -164,6 +179,33 @@ public class PanelConversacion implements Observer{
 
         // Escribir el texto en el panel
         contenidoConversacion.setText(total.toString());
+
+        // Activar la ventana si está minimizada al recibir el mensaje
+        if(vc.getExtendedState() == VentanaConversacion.ICONIFIED){
+            
+            // Reproducir un sonido
+            sonido.start();
+
+            // Esperar a que finalice el sonido
+            do{
+                try{
+                    Thread.sleep(100);
+                }catch(Exception e){}
+            }while(sonido.isRunning());
+
+            // Resetear el sonido para que suene otra vez si es necesario
+            sonido.setFramePosition(0);
+
+            // Activar la ventana
+            for(int i = 0;i < 6;i++){
+                try{
+                    vc.toFront();
+                    Thread.sleep(100);
+                    vc.toBack();
+                    Thread.sleep(100);
+                }catch(Exception e){}
+            }
+        }
     }
 
     /**
