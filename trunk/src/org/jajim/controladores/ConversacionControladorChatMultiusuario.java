@@ -260,7 +260,8 @@ public class ConversacionControladorChatMultiusuario extends ConversacionControl
      */
     @Override
     public void cerrarConversacion(){
-        conversacionMultiusuario.leave();
+        if(conversacionMultiusuario != null)
+            conversacionMultiusuario.leave();
     }
 
     /**
