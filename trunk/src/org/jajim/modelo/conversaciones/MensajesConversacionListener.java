@@ -83,9 +83,10 @@ public class MensajesConversacionListener implements PacketListener{
         while(!finalizado){
             if(!cscs.isEmpty()){
                 m = cscs.poll();
-                if(idChat.compareTo(m.getThread()) == 0){
-                    return m;
-                }
+                if(m.getThread() != null)
+                    if(idChat.compareTo(m.getThread()) == 0){
+                        return m;
+                    }
             }else{
                 finalizado = true;
             }
