@@ -39,7 +39,7 @@ import org.jivesoftware.smack.util.StringUtils;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Ventana pequeña que se muestra en la esquina inferior izquierda de la pantalla
  * para notificar eventos importantes para el sistema.
  */
@@ -119,7 +119,7 @@ public class VentanaPopup implements MouseListener,ActionListener{
 
         // Crear la etiqueta del mensaje
         etiquetaInformacion = new JLabel(mensaje);
-        etiquetaInformacion.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK),"JAJIM 1.0.1",TitledBorder.LEFT,TitledBorder.TOP));
+        etiquetaInformacion.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK),"JAJIM 1.1",TitledBorder.LEFT,TitledBorder.TOP));
         etiquetaInformacion.setHorizontalAlignment(JLabel.CENTER);
         window.add(etiquetaInformacion);
 
