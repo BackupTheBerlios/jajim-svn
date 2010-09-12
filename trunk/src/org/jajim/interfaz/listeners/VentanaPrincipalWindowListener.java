@@ -91,7 +91,11 @@ public class VentanaPrincipalWindowListener extends WindowAdapter{
      */
     @Override
     public void windowIconified(WindowEvent e){
-        e.getWindow().setVisible(false);
+
+        // Recuperar la ventana y hacerla invisible si se puede
+        VentanaPrincipal vp = (VentanaPrincipal) e.getWindow();
+        if(vp.isOcultable())
+            vp.setVisible(false);
     }
 
     /**

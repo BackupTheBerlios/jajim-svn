@@ -108,9 +108,9 @@ public class ConectarActionListener implements ActionListener{
                 new MensajeError(vp,"no_login_error",MensajeError.ERR);
             }
         }catch(ImposibleLoginException ile){
-            new MensajeError(vp,"no_login_error");
+            new MensajeError(vp,"no_login_error",MensajeError.ERR);
         }catch(NoHayCuentaException nhce){
-            new MensajeError(vp,"no_hay_cuenta_error");
+            new MensajeError(vp,"no_hay_cuenta_error",MensajeError.ERR);
         }
     }
 }
