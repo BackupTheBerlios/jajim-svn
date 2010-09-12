@@ -278,6 +278,8 @@ public class TransferenciaFicherosControlador {
                     Runtime.getRuntime().exec(new String[]{"kfmclient","exec",url});
                 else if(desktop.equals("gnome"))
                     Runtime.getRuntime().exec(new String[]{"gnome-open",url});
+                else if(desktop.equals("xfce"))
+                    Runtime.getRuntime().exec(new String[]{"exo-open",url});
                 else
                     throw new ImposibleVisualizarFicheroException();
             }
@@ -327,13 +329,13 @@ public class TransferenciaFicherosControlador {
         // Preguntar por variables que sólo están disponibles en determinados tipos
         // de escritorio.
         String linuxDesktop = null;
-        if(!getEnv("KDE_FULL_SESSION").equals("") || !getEnv("KDE_MULTIHEAD").equals("")){
-            linuxDesktop="kde";
-        }
-        else if(!getEnv("GNOME_DESKTOP_SESSION_ID").equals("") || !getEnv("GNOME_KEYRING_SOCKET").equals("")){
-            linuxDesktop="gnome";
-        }
-        else linuxDesktop="";
+        if(!getEnv("KDE_FULL_SESSION").equals("") || !getEnv("KDE_MULTIHEAD").equals(""))
+            linuxDesktop = "kde";
+        else if(!getEnv("GNOME_DESKTOP_SESSION_ID").equals("") || !getEnv("GNOME_KEYRING_SOCKET").equals(""))
+            linuxDesktop = "gnome";
+        else if(getEnv("DESKTOP_SESSION").contains("xfce"))
+            linuxDesktop = "xfce";
+        else linuxDesktop = "";
 
         return linuxDesktop;
     }
