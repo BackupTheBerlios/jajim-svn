@@ -105,10 +105,7 @@ public class EnviarFicheroFormulario extends JDialog implements ActionListener{
         JPanel panelContactos = new JPanel();
         String[] participantes = null;
         ConversacionControlador cvc = vc.getCvc();
-        if(cvc instanceof ConversacionControladorChatMultiusuario){
-            ConversacionControladorChatMultiusuario cccm = (ConversacionControladorChatMultiusuario) cvc;
-            participantes = cccm.getParticipantesComoJID();
-        }
+        participantes = cvc.getParticipantes();
         panelContactos.setLayout(new GridLayout(participantes.length + 1,1));
         etiquetaContactos = new JLabel(etiquetas[0]);
         panelContactos.add(etiquetaContactos);

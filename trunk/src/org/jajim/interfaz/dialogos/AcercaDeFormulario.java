@@ -40,7 +40,7 @@ import javax.swing.JTextArea;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase formulario que muestra información acerca de la herramienta.
  */
 public class AcercaDeFormulario extends JDialog implements ActionListener{
@@ -54,7 +54,7 @@ public class AcercaDeFormulario extends JDialog implements ActionListener{
         texto.getString("acerca_de_formulario_pagina")
     };
     private final String[] valores = {
-        "   1.0.1",
+        "   1.1",
         "   Florencio Cañizal Calles",
         "   http://developer.berlios.de/projects/jajim/"
     };
