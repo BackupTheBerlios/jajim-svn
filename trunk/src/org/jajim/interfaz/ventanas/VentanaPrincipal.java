@@ -228,6 +228,11 @@ public class VentanaPrincipal extends JFrame{
     private Menu menuEstado;
     private MenuItem[] itemsEstado = new MenuItem[estadosUsuario.length];
 
+    // Control de la ocultación de la ventana por el uso de la barra de herramientas
+    private int ocultable;
+    public static int OCULTABLE = 0;
+    public static int NO_OCULTABLE = 1;
+
 
     /**
      * Constructor de la clase. Crea la interfaz básica e inicializa las variables
@@ -305,7 +310,7 @@ public class VentanaPrincipal extends JFrame{
 
         // Iniciación de la interfaz
         Image image = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("icons/jabber.png"));
-        this.setTitle("JAJIM 1.0.1");
+        this.setTitle("JAJIM 1.1");
         this.setIconImage(image);
         if(!PreferenciasControlador.getInstancia().isVentanaPrincipalMaximizada()){
             this.setLocation(PreferenciasControlador.getInstancia().getVentanaPrincipalX(),PreferenciasControlador.getInstancia().getVentanaPrincipalY());
@@ -319,9 +324,12 @@ public class VentanaPrincipal extends JFrame{
         // Iniciación del icono en la barra de herramientas
         if(SystemTray.isSupported()){
 
+            // Activarla como ocultable
+            this.ocultable = VentanaPrincipal.OCULTABLE;
+
             // Añadir el icono al barra
             SystemTray barraHerramientas = SystemTray.getSystemTray();
-            iconoBarraHerramientas = new TrayIcon(image,"JAJIM_1.0.1");
+            iconoBarraHerramientas = new TrayIcon(image,"JAJIM_1.1");
             iconoBarraHerramientas.setImageAutoSize(true);
             try{
                 barraHerramientas.add(iconoBarraHerramientas);
@@ -353,8 +361,10 @@ public class VentanaPrincipal extends JFrame{
                 }
             }
         }
-        else
+        else{
+            this.ocultable = VentanaPrincipal.NO_OCULTABLE;
             iconoBarraHerramientas = null;
+        }
 
         // Iniciación de los controladores
         CuentaControlador cc = CuentaControlador.getInstancia();
@@ -398,7 +408,8 @@ public class VentanaPrincipal extends JFrame{
         estado.setSelectedIndex(0);
 
         // Activar el menú de la barra de herramientas
-        menuEstado.setEnabled(true);
+        if(this.isOcultable())
+            menuEstado.setEnabled(true);
 
         // Activar y desactivar los botones adecuados
         for(int i = 0;i < menus.length;i++){
@@ -434,7 +445,8 @@ public class VentanaPrincipal extends JFrame{
         estado.setEnabled(false);
 
         // Desactivar el menú de la barra de herramientas
-        menuEstado.setEnabled(false);
+        if(this.isOcultable())
+            menuEstado.setEnabled(false);
 
         // Activar y desactivar los botones adecuados
         for(int i = 0;i < menus.length;i++){
@@ -445,6 +457,19 @@ public class VentanaPrincipal extends JFrame{
                 }
             }
         }
+    }
+
+    /**
+     * Retorna verdadero si la ventana es ocultable por el hecho de existir barra
+     * de herramientas y falso en caso contrario.
+     * @return verdadero si la ventana es ocultable por el hecho de existir barra
+     * de herramientas y falso en caso contrario.
+     */
+    public boolean isOcultable(){
+        if(ocultable == VentanaPrincipal.OCULTABLE)
+            return true;
+        else
+            return false;
     }
 
     /**
