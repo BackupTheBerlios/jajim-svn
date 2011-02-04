@@ -56,7 +56,13 @@ public class VentanaAyuda extends JFrame implements HyperlinkListener{
         contenidoAyuda.addHyperlinkListener(this);
         JScrollPane jsp = new JScrollPane(contenidoAyuda);
         InputStream is = null;
-        is = this.getClass().getResourceAsStream("/ayuda/introduccion.htm");
+
+        if(Main.loc.toString().contains("es")){
+            is = this.getClass().getResourceAsStream("/ayuda/introduccion.htm");
+        }
+        else{
+            is = this.getClass().getResourceAsStream("/ayuda/ingles/introduction.htm");
+        }
 
         String totalFichero = "";
         byte[] bufferDeLectura = new byte[1024];
@@ -85,7 +91,11 @@ public class VentanaAyuda extends JFrame implements HyperlinkListener{
     public void hyperlinkUpdate(HyperlinkEvent e) {
         if(e.getEventType() == HyperlinkEvent.EventType.ACTIVATED){
             try{
-                InputStream is = this.getClass().getResourceAsStream("/ayuda/" + e.getDescription());
+                 InputStream is;
+                if(Main.loc.toString().contains("es"))
+                    is = this.getClass().getResourceAsStream("/ayuda/" + e.getDescription());
+                else
+                    is = this.getClass().getResourceAsStream("/ayuda/ingles/" + e.getDescription());
                 String totalFichero = "";
                 byte[] bufferDeLectura = new byte[1024];
                 while(is.read(bufferDeLectura) != -1){
