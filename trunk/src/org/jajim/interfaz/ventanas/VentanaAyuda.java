@@ -58,7 +58,7 @@ public class VentanaAyuda extends JFrame implements HyperlinkListener{
         InputStream is = null;
 
         if(Main.loc.toString().contains("es")){
-            is = this.getClass().getResourceAsStream("/ayuda/introduccion.htm");
+            is = this.getClass().getResourceAsStream("/ayuda/espanol/introduccion.htm");
         }
         else{
             is = this.getClass().getResourceAsStream("/ayuda/ingles/introduction.htm");
@@ -93,7 +93,7 @@ public class VentanaAyuda extends JFrame implements HyperlinkListener{
             try{
                  InputStream is;
                 if(Main.loc.toString().contains("es"))
-                    is = this.getClass().getResourceAsStream("/ayuda/" + e.getDescription());
+                    is = this.getClass().getResourceAsStream("/ayuda/espanol/" + e.getDescription());
                 else
                     is = this.getClass().getResourceAsStream("/ayuda/ingles/" + e.getDescription());
                 String totalFichero = "";
