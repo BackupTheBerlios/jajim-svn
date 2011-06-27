@@ -501,9 +501,8 @@ public class VentanaConversacion extends JFrame implements Observer{
 
     /**
      * Cierra todas las conversaciones que tiene en curso el sistema.
-     * @param xc La conexión actual
      */
-    public static void cerrarConversaciones(XMPPConnection xc){
+    public static void cerrarConversaciones(){
 
         // Recorrer la lista de conversaciones cerrandolas
         for(int i = 0;i < conversaciones.size();i++){

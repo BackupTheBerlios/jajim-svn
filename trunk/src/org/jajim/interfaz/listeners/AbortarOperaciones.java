@@ -101,8 +101,7 @@ public class AbortarOperaciones implements Runnable{
             JOptionPane.showMessageDialog(principal,texto.getString("abortar_conversaciones_dialogo_principal"),texto.getString("abortar_conversaciones_dialogo_title"),JOptionPane.INFORMATION_MESSAGE);
 
             // Cerrar la conversacion
-            ConexionControlador cnc = ConexionControlador.getInstancia();
-            VentanaConversacion.cerrarConversaciones(cnc.getXc());
+            VentanaConversacion.cerrarConversaciones();
         }
     }
 
