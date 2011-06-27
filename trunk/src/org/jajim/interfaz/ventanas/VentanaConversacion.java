@@ -508,8 +508,6 @@ public class VentanaConversacion extends JFrame implements Observer{
         for(int i = 0;i < conversaciones.size();i++){
             VentanaConversacion vc = conversaciones.get(i);
             VentanaConversacion.eliminarConversacion(vc);
-            conversaciones.remove(vc);
-            i--;
         }
 
         // Eliminar las conversaciones de la lista
