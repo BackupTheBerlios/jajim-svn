@@ -35,6 +35,7 @@ import javax.swing.JLabel;
 import javax.swing.JWindow;
 import javax.swing.Timer;
 import javax.swing.border.TitledBorder;
+import org.jajim.interfaz.ventanas.VentanaConversacionChatPrivado;
 import org.jivesoftware.smack.util.StringUtils;
 
 /**
@@ -57,6 +58,7 @@ public class VentanaPopup implements MouseListener,ActionListener{
     private JLabel etiquetaInformacion;
 
     private VentanaPrincipal vp;
+    private VentanaConversacionChatPrivado vccp;
     private EventosDeConexionEnumeracion edce;
     private String informacion;
 
@@ -76,6 +78,20 @@ public class VentanaPopup implements MouseListener,ActionListener{
     }
 
     /**
+     * Constructor de la clase. Inicializa las variables necesarias.
+     * @param informacion La información que se va a mostrar en la ventana popup.
+     * @param vccp La ventana del chat privado vinculada al evento popup.
+     */
+    public VentanaPopup(String informacion, VentanaConversacionChatPrivado vccp){
+
+        // Iniciar
+        estado = VentanaPopup.DESPLEGADO;
+        this.vccp = vccp;
+        this.edce = null;
+        this.informacion = informacion;
+    }
+
+    /**
      * Método que construye la ventana y la muestra al usuario.
      */
     public void mostrarVentana(){
@@ -86,7 +102,25 @@ public class VentanaPopup implements MouseListener,ActionListener{
 
         String mensaje = null;
         // Recuperar el tipo de mensaje a desplegar
-        if(edce == EventosDeConexionEnumeracion.peticionDeSuscripcion){
+        if(edce == null){
+            // Recuperar el contenido del mensaje y determinar su tamaño (Eliminar el estilo)
+            int inicio = informacion.indexOf('>');
+            int fin = informacion.indexOf("</");
+            String contenido = informacion.substring(inicio + 1, fin);
+
+            // Calcular la longitud del contenido, si es superior a 40, se recorta y se añaden puntos suspensivos
+            if(contenido.length() > 40){
+                int espacio = contenido.indexOf(' ', 40);
+                contenido = contenido.substring(0, espacio);
+                contenido += "...";
+
+                // Poner los estilos y el contenido
+                informacion = informacion.substring(0, inicio + 1) + contenido + informacion.substring(fin);
+            }
+            mensaje = "<html><div align=\"center\">" + informacion + "</div></html>";
+        }
+        else if(edce == EventosDeConexionEnumeracion.peticionDeSuscripcion)
+        {
             mensaje = "<html><div align=\"center\">" + informacion + texto.getString("peticion_de_suscripcion_evento");
         }
         else if(edce == EventosDeConexionEnumeracion.confirmacionDeSuscripcion){
@@ -146,9 +180,17 @@ public class VentanaPopup implements MouseListener,ActionListener{
         this.estado = VentanaPopup.SELECCIONADO;
         window.dispose();
         // Comprobar el estado de la ventana
-        if(!vp.isVisible()){
-          vp.setVisible(true);
-          vp.setState(JFrame.NORMAL);
+        if(edce != null){
+            // Si se trata de un evento sobre la ventana principal, se hace visible y se restaura
+            if(!vp.isVisible()){
+              vp.setVisible(true);
+              vp.setState(JFrame.NORMAL);
+            }
+        }
+        else{
+            // Si se trata de un evento sobre un chat privado, se cambia el estado del chat y se restaura
+            vccp.setEstado(VentanaConversacionChatPrivado.NORMAL);
+            vccp.setVisible(true);
         }
     }
 
