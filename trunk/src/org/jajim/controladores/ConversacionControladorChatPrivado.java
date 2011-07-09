@@ -25,6 +25,7 @@ import org.jajim.utilidades.log.ManejadorDeLogs;
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Message;
+import org.jivesoftware.smack.util.StringUtils;
 
 /**
  * @author Florencio Cañizal Calles
@@ -106,13 +107,7 @@ public class ConversacionControladorChatPrivado extends ConversacionControlador{
      * Cierra un chat privado de manera correcta en el sistema.
      */
     @Override
-    public void cerrarConversacion(){
-
-        try{
-            this.enviarMensaje("Exit");
-            cl.eliminarChat(conversacionPrivada);
-        }catch(ImposibleEnviarMensajeException ieme){}
-    }
+    public void cerrarConversacion(){}
 
     /**
      * Retorna la lista de participantes del chat.
@@ -126,8 +121,8 @@ public class ConversacionControladorChatPrivado extends ConversacionControlador{
         // Llama a la conversación para recuperar los participantes
         String participante = conversacionPrivada.getParticipant();
         participantes = new String[1];
-        participantes[0] = participante;
-
+        // Eliminar el recurso si es que viene en el participante
+        participantes[0] = StringUtils.parseBareAddress(participante);
         return participantes;
     }
 
