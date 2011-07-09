@@ -21,6 +21,7 @@ package org.jajim.interfaz.listeners;
 import org.jajim.interfaz.utilidades.PanelContactos;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JFrame;
 import org.jajim.interfaz.ventanas.VentanaConversacionChatPrivado;
 import org.jajim.interfaz.ventanas.VentanaConversacion;
 
@@ -56,7 +57,25 @@ public class IniciarChatPrivadoActionListener implements ActionListener{
         // Recuperar el alias del contacto y lanzar una ventana de conversación
         String alias = e.getActionCommand();
 
-        if(!VentanaConversacion.hayChatPrivado(alias))
+        // Si no hay ya un chat privado con ese usuario se comienza uno nuevo.
+        if(!VentanaConversacion.hayChatPrivado(alias)){
             new VentanaConversacionChatPrivado(pc.getVp(),alias);
+        }
+        else{
+            // Recuperar la ventana del chat privado
+            VentanaConversacionChatPrivado vccp = VentanaConversacion.getChatPrivado(alias);
+
+            if(vccp.getEstado() == VentanaConversacionChatPrivado.OCULTA){
+                // Si la ventana está oculta se pone en estado normal y se activa su visualización
+                vccp.setEstado(VentanaConversacionChatPrivado.NORMAL);
+                vccp.setVisible(true);
+            }
+
+            if(vccp.getEstado() == VentanaConversacionChatPrivado.MINIMIZADA){
+                // Si la ventana está minimizada se pone en estado normal.
+                vccp.setEstado(VentanaConversacionChatPrivado.NORMAL);
+                vccp.setState(JFrame.NORMAL);
+            }
+        }
     }
 }
