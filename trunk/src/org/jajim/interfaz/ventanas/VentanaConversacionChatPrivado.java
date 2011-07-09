@@ -18,6 +18,8 @@
 
 package org.jajim.interfaz.ventanas;
 
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import org.jajim.controladores.ContactosControlador;
 import org.jajim.controladores.ConversacionControladorChatPrivado;
 import org.jajim.controladores.CuentaControlador;
@@ -34,6 +36,13 @@ public class VentanaConversacionChatPrivado extends VentanaConversacion{
     private final boolean activadosPrivado[][] = {
         {true,true,false,false}
     };
+
+    // Gestión de estados de la herramienta
+    public static int NORMAL = 0;
+    public static int OCULTA = 1;
+    public static int MINIMIZADA = 2;
+
+    private int estado;
 
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
@@ -74,6 +83,12 @@ public class VentanaConversacionChatPrivado extends VentanaConversacion{
 
         // Establecer el foco en el mensaje de texto
         nuevoMensaje.requestFocusInWindow();
+
+        // Establecer el estado por defecto
+        this.estado = VentanaConversacionChatPrivado.NORMAL;
+
+        // Activar el listener
+        this.crearWindowListener();
     }
 
     /**
@@ -116,5 +131,61 @@ public class VentanaConversacionChatPrivado extends VentanaConversacion{
 
         // Establecer el foco en el mensaje de texto
         nuevoMensaje.requestFocusInWindow();
+
+        // Establecer el estado por defecto
+        this.estado = VentanaConversacionChatPrivado.NORMAL;
+
+        // Activar el listener
+        this.crearWindowListener();
+    }
+
+    /**
+     * Crea un oyente de eventos para la ventana.
+     */
+    private void crearWindowListener(){
+        // Añadi el listener a la ventana.
+        this.addWindowListener(new WindowListener(){
+            @Override
+            public void windowIconified(WindowEvent e){
+                // Si se minimiza la ventana se marca como minimizada.
+                VentanaConversacionChatPrivado vccp = (VentanaConversacionChatPrivado) e.getWindow();
+                vccp.setEstado(VentanaConversacionChatPrivado.MINIMIZADA);
+            }
+
+            @Override
+            public void windowOpened(WindowEvent e) {}
+
+            @Override
+            public void windowClosing(WindowEvent e) {}
+
+            @Override
+            public void windowClosed(WindowEvent e) {}
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {}
+
+            @Override
+            public void windowActivated(WindowEvent e) {}
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {}
+        });
+
+    }
+
+    /**
+     * Actualiza el valor del atributo estado.
+     * @param estado El nuevo valor para el atributo estado.
+     */
+    public void setEstado(int estado){
+        this.estado = estado;
+    }
+
+    /**
+     * Retorna el estado de la ventana.
+     * @return El estado de la ventana.
+     */
+    public int getEstado() {
+        return this.estado;
     }
 }
