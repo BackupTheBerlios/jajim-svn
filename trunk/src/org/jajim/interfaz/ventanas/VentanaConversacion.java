@@ -66,7 +66,6 @@ import org.jajim.main.Main;
 import org.jajim.modelo.conversaciones.EventosConversacionEnumeracion;
 import org.jajim.modelo.conversaciones.ParticipantesListener;
 import org.jajim.modelo.conversaciones.RechazoInvitacionListener;
-import org.jivesoftware.smack.XMPPConnection;
 
 /**
  * @author Florencio Cañizal Calles
@@ -478,10 +477,23 @@ public class VentanaConversacion extends JFrame implements Observer{
      */
     public static void eliminarConversacion(VentanaConversacion vc){
 
+        // Si hay conversaciones en el sistema
         if(conversaciones != null){
+            // Hacer las operaciones necesarias a nivel de protocolo
             vc.getCvc().cerrarConversacion();
-            vc.dispose();
-            conversaciones.remove(vc);
+
+            if(vc instanceof VentanaConversacionChatMultiusuario){
+                // Si la ventana es de un chat multiusuario, se cierra y se borra
+                // de la lista de conversaciones.
+                vc.dispose();
+                conversaciones.remove(vc);
+            }
+            else{
+                // Esconder la ventana y marcarla como oculta
+                vc.setVisible(false);
+                VentanaConversacionChatPrivado vccp = (VentanaConversacionChatPrivado) vc;
+                vccp.setEstado(VentanaConversacionChatPrivado.OCULTA);
+            }
         }
     }
 
@@ -507,7 +519,8 @@ public class VentanaConversacion extends JFrame implements Observer{
         // Recorrer la lista de conversaciones cerrandolas
         for(int i = 0;i < conversaciones.size();i++){
             VentanaConversacion vc = conversaciones.get(i);
-            VentanaConversacion.eliminarConversacion(vc);
+            vc.getCvc().cerrarConversacion();
+            vc.dispose();
         }
 
         // Eliminar las conversaciones de la lista
@@ -566,5 +579,36 @@ public class VentanaConversacion extends JFrame implements Observer{
         }
 
         return chatPrivado;
+    }
+
+    /**
+     * Método que retornar la ventana de un chat privado que se mantiene con el
+     * alias especificado. Se retorna null en caso de que no se disponga de ninguna
+     * conversación con ese usuario.
+     * @param alias El alias del contacto del que se quiere recuperar el chat.
+     * @return La ventana del chat privado en el que se mantiene la conversación
+     * con el usuario o null.
+     */
+    public static VentanaConversacionChatPrivado getChatPrivado(String alias){
+
+        String contacto = null;
+
+        // Recuperar el contacto por el alias
+        if(conversaciones != null && conversaciones.size() > 0){
+            contacto = ContactosControlador.getInstancia().getContactoPorAlias(alias);
+        }
+        else
+            return null;
+
+        // Mirar en todas las conversaciones haber si una es un chat privado con
+        // el usuario adecuado y retornar ésta
+        for(VentanaConversacion vc : conversaciones){
+            String[] participantes = vc.getCvc().getParticipantes();
+            if(participantes.length == 1 && vc instanceof VentanaConversacionChatPrivado && contacto.compareTo(participantes[0]) == 0){
+                return (VentanaConversacionChatPrivado) vc;
+            }
+        }
+
+        return null;
     }
 }
