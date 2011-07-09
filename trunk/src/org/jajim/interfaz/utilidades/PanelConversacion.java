@@ -35,6 +35,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
+import javax.swing.SwingUtilities;
 import org.jajim.interfaz.ventanas.VentanaConversacion;
 import org.jajim.interfaz.ventanas.VentanaConversacionChatPrivado;
 import org.jajim.utilidades.log.ManejadorDeLogs;
@@ -204,6 +205,21 @@ public class PanelConversacion implements Observer{
                     vc.toBack();
                     Thread.sleep(100);
                 }catch(Exception e){}
+            }
+        }
+
+        // Si es un chat privado y la ventana está oculta se muestra un mensaje popup
+        if(vc instanceof VentanaConversacionChatPrivado){
+            VentanaConversacionChatPrivado vccp = (VentanaConversacionChatPrivado) vc;
+            if(vccp.getEstado() == VentanaConversacionChatPrivado.OCULTA){
+                final VentanaPopup vpp = new VentanaPopup(mensaje.toString(), vccp);
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        // La activación de la ventana del chat privado se hace clase de la ventana popup
+                        vpp.mostrarVentana();
+                    }
+                });
             }
         }
     }
