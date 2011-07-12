@@ -179,8 +179,13 @@ public class PanelConversacion implements Observer{
         total.append(pie);
 
         // Escribir el texto en el panel
-        contenidoConversacion.setText(total.toString());
-
+        SwingUtilities.invokeLater(new Runnable(){
+            @Override
+            public void run(){
+                contenidoConversacion.setText(total.toString());
+            }
+        });
+        
         // Activar la ventana si está minimizada al recibir el mensaje
         if(vc.getExtendedState() == VentanaConversacion.ICONIFIED){
             
