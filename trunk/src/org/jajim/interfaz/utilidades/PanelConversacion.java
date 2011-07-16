@@ -291,8 +291,17 @@ public class PanelConversacion implements Observer{
      * Retorna el contenido de la conversación con formato.
      * @return El contenido de la conversación con formato.
      */
-    public StringBuffer getConversacion(){
-        return total;
+    public StringBuilder getConversacion(){
+
+        // Crear una cabecera que contenga content-type apropiado
+        String cabeceraGuardado = "<html><body><head><meta http-equiv=\"Content-Type\" content=\"text/html;charset=utf-8\" /></head>";
+
+        // Construir la conversación con la nueva cabecera
+        StringBuilder conversacion = new StringBuilder(cabeceraGuardado);
+        conversacion.append(mensajes);
+        conversacion.append(pie);
+        
+        return conversacion;
     }
 
     /**
