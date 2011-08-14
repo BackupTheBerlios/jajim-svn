@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase que representa el contenedor de todas las cuentas del usuario del sitema.
  */
 public class Cuentas {
@@ -261,10 +261,25 @@ public class Cuentas {
     public boolean isCifrada(String identificador,String servidor){
 
         // Buscar la cuenta
-        Cuenta c = buscarCuenta(identificador,servidor);
+        Cuenta c = this.buscarCuenta(identificador,servidor);
 
         // Devolver si está cifrada o no
         return c.getCifrada();
+    }
+
+    /**
+     * Si la cuenta ya pertenece al sistema retorna verdadero, sino retorna falso.
+     * @param identificador El identificador de la cuenta que se va a comprobar.
+     * @param servidor El servidor de la cuenta que se va a comprobar.
+     * @return Verdadero si la cuenta pertenece al sistema, falso en caso contrario.
+     */
+    public boolean isPresente(String identificador, String servidor){
+
+        // Buscar la cuenta
+        Cuenta c = this.buscarCuenta(identificador, servidor);
+
+        // Devuelve si la cuenta existe en el sistema o no.
+        return (c != null);
     }
 
     /**
@@ -276,14 +291,14 @@ public class Cuentas {
      */
     private Cuenta buscarCuenta(String identificador,String servidor){
 
-        Cuenta c = null;
+        Cuenta c;
 
         for(int i = 0;i < cuentas.size();i++){
             c = cuentas.get(i);
             if(c.getIdentificador().compareTo(identificador) == 0 && c.getServidor().compareTo(servidor) == 0)
-                break;
+                return c;
         }
 
-        return c;
+        return null;
     }
 }

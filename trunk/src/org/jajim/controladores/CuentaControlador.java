@@ -34,6 +34,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import org.jajim.excepciones.CuentaExistenteException;
 import org.jivesoftware.smack.AccountManager;
 import org.jivesoftware.smack.SASLAuthentication;
 import org.jivesoftware.smack.XMPPConnection;
@@ -100,11 +101,20 @@ public class CuentaControlador {
      * @throws ImposibleCrearCuentaException Si no se puede crear la cuenta en el
      * servidor.
      */
-    public boolean crearCuenta(String identificador,String servidor,String contraseña,boolean guardarContraseña) throws ServidorNoEncontradoException,ImposibleCrearCuentaException{
+    public boolean crearCuenta(String identificador,String servidor,String contraseña,boolean guardarContraseña) throws ServidorNoEncontradoException,ImposibleCrearCuentaException, CuentaExistenteException{
 
         // Conseguir un manejador de cuentas
         XMPPConnection xc;
         boolean activa = false;
+
+        // Comprobar que no existe una cuenta igual en el sistema
+        if(cs.isPresente(identificador, servidor)){
+            // En caso de que se produzca un error se escribe en el fichero
+            // de log y se lanza una excepción
+            ManejadorDeLogs mdl = ManejadorDeLogs.getManejadorDeLogs();
+            mdl.escribir("La siguiente cuenta ya está almacenada en el sistema - Servidor: " + servidor + " - Identificador de cuenta: " + identificador);
+            throw new CuentaExistenteException();
+        }
 
         try{
             xc = FactoriaDeConexiones.getInstancia().getConexion(servidor);
@@ -154,10 +164,19 @@ public class CuentaControlador {
      * @throws ImposibleValidarCuentaException Si no se puede encontrar la cuenta
      * en el servidor.
      */
-    public boolean añadirCuenta(String identificador,String servidor,String contraseña,boolean guardarContraseña) throws ServidorNoEncontradoException,ImposibleValidarCuentaException{
+    public boolean añadirCuenta(String identificador,String servidor,String contraseña,boolean guardarContraseña) throws ServidorNoEncontradoException,ImposibleValidarCuentaException, CuentaExistenteException{
 
         XMPPConnection xc = null;
         boolean activa = false;
+
+        // Comprobar que no existe una cuenta igual en el sistema
+        if(cs.isPresente(identificador, servidor)){
+            // En caso de que se produzca un error se escribe en el fichero
+            // de log y se lanza una excepción
+            ManejadorDeLogs mdl = ManejadorDeLogs.getManejadorDeLogs();
+            mdl.escribir("La siguiente cuenta ya está almacenada en el sistema - Servidor: " + servidor + " - Identificador de cuenta: " + identificador);
+            throw new CuentaExistenteException();
+        }
 
         // Conseguir una conexión al servidor
         try{
@@ -182,7 +201,7 @@ public class CuentaControlador {
                 if(guardarContraseña){
                     Cifrador c = new Cifrador();
                     contraseña = c.cifrar(contraseña);
-                    activa = cs.añadirCuenta(identificador, servidor, contraseña,true);
+                    activa = cs.añadirCuenta(identificador, servidor, contraseña, true);
                 }
                 else
                     activa = cs.añadirCuenta(identificador, servidor);
@@ -196,7 +215,7 @@ public class CuentaControlador {
             throw new ImposibleValidarCuentaException();
         }catch(Exception icce){
             // En caso de error de cifrado se añade la contraseña sin cifrar
-            activa = cs.añadirCuenta(identificador, servidor, contraseña,false);
+            activa = cs.añadirCuenta(identificador, servidor, contraseña, false);
         }
 
         return activa;

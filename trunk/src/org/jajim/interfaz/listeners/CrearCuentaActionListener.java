@@ -26,6 +26,7 @@ import org.jajim.interfaz.dialogos.MensajeError;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import org.jajim.excepciones.CuentaExistenteException;
 
 /**
  * @author Florencio Cañizal Calles
@@ -88,6 +89,8 @@ public class CrearCuentaActionListener implements ActionListener{
             new MensajeError(ccf,"servidor_no_encontrado_error",MensajeError.ERR);
         }catch(ImposibleCrearCuentaException icce){
             new MensajeError(ccf,"imposible_crear_cuenta_error",MensajeError.ERR);
+        }catch(CuentaExistenteException cee){
+            new MensajeError(ccf, "cuenta_existente_error", MensajeError.WARNING);
         }
     }
 }

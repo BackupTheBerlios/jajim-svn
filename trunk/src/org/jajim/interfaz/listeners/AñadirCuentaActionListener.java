@@ -26,6 +26,7 @@ import org.jajim.interfaz.dialogos.MensajeError;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import org.jajim.excepciones.CuentaExistenteException;
 
 /**
  * @author Florencio Cañizal Calles
@@ -90,6 +91,8 @@ public class AñadirCuentaActionListener implements ActionListener{
             new MensajeError(acf,"servidor_no_encontrado_error",MensajeError.ERR);
         }catch(ImposibleValidarCuentaException ivce){
             new MensajeError(acf,"cuenta_no_valida",MensajeError.ERR);
+        }catch(CuentaExistenteException cee){
+            new MensajeError(acf, "cuenta_existente_error", MensajeError.WARNING);
         }
     }
 }
