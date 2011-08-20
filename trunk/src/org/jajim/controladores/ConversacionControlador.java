@@ -102,7 +102,7 @@ public abstract class ConversacionControlador {
         // Escribir en el fichero
         try{
             FileOutputStream fos = new FileOutputStream(fichero);
-            fos.write(texto.getBytes());
+            fos.write(texto.getBytes("ISO-8859-1"));
             fos.close();
         }catch(FileNotFoundException fnfe){
             // En caso de que se produzca un error se escribe en el fichero

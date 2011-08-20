@@ -130,6 +130,7 @@ public class PanelConversacion implements Observer{
     }
 
     @Override
+    @SuppressWarnings("SleepWhileHoldingLock")
     public void update(Observable o, Object arg) {
 
         // Extraer la información
@@ -294,7 +295,7 @@ public class PanelConversacion implements Observer{
     public StringBuilder getConversacion(){
 
         // Crear una cabecera que contenga content-type apropiado
-        String cabeceraGuardado = "<html><body><head><meta http-equiv=\"Content-Type\" content=\"text/html;charset=utf-8\" /></head>";
+        String cabeceraGuardado = "<html><body><head><meta http-equiv=\"Content-Type\" content=\"text/html;charset=iso-8859-1\" /></head>";
 
         // Construir la conversación con la nueva cabecera
         StringBuilder conversacion = new StringBuilder(cabeceraGuardado);
