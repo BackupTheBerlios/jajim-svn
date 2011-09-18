@@ -18,25 +18,14 @@
 
 package org.jajim.interfaz.utilidades;
 
-import org.jajim.interfaz.ventanas.VentanaPrincipal;
 import org.jajim.main.Main;
-import org.jajim.modelo.conexiones.EventosDeConexionEnumeracion;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ResourceBundle;
-import javax.swing.BorderFactory;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JWindow;
-import javax.swing.Timer;
-import javax.swing.border.TitledBorder;
-import org.jajim.interfaz.ventanas.VentanaConversacionChatPrivado;
-import org.jivesoftware.smack.util.StringUtils;
 
 /**
  * @author Florencio Cañizal Calles
@@ -44,131 +33,34 @@ import org.jivesoftware.smack.util.StringUtils;
  * Ventana pequeña que se muestra en la esquina inferior izquierda de la pantalla
  * para notificar eventos importantes para el sistema.
  */
-public class VentanaPopup implements MouseListener,ActionListener{
+public abstract class VentanaPopup implements MouseListener, ActionListener{
 
-    private ResourceBundle texto = ResourceBundle.getBundle("resources.Idioma",Main.loc);
+    protected ResourceBundle texto = ResourceBundle.getBundle("resources.Idioma",Main.loc);
 
     // Variables necesarias
-    private int estado;
-    private static int DESPLEGADO = 0;
-    private static int SELECCIONADO = 1;
-    private static int FINALIZADO = 2;
+    protected int estado;
+    protected static int DESPLEGADO = 0;
+    protected static int SELECCIONADO = 1;
+    protected static int FINALIZADO = 2;
 
-    private JWindow window;
-    private JLabel etiquetaInformacion;
+    protected JWindow window;
+    protected JLabel etiquetaInformacion;
 
-    private VentanaPrincipal vp;
-    private VentanaConversacionChatPrivado vccp;
-    private EventosDeConexionEnumeracion edce;
-    private String informacion;
+    protected String informacion;
 
     /**
      * Constructor de la clase. Iniciliza las variables necesarias.
-     * @param edce El tipo de evento que se debe mostrar.
      * @param informacion Información adicional de presentación.
-     * @param vp La ventana principal de la aplicación.
      */
-    public VentanaPopup(EventosDeConexionEnumeracion edce,String informacion,VentanaPrincipal vp){
-
-        // Iniciar
+    public VentanaPopup(String informacion){
         estado = VentanaPopup.DESPLEGADO;
-        this.vp = vp;
-        this.edce = edce;
-        this.informacion = informacion;
-    }
-
-    /**
-     * Constructor de la clase. Inicializa las variables necesarias.
-     * @param informacion La información que se va a mostrar en la ventana popup.
-     * @param vccp La ventana del chat privado vinculada al evento popup.
-     */
-    public VentanaPopup(String informacion, VentanaConversacionChatPrivado vccp){
-
-        // Iniciar
-        estado = VentanaPopup.DESPLEGADO;
-        this.vccp = vccp;
-        this.edce = null;
         this.informacion = informacion;
     }
 
     /**
      * Método que construye la ventana y la muestra al usuario.
      */
-    public void mostrarVentana(){
-
-        // Obtener las dimensiones de la pantalla
-        Toolkit tk = Toolkit.getDefaultToolkit();
-        Dimension tamaño = tk.getScreenSize();
-
-        String mensaje = null;
-        // Recuperar el tipo de mensaje a desplegar
-        if(edce == null){
-            // Recuperar el contenido del mensaje y determinar su tamaño (Eliminar el estilo)
-            int inicio = informacion.indexOf('>');
-            int fin = informacion.indexOf("</");
-            String contenido = informacion.substring(inicio + 1, fin);
-
-            // Calcular la longitud del contenido, si es superior a 40, se recorta y se añaden puntos suspensivos
-            if(contenido.length() > 40){
-                int espacio = contenido.indexOf(' ', 40);
-                contenido = contenido.substring(0, espacio);
-                contenido += "...";
-
-                // Poner los estilos y el contenido
-                informacion = informacion.substring(0, inicio + 1) + contenido + informacion.substring(fin);
-            }
-            mensaje = "<html><div align=\"center\">" + informacion + "</div></html>";
-        }
-        else if(edce == EventosDeConexionEnumeracion.peticionDeSuscripcion)
-        {
-            mensaje = "<html><div align=\"center\">" + informacion + texto.getString("peticion_de_suscripcion_evento");
-        }
-        else if(edce == EventosDeConexionEnumeracion.confirmacionDeSuscripcion){
-            mensaje = "<html><div align=\"center\">" + informacion + texto.getString("confirmacion_de_suscripcion_evento");
-        }
-        else if(edce == EventosDeConexionEnumeracion.denegacionDeSuscripcion){
-            mensaje = "<html><div align=\"center\">" + informacion + texto.getString("denegacion_de_suscripcion_evento");
-        }
-        else if(edce == EventosDeConexionEnumeracion.peticionDeChat){
-            informacion = StringUtils.parseBareAddress(informacion);
-            mensaje = "<html><div align=\"center\">" + informacion + texto.getString("peticion_de_chat_evento");
-        }
-        else if(edce == EventosDeConexionEnumeracion.invitacionAChat){
-            int posicion = informacion.indexOf("&");
-            String usuario = informacion.substring(0,posicion);
-            usuario = StringUtils.parseBareAddress(usuario);
-            String sala = informacion.substring(posicion + 1);
-            mensaje = "<html><div align=\"center\">" + usuario + texto.getString("invitacion_a_chat_evento") + " " + sala + ".</div></html>";
-        }
-        else if(edce == EventosDeConexionEnumeracion.peticionDeTransferencia){
-            informacion = StringUtils.parseBareAddress(informacion);
-            mensaje = "<html><div align=\"center\">" + informacion + texto.getString("peticion_de_transferencia_evento");
-        }
-        else if(edce == EventosDeConexionEnumeracion.usuarioConectado){
-        mensaje = "<html><div align=\"center\">" + informacion + texto.getString("usuario_conectado_evento");
-        }
-
-        // Crear la ventana
-        window = new JWindow();
-
-        // Crear la etiqueta del mensaje
-        etiquetaInformacion = new JLabel(mensaje);
-        etiquetaInformacion.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK),"JAJIM 1.1",TitledBorder.LEFT,TitledBorder.TOP));
-        etiquetaInformacion.setHorizontalAlignment(JLabel.CENTER);
-        window.add(etiquetaInformacion);
-
-        // Establecer las propiedades de la ventana
-        window.addMouseListener(this);
-        window.setAlwaysOnTop(true);
-
-        window.setSize(175,100);
-        window.setLocation((int)tamaño.getWidth() - (175),(int)tamaño.getHeight() - (100 + 30));
-        window.setVisible(true);
-
-        // Tiempo
-        Timer timer = new Timer(15000,this);
-        timer.start();
-    }
+    public abstract void mostrarVentana();
 
     /**
      * Metodo de la interfaz MouseListener. Se ejecuta cuando se hace click en la
@@ -179,19 +71,6 @@ public class VentanaPopup implements MouseListener,ActionListener{
     public void mouseClicked(MouseEvent e){
         this.estado = VentanaPopup.SELECCIONADO;
         window.dispose();
-        // Comprobar el estado de la ventana
-        if(edce != null){
-            // Si se trata de un evento sobre la ventana principal, se hace visible y se restaura
-            if(!vp.isVisible()){
-              vp.setVisible(true);
-              vp.setState(JFrame.NORMAL);
-            }
-        }
-        else{
-            // Si se trata de un evento sobre un chat privado, se cambia el estado del chat y se restaura
-            vccp.setEstado(VentanaConversacionChatPrivado.NORMAL);
-            vccp.setVisible(true);
-        }
     }
 
     /**

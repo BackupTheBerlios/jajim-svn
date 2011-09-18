@@ -133,6 +133,15 @@ public class PanelConversacion implements Observer{
     @SuppressWarnings("SleepWhileHoldingLock")
     public void update(Observable o, Object arg) {
 
+        boolean isPrimerMensaje = false;
+
+        // Se comprueba si es el primer mensaje para evitar que salte una ventana
+        // popup con el mensaje nuevo (Ya se ha informado al usuario del mensaje
+        // con la notificación de chat).
+
+        if(total.length() == 0)
+            isPrimerMensaje = true;
+
         // Extraer la información
         String[] informacion = (String[]) arg;
         String usuario = informacion[0];
@@ -187,8 +196,8 @@ public class PanelConversacion implements Observer{
             }
         });
         
-        // Activar la ventana si está minimizada al recibir el mensaje
-        if(vc.getExtendedState() == VentanaConversacion.ICONIFIED){
+        // Activar la ventana si no tiene el foco
+        if(!vc.hasFocus() && !isPrimerMensaje){
             
             // Reproducir un sonido
             sonido.start();
@@ -204,21 +213,21 @@ public class PanelConversacion implements Observer{
             sonido.setFramePosition(0);
 
             // Activar la ventana
-            for(int i = 0;i < 6;i++){
-                try{
-                    vc.toFront();
-                    Thread.sleep(100);
-                    vc.toBack();
-                    Thread.sleep(100);
-                }catch(Exception e){}
-            }
+            final VentanaPopup vpp = new VentanaPopupConversacion(mensaje.toString(), vc);
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    // La activación de la ventana del chat privado se hace clase de la ventana popup
+                    vpp.mostrarVentana();
+                }
+            });
         }
 
         // Si es un chat privado y la ventana está oculta se muestra un mensaje popup
         if(vc instanceof VentanaConversacionChatPrivado){
             VentanaConversacionChatPrivado vccp = (VentanaConversacionChatPrivado) vc;
             if(vccp.getEstado() == VentanaConversacionChatPrivado.OCULTA){
-                final VentanaPopup vpp = new VentanaPopup(mensaje.toString(), vccp);
+                final VentanaPopup vpp = new VentanaPopupConversacion(mensaje.toString(), vccp);
                 SwingUtilities.invokeLater(new Runnable() {
                     @Override
                     public void run() {
