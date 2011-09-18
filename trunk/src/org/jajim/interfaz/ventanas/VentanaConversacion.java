@@ -287,11 +287,6 @@ public class VentanaConversacion extends JFrame implements Observer{
         barraYMensajes.add(BorderLayout.CENTER,mensajes);
         cp.add(BorderLayout.SOUTH,barraYMensajes);
 
-        // Creación del controlador de la conversación e iniciación de la conver
-        // sación
-        //String usuario = ContactosControlador.getInstancia().getContactoPorAlias(alias);
-        //cvc = new ConversacionControlador(this,usuario,conversacion);
-
         // Añadir la conversación a la lista
         VentanaConversacion.añadirConversacion(this);
 
