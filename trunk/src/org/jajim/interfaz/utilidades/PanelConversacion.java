@@ -197,8 +197,8 @@ public class PanelConversacion implements Observer{
         });
         
         // Activar la ventana si no tiene el foco
-        if(!vc.hasFocus() && !isPrimerMensaje){
-            
+        if(!vc.isFocused() && !isPrimerMensaje){
+
             // Reproducir un sonido
             sonido.start();
 
