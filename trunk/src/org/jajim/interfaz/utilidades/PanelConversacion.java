@@ -348,7 +348,16 @@ public class PanelConversacion implements Observer{
         total.append(cabecera);
         total.append(mensajes);
         total.append(pie);
-        contenidoConversacion.setText(total.toString());
+
+        // Lanzar la actualización del contenido de la aplicación en el hilo de
+        // Swing de ese modo se evitan problemas cuando el evento proceda de otro
+        // hilo
+        SwingUtilities.invokeLater(new Runnable(){
+            @Override
+            public void run(){
+                contenidoConversacion.setText(total.toString());
+            }
+        });
     }
 
     /**
