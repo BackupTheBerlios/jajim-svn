@@ -36,6 +36,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -353,8 +354,9 @@ public class VentanaGestorDeTransferencias extends JFrame implements ActionListe
         // Cancelar todas los hilos de las barras de progreso
         for(BarraProgresoSwingWorker bpsw : workers){
             bpsw.cancel(true);
-            workers.remove(bpsw);
         }
+        // Vaciar la lista de las barras de progreso
+        workers.clear();
 
         // Limpiar la interfaz
         tablonDePestañas.remove(1);
