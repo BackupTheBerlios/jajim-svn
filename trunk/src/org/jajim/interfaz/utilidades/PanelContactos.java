@@ -19,7 +19,6 @@
 package org.jajim.interfaz.utilidades;
 
 import org.jajim.interfaz.listeners.EliminarGrupoDeContactosActionListener;
-import org.jajim.controladores.ContactosControlador;
 import org.jajim.interfaz.listeners.AñadirContactoAGrupoMenuActionListener;
 import org.jajim.interfaz.listeners.EliminarContactoActionListener;
 import org.jajim.interfaz.listeners.EliminarContactoDeGrupoActionListener;
@@ -47,6 +46,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
@@ -236,35 +236,45 @@ public class PanelContactos extends MouseAdapter implements Observer{
                      modelo.insertNodeInto(contact,grupo,j - 1);
                 }
             }
-            arbolContactos.setModel(modelo);
 
-            // Dejar el árbol igual que estaba
-            boolean desplegado = false;
-            if(enumeration != null){
-                while(enumeration.hasMoreElements()){
-                    TreePath pathAntiguo = enumeration.nextElement();
-                    if(pathAntiguo.getPathCount() < 3)
-                        continue;
-                    TreePath expandir = find(arbolContactos,pathAntiguo.getPath());
-                    if(expandir == null)
-                        continue;
-                    this.expandAll(arbolContactos,expandir);
-                    while(expandir.getPathCount() > 1){
-                        expandir = expandir.getParentPath();
-                        arbolContactos.expandPath(expandir);
+            // Los cambios realizados en la interfaz se realizan en el hilo de
+            // java swing de este modo se evitan comportamientos anormales.
+            final DefaultTreeModel modeloFinal = modelo;
+            final Enumeration<TreePath> enumerationFinal = enumeration;
+            SwingUtilities.invokeLater(new Runnable(){
+                @Override
+                public void run(){
+                    arbolContactos.setModel(modeloFinal);
+
+                    // Dejar el árbol igual que estaba
+                    boolean desplegado = false;
+                    if(enumerationFinal != null){
+                        while(enumerationFinal.hasMoreElements()){
+                            TreePath pathAntiguo = enumerationFinal.nextElement();
+                            if(pathAntiguo.getPathCount() < 3)
+                                continue;
+                            TreePath expandir = find(arbolContactos,pathAntiguo.getPath());
+                            if(expandir == null)
+                                continue;
+                            expandAll(arbolContactos,expandir);
+                            while(expandir.getPathCount() > 1){
+                                expandir = expandir.getParentPath();
+                                arbolContactos.expandPath(expandir);
+                            }
+                            desplegado = true;
+                        }
                     }
-                    desplegado = true;
-                }
-            }
 
-            // Expandir los grupos si no hay nada expandido o sólo ellos están expandidos.
-            if(enumeration == null || !desplegado){
-                TreeNode nodo = (TreeNode)arbolContactos.getModel().getRoot();
-                TreeNode nodoContactos = nodo.getChildAt(0);
-                TreePath pathContactos = new TreePath(nodo);
-                pathContactos = pathContactos.pathByAddingChild(nodoContactos);
-                arbolContactos.expandPath(pathContactos);
-            }
+                    // Expandir los grupos si no hay nada expandido o sólo ellos están expandidos.
+                    if(enumerationFinal == null || !desplegado){
+                        TreeNode nodo = (TreeNode)arbolContactos.getModel().getRoot();
+                        TreeNode nodoContactos = nodo.getChildAt(0);
+                        TreePath pathContactos = new TreePath(nodo);
+                        pathContactos = pathContactos.pathByAddingChild(nodoContactos);
+                        arbolContactos.expandPath(pathContactos);
+                    }
+                }
+            });
         }
     }
 
