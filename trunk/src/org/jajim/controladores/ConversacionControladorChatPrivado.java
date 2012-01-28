@@ -107,7 +107,12 @@ public class ConversacionControladorChatPrivado extends ConversacionControlador{
      * Cierra un chat privado de manera correcta en el sistema.
      */
     @Override
-    public void cerrarConversacion(){}
+    public void cerrarConversacion(){
+        // Eliminar el chat de la lista de chats mantenida por el sistema.
+        // De modo que si se comienza el chat con un usuario se comienza un nuevo
+        // chat
+        cl.eliminarChat(conversacionPrivada);
+    }
 
     /**
      * Retorna la lista de participantes del chat.
