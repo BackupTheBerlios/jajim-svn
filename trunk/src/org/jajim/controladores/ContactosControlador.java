@@ -461,17 +461,17 @@ public class ContactosControlador {
      * el contacto del grupo.
      */
     public void eliminarContactoDeGrupo(String contacto,String grupo) throws ImposibleAñadirContactoAGrupoException,ImposibleEliminarContactoDeGrupoException{
-        
+
         // Recuperar el contacto
         RosterEntry re = contactos.getEntry(this.getContactoPorAlias(contacto));
-        
+
         // Si la entrada sólo pertenece a este grupo añadirla al grupo por defecto
         if(re.getGroups().size() == 1){
-        
+
             RosterGroup porDefecto = contactos.getGroup("");
             if(porDefecto == null)
                porDefecto = contactos.createGroup("");
-            
+
             try{
                 this.añadirContactoAGrupo(contacto,"");
             }catch(ImposibleAñadirContactoAGrupoException iacage){
