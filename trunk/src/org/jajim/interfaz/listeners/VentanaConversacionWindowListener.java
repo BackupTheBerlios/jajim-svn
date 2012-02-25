@@ -25,6 +25,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import org.jajim.interfaz.ventanas.VentanaConversacion;
+import org.jajim.interfaz.ventanas.VentanaConversacionChatPrivado;
 
 /**
  * @author Florencio Cañizal Calles
@@ -66,7 +67,13 @@ public class VentanaConversacionWindowListener extends WindowAdapter{
             pfc.setVentanaConversacionLargo(d.height);
         }
 
-        // Borrar la conversación de la lista de conversaciones
-        VentanaConversacion.eliminarConversacion(vc);
+        // Esconder la ventana y marcarla como oculta
+        if(vc instanceof VentanaConversacionChatPrivado){
+            vc.setVisible(false);
+            VentanaConversacionChatPrivado vccp = (VentanaConversacionChatPrivado) vc;
+            vccp.setEstado(VentanaConversacionChatPrivado.OCULTA);
+        }
+        else
+            VentanaConversacion.eliminarConversacion(vc);
     }
 }
