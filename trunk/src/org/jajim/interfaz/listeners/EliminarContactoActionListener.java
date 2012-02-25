@@ -61,7 +61,7 @@ public class EliminarContactoActionListener implements ActionListener{
         // usuario
         AbortarOperaciones ao = new AbortarOperaciones(pc.getVp(),pc.getVp(),pc.getVp().getVgt());
         ao.abortarConversaciones(contacto);
-        ao.abortarTransferencias(contacto);        
+        ao.abortarTransferencias(contacto,true);
 
         // Llamar al controlador de los contactos        
         try{
