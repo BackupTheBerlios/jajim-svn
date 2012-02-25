@@ -140,14 +140,18 @@ public class AbortarOperaciones implements Runnable{
     /**
      * Cancela aquellas transferencias activas establecidas con el contacto.
      * @param contacto El contacto para el que se van a abortar las transferencias.
+     * @param dialogo Valor booleano que indica si es necesario mostrar el cuadro
+     * de diálogo en el que se informa de que se van a cerrar las transferencias
+     * o no.
      */
-    public void abortarTransferencias(String contacto){
+    public void abortarTransferencias(String contacto, boolean dialogo){
 
         // Comprobar si hay transferencias
         if(vgt.getEstado() == VentanaGestorDeTransferencias.CON_TRANSFERENCIAS){
 
             // Mostrar mensaje informando de que se van a cerrar todas las transferencias
-            JOptionPane.showMessageDialog(principal,texto.getString("abortar_transferencias_dialogo_contacto_principal"),texto.getString("abortar_transferencias_dialogo_title"),JOptionPane.INFORMATION_MESSAGE);
+            if(dialogo)
+                JOptionPane.showMessageDialog(principal,texto.getString("abortar_transferencias_dialogo_contacto_principal"),texto.getString("abortar_transferencias_dialogo_title"),JOptionPane.INFORMATION_MESSAGE);
 
             // Cancelar las transferencias
             vgt.abortarTransferencias(contacto);
