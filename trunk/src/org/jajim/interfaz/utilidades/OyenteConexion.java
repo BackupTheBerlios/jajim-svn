@@ -37,6 +37,9 @@ import org.jajim.controladores.ContactosControlador;
 import org.jajim.controladores.ConversacionControladorChatMultiusuario;
 import org.jajim.controladores.ConversacionControladorChatPrivado;
 import org.jajim.controladores.TransferenciaFicherosControlador;
+import org.jajim.interfaz.listeners.AbortarOperaciones;
+import org.jajim.interfaz.ventanas.VentanaConversacion;
+import org.jajim.interfaz.ventanas.VentanaConversacionChatPrivado;
 
 /**
  * @author Florencio Cañizal Calles
@@ -198,13 +201,47 @@ public class OyenteConexion implements Observer{
                     }catch(Exception e){}
                 }
             }
+            // Si lo que se recibe es un evento de que un usuario se ha conectado
+            // se notifica al usuario, y en el caso de que hubiera una conversación
+            // pendiente con el mismo se muestra en ésta.
             else if(edce == EventosDeConexionEnumeracion.usuarioConectado){
                 ContactosListener cl = (ContactosListener) o;
-                final String alias = cl.getAliasConectado();
+                final String alias = cl.getAliasModificado();
                 final VentanaPopup vpp = new VentanaPopupConexion(edce,alias,vp);
                 SwingUtilities.invokeLater(new Runnable(){
                     public void run(){
+                        // Notificar al usuario
                         vpp.mostrarVentana();
+
+                        // Se notifica la conexión si se tenía un chat con el usuario
+                        if(VentanaConversacion.hayChatPrivado(alias)){
+                            VentanaConversacionChatPrivado vccp = VentanaConversacion.getChatPrivado(alias);
+                            vccp.notificarEvento(edce, alias);
+                        }
+                    }
+                });
+            }
+            // Si lo que se recibe es un evento de que un usuario se ha desconectado 
+            // se notifica en las conversaciones y las transferencias que se mantienen
+            // con el mismo
+            else if(edce == EventosDeConexionEnumeracion.usuarioDesconectado){
+                ContactosListener cl = (ContactosListener) o;
+                final String alias = cl.getAliasModificado();
+                final VentanaPrincipal vp = this.vp;
+                SwingUtilities.invokeLater(new Runnable(){
+                    @Override
+                    public void run(){
+
+                        // Se notifica la desconexión si se tenía algún chat con
+                        // el usuario
+                        if(VentanaConversacion.hayChatPrivado(alias)){
+                            VentanaConversacionChatPrivado vccp = VentanaConversacion.getChatPrivado(alias);
+                            vccp.notificarEvento(edce, alias);
+                        }
+
+                        // Se abortan las transferencias
+                        AbortarOperaciones ao = new AbortarOperaciones(vp, vp, vp.getVgt());
+                        ao.abortarTransferencias(contacto,false);
                     }
                 });
             }
