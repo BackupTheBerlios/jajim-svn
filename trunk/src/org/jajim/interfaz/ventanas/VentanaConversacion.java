@@ -30,8 +30,6 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.ResourceBundle;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -63,9 +61,6 @@ import org.jajim.interfaz.listeners.VentanaConversacionWindowListener;
 import org.jajim.interfaz.listeners.VetarContactoMenuActionListener;
 import org.jajim.interfaz.utilidades.PanelConversacion;
 import org.jajim.main.Main;
-import org.jajim.modelo.conversaciones.EventosConversacionEnumeracion;
-import org.jajim.modelo.conversaciones.ParticipantesListener;
-import org.jajim.modelo.conversaciones.RechazoInvitacionListener;
 
 /**
  * @author Florencio Cañizal Calles
@@ -73,7 +68,7 @@ import org.jajim.modelo.conversaciones.RechazoInvitacionListener;
  * Clase que representa una ventana de una conversación. Inicializa la interfaz
  * necesaria para que el usuario dialogue con un contacto.
  */
-public class VentanaConversacion extends JFrame implements Observer{
+public class VentanaConversacion extends JFrame{
 
     private ResourceBundle texto = ResourceBundle.getBundle("resources.Idioma",Main.loc);
 
@@ -318,88 +313,6 @@ public class VentanaConversacion extends JFrame implements Observer{
     }
 
     /**
-     * Métod que se ejecuta cada vez que se produce un evento de conversación im
-     * poretante.
-     * @param o El objeto que produce que se ejecute el método
-     * @param arg Información adicional que se recibe del objeto.
-     */
-    @Override
-    public void update(Observable o, Object arg) {
-
-        EventosConversacionEnumeracion ece = (EventosConversacionEnumeracion) arg;
-
-        // Comprobar que tipo de evento se ha recibido
-        if(ece == EventosConversacionEnumeracion.participanteAñadido){
-
-            // Recuperar los datos necesarios
-            ParticipantesListener pl = (ParticipantesListener) o;
-            String nick = pl.getNick();
-            String usuario = pl.getUsuario();
-
-            // Actualizar la etiqueta de participantes
-            if(etiquetaPrincipal.getText().compareTo(principal + " - ") != 0){
-                if(!etiquetaPrincipal.getText().contains(nick))
-                    etiquetaPrincipal.setText(etiquetaPrincipal.getText() + ", " + nick);
-            }
-            else
-                etiquetaPrincipal.setText(etiquetaPrincipal.getText() + nick);
-
-            // Notificar al usuario el evento
-            conversacion.notificarEvento(ece,nick);
-
-            // Añadir el usuario y su nick al panel de la conversación.
-            conversacion.añadirUsuario(usuario,nick);
-        }
-        else if(ece == EventosConversacionEnumeracion.invitacionRechazada){
-
-            // Recuperar los datos necesarios
-            RechazoInvitacionListener ril = (RechazoInvitacionListener) o;
-            String invitado = ril.getInvitado();
-
-            // Notificar al usuario el evento
-            conversacion.notificarEvento(ece,invitado);
-        }
-        else if(ece == EventosConversacionEnumeracion.participanteDesconectado) {
-
-            // Recuperar los datos necesarios
-            ParticipantesListener pl = (ParticipantesListener) o;
-            String nick = pl.getNick();
-            String usuario = pl.getUsuario();
-
-            // Actualizar la etiqueta de participantes
-            String etiqueta = etiquetaPrincipal.getText();
-            String[] trozos = etiqueta.split("-|,");
-            for(int i = 0; i < trozos.length; i++){
-                trozos[i] = trozos[i].trim();
-                if(trozos[i].compareTo(nick) == 0){
-                    trozos[i] = null;
-                    break;
-                }
-            }
-
-            String etiquetaNueva = trozos[0] + " - ";
-            boolean primero = true;
-            for(int i = 1; i < trozos.length; i++){
-                if(trozos[i] != null){
-                    if(primero){
-                        etiquetaNueva = etiquetaNueva + trozos[i];
-                        primero = false;
-                    }
-                    else
-                        etiquetaNueva = etiquetaNueva + ", " + trozos[i];
-                }
-            }
-            etiquetaPrincipal.setText(etiquetaNueva);
-
-            // Notificar al usuario del evento
-            conversacion.notificarEvento(ece,nick);
-
-            // Eliminar el usuario y su nick de la conexión.
-            conversacion.eliminarUsuario(usuario);
-        }
-    }
-
-    /**
      * Gestiona los cambios de preferencias en el estilo de los mensajes del usua
      * rio.
      */
@@ -476,19 +389,8 @@ public class VentanaConversacion extends JFrame implements Observer{
         if(conversaciones != null){
             // Hacer las operaciones necesarias a nivel de protocolo
             vc.getCvc().cerrarConversacion();
-
-            if(vc instanceof VentanaConversacionChatMultiusuario){
-                // Si la ventana es de un chat multiusuario, se cierra y se borra
-                // de la lista de conversaciones.
-                vc.dispose();
-                conversaciones.remove(vc);
-            }
-            else{
-                // Esconder la ventana y marcarla como oculta
-                vc.setVisible(false);
-                VentanaConversacionChatPrivado vccp = (VentanaConversacionChatPrivado) vc;
-                vccp.setEstado(VentanaConversacionChatPrivado.OCULTA);
-            }
+            vc.dispose();
+            conversaciones.remove(vc);
         }
     }
 
@@ -539,7 +441,6 @@ public class VentanaConversacion extends JFrame implements Observer{
             participantes = vc.getCvc().getParticipantes();
             if(participantes.length == 1 && participantes[0].compareTo(contacto) == 0){
                 VentanaConversacion.eliminarConversacion(vc);
-                conversaciones.remove(vc);
                 i--;
             }
         }
@@ -577,7 +478,7 @@ public class VentanaConversacion extends JFrame implements Observer{
     }
 
     /**
-     * Método que retornar la ventana de un chat privado que se mantiene con el
+     * Método que retorna la ventana de un chat privado que se mantiene con el
      * alias especificado. Se retorna null en caso de que no se disponga de ninguna
      * conversación con ese usuario.
      * @param alias El alias del contacto del que se quiere recuperar el chat.
