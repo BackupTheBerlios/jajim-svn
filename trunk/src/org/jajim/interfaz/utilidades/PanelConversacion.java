@@ -38,6 +38,7 @@ import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
 import org.jajim.interfaz.ventanas.VentanaConversacion;
 import org.jajim.interfaz.ventanas.VentanaConversacionChatPrivado;
+import org.jajim.modelo.conexiones.EventosDeConexionEnumeracion;
 import org.jajim.utilidades.log.ManejadorDeLogs;
 import org.jivesoftware.smack.util.StringUtils;
 
@@ -64,7 +65,8 @@ public class PanelConversacion implements Observer{
     private StringBuffer mensajes;
     private StringBuffer total;
     private Map<String,String> usuarios;
-    private Map<EventosConversacionEnumeracion,String> eventos;
+    private Map<EventosConversacionEnumeracion, String> eventosConversacion;
+    private Map<EventosDeConexionEnumeracion, String> eventosConexion;
     private Map<String,String[]> estilos;
 
     // Gestión de estilos por defecto
@@ -108,12 +110,17 @@ public class PanelConversacion implements Observer{
         // Iniciar contenedor de usuarios
         usuarios = new HashMap<String,String>();
 
-        // Iniciar las cadenas de los eventos
-        eventos = new HashMap<EventosConversacionEnumeracion,String>();
-        eventos.put(EventosConversacionEnumeracion.participanteAñadido,texto.getString("añadir_participante_evento"));
-        eventos.put(EventosConversacionEnumeracion.invitacionRechazada,texto.getString("rechazo_invitacion_evento"));
-        eventos.put(EventosConversacionEnumeracion.participanteDesconectado,texto.getString("participante_desconectado_evento"));
+        // Iniciar las cadenas de los eventos de la conversación
+        eventosConversacion = new HashMap<EventosConversacionEnumeracion,String>();
+        eventosConversacion.put(EventosConversacionEnumeracion.participanteAñadido,texto.getString("añadir_participante_evento"));
+        eventosConversacion.put(EventosConversacionEnumeracion.invitacionRechazada,texto.getString("rechazo_invitacion_evento"));
+        eventosConversacion.put(EventosConversacionEnumeracion.participanteDesconectado,texto.getString("participante_desconectado_evento"));
 
+        // Iniciar las cadenas de los eventos de la conexión
+        eventosConexion = new HashMap<EventosDeConexionEnumeracion, String>();
+        eventosConexion.put(EventosDeConexionEnumeracion.usuarioConectado, texto.getString("usuario_conectado_evento_conversacion"));
+        eventosConexion.put(EventosDeConexionEnumeracion.usuarioDesconectado, texto.getString("usuario_desconectado_evento_conversacion"));
+        
         // Iniciar el mapa de preferencias
         estilos = new HashMap<String,String[]>();
 
@@ -332,15 +339,40 @@ public class PanelConversacion implements Observer{
     }
 
     /**
-     * Muestra un mensaje informando al usuario del evento producido.
+     * Muestra un mensaje informando al usuario del evento de conversación
+     * producido.
      * @param ece El evento del que se va avisar.
      * @param propiedad Una propiedad interesante para el evento.
      */
-    public void notificarEvento(EventosConversacionEnumeracion ece,String propiedad){
+    public void notificarEventoConversacion(EventosConversacionEnumeracion ece,String propiedad){
     
         // Comprobar el tipo de evento ya actuar en consecuencia
-        String evento = propiedad + " " + eventos.get(ece);
+        String evento = propiedad + " " + eventosConversacion.get(ece);
         StringBuffer eventoConFormato = this.getEvento(evento);
+
+        this.añadirEvento(eventoConFormato);
+    }
+
+    /**
+     * Muestra un mensaje informando del evento de conexión producido.
+     * @param edce El evento del que se va a avisar.
+     * @param propiedad Una propiedad interesante para el evento.
+     */
+    public void notificarEventoConexion(EventosDeConexionEnumeracion edce, String propiedad){
+
+        // Comprobar el tipo de evento ya actuar en consecuencia
+        String evento = propiedad + " " + eventosConexion.get(edce);
+        StringBuffer eventoConFormato = this.getEvento(evento);
+
+        this.añadirEvento(eventoConFormato);
+    }
+
+    /**
+     * Añade un evento a la conversación que se está manteniendo.
+     * @param eventoConFormato Cadena que incluye tanto información del evento,
+     * como el formato que este tiene.
+     */
+    private void añadirEvento(StringBuffer eventoConFormato){
 
         // Añadir el evento a la conversación
         mensajes.append(eventoConFormato);
