@@ -18,12 +18,18 @@
 
 package org.jajim.interfaz.ventanas;
 
+import java.util.Observable;
+import java.util.Observer;
+import javax.swing.SwingUtilities;
 import org.jajim.controladores.ContactosControlador;
 import org.jajim.controladores.ConversacionControladorChatMultiusuario;
 import org.jajim.excepciones.ImposibleCrearChatMultiusuarioException;
 import org.jajim.excepciones.ImposibleUnirseALaSalaException;
 import org.jajim.excepciones.ServicioDeChatMultiusuarioNoEncontradoException;
 import org.jajim.interfaz.dialogos.MensajeError;
+import org.jajim.modelo.conversaciones.EventosConversacionEnumeracion;
+import org.jajim.modelo.conversaciones.ParticipantesListener;
+import org.jajim.modelo.conversaciones.RechazoInvitacionListener;
 import org.jivesoftware.smack.util.StringUtils;
 
 /**
@@ -32,7 +38,7 @@ import org.jivesoftware.smack.util.StringUtils;
  * Clase que representa una ventana de un chat multiusuario. Inicializa la interfaz
  * necesaria para que el usuario dialogue con un contacto.
  */
-public class VentanaConversacionChatMultiusuario extends VentanaConversacion{
+public class VentanaConversacionChatMultiusuario extends VentanaConversacion implements Observer{
 
     private final boolean activadosMultiusuario[][] = {
         {true,true,true,true}
@@ -168,5 +174,103 @@ public class VentanaConversacionChatMultiusuario extends VentanaConversacion{
 
         // Establecer el foco en el mensaje de texto
         nuevoMensaje.requestFocusInWindow();
+    }
+
+    /**
+     * Método que se ejecuta cada vez que se produce un evento de conversación im
+     * poretante.
+     * @param o El objeto que produce que se ejecute el método
+     * @param arg Información adicional que se recibe del objeto.
+     */
+    @Override
+    public void update(Observable o, Object arg) {
+
+        EventosConversacionEnumeracion ece = (EventosConversacionEnumeracion) arg;
+
+        // Comprobar que tipo de evento se ha recibido
+        if(ece == EventosConversacionEnumeracion.participanteAñadido){
+
+            // Recuperar los datos necesarios
+            ParticipantesListener pl = (ParticipantesListener) o;
+            final String nick = pl.getNick();
+            String usuario = pl.getUsuario();
+
+            // Realizar la operación en el hilo de Swing (evita problema si se
+            // llama al método desde otro hilo)
+            SwingUtilities.invokeLater(new Runnable(){
+                @Override
+                public void run(){
+                    // Actualizar la etiqueta de participantes
+                    if(etiquetaPrincipal.getText().compareTo(principal + " - ") != 0){
+                        if(!etiquetaPrincipal.getText().contains(nick))
+                            etiquetaPrincipal.setText(etiquetaPrincipal.getText() + ", " + nick);
+                    }
+                    else
+                        etiquetaPrincipal.setText(etiquetaPrincipal.getText() + nick);
+                }
+            });
+
+            // Notificar al usuario el evento
+            conversacion.notificarEventoConversacion(ece,nick);
+
+            // Añadir el usuario y su nick al panel de la conversación.
+            conversacion.añadirUsuario(usuario,nick);
+        }
+        else if(ece == EventosConversacionEnumeracion.invitacionRechazada){
+
+            // Recuperar los datos necesarios
+            RechazoInvitacionListener ril = (RechazoInvitacionListener) o;
+            String invitado = ril.getInvitado();
+
+            // Notificar al usuario el evento
+            conversacion.notificarEventoConversacion(ece,invitado);
+        }
+        else if(ece == EventosConversacionEnumeracion.participanteDesconectado) {
+
+            // Recuperar los datos necesarios
+            ParticipantesListener pl = (ParticipantesListener) o;
+            String nick = pl.getNick();
+            String usuario = pl.getUsuario();
+
+            // Actualizar la etiqueta de participantes
+            String etiqueta = etiquetaPrincipal.getText();
+            String[] trozos = etiqueta.split("-|,");
+            for(int i = 0; i < trozos.length; i++){
+                trozos[i] = trozos[i].trim();
+                if(trozos[i].compareTo(nick) == 0){
+                    trozos[i] = null;
+                    break;
+                }
+            }
+
+            String etiquetaNueva = trozos[0] + " - ";
+            boolean primero = true;
+            for(int i = 1; i < trozos.length; i++){
+                if(trozos[i] != null){
+                    if(primero){
+                        etiquetaNueva = etiquetaNueva + trozos[i];
+                        primero = false;
+                    }
+                    else
+                        etiquetaNueva = etiquetaNueva + ", " + trozos[i];
+                }
+            }
+
+            // Realizar la operación en el hilo de Swing (evita problema si se
+            // llama al método desde otro hilo)
+            final String et = etiquetaNueva;
+            SwingUtilities.invokeLater(new Runnable(){
+                @Override
+                public void run(){
+                     etiquetaPrincipal.setText(et);
+                }
+            });
+
+            // Notificar al usuario del evento
+            conversacion.notificarEventoConversacion(ece,nick);
+
+            // Eliminar el usuario y su nick de la conexión.
+            conversacion.eliminarUsuario(usuario);
+        }
     }
 }
