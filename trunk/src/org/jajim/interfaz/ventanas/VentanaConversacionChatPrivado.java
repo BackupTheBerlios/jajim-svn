@@ -23,6 +23,7 @@ import java.awt.event.WindowListener;
 import org.jajim.controladores.ContactosControlador;
 import org.jajim.controladores.ConversacionControladorChatPrivado;
 import org.jajim.controladores.CuentaControlador;
+import org.jajim.modelo.conexiones.EventosDeConexionEnumeracion;
 
 /**
  * @author Florencio Cañizal Calles
@@ -171,6 +172,18 @@ public class VentanaConversacionChatPrivado extends VentanaConversacion{
             public void windowDeactivated(WindowEvent e) {}
         });
 
+    }
+
+    /**
+     * Método que se utiliza para notificar al chat privado eventos relacionados
+     * con la conexión.
+     * @param edce El tipo de evento de conexión.
+     * @param propiedad Algún tipo de propiedad que es útil mostrar a la hora de
+     * notificar el evento.
+     */
+    public void notificarEvento(EventosDeConexionEnumeracion edce,String propiedad){
+        // Delegar la información del evento en el panel de contactos.
+        conversacion.notificarEventoConexion(edce, propiedad);
     }
 
     /**
