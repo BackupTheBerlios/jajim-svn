@@ -33,14 +33,15 @@ import org.jivesoftware.smack.util.StringUtils;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase que maneja los eventos recibidos por producirse cambios en el roster del
  * usuario.
  */
 public class ContactosListener extends Observable implements RosterListener{
 
     private Roster contactos;
-    private String aliasConectado;
+    private String aliasModificado;
+    private String contactoModificado;
 
     /**
      * Constructor de la clase.
@@ -198,21 +199,37 @@ public class ContactosListener extends Observable implements RosterListener{
         this.actualizarContactos();
 
         Collection<PacketExtension> col = arg0.getExtensions();
-        if(arg0.getPriority() == Integer.MIN_VALUE && arg0.isAvailable() && col.size() == 0){
+        if(arg0.getPriority() == Integer.MIN_VALUE && col.isEmpty()){
             String contacto = arg0.getFrom();
             contacto = StringUtils.parseBareAddress(contacto);
             RosterEntry re = contactos.getEntry(contacto);
-            aliasConectado = re.getName();
             this.setChanged();
-            this.notifyObservers(EventosDeConexionEnumeracion.usuarioConectado);
+            // Si el mensaje es de contacto disponible se notifica al observador
+            if(arg0.isAvailable()){
+                aliasModificado = re.getName();
+                this.notifyObservers(EventosDeConexionEnumeracion.usuarioConectado);
+            }
+            // Si el mensaje es de contacto desconectado se notifica al observador
+            else{
+                aliasModificado = re.getName();
+                this.notifyObservers(EventosDeConexionEnumeracion.usuarioDesconectado);
+            }
         }
     }
 
     /**
-     * Retorna el valor del atributo aliasConectado.
-     * @return El valor del atributo aliasConectado.
+     * Retorna el valor del atributo aliasModificado.
+     * @return El valor del atributo aliasModificado.
      */
-    public String getAliasConectado(){
-        return aliasConectado;
+    public String getAliasModificado(){
+        return aliasModificado;
+    }
+
+    /**
+     * Retorna el valor del atributo contactoModificado.
+     * @return El valor del atributo contactoModificado.
+     */
+    public String getContactoModificado(){
+        return contactoModificado;
     }
 }
