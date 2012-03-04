@@ -20,7 +20,7 @@ package org.jajim.modelo.conexiones;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase enumeración que recoge los tipos de eventos importantes que se pueden
  * recibir a través de una conexión.
  */
@@ -37,6 +37,7 @@ public class EventosDeConexionEnumeracion{
     public static final EventosDeConexionEnumeracion invitacionAChat = new EventosDeConexionEnumeracion("Invitacion a chat");
     public static final EventosDeConexionEnumeracion peticionDeTransferencia = new EventosDeConexionEnumeracion("Petición de transferencia");
     public static final EventosDeConexionEnumeracion usuarioConectado = new EventosDeConexionEnumeracion("Usuario conectado");
+    public static final EventosDeConexionEnumeracion usuarioDesconectado = new EventosDeConexionEnumeracion("Usuario desconectado");
 
     /**
      * Constructor de la clase. Inicializa el evento de la misma.
