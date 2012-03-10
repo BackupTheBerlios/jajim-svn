@@ -66,7 +66,7 @@ public class ChatListener extends Observable implements ChatManagerListener{
      */
     @Override
     public void chatCreated(Chat chat,boolean createdLocally) {
-        
+   
         // Si el chat fue creado por otro usuario, se almacena el chat y se notifi
         // ca al oyente
         if(!createdLocally){
