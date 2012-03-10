@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
-import org.jivesoftware.smack.XMPPConnection;
+import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smackx.muc.InvitationListener;
 
@@ -59,7 +59,7 @@ public class InvitacionListener extends Observable implements InvitationListener
      * @param message Un mensaje.
      */
     @Override
-    public void invitationReceived(XMPPConnection conn,String room,String inviter,String reason,String password,Message message) {
+    public void invitationReceived(Connection conn,String room,String inviter,String reason,String password,Message message) {
 
         // Almacenar la invitación y notificarselo a los oyentes.
         idInvitacion = String.valueOf(generador);
