@@ -18,15 +18,15 @@
 
 package org.jajim.interfaz.listeners;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import org.jajim.controladores.TransferenciaFicherosControlador;
 import org.jajim.excepciones.ImposibleRenombrarFicheroException;
 import org.jajim.interfaz.dialogos.MensajeError;
 import org.jajim.interfaz.dialogos.RenombrarFicheroFormulario;
 import org.jajim.interfaz.ventanas.VentanaGestorDeTransferencias;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
 /**
  * @author Florencio Cañizal Calles

@@ -18,12 +18,12 @@
 
 package org.jajim.interfaz.listeners;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import org.jajim.controladores.CuentaControlador;
 import org.jajim.excepciones.ImposibleModificarContraseñaException;
 import org.jajim.interfaz.dialogos.MensajeError;
 import org.jajim.interfaz.dialogos.ModificarContraseñaFormulario;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * @author Florencio Cañizal Calles

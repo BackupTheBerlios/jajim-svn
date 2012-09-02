@@ -18,11 +18,11 @@
 
 package org.jajim.interfaz.listeners;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import org.jajim.controladores.CuentaControlador;
 import org.jajim.interfaz.ventanas.VentanaGestorDeCuentas;
 import org.jajim.interfaz.ventanas.VentanaPrincipal;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * @author Florencio Cañizal Calles
@@ -57,8 +57,9 @@ public class CambiarCuentaActionListener implements ActionListener{
         String cuenta[] = vgt.getCuenta();
 
         // Si devuelve null, no hay cuentas y se cierra la ejecución del método
-        if(cuenta == null)
+        if(cuenta == null) {
             return;
+        }
 
         // Extraer los valores
         String identificador = cuenta[0];
@@ -74,8 +75,9 @@ public class CambiarCuentaActionListener implements ActionListener{
         // Abortar la conexión si es necesario
         AbortarOperaciones ao = new AbortarOperaciones(vgt,vp,vp.getVgt());
 
-        if(!ao.abortarConexion())
+        if(!ao.abortarConexion()) {
             return;
+        }
 
         // Llamar al controlador para que realice la operación
         cc.cambiarCuenta(identificador,servidor);

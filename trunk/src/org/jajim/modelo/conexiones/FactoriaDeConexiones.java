@@ -18,16 +18,16 @@
 
 package org.jajim.modelo.conexiones;
 
-import org.jajim.excepciones.ServidorNoEncontradoException;
-import org.jajim.utilidades.log.ManejadorDeLogs;
 import java.util.HashMap;
 import java.util.Map;
+import org.jajim.excepciones.ServidorNoEncontradoException;
+import org.jajim.utilidades.log.ManejadorDeLogs;
 import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.XMPPConnection;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase que maneja la creación y cacheado de las diferentes conexiones utilizadas
  * por el sistema. Para sus acceso se utiliza el patrón Singleton.
  */
@@ -40,7 +40,7 @@ public class FactoriaDeConexiones {
      * Constructor de la clase. Inicia la cache de conexiones.
      */
     private FactoriaDeConexiones(){
-        conexiones = new HashMap<String,XMPPConnection>();
+        conexiones = new HashMap<>();
     }
 
     /**
@@ -51,8 +51,9 @@ public class FactoriaDeConexiones {
     public static FactoriaDeConexiones getInstancia(){
 
         // Si no se ha creado una instancia de la factoría se crea una nueva.
-        if(instancia == null)
+        if(instancia == null) {
             instancia = new FactoriaDeConexiones();
+        }
 
         return instancia;
     }

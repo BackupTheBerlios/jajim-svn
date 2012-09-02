@@ -18,10 +18,6 @@
 
 package org.jajim.interfaz.dialogos;
 
-import org.jajim.controladores.CuentaControlador;
-import org.jajim.interfaz.ventanas.VentanaGestorDeCuentas;
-import org.jajim.interfaz.ventanas.VentanaPrincipal;
-import org.jajim.main.Main;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
@@ -36,6 +32,9 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import org.jajim.interfaz.ventanas.VentanaGestorDeCuentas;
+import org.jajim.interfaz.ventanas.VentanaPrincipal;
+import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
@@ -119,16 +118,20 @@ public class CrearOAñadirFormulario extends JDialog implements ActionListener{
         }
         else if(opciones[0].isSelected()){
             this.dispose();
-            if(vgc == null)
+            if(vgc == null) {
                 new CrearCuentaFormulario(vp);
-            else
+            }
+            else {
                 new CrearCuentaFormulario(vp,vgc);
+            }
         }else if(opciones[1].isSelected()){
             this.dispose();
-            if(vgc == null)
+            if(vgc == null) {
                 new AñadirCuentaFormulario(vp);
-            else
+            }
+            else {
                 new AñadirCuentaFormulario(vp,vgc);
+            }
         }
     }
 
@@ -157,8 +160,9 @@ public class CrearOAñadirFormulario extends JDialog implements ActionListener{
             grupoDeBotones.add(opciones[i]);
             central.add(opciones[i]);
 
-            if(marcado)
+            if(marcado) {
                 marcado = false;
+            }
         }
         cp.add(BorderLayout.CENTER,central);
 
@@ -181,10 +185,12 @@ public class CrearOAñadirFormulario extends JDialog implements ActionListener{
         this.setTitle(texto.getString("crear_o_añadir_formulario_title"));
         this.setSize(450,180);
         this.setResizable(false);
-        if(vgc != null)
+        if(vgc != null) {
             this.setLocationRelativeTo(vgc);
-        else
+        }
+        else {
             this.setLocationRelativeTo(vp);
+        }
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         this.setVisible(true);
     }

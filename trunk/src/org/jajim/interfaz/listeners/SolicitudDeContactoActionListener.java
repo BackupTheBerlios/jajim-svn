@@ -18,13 +18,13 @@
 
 package org.jajim.interfaz.listeners;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 import org.jajim.controladores.ContactosControlador;
 import org.jajim.excepciones.ImposibleSolicitarContactoException;
 import org.jajim.interfaz.dialogos.MensajeError;
 import org.jajim.interfaz.dialogos.SolicitudDeContactoFormulario;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.List;
 
 /**
  * @author Florencio Cañizal Calles

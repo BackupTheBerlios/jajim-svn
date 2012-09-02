@@ -18,14 +18,14 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.interfaz.dialogos.AcercaDeFormulario;
-import org.jajim.interfaz.ventanas.VentanaPrincipal;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import org.jajim.interfaz.dialogos.AcercaDeFormulario;
+import org.jajim.interfaz.ventanas.VentanaPrincipal;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que escucha los eventos de petición de información acerca de la
  * herramienta. Lanza el formulario apropiado para visualizar dicha información
  */

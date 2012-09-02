@@ -18,19 +18,18 @@
 
 package org.jajim.main;
 
-import org.jajim.interfaz.ventanas.VentanaPrincipal;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import org.jajim.interfaz.ventanas.VentanaPrincipal;
 import org.jvnet.substance.SubstanceLookAndFeel;
 import org.jvnet.substance.fonts.FontPolicies;
 import org.jvnet.substance.skin.SubstanceMistSilverLookAndFeel;
-import org.jivesoftware.smack.XMPPConnection;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase principal inicializa los objetos necesarios para la ejecución de la apli
  * cación.
  */
@@ -47,16 +46,17 @@ public class Main {
         //XMPPConnection.DEBUG_ENABLED = true;
 
         // Si no existe un archivo de idioma, utilizar el de inglés
-        if(loc.toString().contains("es"))
+        if(loc.toString().contains("es")) {
             loc = new Locale("es");
-        else
+        }
+        else {
             loc = new Locale("en");
+        }
 
         try{
             UIManager.setLookAndFeel(new SubstanceMistSilverLookAndFeel());
             SubstanceLookAndFeel.setFontPolicy(FontPolicies.getLooks1xPlasticPolicy());
         }catch (Exception e){
-            e.printStackTrace();
         }
 
         // Cargar algunas etiquetas para los JFileChooser porque no tienen locali
@@ -76,6 +76,7 @@ public class Main {
         UIManager.put("FileChooser.fileNameLabelText",texto.getString("FileChooser.fileNameLabelText"));
 
         SwingUtilities.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 VentanaPrincipal vp = new VentanaPrincipal();
             }

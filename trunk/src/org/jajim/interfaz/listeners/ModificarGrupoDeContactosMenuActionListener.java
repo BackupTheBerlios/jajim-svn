@@ -18,14 +18,14 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.interfaz.dialogos.ModificarGrupoDeContactosFormulario;
-import org.jajim.interfaz.utilidades.PanelContactos;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import org.jajim.interfaz.dialogos.ModificarGrupoDeContactosFormulario;
+import org.jajim.interfaz.utilidades.PanelContactos;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que escucha los eventos de modificación de grupo provenientes de
  * el menú popup de los grupos.
  */

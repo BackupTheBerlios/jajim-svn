@@ -18,10 +18,10 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.controladores.ContactosControlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JDialog;
+import org.jajim.controladores.ContactosControlador;
 
 /**
  * @author Florencio Cañizal Calles

@@ -18,10 +18,10 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.interfaz.dialogos.AceptarORechazarChatPrivadoFormulario;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import org.jajim.controladores.ConversacionControladorChatPrivado;
+import org.jajim.interfaz.dialogos.AceptarORechazarChatPrivadoFormulario;
 
 /**
  * @author Florencio Cañizal Calles

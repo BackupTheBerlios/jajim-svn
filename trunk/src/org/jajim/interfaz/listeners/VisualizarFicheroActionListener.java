@@ -18,14 +18,14 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.controladores.TransferenciaFicherosControlador;
-import org.jajim.excepciones.ImposibleVisualizarFicheroException;
-import org.jajim.interfaz.dialogos.MensajeError;
-import org.jajim.interfaz.ventanas.VentanaGestorDeTransferencias;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import org.jajim.controladores.TransferenciaFicherosControlador;
+import org.jajim.excepciones.ImposibleVisualizarFicheroException;
+import org.jajim.interfaz.dialogos.MensajeError;
+import org.jajim.interfaz.ventanas.VentanaGestorDeTransferencias;
 
 /**
  * @author Florencio Cañizal Calles
@@ -60,8 +60,9 @@ public class VisualizarFicheroActionListener implements ActionListener{
         // Recuperar el fichero seleccionado, si no hay ninguno se aborta la ope
         // ración.
         int filaSeleccionada = tablaDeFicheros.getSelectedRow();
-        if(filaSeleccionada == -1)
+        if(filaSeleccionada == -1) {
             return;
+        }
 
         DefaultTableModel dtm = (DefaultTableModel) tablaDeFicheros.getModel();
         String nombre = (String) dtm.getValueAt(filaSeleccionada,0);

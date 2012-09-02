@@ -68,8 +68,9 @@ public class ColaSincronizadaConSobreescritura<E> extends AbstractQueue<E>{
         }
 
         // Aumentar el número de elementos de la cola
-        if(elementos != cola.length)
+        if(elementos != cola.length) {
             elementos++;
+        }
 
         return true;
     }
@@ -83,8 +84,9 @@ public class ColaSincronizadaConSobreescritura<E> extends AbstractQueue<E>{
     public synchronized E poll(){
 
         // Si la cola está vacía devuelve null
-        if(this.isEmpty())
+        if(this.isEmpty()) {
             return null;
+        }
         else{
             // Recupera el elemento más antiguo y retorna
             E elemento = (E) cola[tail];
@@ -103,8 +105,9 @@ public class ColaSincronizadaConSobreescritura<E> extends AbstractQueue<E>{
     public synchronized E peek(){
 
         // Si la cola está vacía devuelve null
-        if(this.isEmpty())
+        if(this.isEmpty()) {
             return null;
+        }
         else{
             E elemento = (E) cola[tail];
             return elemento;

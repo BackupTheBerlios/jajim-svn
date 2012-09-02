@@ -33,7 +33,7 @@ import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * La ventana con la ayuda de la aplicación.
  */
 public class VentanaAyuda extends JFrame implements HyperlinkListener{
@@ -92,10 +92,12 @@ public class VentanaAyuda extends JFrame implements HyperlinkListener{
         if(e.getEventType() == HyperlinkEvent.EventType.ACTIVATED){
             try{
                  InputStream is;
-                if(Main.loc.toString().contains("es"))
+                if(Main.loc.toString().contains("es")) {
                     is = this.getClass().getResourceAsStream("/ayuda/espanol/" + e.getDescription());
-                else
+                }
+                else {
                     is = this.getClass().getResourceAsStream("/ayuda/ingles/" + e.getDescription());
+                }
                 String totalFichero = "";
                 byte[] bufferDeLectura = new byte[1024];
                 while(is.read(bufferDeLectura) != -1){
@@ -103,7 +105,6 @@ public class VentanaAyuda extends JFrame implements HyperlinkListener{
                 }
                 contenidoAyuda.setText(totalFichero);
             }catch(IOException ioe){
-                ioe.printStackTrace();
             }
         }
     }

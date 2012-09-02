@@ -18,9 +18,6 @@
 
 package org.jajim.interfaz.dialogos;
 
-import org.jajim.interfaz.listeners.RenombrarFicheroActionListener;
-import org.jajim.interfaz.ventanas.VentanaGestorDeTransferencias;
-import org.jajim.main.Main;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
@@ -34,10 +31,13 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import org.jajim.interfaz.listeners.RenombrarFicheroActionListener;
+import org.jajim.interfaz.ventanas.VentanaGestorDeTransferencias;
+import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase formulario que permite al usuario introducir un nuevo nombre para el fi
  * chero.
  */

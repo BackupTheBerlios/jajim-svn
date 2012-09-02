@@ -18,15 +18,14 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.controladores.PreferenciasControlador;
-import org.jajim.interfaz.ventanas.VentanaConversacion;
-import org.jajim.main.Main;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
 import javax.swing.JColorChooser;
+import org.jajim.controladores.PreferenciasControlador;
 import org.jajim.interfaz.ventanas.VentanaConversacion;
+import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles

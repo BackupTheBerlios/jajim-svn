@@ -197,8 +197,9 @@ public class VentanaConversacion extends JFrame{
                 menus[i].add(itemsDeMenu[i][j]);
 
                 // Añadir separadores
-                if(j == 1)
+                if(j == 1) {
                     menus[i].addSeparator();
+                }
             }
         }
 
@@ -249,17 +250,20 @@ public class VentanaConversacion extends JFrame{
             botonesBarraDeEstilos[i] = new JButton(new ImageIcon(ClassLoader.getSystemResource(iconosEstilo[i])));
             botonesBarraDeEstilos[i].addActionListener(actionListenersEstilos[i]);
             if(i == 2){
-                if(PreferenciasControlador.getInstancia().isNegrita())
+                if(PreferenciasControlador.getInstancia().isNegrita()) {
                     botonesBarraDeEstilos[i].setSelected(true);
+                }
             }
             if(i == 3){
-                if(PreferenciasControlador.getInstancia().isCursiva())
+                if(PreferenciasControlador.getInstancia().isCursiva()) {
                     botonesBarraDeEstilos[i].setSelected(true);
+                }
             }
             botonesBarraDeEstilos[i].setToolTipText(itemsDeMenuEstilo[i]);
             barraDeEstilos.add(botonesBarraDeEstilos[i]);
-            if(i != (botonesBarraDeEstilos.length - 1))
+            if(i != (botonesBarraDeEstilos.length - 1)) {
                 barraDeEstilos.addSeparator();
+            }
         }
         panelBarra.add(barraDeEstilos);
         barraYMensajes.add(BorderLayout.NORTH,panelBarra);
@@ -270,7 +274,7 @@ public class VentanaConversacion extends JFrame{
         nuevoMensaje = new JTextArea();
         nuevoMensaje.setLineWrap(true);
         nuevoMensaje.setWrapStyleWord(true);
-        Keymap keymap = nuevoMensaje.addKeymap("MiKeymap",nuevoMensaje.getKeymap());
+        Keymap keymap = JTextArea.addKeymap("MiKeymap",nuevoMensaje.getKeymap());
         KeyStroke key = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER,0);
         keymap.addActionForKeyStroke(key,new EnviarMensajeAction(this,conversacion));
         nuevoMensaje.setKeymap(keymap);
@@ -289,8 +293,9 @@ public class VentanaConversacion extends JFrame{
         Image image = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("icons/conversacion.png"));
         this.setTitle(alias + " - JIM_1.1");
         this.setIconImage(image);
-        if(PreferenciasControlador.getInstancia().isVentanaConversacionMaximizada())
+        if(PreferenciasControlador.getInstancia().isVentanaConversacionMaximizada()) {
             this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        }
         else{
             this.setLocation(PreferenciasControlador.getInstancia().getVentanaConversacionX(),PreferenciasControlador.getInstancia().getVentanaConversacionY());
             this.setSize(PreferenciasControlador.getInstancia().getVentanaConversacionAncho(),PreferenciasControlador.getInstancia().getVentanaConversacionLargo());
@@ -373,8 +378,9 @@ public class VentanaConversacion extends JFrame{
     private static void añadirConversacion(VentanaConversacion vc){
 
         // Si no se dispone de una inicialización de la variable, se inicializa.
-        if(conversaciones == null)
+        if(conversaciones == null) {
             conversaciones = Collections.synchronizedList(new ArrayList<VentanaConversacion>());
+        }
 
         conversaciones.add(vc);
     }
@@ -402,10 +408,12 @@ public class VentanaConversacion extends JFrame{
     public static boolean hayConversaciones(){
 
         // Si la lista es nula o tiene tamaño 0, se devuelve false
-        if(conversaciones == null || conversaciones.size() == 0)
+        if(conversaciones == null || conversaciones.isEmpty()) {
             return false;
-        else
+        }
+        else {
             return true;
+        }
     }
 
     /**
@@ -461,8 +469,9 @@ public class VentanaConversacion extends JFrame{
         if(conversaciones != null && conversaciones.size() > 0){
             contacto = ContactosControlador.getInstancia().getContactoPorAlias(alias);
         }
-        else
+        else {
             return chatPrivado;
+        }
 
         // Mirar en todas las conversaciones haber si una es un chat privado con
         // el usuario
@@ -493,8 +502,9 @@ public class VentanaConversacion extends JFrame{
         if(conversaciones != null && conversaciones.size() > 0){
             contacto = ContactosControlador.getInstancia().getContactoPorAlias(alias);
         }
-        else
+        else {
             return null;
+        }
 
         // Mirar en todas las conversaciones haber si una es un chat privado con
         // el usuario adecuado y retornar ésta

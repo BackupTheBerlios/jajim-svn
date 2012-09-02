@@ -18,10 +18,10 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.controladores.TransferenciaFicherosControlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JDialog;
+import org.jajim.controladores.TransferenciaFicherosControlador;
 
 /**
  * @author Florencio Cañizal Calles

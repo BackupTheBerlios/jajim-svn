@@ -18,11 +18,10 @@
 
 package org.jajim.interfaz.utilidades;
 
-import org.jajim.main.Main;
-import org.jajim.modelo.conversaciones.EventosConversacionEnumeracion;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +30,8 @@ import java.util.Observer;
 import java.util.ResourceBundle;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -38,7 +39,9 @@ import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
 import org.jajim.interfaz.ventanas.VentanaConversacion;
 import org.jajim.interfaz.ventanas.VentanaConversacionChatPrivado;
+import org.jajim.main.Main;
 import org.jajim.modelo.conexiones.EventosDeConexionEnumeracion;
+import org.jajim.modelo.conversaciones.EventosConversacionEnumeracion;
 import org.jajim.utilidades.log.ManejadorDeLogs;
 import org.jivesoftware.smack.util.StringUtils;
 
@@ -108,27 +111,27 @@ public class PanelConversacion implements Observer{
         total = new StringBuffer();
 
         // Iniciar contenedor de usuarios
-        usuarios = new HashMap<String,String>();
+        usuarios = new HashMap<>();
 
         // Iniciar las cadenas de los eventos de la conversación
-        eventosConversacion = new HashMap<EventosConversacionEnumeracion,String>();
+        eventosConversacion = new HashMap<>();
         eventosConversacion.put(EventosConversacionEnumeracion.participanteAñadido,texto.getString("añadir_participante_evento"));
         eventosConversacion.put(EventosConversacionEnumeracion.invitacionRechazada,texto.getString("rechazo_invitacion_evento"));
         eventosConversacion.put(EventosConversacionEnumeracion.participanteDesconectado,texto.getString("participante_desconectado_evento"));
 
         // Iniciar las cadenas de los eventos de la conexión
-        eventosConexion = new HashMap<EventosDeConexionEnumeracion, String>();
+        eventosConexion = new HashMap<>();
         eventosConexion.put(EventosDeConexionEnumeracion.usuarioConectado, texto.getString("usuario_conectado_evento_conversacion"));
         eventosConexion.put(EventosDeConexionEnumeracion.usuarioDesconectado, texto.getString("usuario_desconectado_evento_conversacion"));
         
         // Iniciar el mapa de preferencias
-        estilos = new HashMap<String,String[]>();
+        estilos = new HashMap<>();
 
         // Iniciar los sonidos
         try{
             sonido = AudioSystem.getClip();
             sonido.open(AudioSystem.getAudioInputStream(this.getClass().getResourceAsStream("/sounds/button-9.wav")));
-        }catch(Exception e){
+        }catch(LineUnavailableException | UnsupportedAudioFileException | IOException e){
             // En caso de que se produzca un error se escribe en el fichero
             // de log.
             ManejadorDeLogs mdl = ManejadorDeLogs.getManejadorDeLogs();
@@ -146,8 +149,9 @@ public class PanelConversacion implements Observer{
         // popup con el mensaje nuevo (Ya se ha informado al usuario del mensaje
         // con la notificación de chat).
 
-        if(total.length() == 0)
+        if(total.length() == 0) {
             isPrimerMensaje = true;
+        }
 
         // Extraer la información
         String[] informacion = (String[]) arg;
@@ -155,12 +159,14 @@ public class PanelConversacion implements Observer{
         String contenido = informacion[1];
 
         // Evitar los mensajes informando de que la sala es anónima
-        if(contenido.compareTo("Sala no anónima") == 0)
+        if(contenido.compareTo("Sala no anónima") == 0) {
             return;
+        }
 
         // Recuperar el usuario y la hora
-        if(vc instanceof VentanaConversacionChatPrivado)
+        if(vc instanceof VentanaConversacionChatPrivado) {
             usuario = StringUtils.parseBareAddress(usuario);
+        }
 
         usuario = usuarios.get(usuario);
         StringBuffer hora = this.getHora();
@@ -173,8 +179,9 @@ public class PanelConversacion implements Observer{
                 estilo = estilosPorDefecto[actualEstiloPorDefecto];
                 estilos.put(usuario,estilo);
                 actualEstiloPorDefecto++;
-                if(actualEstiloPorDefecto > 4)
+                if(actualEstiloPorDefecto > 4) {
                     actualEstiloPorDefecto = 0;
+                }
             }
         }
         else{
@@ -256,20 +263,26 @@ public class PanelConversacion implements Observer{
         Calendar calendario = Calendar.getInstance();
         StringBuffer hora = new StringBuffer("[");
 
-        if(calendario.get(Calendar.HOUR_OF_DAY) < 10)
-            hora.append("0" + calendario.get(Calendar.HOUR_OF_DAY) + ":");
-        else
-            hora.append(calendario.get(Calendar.HOUR_OF_DAY) + ":");
+        if(calendario.get(Calendar.HOUR_OF_DAY) < 10) {
+            hora.append("0").append(calendario.get(Calendar.HOUR_OF_DAY)).append(":");
+        }
+        else {
+            hora.append(calendario.get(Calendar.HOUR_OF_DAY)).append(":");
+        }
 
-        if(calendario.get(Calendar.MINUTE) < 10)
-            hora.append("0" + calendario.get(Calendar.MINUTE) + ":");
-        else
-            hora.append(calendario.get(Calendar.MINUTE) + ":");
+        if(calendario.get(Calendar.MINUTE) < 10) {
+            hora.append("0").append(calendario.get(Calendar.MINUTE)).append(":");
+        }
+        else {
+            hora.append(calendario.get(Calendar.MINUTE)).append(":");
+        }
 
-        if(calendario.get(Calendar.SECOND) < 10)
-            hora.append("0" + calendario.get(Calendar.SECOND) + "]");
-        else
-            hora.append(calendario.get(Calendar.SECOND) + "]");
+        if(calendario.get(Calendar.SECOND) < 10) {
+            hora.append("0").append(calendario.get(Calendar.SECOND)).append("]");
+        }
+        else {
+            hora.append(calendario.get(Calendar.SECOND)).append("]");
+        }
 
         return hora;
     }

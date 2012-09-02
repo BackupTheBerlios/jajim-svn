@@ -18,9 +18,6 @@
 
 package org.jajim.interfaz.dialogos;
 
-import org.jajim.controladores.PreferenciasControlador;
-import org.jajim.interfaz.listeners.FuenteActionListener;
-import org.jajim.main.Main;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -40,7 +37,10 @@ import javax.swing.JTextPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import org.jajim.controladores.PreferenciasControlador;
+import org.jajim.interfaz.listeners.FuenteActionListener;
 import org.jajim.interfaz.ventanas.VentanaConversacion;
+import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles

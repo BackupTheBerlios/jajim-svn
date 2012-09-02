@@ -18,17 +18,6 @@
 
 package org.jajim.controladores;
 
-import org.jajim.excepciones.FicheroNoEncontradoException;
-import org.jajim.excepciones.ImposibleBorrarFicheroException;
-import org.jajim.excepciones.ImposibleEnviarFicheroException;
-import org.jajim.excepciones.ImposibleRecibirFicheroException;
-import org.jajim.excepciones.ImposibleRecuperarParticipanteException;
-import org.jajim.excepciones.ImposibleRenombrarFicheroException;
-import org.jajim.excepciones.ImposibleReubicarFicheroException;
-import org.jajim.excepciones.ImposibleVisualizarFicheroException;
-import org.jajim.excepciones.RutaNoDisponibleException;
-import org.jajim.modelo.transferencias.RecepcionFicherosListener;
-import org.jajim.utilidades.log.ManejadorDeLogs;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -43,6 +32,17 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Observer;
 import java.util.Set;
+import org.jajim.excepciones.FicheroNoEncontradoException;
+import org.jajim.excepciones.ImposibleBorrarFicheroException;
+import org.jajim.excepciones.ImposibleEnviarFicheroException;
+import org.jajim.excepciones.ImposibleRecibirFicheroException;
+import org.jajim.excepciones.ImposibleRecuperarParticipanteException;
+import org.jajim.excepciones.ImposibleRenombrarFicheroException;
+import org.jajim.excepciones.ImposibleReubicarFicheroException;
+import org.jajim.excepciones.ImposibleVisualizarFicheroException;
+import org.jajim.excepciones.RutaNoDisponibleException;
+import org.jajim.modelo.transferencias.RecepcionFicherosListener;
+import org.jajim.utilidades.log.ManejadorDeLogs;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.filetransfer.FileTransfer;
@@ -134,8 +134,9 @@ public class TransferenciaFicherosControlador {
                         JID = cccm.getJIDParticipante(s);
                     }
                 }
-                else
+                else {
                     JID = ContactosControlador.getInstancia().getJID(s);
+                }
                 oft = ftm.createOutgoingFileTransfer(JID);
 
                 oft.sendFile(fichero,descripcion);
@@ -172,8 +173,9 @@ public class TransferenciaFicherosControlador {
 
         // Comprobar si la ruta es válida
         File valida = new File(ruta);
-        if(!valida.isDirectory())
+        if(!valida.isDirectory()) {
             throw new RutaNoDisponibleException();
+        }
 
         // Recuperar la petición de transferencia de fichero
         FileTransferRequest ftr = rfl.getPeticion(idTransferencia);
@@ -238,11 +240,12 @@ public class TransferenciaFicherosControlador {
             // celación correctamente antes de poder borrar el fichero.
             final TransferenciaFicherosControlador tfc = this;
             Runnable r = new Runnable(){
+                @Override
                 public void run(){
                     try{
                         Thread.sleep(3000);
                         tfc.borrarFichero(nombre,ruta);
-                    }catch(Exception e){}
+                    }catch(InterruptedException | ImposibleBorrarFicheroException e){}
                 }
             };
             new Thread(r,"").start();
@@ -266,22 +269,30 @@ public class TransferenciaFicherosControlador {
         // Comprobar que sistema operativo se está ejecutando y actuar en conse
         // cuencia
         try{
-            if(System.getProperty("os.name").toUpperCase().indexOf("95") != -1)
+            if(System.getProperty("os.name").toUpperCase().indexOf("95") != -1) {
                 Runtime.getRuntime().exec(new String[]{"command.com","/C","start",url});
-            else if(System.getProperty("os.name").toUpperCase().indexOf("WINDOWS") != -1)
+            }
+            else if(System.getProperty("os.name").toUpperCase().indexOf("WINDOWS") != -1) {
                 Runtime.getRuntime().exec( new String[]{"cmd.exe", "/C", "start","\"dummy\"","\"" + url + "\""} );
-            else if(System.getProperty("os.name").toUpperCase().indexOf("MAC") != -1)
+            }
+            else if(System.getProperty("os.name").toUpperCase().indexOf("MAC") != -1) {
                 Runtime.getRuntime().exec(new String[]{"open",url});
+            }
             else if(System.getProperty("os.name").toUpperCase().indexOf("LINUX") != -1){
                 String desktop = this.getLinuxDesktop();
-                if(desktop.equals("kde"))
-                    Runtime.getRuntime().exec(new String[]{"kfmclient","exec",url});
-                else if(desktop.equals("gnome"))
-                    Runtime.getRuntime().exec(new String[]{"gnome-open",url});
-                else if(desktop.equals("xfce"))
-                    Runtime.getRuntime().exec(new String[]{"exo-open",url});
-                else
-                    throw new ImposibleVisualizarFicheroException();
+                switch (desktop) {
+                    case "kde":
+                        Runtime.getRuntime().exec(new String[]{"kfmclient","exec",url});
+                        break;
+                    case "gnome":
+                        Runtime.getRuntime().exec(new String[]{"gnome-open",url});
+                        break;
+                    case "xfce":
+                        Runtime.getRuntime().exec(new String[]{"exo-open",url});
+                        break;
+                    default:
+                        throw new ImposibleVisualizarFicheroException();
+                }
             }
         }catch(IOException ie){
             // En caso de que se produzca un error se escribe en el fichero
@@ -308,10 +319,12 @@ public class TransferenciaFicherosControlador {
             Process p = Runtime.getRuntime().exec(cmd);
             BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
             String value = br.readLine();
-            if(value == null)
+            if(value == null) {
                 return "";
-            else
+            }
+            else {
                 return value.trim();
+            }
         }
         catch(Exception error){
           return "";
@@ -329,13 +342,18 @@ public class TransferenciaFicherosControlador {
         // Preguntar por variables que sólo están disponibles en determinados tipos
         // de escritorio.
         String linuxDesktop = null;
-        if(!getEnv("KDE_FULL_SESSION").equals("") || !getEnv("KDE_MULTIHEAD").equals(""))
+        if(!getEnv("KDE_FULL_SESSION").equals("") || !getEnv("KDE_MULTIHEAD").equals("")) {
             linuxDesktop = "kde";
-        else if(!getEnv("GNOME_DESKTOP_SESSION_ID").equals("") || !getEnv("GNOME_KEYRING_SOCKET").equals(""))
+        }
+        else if(!getEnv("GNOME_DESKTOP_SESSION_ID").equals("") || !getEnv("GNOME_KEYRING_SOCKET").equals("")) {
             linuxDesktop = "gnome";
-        else if(getEnv("DESKTOP_SESSION").contains("xfce"))
+        }
+        else if(getEnv("DESKTOP_SESSION").contains("xfce")) {
             linuxDesktop = "xfce";
-        else linuxDesktop = "";
+        }
+        else {
+            linuxDesktop = "";
+        }
 
         return linuxDesktop;
     }
@@ -458,8 +476,9 @@ public class TransferenciaFicherosControlador {
             // Esperar hasta que la transferencia esté cancelada
             boolean t = true;
             while(t){
-                if(ft.getStatus() == FileTransfer.Status.cancelled)
+                if(ft.getStatus() == FileTransfer.Status.cancelled) {
                     t = false;
+                }
                 try{Thread.sleep(500);}catch(Exception e){}
             }
         }
@@ -521,7 +540,7 @@ public class TransferenciaFicherosControlador {
     public String[] getIdentificadoresTransferencias(String contacto){
         
         String[] identificadores = null;
-        List<String> auxiliar = new ArrayList<String>();
+        List<String> auxiliar = new ArrayList<>();
 
         // Recorrer la lista de transferencias y almacenar el identificador
         Set<Entry<String,FileTransfer>> conjunto = enCurso.entrySet();
@@ -549,8 +568,9 @@ public class TransferenciaFicherosControlador {
      */
     public static synchronized TransferenciaFicherosControlador getInstancia(){
 
-        if(instancia == null)
+        if(instancia == null) {
             instancia = new TransferenciaFicherosControlador();
+        }
 
         return instancia;
     }

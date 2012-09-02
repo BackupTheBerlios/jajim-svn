@@ -18,17 +18,16 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.interfaz.dialogos.IntroducirNickFormulario;
-import org.jajim.interfaz.dialogos.MensajeError;
-import org.jajim.interfaz.ventanas.VentanaPrincipal;
-import org.jajim.modelo.conversaciones.TiposDeChatEnumeracion;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import org.jajim.interfaz.dialogos.IntroducirNickFormulario;
+import org.jajim.interfaz.dialogos.MensajeError;
 import org.jajim.interfaz.ventanas.VentanaConversacionChatMultiusuario;
+import org.jajim.interfaz.ventanas.VentanaPrincipal;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que escucha los eventos de aceptación de invitación provenientes
  * de el formulario que permite intorducir el nick del usuario.
  *

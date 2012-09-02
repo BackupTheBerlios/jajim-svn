@@ -18,8 +18,6 @@
 
 package org.jajim.interfaz.dialogos;
 
-import org.jajim.interfaz.listeners.EnviarFicheroActionListener;
-import org.jajim.main.Main;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
@@ -40,9 +38,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import org.jajim.controladores.ConversacionControladorChatMultiusuario;
 import org.jajim.controladores.ConversacionControlador;
+import org.jajim.interfaz.listeners.EnviarFicheroActionListener;
 import org.jajim.interfaz.ventanas.VentanaConversacion;
+import org.jajim.main.Main;
 import org.jivesoftware.smack.util.StringUtils;
 
 /**
@@ -181,8 +180,9 @@ public class EnviarFicheroFormulario extends JDialog implements ActionListener{
             selector.updateUI();
             selector.setDialogType(JFileChooser.OPEN_DIALOG);
             int valorDeRetorno = selector.showOpenDialog(this);
-            if(valorDeRetorno == JFileChooser.APPROVE_OPTION)
+            if(valorDeRetorno == JFileChooser.APPROVE_OPTION) {
                 fichero.setText(selector.getSelectedFile().getPath());
+            }
         }else if(e.getActionCommand().compareTo("cancelar") == 0){
             this.dispose();
         }
@@ -192,12 +192,13 @@ public class EnviarFicheroFormulario extends JDialog implements ActionListener{
 
         // Recuperar los valores introducidos en el formulario y guardarlos en la
         // lista
-        List<String> campos = new ArrayList<String>();
+        List<String> campos = new ArrayList<>();
         campos.add(fichero.getText());
         campos.add(descripcion.getText());
         for(int i = 0;i < contactos.length;i++){
-            if(contactos[i].isSelected())
+            if(contactos[i].isSelected()) {
                 campos.add(contactos[i].getText());
+            }
         }
 
         return campos;

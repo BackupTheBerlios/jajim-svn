@@ -18,9 +18,6 @@
 
 package org.jajim.interfaz.dialogos;
 
-import org.jajim.interfaz.listeners.SolicitudDeContactoActionListener;
-import org.jajim.interfaz.ventanas.VentanaPrincipal;
-import org.jajim.main.Main;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
@@ -38,6 +35,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import org.jajim.controladores.ContactosControlador;
+import org.jajim.interfaz.listeners.SolicitudDeContactoActionListener;
+import org.jajim.interfaz.ventanas.VentanaPrincipal;
+import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
@@ -197,17 +197,19 @@ public class SolicitudDeContactoFormulario extends JDialog implements ActionList
      */
     public List<String> getCampos(){
 
-        List<String> campos = new ArrayList<String>();
+        List<String> campos = new ArrayList<>();
 
         // Extraer los campos del formulario y añadirlos a la lista
         for(int i = 0;i < grupoDeCampos.length;i++){
             campos.add(grupoDeCampos[i].getText());
         }
 
-        if(grupos.getSelectedIndex() != -1)
+        if(grupos.getSelectedIndex() != -1) {
             campos.add(grupos.getSelectedItem().toString());
-        else
+        }
+        else {
             campos.add("");
+        }
         
         return campos;
     }

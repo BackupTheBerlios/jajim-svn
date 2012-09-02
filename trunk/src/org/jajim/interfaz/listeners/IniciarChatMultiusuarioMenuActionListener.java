@@ -18,14 +18,14 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.interfaz.dialogos.IniciarChatMultiusuarioFormulario;
-import org.jajim.interfaz.utilidades.PanelContactos;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import org.jajim.interfaz.dialogos.IniciarChatMultiusuarioFormulario;
+import org.jajim.interfaz.utilidades.PanelContactos;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que se escucha eventos procedentes de la opción de crear un nuevo
  * chat multiusuario.
  */

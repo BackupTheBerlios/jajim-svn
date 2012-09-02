@@ -18,10 +18,6 @@
 
 package org.jajim.interfaz.dialogos;
 
-import org.jajim.interfaz.listeners.AceptarInvitacionActionListener;
-import org.jajim.interfaz.listeners.RechazarInvitacionActionListener;
-import org.jajim.interfaz.ventanas.VentanaPrincipal;
-import org.jajim.main.Main;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
@@ -34,6 +30,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import org.jajim.controladores.ContactosControlador;
+import org.jajim.interfaz.listeners.AceptarInvitacionActionListener;
+import org.jajim.interfaz.listeners.RechazarInvitacionActionListener;
+import org.jajim.interfaz.ventanas.VentanaPrincipal;
+import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
@@ -126,8 +126,9 @@ public class IntroducirNickFormulario extends JDialog{
         String[] campos = new String[etiquetas.length];
 
         // Recupera el valor de los campos del formulario.
-        for(int i = 0;i < campos.length;i++)
+        for(int i = 0;i < campos.length;i++) {
             campos[i] = grupoDeCampos[i].getText();
+        }
 
         return campos;
     }

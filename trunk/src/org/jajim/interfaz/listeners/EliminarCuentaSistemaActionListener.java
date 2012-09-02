@@ -18,12 +18,12 @@
 
 package org.jajim.interfaz.listeners;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import org.jajim.controladores.ConexionControlador;
 import org.jajim.controladores.CuentaControlador;
 import org.jajim.interfaz.ventanas.VentanaGestorDeCuentas;
 import org.jajim.interfaz.ventanas.VentanaPrincipal;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * @author Florencio Cañizal Calles
@@ -59,8 +59,9 @@ public class EliminarCuentaSistemaActionListener implements ActionListener{
         String[] cuenta = vgc.getCuenta();
 
         // Si devuelve null, no hay cuentas y se cierra la ejecución del método
-        if(cuenta == null)
+        if(cuenta == null) {
             return;
+        }
 
         // Extraer los valores
         String identificador = cuenta[0];
@@ -73,8 +74,9 @@ public class EliminarCuentaSistemaActionListener implements ActionListener{
         if(activa.compareTo(identificador + "@" + servidor) == 0 && cnc.isConectado()){
             // Abortar la conexión antes de borrar la cuenta
             AbortarOperaciones ao = new AbortarOperaciones(vgc,vp,vp.getVgt());
-            if(!ao.abortarConexion())
+            if(!ao.abortarConexion()) {
                 return;
+            }
         }
 
         // Llamar al controlador para que realice la operación

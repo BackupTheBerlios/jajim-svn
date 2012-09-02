@@ -26,7 +26,7 @@ import org.jivesoftware.smack.packet.Packet;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Oyente que escucha los mensajes procendentes de un determinado chat multiusua
  * rio.
  */
@@ -73,8 +73,9 @@ public class MensajesChatMultiusuarioListener extends Observable implements Pack
         }
 
         // No publicar los mensajes provenientes del propio usuario
-        if(contenido[0].contains(alias))
+        if(contenido[0].contains(alias)) {
             return;
+        }
 
         // Pasar la información a la interfaz
         this.setChanged();

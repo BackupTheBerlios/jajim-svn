@@ -18,14 +18,14 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.interfaz.dialogos.ModificarContraseñaFormulario;
-import org.jajim.interfaz.ventanas.VentanaPrincipal;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import org.jajim.interfaz.dialogos.ModificarContraseñaFormulario;
+import org.jajim.interfaz.ventanas.VentanaPrincipal;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que lanza el cuadro de diálogo para introducir el nuevo valor de
  * la contraseña cuando el usuario selecciona la opción de modificar el valor de
  * la misma.

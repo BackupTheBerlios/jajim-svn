@@ -18,10 +18,10 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.controladores.TransferenciaFicherosControlador;
-import org.jajim.interfaz.ventanas.VentanaGestorDeTransferencias;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import org.jajim.controladores.TransferenciaFicherosControlador;
+import org.jajim.interfaz.ventanas.VentanaGestorDeTransferencias;
 
 /**
  * @author Florencio Cañizal Calles

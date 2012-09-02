@@ -18,12 +18,12 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.controladores.PreferenciasControlador;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
+import org.jajim.controladores.PreferenciasControlador;
 import org.jajim.interfaz.ventanas.VentanaConversacion;
 import org.jajim.interfaz.ventanas.VentanaConversacionChatPrivado;
 
@@ -55,8 +55,9 @@ public class VentanaConversacionWindowListener extends WindowAdapter{
 
         // Guardar las preferencias de la ventana
         PreferenciasControlador pfc = PreferenciasControlador.getInstancia();
-        if(vc.getExtendedState() == JFrame.MAXIMIZED_BOTH)
+        if(vc.getExtendedState() == JFrame.MAXIMIZED_BOTH) {
             pfc.setVentanaConversacionMaximizada(true);
+        }
         else{
             pfc.setVentanaConversacionMaximizada(false);
             Point p = vc.getLocation();
@@ -73,7 +74,8 @@ public class VentanaConversacionWindowListener extends WindowAdapter{
             VentanaConversacionChatPrivado vccp = (VentanaConversacionChatPrivado) vc;
             vccp.setEstado(VentanaConversacionChatPrivado.OCULTA);
         }
-        else
+        else {
             VentanaConversacion.eliminarConversacion(vc);
+        }
     }
 }

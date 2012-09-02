@@ -18,9 +18,9 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.controladores.CuentaControlador;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import org.jajim.controladores.CuentaControlador;
 
 /**
  * @author Florencio Cañizal Calles

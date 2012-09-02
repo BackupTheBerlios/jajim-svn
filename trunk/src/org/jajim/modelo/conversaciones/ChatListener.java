@@ -18,7 +18,6 @@
 
 package org.jajim.modelo.conversaciones;
 
-import org.jajim.modelo.conexiones.EventosDeConexionEnumeracion;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -26,6 +25,7 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
+import org.jajim.modelo.conexiones.EventosDeConexionEnumeracion;
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.ChatManagerListener;
 import org.jivesoftware.smack.XMPPConnection;
@@ -52,7 +52,7 @@ public class ChatListener extends Observable implements ChatManagerListener{
      */
     public ChatListener(Observer o,XMPPConnection xc){
         this.addObserver(o);
-        listaDeChats = new HashMap<String,Chat>();
+        listaDeChats = new HashMap<>();
         PacketFilter pf = new PacketTypeFilter(Message.class);
         mcl = new MensajesConversacionListener();
         xc.addPacketListener(mcl,pf);
@@ -75,8 +75,9 @@ public class ChatListener extends Observable implements ChatManagerListener{
             Iterator<Chat> iterator = chats.iterator();
             while(iterator.hasNext()){
                 Chat c = iterator.next();
-                if(c.getParticipant().compareTo(chat.getParticipant()) == 0)
+                if(c.getParticipant().compareTo(chat.getParticipant()) == 0) {
                     return;
+                }
             }
             // Si no es chat multiusuario
             if(chat.getParticipant().contains("/")){

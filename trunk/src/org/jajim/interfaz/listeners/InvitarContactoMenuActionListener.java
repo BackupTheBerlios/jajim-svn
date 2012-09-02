@@ -18,9 +18,9 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.interfaz.dialogos.InvitarContactoFormulario;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import org.jajim.interfaz.dialogos.InvitarContactoFormulario;
 import org.jajim.interfaz.ventanas.VentanaConversacion;
 
 /**

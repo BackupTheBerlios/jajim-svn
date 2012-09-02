@@ -18,18 +18,18 @@
 
 package org.jajim.modelo.conversaciones;
 
-import org.jajim.modelo.conexiones.EventosDeConexionEnumeracion;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import org.jajim.modelo.conexiones.EventosDeConexionEnumeracion;
 import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smackx.muc.InvitationListener;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Oyente que se activa cuando se recibe una invitación de participación en un
  * chat multiusuario.
  */
@@ -45,7 +45,7 @@ public class InvitacionListener extends Observable implements InvitationListener
      */
     public InvitacionListener(Observer o){
         this.addObserver(o);
-        listaDeInvitaciones = new HashMap<String,String[]>();
+        listaDeInvitaciones = new HashMap<>();
         generador = 0;
     }
 

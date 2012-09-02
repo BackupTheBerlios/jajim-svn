@@ -18,15 +18,15 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.interfaz.dialogos.BuscarContactoFormulario;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import org.jajim.controladores.ContactosControlador;
 import org.jajim.excepciones.ImposibleLoginException;
 import org.jajim.excepciones.ImposibleRealizarBusquedaException;
 import org.jajim.excepciones.ServicioDeBusquedaNoEncontradoException;
 import org.jajim.excepciones.ServidorNoEncontradoException;
+import org.jajim.interfaz.dialogos.BuscarContactoFormulario;
 import org.jajim.interfaz.dialogos.MensajeError;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * @author Florencio Cañizal Calles

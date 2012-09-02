@@ -19,6 +19,7 @@
 package org.jajim.utilidades.log;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,7 +34,7 @@ import java.util.logging.Logger;
 public class ManejadorDeLogs {
 
     private static ManejadorDeLogs instancia;
-    private Logger logger;
+    private static final Logger logger = Logger.getLogger("com.jajim");
 
     /**
      * Constructor de la clase. Inicializa la clase que maneja los ficheros de log.
@@ -42,15 +43,13 @@ public class ManejadorDeLogs {
 
         // Instanciación un objeto Logger e inicialización del mismo.
         try{
-            logger = Logger.getLogger("com.jajim");
             String ruta = System.getProperty("user.home");
             String ficheroLog = ruta + File.separator + ".JAJIM" + File.separator + "log.txt";
             FileHandler fh = new FileHandler(ficheroLog);
             logger.addHandler(fh);
             logger.setLevel(Level.ALL);
-        }catch(Exception e){
+        }catch(IOException | SecurityException e){
             System.out.println("ERROR: " + e.toString());
-            e.printStackTrace();
         }
     }
     
@@ -61,8 +60,9 @@ public class ManejadorDeLogs {
     public static ManejadorDeLogs getManejadorDeLogs(){
 
         // Si no existe una instancia del objeto crea una nueva.
-        if(instancia == null)
+        if(instancia == null) {
             instancia = new ManejadorDeLogs();
+        }
 
         return instancia;
     }

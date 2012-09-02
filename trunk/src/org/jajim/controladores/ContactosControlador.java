@@ -18,6 +18,10 @@
 
 package org.jajim.controladores;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Observer;
 import org.jajim.excepciones.ImposibleAñadirContactoAGrupoException;
 import org.jajim.excepciones.ImposibleAñadirContactoException;
 import org.jajim.excepciones.ImposibleEliminarContactoDeGrupoException;
@@ -31,10 +35,6 @@ import org.jajim.excepciones.ServidorNoEncontradoException;
 import org.jajim.modelo.conexiones.FactoriaDeConexiones;
 import org.jajim.modelo.contactos.ContactosListener;
 import org.jajim.utilidades.log.ManejadorDeLogs;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Observer;
 import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.RosterEntry;
 import org.jivesoftware.smack.RosterGroup;
@@ -288,14 +288,14 @@ public class ContactosControlador {
 
         // Extraer los resultados
         Iterator<Column> columns = datos.getColumns();
-        ArrayList<String> columnas = new ArrayList<String>();
+        ArrayList<String> columnas = new ArrayList<>();
         while(columns.hasNext()){
             String s = columns.next().getVariable();
             columnas.add(s);
         }
 
         Iterator<Row> rows = datos.getRows();
-        ArrayList<String> filas = new ArrayList<String>();
+        ArrayList<String> filas = new ArrayList<>();
         while(rows.hasNext()){
             Row row = rows.next();
 
@@ -438,8 +438,9 @@ public class ContactosControlador {
 
         // Recuperar el contacto y el grupo al que se va a añadir
         RosterEntry re = contactos.getEntry(contacto);
-        if(re == null)
+        if(re == null) {
             re = contactos.getEntry(this.getContactoPorAlias(contacto));
+        }
         RosterGroup grupoAAñadir = contactos.getGroup(grupo);
 
         try{
@@ -469,8 +470,9 @@ public class ContactosControlador {
         if(re.getGroups().size() == 1){
 
             RosterGroup porDefecto = contactos.getGroup("");
-            if(porDefecto == null)
-               porDefecto = contactos.createGroup("");
+            if(porDefecto == null) {
+                porDefecto = contactos.createGroup("");
+            }
 
             try{
                 this.añadirContactoAGrupo(contacto,"");
@@ -535,7 +537,7 @@ public class ContactosControlador {
 
         // Recuperar la lista de grupos que no están en las dos colecciones y re
         // tornarla
-        Collection<RosterGroup> gruposT = new ArrayList<RosterGroup>();
+        Collection<RosterGroup> gruposT = new ArrayList<>();
         gruposT.addAll(gruposTotales);
         gruposT.removeAll(gruposDeContactos);
         String[] grupos = new String[gruposT.size()];
@@ -578,8 +580,9 @@ public class ContactosControlador {
         Collection<RosterEntry> coleccion = contactos.getEntries();
 
         for(RosterEntry re: coleccion){
-           if(re.getName().compareTo(alias) == 0)
-               return re.getUser();
+           if(re.getName().compareTo(alias) == 0) {
+                return re.getUser();
+            }
         }
 
         return null;
@@ -647,8 +650,9 @@ public class ContactosControlador {
      */
     public static ContactosControlador getInstancia(){
 
-        if(instancia == null)
+        if(instancia == null) {
             instancia = new ContactosControlador();
+        }
 
         return instancia;
     }

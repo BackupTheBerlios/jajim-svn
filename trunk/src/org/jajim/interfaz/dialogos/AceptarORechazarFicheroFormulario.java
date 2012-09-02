@@ -18,9 +18,6 @@
 
 package org.jajim.interfaz.dialogos;
 
-import org.jajim.interfaz.listeners.RechazarFicheroActionListener;
-import org.jajim.interfaz.ventanas.VentanaPrincipal;
-import org.jajim.main.Main;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
@@ -33,6 +30,9 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import org.jajim.interfaz.listeners.RechazarFicheroActionListener;
+import org.jajim.interfaz.ventanas.VentanaPrincipal;
+import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
@@ -95,10 +95,12 @@ public class AceptarORechazarFicheroFormulario extends JDialog implements Action
         panelInformacion.setBorder(BorderFactory.createEmptyBorder(0,10,15,10));
         for(int i = 0;i < etiquetas.length;i++){
             for(int j = 0;j < 2;j++){
-                if(j == 0)
+                if(j == 0) {
                     cadenasEtiquetas[i][j] = new JLabel(etiquetas[i]);
-                else
+                }
+                else {
                     cadenasEtiquetas[i][j] = new JLabel(informacion[i]);
+                }
                 panelInformacion.add(cadenasEtiquetas[i][j]);
             }
         }

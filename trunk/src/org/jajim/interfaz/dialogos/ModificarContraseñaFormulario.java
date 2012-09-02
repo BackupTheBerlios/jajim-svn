@@ -18,9 +18,6 @@
 
 package org.jajim.interfaz.dialogos;
 
-import org.jajim.interfaz.listeners.ModificarContraseñaActionListener;
-import org.jajim.interfaz.ventanas.VentanaPrincipal;
-import org.jajim.main.Main;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
@@ -35,6 +32,9 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import org.jajim.interfaz.listeners.ModificarContraseñaActionListener;
+import org.jajim.interfaz.ventanas.VentanaPrincipal;
+import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
@@ -154,7 +154,7 @@ public class ModificarContraseñaFormulario extends JDialog implements ActionLis
         String[] campos = new String[3];
 
         // Recuerar los valores y asignarlos
-        for(int i = 0;i < campos.length;i++)
+        for(int i = 0;i < campos.length;i++) {
             switch(i){
                 case 0:
                 case 1:
@@ -164,6 +164,7 @@ public class ModificarContraseñaFormulario extends JDialog implements ActionLis
                 case 2:
                     campos[i] = String.valueOf(guardar.isSelected());
             }
+        }
 
         return campos;
     }

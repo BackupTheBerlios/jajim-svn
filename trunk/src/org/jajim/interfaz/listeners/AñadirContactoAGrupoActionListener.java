@@ -18,12 +18,12 @@
 
 package org.jajim.interfaz.listeners;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import org.jajim.controladores.ContactosControlador;
 import org.jajim.excepciones.ImposibleAñadirContactoAGrupoException;
 import org.jajim.interfaz.dialogos.AñadirContactoAGrupoFormulario;
 import org.jajim.interfaz.dialogos.MensajeError;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * @author Florencio Cañizal Calles

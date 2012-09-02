@@ -18,18 +18,18 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.excepciones.ImposibleRecuperarParticipanteException;
-import org.jajim.controladores.TransferenciaFicherosControlador;
-import org.jajim.excepciones.FicheroNoEncontradoException;
-import org.jajim.excepciones.ImposibleEnviarFicheroException;
-import org.jajim.interfaz.dialogos.EnviarFicheroFormulario;
-import org.jajim.interfaz.dialogos.MensajeError;
-import org.jajim.interfaz.ventanas.VentanaGestorDeTransferencias;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.List;
 import org.jajim.controladores.ConversacionControlador;
+import org.jajim.controladores.TransferenciaFicherosControlador;
+import org.jajim.excepciones.FicheroNoEncontradoException;
+import org.jajim.excepciones.ImposibleEnviarFicheroException;
+import org.jajim.excepciones.ImposibleRecuperarParticipanteException;
+import org.jajim.interfaz.dialogos.EnviarFicheroFormulario;
+import org.jajim.interfaz.dialogos.MensajeError;
+import org.jajim.interfaz.ventanas.VentanaGestorDeTransferencias;
 
 /**
  * @author Florencio Cañizal Calles

@@ -18,14 +18,14 @@
 
 package org.jajim.interfaz.listeners;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import org.jajim.controladores.ContactosControlador;
 import org.jajim.excepciones.ImposibleAñadirContactoAGrupoException;
 import org.jajim.excepciones.ImposibleEliminarContactoDeGrupoException;
 import org.jajim.excepciones.ImposibleEliminarGrupoPorDefectoException;
 import org.jajim.interfaz.dialogos.MensajeError;
 import org.jajim.interfaz.utilidades.PanelContactos;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * @author Florencio Cañizal Calles
@@ -60,8 +60,9 @@ public class EliminarGrupoDeContactosActionListener implements ActionListener{
         // Recuperar el nombre del grupo
         String nombre = e.getActionCommand();
 
-        if(nombre.compareTo("Unnamed") == 0 || nombre.compareTo("Sin nombre") == 0)
+        if(nombre.compareTo("Unnamed") == 0 || nombre.compareTo("Sin nombre") == 0) {
             nombre = "";
+        }
 
         // LLamar al controlador de los contactos para que realice la operación
         ContactosControlador ctc = ContactosControlador.getInstancia();

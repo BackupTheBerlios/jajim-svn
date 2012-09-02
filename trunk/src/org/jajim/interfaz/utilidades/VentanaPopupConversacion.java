@@ -114,7 +114,7 @@ public class VentanaPopupConversacion extends VentanaPopup{
         // Si se trata de un evento sobre un chat privado, se cambia el estado del chat y se restaura
         if(vc instanceof VentanaConversacionChatPrivado){
             VentanaConversacionChatPrivado vccp = (VentanaConversacionChatPrivado) vc;
-            vccp.setEstado(VentanaConversacionChatPrivado.NORMAL);
+            vccp.setEstado(VentanaConversacionChatPrivado.ACTIVA);
         }
         vc.setVisible(true);
     }

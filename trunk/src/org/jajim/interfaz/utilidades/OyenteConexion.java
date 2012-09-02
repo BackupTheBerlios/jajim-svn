@@ -18,18 +18,6 @@
 
 package org.jajim.interfaz.utilidades;
 
-import org.jajim.interfaz.dialogos.AceptarORechazarChatPrivadoFormulario;
-import org.jajim.interfaz.dialogos.AceptarORechazarContactoFormulario;
-import org.jajim.interfaz.dialogos.AceptarORechazarFicheroFormulario;
-import org.jajim.interfaz.dialogos.AceptarORechazarInvitacionFormulario;
-import org.jajim.interfaz.dialogos.PeticionRechazadaFormulario;
-import org.jajim.interfaz.ventanas.VentanaPrincipal;
-import org.jajim.modelo.conexiones.EventosDeConexionEnumeracion;
-import org.jajim.modelo.conexiones.PaquetePresenciaListener;
-import org.jajim.modelo.contactos.ContactosListener;
-import org.jajim.modelo.conversaciones.ChatListener;
-import org.jajim.modelo.conversaciones.InvitacionListener;
-import org.jajim.modelo.transferencias.RecepcionFicherosListener;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.SwingUtilities;
@@ -37,9 +25,21 @@ import org.jajim.controladores.ContactosControlador;
 import org.jajim.controladores.ConversacionControladorChatMultiusuario;
 import org.jajim.controladores.ConversacionControladorChatPrivado;
 import org.jajim.controladores.TransferenciaFicherosControlador;
+import org.jajim.interfaz.dialogos.AceptarORechazarChatPrivadoFormulario;
+import org.jajim.interfaz.dialogos.AceptarORechazarContactoFormulario;
+import org.jajim.interfaz.dialogos.AceptarORechazarFicheroFormulario;
+import org.jajim.interfaz.dialogos.AceptarORechazarInvitacionFormulario;
+import org.jajim.interfaz.dialogos.PeticionRechazadaFormulario;
 import org.jajim.interfaz.listeners.AbortarOperaciones;
 import org.jajim.interfaz.ventanas.VentanaConversacion;
 import org.jajim.interfaz.ventanas.VentanaConversacionChatPrivado;
+import org.jajim.interfaz.ventanas.VentanaPrincipal;
+import org.jajim.modelo.conexiones.EventosDeConexionEnumeracion;
+import org.jajim.modelo.conexiones.PaquetePresenciaListener;
+import org.jajim.modelo.contactos.ContactosListener;
+import org.jajim.modelo.conversaciones.ChatListener;
+import org.jajim.modelo.conversaciones.InvitacionListener;
+import org.jajim.modelo.transferencias.RecepcionFicherosListener;
 
 /**
  * @author Florencio Cañizal Calles
@@ -80,6 +80,7 @@ public class OyenteConexion implements Observer{
                 contacto = ppl.getOrigen();
                 final VentanaPopup vpp = new VentanaPopupConexion(edce,contacto,vp);
                 SwingUtilities.invokeLater(new Runnable(){
+                    @Override
                     public void run(){
                         // Mostrar ventana popup
                         vpp.mostrarVentana();
@@ -87,6 +88,7 @@ public class OyenteConexion implements Observer{
                 });
                 if(vpp.pollSeleccionado()){
                     SwingUtilities.invokeLater(new Runnable(){
+                        @Override
                         public void run() {
                             new AceptarORechazarContactoFormulario(vp,contacto);
                         }
@@ -98,6 +100,7 @@ public class OyenteConexion implements Observer{
                 contacto = ppl.getOrigen();
                 final VentanaPopup vpp = new VentanaPopupConexion(edce,contacto,vp);
                 SwingUtilities.invokeLater(new Runnable() {
+                    @Override
                     public void run() {
                         vpp.mostrarVentana();
                     }
@@ -110,12 +113,14 @@ public class OyenteConexion implements Observer{
                 contacto = ppl.getOrigen();
                 final VentanaPopup vpp = new VentanaPopupConexion(edce,contacto,vp);
                 SwingUtilities.invokeLater(new Runnable() {
+                    @Override
                     public void run() {
                         vpp.mostrarVentana();
                     }
                 });
                 if(vpp.pollSeleccionado()){
                     SwingUtilities.invokeLater(new Runnable(){
+                        @Override
                         public void run() {
                             new PeticionRechazadaFormulario(vp,contacto);
                         }
@@ -135,12 +140,14 @@ public class OyenteConexion implements Observer{
                 contacto = cl.getContacto(idChat);
                 final VentanaPopup vpp = new VentanaPopupConexion(edce,contacto,vp);
                 SwingUtilities.invokeLater(new Runnable(){
+                    @Override
                     public void run(){
                         vpp.mostrarVentana();
                     }
                 });
                 if(vpp.pollSeleccionado()){
                     SwingUtilities.invokeLater(new Runnable(){
+                        @Override
                         public void run(){
                             new AceptarORechazarChatPrivadoFormulario(vp,idChat,contacto);
                         }
@@ -160,6 +167,7 @@ public class OyenteConexion implements Observer{
                 contacto = informacion[1];
                 final VentanaPopup vpp = new VentanaPopupConexion(edce,contacto + "&" + room,vp);
                 SwingUtilities.invokeLater(new Runnable(){
+                    @Override
                     public void run(){
                         vpp.mostrarVentana();
 
@@ -167,6 +175,7 @@ public class OyenteConexion implements Observer{
                 });
                 if(vpp.pollSeleccionado()){
                     SwingUtilities.invokeLater(new Runnable(){
+                        @Override
                         public void run(){
                             new AceptarORechazarInvitacionFormulario(vp,idInvitacion,room,contacto);
                         }
@@ -184,12 +193,14 @@ public class OyenteConexion implements Observer{
                 informacion = rfl.getInformacion(idTransferencia);
                 final VentanaPopup vpp = new VentanaPopupConexion(edce,informacion[0],vp);
                 SwingUtilities.invokeLater(new Runnable(){
+                    @Override
                     public void run(){
                         vpp.mostrarVentana();
                     }
                 });
                 if(vpp.pollSeleccionado()){
                     SwingUtilities.invokeLater(new Runnable(){
+                        @Override
                         public void run(){
                             new AceptarORechazarFicheroFormulario(vp,idTransferencia,informacion);
                         }
@@ -209,6 +220,7 @@ public class OyenteConexion implements Observer{
                 final String alias = cl.getAliasModificado();
                 final VentanaPopup vpp = new VentanaPopupConexion(edce,alias,vp);
                 SwingUtilities.invokeLater(new Runnable(){
+                    @Override
                     public void run(){
                         // Notificar al usuario
                         vpp.mostrarVentana();
@@ -227,7 +239,7 @@ public class OyenteConexion implements Observer{
             else if(edce == EventosDeConexionEnumeracion.usuarioDesconectado){
                 ContactosListener cl = (ContactosListener) o;
                 final String alias = cl.getAliasModificado();
-                final VentanaPrincipal vp = this.vp;
+                final VentanaPrincipal vpFinal = this.vp;
                 SwingUtilities.invokeLater(new Runnable(){
                     @Override
                     public void run(){
@@ -240,7 +252,7 @@ public class OyenteConexion implements Observer{
                         }
 
                         // Se abortan las transferencias
-                        AbortarOperaciones ao = new AbortarOperaciones(vp, vp, vp.getVgt());
+                        AbortarOperaciones ao = new AbortarOperaciones(vpFinal, vpFinal, vpFinal.getVgt());
                         ao.abortarTransferencias(contacto,false);
                     }
                 });

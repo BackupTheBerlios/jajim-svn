@@ -18,8 +18,11 @@
 
 package org.jajim.interfaz.listeners;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import org.jajim.controladores.ConexionControlador;
 import org.jajim.controladores.ContactosControlador;
+import org.jajim.controladores.ConversacionControlador;
 import org.jajim.controladores.TransferenciaFicherosControlador;
 import org.jajim.excepciones.ContraseñaNoDisponibleException;
 import org.jajim.excepciones.ImposibleLoginException;
@@ -28,9 +31,6 @@ import org.jajim.excepciones.ServidorNoEncontradoException;
 import org.jajim.interfaz.dialogos.IntroducirContraseñaFormulario;
 import org.jajim.interfaz.dialogos.MensajeError;
 import org.jajim.interfaz.ventanas.VentanaPrincipal;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import org.jajim.controladores.ConversacionControlador;
 import org.jivesoftware.smack.Roster;
 
 /**

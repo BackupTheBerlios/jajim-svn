@@ -18,9 +18,6 @@
 
 package org.jajim.interfaz.dialogos;
 
-import org.jajim.interfaz.listeners.ModificarGrupoDeContactosActionListener;
-import org.jajim.interfaz.utilidades.PanelContactos;
-import org.jajim.main.Main;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
@@ -34,6 +31,9 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import org.jajim.interfaz.listeners.ModificarGrupoDeContactosActionListener;
+import org.jajim.interfaz.utilidades.PanelContactos;
+import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles

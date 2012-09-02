@@ -59,14 +59,18 @@ public class EventosDeConexionEnumeracion{
             // Se comparan las instancia y se retorna los valores adecuados
             EventosDeConexionEnumeracion instance = (EventosDeConexionEnumeracion) object;
 
-            if (this.evento.compareTo(instance.evento) > 0 )
+            if (this.evento.compareTo(instance.evento) > 0 ) {
                 return 1;
-            else if (this.evento.compareTo(instance.evento) < 0)
+            }
+            else if (this.evento.compareTo(instance.evento) < 0) {
                 return -1;
-            else
+            }
+            else {
                 return 0;
+            }
         }
-        else
+        else {
             throw new IllegalArgumentException();
+        }
     }
 }

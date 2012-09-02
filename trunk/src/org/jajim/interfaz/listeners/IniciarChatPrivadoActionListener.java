@@ -18,12 +18,12 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.interfaz.utilidades.PanelContactos;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
-import org.jajim.interfaz.ventanas.VentanaConversacionChatPrivado;
+import org.jajim.interfaz.utilidades.PanelContactos;
 import org.jajim.interfaz.ventanas.VentanaConversacion;
+import org.jajim.interfaz.ventanas.VentanaConversacionChatPrivado;
 
 /**
  * @author Florencio Cañizal Calles
@@ -67,13 +67,13 @@ public class IniciarChatPrivadoActionListener implements ActionListener{
 
             if(vccp.getEstado() == VentanaConversacionChatPrivado.OCULTA){
                 // Si la ventana está oculta se pone en estado normal y se activa su visualización
-                vccp.setEstado(VentanaConversacionChatPrivado.NORMAL);
+                vccp.setEstado(VentanaConversacionChatPrivado.ACTIVA);
                 vccp.setVisible(true);
             }
 
             if(vccp.getEstado() == VentanaConversacionChatPrivado.MINIMIZADA){
                 // Si la ventana está minimizada se pone en estado normal.
-                vccp.setEstado(VentanaConversacionChatPrivado.NORMAL);
+                vccp.setEstado(VentanaConversacionChatPrivado.ACTIVA);
                 vccp.setState(JFrame.NORMAL);
             }
         }

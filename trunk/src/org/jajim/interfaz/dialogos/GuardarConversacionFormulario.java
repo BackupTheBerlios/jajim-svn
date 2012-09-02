@@ -18,8 +18,6 @@
 
 package org.jajim.interfaz.dialogos;
 
-import org.jajim.interfaz.listeners.GuardarConversacionActionListener;
-import org.jajim.main.Main;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
@@ -35,7 +33,9 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import org.jajim.interfaz.listeners.GuardarConversacionActionListener;
 import org.jajim.interfaz.ventanas.VentanaConversacion;
+import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
@@ -149,8 +149,9 @@ public class GuardarConversacionFormulario extends JDialog implements ActionList
             selector.setDialogType(JFileChooser.SAVE_DIALOG);
             selector.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             int valorDeRetorno = selector.showOpenDialog(this);
-            if(valorDeRetorno == JFileChooser.APPROVE_OPTION)
+            if(valorDeRetorno == JFileChooser.APPROVE_OPTION) {
                 camposDeTexto[0].setText(selector.getSelectedFile().getAbsolutePath());
+            }
         }
         else{
             // Cerrar el formulario

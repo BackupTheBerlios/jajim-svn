@@ -18,13 +18,13 @@
 
 package org.jajim.interfaz.listeners;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import org.jajim.controladores.ConversacionControlador;
+import org.jajim.controladores.ConversacionControladorChatMultiusuario;
 import org.jajim.excepciones.ImposibleVetarContactosException;
 import org.jajim.interfaz.dialogos.MensajeError;
 import org.jajim.interfaz.dialogos.VetarContactoFormulario;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import org.jajim.controladores.ConversacionControladorChatMultiusuario;
-import org.jajim.controladores.ConversacionControlador;
 
 /**
  * @author Florencio Cañizal Calles

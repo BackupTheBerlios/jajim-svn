@@ -18,25 +18,15 @@
 
 package org.jajim.interfaz.ventanas;
 
-import org.jajim.controladores.PreferenciasControlador;
-import org.jajim.controladores.TransferenciaFicherosControlador;
-import org.jajim.interfaz.listeners.BorrarFicheroActionListener;
-import org.jajim.interfaz.listeners.CancelarTransferenciaActionListener;
-import org.jajim.interfaz.listeners.RenombrarFicheroMenuActionListener;
-import org.jajim.interfaz.listeners.ReubicarFicheroMenuActionListener;
-import org.jajim.interfaz.listeners.VisualizarFicheroActionListener;
-import org.jajim.interfaz.utilidades.BarraProgresoSwingWorker;
-import org.jajim.main.Main;
 import java.awt.BorderLayout;
 import java.awt.Container;
-import java.awt.FlowLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,6 +46,15 @@ import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import org.jajim.controladores.PreferenciasControlador;
+import org.jajim.controladores.TransferenciaFicherosControlador;
+import org.jajim.interfaz.listeners.BorrarFicheroActionListener;
+import org.jajim.interfaz.listeners.CancelarTransferenciaActionListener;
+import org.jajim.interfaz.listeners.RenombrarFicheroMenuActionListener;
+import org.jajim.interfaz.listeners.ReubicarFicheroMenuActionListener;
+import org.jajim.interfaz.listeners.VisualizarFicheroActionListener;
+import org.jajim.interfaz.utilidades.BarraProgresoSwingWorker;
+import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
@@ -133,8 +132,8 @@ public class VentanaGestorDeTransferencias extends JFrame implements ActionListe
 
         // Inicializar variables
         estado = VentanaGestorDeTransferencias.SIN_TRANSFERENCIAS;
-        workers = new ArrayList<BarraProgresoSwingWorker>();
-        paneles = new HashMap<String,JPanel>();
+        workers = new ArrayList<>();
+        paneles = new HashMap<>();
 
         // Creación de la interfaz
         Container cp = this.getContentPane();
@@ -143,10 +142,12 @@ public class VentanaGestorDeTransferencias extends JFrame implements ActionListe
         tablonDePestañas = new JTabbedPane();
         tablonDePestañas.setBorder(BorderFactory.createEmptyBorder(15,10,15,10));
         for(int i = 0;i < pestañas.length;i++){
-            if(i == 0)
+            if(i == 0) {
                 iniciarPestañaFicheros();
-            else
+            }
+            else {
                 iniciarPestañaTransferencias();
+            }
         }
         cp.add(BorderLayout.CENTER,tablonDePestañas);
 
@@ -331,8 +332,9 @@ public class VentanaGestorDeTransferencias extends JFrame implements ActionListe
 
         // Si el tipo de transferencia es de recepción añadir los datos a la pesta
         // ña de ficheros descargados
-        if(tipo == VentanaGestorDeTransferencias.RECEPTOR && datos != null)
+        if(tipo == VentanaGestorDeTransferencias.RECEPTOR && datos != null) {
             this.añadirFicheroDescargado(datos);
+        }
     }
 
     /**
@@ -409,8 +411,9 @@ public class VentanaGestorDeTransferencias extends JFrame implements ActionListe
                         descargandoPanel.repaint();
                     }
                 }
-                if(workers.size() == 0)
+                if(workers.isEmpty()) {
                     break;
+                }
             }
         }
     }

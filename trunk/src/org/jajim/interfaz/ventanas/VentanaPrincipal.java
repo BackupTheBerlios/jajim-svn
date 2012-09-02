@@ -18,28 +18,6 @@
 
 package org.jajim.interfaz.ventanas;
 
-import org.jajim.controladores.ContactosControlador;
-import org.jajim.controladores.CuentaControlador;
-import org.jajim.controladores.PreferenciasControlador;
-import org.jajim.controladores.TransferenciaFicherosControlador;
-import org.jajim.interfaz.dialogos.CrearOAñadirFormulario;
-import org.jajim.interfaz.listeners.AñadirContactoMenuActionListener;
-import org.jajim.interfaz.listeners.BuscarContactoMenuActionListener;
-import org.jajim.interfaz.listeners.CambiarEstadoActionListener;
-import org.jajim.interfaz.listeners.ConectarActionListener;
-import org.jajim.interfaz.listeners.CrearGrupoDeContactosMenuActionListener;
-import org.jajim.interfaz.listeners.DesconectarActionListener;
-import org.jajim.interfaz.listeners.LanzarAcercaDeActionListener;
-import org.jajim.interfaz.listeners.LanzarGestorDeCuentasActionListener;
-import org.jajim.interfaz.listeners.LanzarGestorDeTransferenciasActionListener;
-import org.jajim.interfaz.listeners.ModificarContraseñaMenuActionListener;
-import org.jajim.interfaz.listeners.SalirActionListener;
-import org.jajim.interfaz.listeners.VentanaPrincipalWindowListener;
-import org.jajim.interfaz.listeners.VisualizarVentanaActionListener;
-import org.jajim.interfaz.utilidades.ComboBoxRenderer;
-import org.jajim.interfaz.utilidades.OyenteConexion;
-import org.jajim.interfaz.utilidades.PanelContactos;
-import org.jajim.main.Main;
 import java.awt.AWTException;
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -63,7 +41,29 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
+import org.jajim.controladores.ContactosControlador;
+import org.jajim.controladores.CuentaControlador;
+import org.jajim.controladores.PreferenciasControlador;
+import org.jajim.controladores.TransferenciaFicherosControlador;
+import org.jajim.interfaz.dialogos.CrearOAñadirFormulario;
+import org.jajim.interfaz.listeners.AñadirContactoMenuActionListener;
+import org.jajim.interfaz.listeners.BuscarContactoMenuActionListener;
+import org.jajim.interfaz.listeners.CambiarEstadoActionListener;
+import org.jajim.interfaz.listeners.ConectarActionListener;
+import org.jajim.interfaz.listeners.CrearGrupoDeContactosMenuActionListener;
+import org.jajim.interfaz.listeners.DesconectarActionListener;
+import org.jajim.interfaz.listeners.LanzarAcercaDeActionListener;
 import org.jajim.interfaz.listeners.LanzarAyudaActionListener;
+import org.jajim.interfaz.listeners.LanzarGestorDeCuentasActionListener;
+import org.jajim.interfaz.listeners.LanzarGestorDeTransferenciasActionListener;
+import org.jajim.interfaz.listeners.ModificarContraseñaMenuActionListener;
+import org.jajim.interfaz.listeners.SalirActionListener;
+import org.jajim.interfaz.listeners.VentanaPrincipalWindowListener;
+import org.jajim.interfaz.listeners.VisualizarVentanaActionListener;
+import org.jajim.interfaz.utilidades.ComboBoxRenderer;
+import org.jajim.interfaz.utilidades.OyenteConexion;
+import org.jajim.interfaz.utilidades.PanelContactos;
+import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
@@ -256,18 +256,22 @@ public class VentanaPrincipal extends JFrame{
                 itemsDeMenu[i][j].addActionListener(actionListenersMenu[i][j]);
 
                 // Añadir aceleradores de teclado
-                if(i == 0)
+                if(i == 0) {
                     itemsDeMenu[i][j].setAccelerator(KeyStroke.getKeyStroke(aceleradoresDeTeclado[i][j],ActionEvent.CTRL_MASK));
-                else if(i == 1)
+                }
+                else if(i == 1) {
                     itemsDeMenu[i][j].setAccelerator(KeyStroke.getKeyStroke(aceleradoresDeTeclado[i][j],ActionEvent.CTRL_MASK | ActionEvent.SHIFT_MASK));
-                else
+                }
+                else {
                     itemsDeMenu[i][j].setAccelerator(KeyStroke.getKeyStroke(aceleradoresDeTeclado[i][j],0));
+                }
                 
                 itemsDeMenu[i][j].setEnabled(sinConexion[i][j]);
                 menus[i].add(itemsDeMenu[i][j]);
                 // Añadir el separador
-                if(separadores[i][j])
+                if(separadores[i][j]) {
                     menus[i].addSeparator();
+                }
             }
         }
 
@@ -299,8 +303,9 @@ public class VentanaPrincipal extends JFrame{
 
         // Crear el combo box
         Integer[] intArray = new Integer[ComboBoxRenderer.getLongitud()];
-        for(int i = 0;i < intArray.length;i++)
+        for(int i = 0;i < intArray.length;i++) {
             intArray[i] = new Integer(i);
+        }
         estado = new JComboBox(intArray);
         ComboBoxRenderer cbr = new ComboBoxRenderer();
         estado.setRenderer(cbr);
@@ -316,8 +321,9 @@ public class VentanaPrincipal extends JFrame{
             this.setLocation(PreferenciasControlador.getInstancia().getVentanaPrincipalX(),PreferenciasControlador.getInstancia().getVentanaPrincipalY());
             this.setSize(PreferenciasControlador.getInstancia().getVentanaPrincipalAncho(),PreferenciasControlador.getInstancia().getVentanaPrincipalLargo());
         }
-        else
+        else {
             this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        }
         
         this.setVisible(true);
 
@@ -368,8 +374,9 @@ public class VentanaPrincipal extends JFrame{
 
         // Iniciación de los controladores
         CuentaControlador cc = CuentaControlador.getInstancia();
-        if(cc.getCuenta() == null)
+        if(cc.getCuenta() == null) {
             new CrearOAñadirFormulario(this);
+        }
 
         // Poner la cuenta activa en el panel
         String idCuenta = cc.getCuenta();
@@ -408,15 +415,17 @@ public class VentanaPrincipal extends JFrame{
         estado.setSelectedIndex(0);
 
         // Activar el menú de la barra de herramientas
-        if(this.isOcultable())
+        if(this.isOcultable()) {
             menuEstado.setEnabled(true);
+        }
 
         // Activar y desactivar los botones adecuados
         for(int i = 0;i < menus.length;i++){
             for(int j = 0;j < itemsDeMenu[i].length;j++){
                 itemsDeMenu[i][j].setEnabled(conConexion[i][j]);
-                if(i == 0)
+                if(i == 0) {
                     botonesBarraDeHerramientas[j].setEnabled(conConexion[i][j]);
+                }
             }
         }
     }
@@ -445,8 +454,9 @@ public class VentanaPrincipal extends JFrame{
         estado.setEnabled(false);
 
         // Desactivar el menú de la barra de herramientas
-        if(this.isOcultable())
+        if(this.isOcultable()) {
             menuEstado.setEnabled(false);
+        }
 
         // Activar y desactivar los botones adecuados
         for(int i = 0;i < menus.length;i++){
@@ -466,10 +476,12 @@ public class VentanaPrincipal extends JFrame{
      * de herramientas y falso en caso contrario.
      */
     public boolean isOcultable(){
-        if(ocultable == VentanaPrincipal.OCULTABLE)
+        if(ocultable == VentanaPrincipal.OCULTABLE) {
             return true;
-        else
+        }
+        else {
             return false;
+        }
     }
 
     /**

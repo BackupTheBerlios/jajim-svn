@@ -18,11 +18,11 @@
 
 package org.jajim.interfaz.dialogos;
 
+import java.util.ResourceBundle;
 import org.jajim.interfaz.listeners.CrearCuentaActionListener;
 import org.jajim.interfaz.ventanas.VentanaGestorDeCuentas;
 import org.jajim.interfaz.ventanas.VentanaPrincipal;
 import org.jajim.main.Main;
-import java.util.ResourceBundle;
 
 /**
  * @author Florencio Cañizal Calles

@@ -18,14 +18,14 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.interfaz.ventanas.VentanaGestorDeTransferencias;
-import org.jajim.interfaz.ventanas.VentanaPrincipal;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import org.jajim.interfaz.ventanas.VentanaGestorDeTransferencias;
+import org.jajim.interfaz.ventanas.VentanaPrincipal;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que escucha los eventos para abrir el gestor de transferencias,
  * procedentes de la ventana principal de la aplicación.
  */

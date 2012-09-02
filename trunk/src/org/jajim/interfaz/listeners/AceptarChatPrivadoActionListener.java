@@ -18,11 +18,11 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.interfaz.dialogos.AceptarORechazarChatPrivadoFormulario;
-import org.jajim.interfaz.ventanas.VentanaPrincipal;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import org.jajim.interfaz.dialogos.AceptarORechazarChatPrivadoFormulario;
 import org.jajim.interfaz.ventanas.VentanaConversacionChatPrivado;
+import org.jajim.interfaz.ventanas.VentanaPrincipal;
 
 /**
  * @author Florencio Cañizal Calles

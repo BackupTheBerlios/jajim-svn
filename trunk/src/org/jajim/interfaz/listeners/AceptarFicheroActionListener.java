@@ -18,14 +18,14 @@
 
 package org.jajim.interfaz.listeners;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import org.jajim.controladores.TransferenciaFicherosControlador;
 import org.jajim.excepciones.ImposibleRecibirFicheroException;
 import org.jajim.excepciones.RutaNoDisponibleException;
 import org.jajim.interfaz.dialogos.AceptarFicheroFormulario;
 import org.jajim.interfaz.dialogos.MensajeError;
 import org.jajim.interfaz.ventanas.VentanaGestorDeTransferencias;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * @author Florencio Cañizal Calles

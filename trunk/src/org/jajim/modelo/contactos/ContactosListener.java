@@ -18,11 +18,11 @@
 
 package org.jajim.modelo.contactos;
 
-import org.jajim.modelo.conexiones.EventosDeConexionEnumeracion;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Observable;
+import org.jajim.modelo.conexiones.EventosDeConexionEnumeracion;
 import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.RosterEntry;
 import org.jivesoftware.smack.RosterGroup;
@@ -80,13 +80,16 @@ public class ContactosListener extends Observable implements RosterListener{
                 String presencia = "";
                 Presence presence = contactos.getPresence(re.getUser());
                 if(presence.isAvailable()){
-                    if(presence.getMode() == null)
+                    if(presence.getMode() == null) {
                         presencia = "available";
-                    else
+                    }
+                    else {
                         presencia = presence.getMode().toString();
+                    }
                 }
-                else
+                else {
                     presencia = "unavailable";
+                }
                 matrizContactos[i][j] = alias + "(" + presencia + ")";
                 j++;
             }
@@ -101,12 +104,13 @@ public class ContactosListener extends Observable implements RosterListener{
 
         // Contar si se han asignado todas las entradas
         int asignadas = 0;
-        for(int k = 0;k < matrizContactos.length;k++)
+        for(int k = 0;k < matrizContactos.length;k++) {
             asignadas += matrizContactos[k].length - 1;
+        }
 
         if(asignadas < contactos.getEntries().size()){
 
-            List<String> sinAsignar = new ArrayList<String>();
+            List<String> sinAsignar = new ArrayList<>();
             sinAsignar.add("");
             
             // Comprobar que entradas están en la matriz, las que no estén asig
@@ -116,13 +120,16 @@ public class ContactosListener extends Observable implements RosterListener{
                 String presencia = "";
                 Presence presence = contactos.getPresence(re.getUser());
                 if(presence.isAvailable()){
-                    if(presence.getMode() == null)
+                    if(presence.getMode() == null) {
                         presencia = "available";
-                    else
+                    }
+                    else {
                         presencia = presence.getMode().toString();
+                    }
                 }
-                else
+                else {
                     presencia = "unavailable";
+                }
                 String comparar = re.getName() + "(" + presencia + ")";
                 boolean encontrado = false;
                 for(int k = 0;k < matrizContactos.length;k++){
@@ -133,17 +140,18 @@ public class ContactosListener extends Observable implements RosterListener{
                         }
                     }
                 }
-                if(encontrado)
+                if(encontrado) {
                     encontrado = false;
-                else
+                }
+                else {
                     sinAsignar.add(comparar);
+                }
             }
             // Extraer las no asignadas y crear una nueva matriz de contactos con
             // la información de la otra y las entradas no asignadas anteriormente
             // en un grupo con nombre vacio.
             String[][] nuevaMatriz = new String[matrizContactos.length + 1][];
-            for(int k = 0;k < matrizContactos.length;k++)
-                nuevaMatriz[k] = matrizContactos[k];
+            System.arraycopy(matrizContactos, 0, nuevaMatriz, 0, matrizContactos.length);
             nuevaMatriz[nuevaMatriz.length - 1] = sinAsignar.toArray(new String [0]);
             matrizContactos = nuevaMatriz;
         }

@@ -18,10 +18,6 @@
 
 package org.jajim.interfaz.dialogos;
 
-import org.jajim.controladores.ContactosControlador;
-import org.jajim.interfaz.listeners.RechazarInvitacionActionListener;
-import org.jajim.interfaz.ventanas.VentanaPrincipal;
-import org.jajim.main.Main;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
@@ -33,6 +29,10 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import org.jajim.controladores.ContactosControlador;
+import org.jajim.interfaz.listeners.RechazarInvitacionActionListener;
+import org.jajim.interfaz.ventanas.VentanaPrincipal;
+import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
@@ -83,8 +83,9 @@ public class AceptarORechazarInvitacionFormulario extends JDialog implements Act
         // Añadir etiqueta principal
         ContactosControlador ctc = ContactosControlador.getInstancia();
         int posicion = contacto.indexOf("/");
-        if(posicion != -1)
+        if(posicion != -1) {
             contacto = contacto.substring(0,posicion);
+        }
         alias = ctc.getAliasPorContacto(contacto);
         cadenaPrincipal = new JLabel(alias + " " + principal + " " + room);
         cadenaPrincipal.setHorizontalAlignment(JLabel.CENTER);

@@ -18,24 +18,24 @@
 
 package org.jajim.interfaz.utilidades;
 
-import org.jajim.main.Main;
 import java.awt.Component;
 import java.util.ResourceBundle;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
+import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase necesaria para poder visualizar un icono y un texto a la vez en un JCom
  * boBox.
  */
 public class ComboBoxRenderer extends JLabel implements ListCellRenderer{
     
     // Variables necesarias
-    private static ResourceBundle texto = ResourceBundle.getBundle("resources.Idioma",Main.loc);
+    private final static ResourceBundle texto = ResourceBundle.getBundle("resources.Idioma",Main.loc);
 
     private static final String[] estadosUsuario = {
         texto.getString("en_linea_estado"),

@@ -18,17 +18,17 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.controladores.CuentaControlador;
-import org.jajim.interfaz.utilidades.PanelContactos;
-import org.jajim.interfaz.ventanas.VentanaGestorDeCuentas;
-import org.jajim.interfaz.ventanas.VentanaGestorDeTransferencias;
-import org.jajim.interfaz.ventanas.VentanaPrincipal;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
+import org.jajim.controladores.CuentaControlador;
 import org.jajim.controladores.PreferenciasControlador;
+import org.jajim.interfaz.utilidades.PanelContactos;
+import org.jajim.interfaz.ventanas.VentanaGestorDeCuentas;
+import org.jajim.interfaz.ventanas.VentanaGestorDeTransferencias;
+import org.jajim.interfaz.ventanas.VentanaPrincipal;
 
 /**
  * @author Florencio Cañizal Calles
@@ -60,10 +60,12 @@ public class VentanaPrincipalWindowListener extends WindowAdapter{
         // Ventana principal
         VentanaPrincipal vp = (VentanaPrincipal) e.getWindow();
         PreferenciasControlador pfc = PreferenciasControlador.getInstancia();
-        if(vp.getExtendedState() == JFrame.MAXIMIZED_BOTH)
+        if(vp.getExtendedState() == JFrame.MAXIMIZED_BOTH) {
             pfc.setVentanaPrincipalMaximizada(true);
-        else
+        }
+        else {
             pfc.setVentanaPrincipalMaximizada(false);
+        }
         Point p = vp.getLocation();
         pfc.setVentanaPrincipalX(p.x);
         pfc.setVentanaPrincipalY(p.y);
@@ -94,8 +96,9 @@ public class VentanaPrincipalWindowListener extends WindowAdapter{
 
         // Recuperar la ventana y hacerla invisible si se puede
         VentanaPrincipal vp = (VentanaPrincipal) e.getWindow();
-        if(vp.isOcultable())
+        if(vp.isOcultable()) {
             vp.setVisible(false);
+        }
     }
 
     /**

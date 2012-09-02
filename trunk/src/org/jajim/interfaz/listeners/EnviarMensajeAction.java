@@ -18,14 +18,14 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.excepciones.ImposibleEnviarMensajeException;
-import org.jajim.interfaz.dialogos.MensajeError;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.Action;
 import org.jajim.controladores.ConversacionControlador;
+import org.jajim.excepciones.ImposibleEnviarMensajeException;
+import org.jajim.interfaz.dialogos.MensajeError;
 import org.jajim.interfaz.ventanas.VentanaConversacion;
 
 /**

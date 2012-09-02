@@ -20,7 +20,7 @@ package org.jajim.modelo.conversaciones;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase enumeración que recoge los tipos de eventos importantes que se pueden
  * recibir a través de una conversación.
  */
@@ -54,14 +54,18 @@ public class EventosConversacionEnumeracion {
             // Se comparan las instancias y se retornan los valores adecuados.
             EventosConversacionEnumeracion instance = (EventosConversacionEnumeracion) object;
 
-            if(this.evento.compareTo(instance.evento) > 0)
+            if(this.evento.compareTo(instance.evento) > 0) {
                 return 1;
-            else if(this.evento.compareTo(instance.evento) < 0)
+            }
+            else if(this.evento.compareTo(instance.evento) < 0) {
                 return -1;
-            else
+            }
+            else {
                 return 0;
+            }
         }
-        else
+        else {
             throw new IllegalArgumentException();
+        }
     }
 }

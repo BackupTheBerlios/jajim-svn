@@ -18,14 +18,14 @@
 
 package org.jajim.interfaz.listeners;
 
+import java.util.ResourceBundle;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import org.jajim.controladores.ConexionControlador;
 import org.jajim.interfaz.ventanas.VentanaConversacion;
 import org.jajim.interfaz.ventanas.VentanaGestorDeTransferencias;
 import org.jajim.interfaz.ventanas.VentanaPrincipal;
 import org.jajim.main.Main;
-import java.util.ResourceBundle;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 /**
  * @author Florencio Cañizal Calles
@@ -67,8 +67,9 @@ public class AbortarOperaciones implements Runnable{
             
             // Si se selecciona no se aborta la operación. Si se selecciona si se
             // procede a abortar la conexión para poder realizar la operación.
-            if(resultado == JOptionPane.NO_OPTION)
+            if(resultado == JOptionPane.NO_OPTION) {
                 return false;
+            }
             else if(resultado == JOptionPane.YES_OPTION){
 
                 // Abortar conversaciones
@@ -82,8 +83,9 @@ public class AbortarOperaciones implements Runnable{
 
                 return true;
             }
-            else
+            else {
                 return false;
+            }
         }
 
         return true;
@@ -150,8 +152,9 @@ public class AbortarOperaciones implements Runnable{
         if(vgt.getEstado() == VentanaGestorDeTransferencias.CON_TRANSFERENCIAS){
 
             // Mostrar mensaje informando de que se van a cerrar todas las transferencias
-            if(dialogo)
+            if(dialogo) {
                 JOptionPane.showMessageDialog(principal,texto.getString("abortar_transferencias_dialogo_contacto_principal"),texto.getString("abortar_transferencias_dialogo_title"),JOptionPane.INFORMATION_MESSAGE);
+            }
 
             // Cancelar las transferencias
             vgt.abortarTransferencias(contacto);

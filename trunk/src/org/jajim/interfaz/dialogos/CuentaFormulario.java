@@ -18,7 +18,6 @@
 
 package org.jajim.interfaz.dialogos;
 
-import org.jajim.main.Main;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
@@ -37,10 +36,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase que crea un interfaz general para poder introducir los datos de una
  * cuenta. Se registra como oyente de eventos, aunque la información especifica
  * para cada evento la recoge cada una de las clases derivadas.
@@ -152,14 +152,16 @@ public class CuentaFormulario extends JDialog implements ActionListener{
      */
     public List<String> getCampos(){
 
-        List<String> campos = new ArrayList<String>();
+        List<String> campos = new ArrayList<>();
 
         // Extraer los campos del formulario y añadirlos a la lista
-        for(int i = 0;i < grupoDeCampos.length;i++)
+        for(int i = 0;i < grupoDeCampos.length;i++) {
             campos.add(grupoDeCampos[i].getText());
+        }
 
-        for(int i = 0;i < contraseña.length;i++)
+        for(int i = 0;i < contraseña.length;i++) {
             campos.add(new String(contraseña[i].getPassword()));
+        }
         boolean g = guardar.isSelected();
         campos.add(String.valueOf(g));
 

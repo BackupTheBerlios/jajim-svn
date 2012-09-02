@@ -18,15 +18,15 @@
 
 package org.jajim.interfaz.listeners;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 import org.jajim.controladores.CuentaControlador;
+import org.jajim.excepciones.CuentaExistenteException;
 import org.jajim.excepciones.ImposibleValidarCuentaException;
 import org.jajim.excepciones.ServidorNoEncontradoException;
 import org.jajim.interfaz.dialogos.AñadirCuentaFormulario;
 import org.jajim.interfaz.dialogos.MensajeError;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.List;
-import org.jajim.excepciones.CuentaExistenteException;
 
 /**
  * @author Florencio Cañizal Calles
@@ -81,8 +81,9 @@ public class AñadirCuentaActionListener implements ActionListener{
             boolean activa = cc.añadirCuenta(identificador,servidor,contraseña,guardarContraseña);
             // Si la cuenta se establece como la activa se modifica la etiqueta
             // de la ventana principal
-            if(activa)
+            if(activa) {
                 acf.getVp().cambiarCuenta(identificador + "@" + servidor);
+            }
             if(acf.getVgc() != null){
                 acf.getVgc().añadirCuentas();
             }

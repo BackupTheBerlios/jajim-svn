@@ -18,15 +18,15 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.interfaz.dialogos.RenombrarFicheroFormulario;
-import org.jajim.interfaz.ventanas.VentanaGestorDeTransferencias;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JTable;
+import org.jajim.interfaz.dialogos.RenombrarFicheroFormulario;
+import org.jajim.interfaz.ventanas.VentanaGestorDeTransferencias;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que escucha los eventos de renombrado de fichero procedentes de la
  * barra de herramientas de la ventana de gestión de transferencias.
  */

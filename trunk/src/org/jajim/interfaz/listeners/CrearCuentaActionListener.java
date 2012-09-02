@@ -18,15 +18,15 @@
 
 package org.jajim.interfaz.listeners;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 import org.jajim.controladores.CuentaControlador;
+import org.jajim.excepciones.CuentaExistenteException;
 import org.jajim.excepciones.ImposibleCrearCuentaException;
 import org.jajim.excepciones.ServidorNoEncontradoException;
 import org.jajim.interfaz.dialogos.CrearCuentaFormulario;
 import org.jajim.interfaz.dialogos.MensajeError;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.List;
-import org.jajim.excepciones.CuentaExistenteException;
 
 /**
  * @author Florencio Cañizal Calles
@@ -80,10 +80,12 @@ public class CrearCuentaActionListener implements ActionListener{
             boolean activa = cc.crearCuenta(identificador, servidor, contraseña, guardarContraseña);
             // Si la cuenta se establece como la activa se modifica la etiqueta
             // de la ventana principal
-            if(activa)
+            if(activa) {
                 ccf.getVp().cambiarCuenta(identificador + "@" + servidor);
-            if(ccf.getVgc() != null)
+            }
+            if(ccf.getVgc() != null) {
                 ccf.getVgc().añadirCuentas();
+            }
             ccf.dispose();
         }catch(ServidorNoEncontradoException snee){
             new MensajeError(ccf,"servidor_no_encontrado_error",MensajeError.ERR);

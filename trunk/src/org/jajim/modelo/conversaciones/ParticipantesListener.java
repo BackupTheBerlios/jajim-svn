@@ -18,15 +18,15 @@
 
 package org.jajim.modelo.conversaciones;
 
-import java.util.Observer;
 import java.util.Observable;
-import org.jivesoftware.smack.packet.Packet;
+import java.util.Observer;
 import org.jivesoftware.smack.PacketListener;
+import org.jivesoftware.smack.packet.Packet;
 import org.jivesoftware.smack.util.StringUtils;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que escucha los eventos de adición a un chat multiusurario proce
  * dentes del servidor.
  */
@@ -58,8 +58,9 @@ public class ParticipantesListener extends Observable implements PacketListener{
         nick = StringUtils.parseResource(usuario);
 
         // Si es nuestro nick abortar la operación.
-        if(nick.compareTo(nickPropio) == 0)
+        if(nick.compareTo(nickPropio) == 0) {
             return;
+        }
 
         // Si el paquete no es de desconexión.
         if(packet.toString().compareTo("unavailable") != 0){

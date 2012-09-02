@@ -18,11 +18,11 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.controladores.ConexionControlador;
-import org.jajim.interfaz.ventanas.VentanaPrincipal;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
+import org.jajim.controladores.ConexionControlador;
+import org.jajim.interfaz.ventanas.VentanaPrincipal;
 
 /**
  * @author Florencio Cañizal Calles
@@ -78,8 +78,9 @@ public class CambiarEstadoActionListener implements ActionListener{
 
         // Si estaba ya seleccionado se sale del método. Si no se actualiza la
         // variable
-        if(estadoActual == seleccionado)
+        if(estadoActual == seleccionado) {
             return;
+        }
         else{
             a = estadoActual;
             estadoActual = seleccionado;

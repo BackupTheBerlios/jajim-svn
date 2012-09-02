@@ -20,7 +20,7 @@ package org.jajim.modelo.conversaciones;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase enumeración que recoge los tipos de chat disponibles en el sistema.
  */
 public class TiposDeChatEnumeracion{
@@ -52,14 +52,18 @@ public class TiposDeChatEnumeracion{
             // Se comparan las instancia y se retorna los valores adecuados
             TiposDeChatEnumeracion instance = (TiposDeChatEnumeracion) object;
 
-            if (this.chat.compareTo(instance.chat) > 0 )
+            if (this.chat.compareTo(instance.chat) > 0 ) {
                 return 1;
-            else if (this.chat.compareTo(instance.chat) < 0)
+            }
+            else if (this.chat.compareTo(instance.chat) < 0) {
                 return -1;
-            else
+            }
+            else {
                 return 0;
+            }
         }
-        else
+        else {
             throw new IllegalArgumentException();
+        }
     }
 }

@@ -39,7 +39,7 @@ public class VentanaConversacionChatPrivado extends VentanaConversacion{
     };
 
     // Gestión de estados de la herramienta
-    public static int NORMAL = 0;
+    public static int ACTIVA = 0;
     public static int OCULTA = 1;
     public static int MINIMIZADA = 2;
 
@@ -86,7 +86,7 @@ public class VentanaConversacionChatPrivado extends VentanaConversacion{
         nuevoMensaje.requestFocusInWindow();
 
         // Establecer el estado por defecto
-        this.estado = VentanaConversacionChatPrivado.NORMAL;
+        this.estado = VentanaConversacionChatPrivado.ACTIVA;
 
         // Activar el listener
         this.crearWindowListener();
@@ -134,7 +134,7 @@ public class VentanaConversacionChatPrivado extends VentanaConversacion{
         nuevoMensaje.requestFocusInWindow();
 
         // Establecer el estado por defecto
-        this.estado = VentanaConversacionChatPrivado.NORMAL;
+        this.estado = VentanaConversacionChatPrivado.ACTIVA;
 
         // Activar el listener
         this.crearWindowListener();

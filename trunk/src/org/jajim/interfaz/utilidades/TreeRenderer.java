@@ -28,7 +28,7 @@ import javax.swing.tree.TreeCellRenderer;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase necesaria para poder visualizar un icono y un texto a la vez en un JTree.
  */
 public class TreeRenderer extends JLabel implements TreeCellRenderer{
@@ -78,18 +78,24 @@ public class TreeRenderer extends JLabel implements TreeCellRenderer{
         if(leaf && row != -1 && row != 0){
             // Determinar el icono a poner en la JLabel
             int icono = -1;
-            if(textoNodo.contains("unavailable"))
+            if(textoNodo.contains("unavailable")) {
                 icono = 5;
-            else if(textoNodo.contains("available"))
+            }
+            else if(textoNodo.contains("available")) {
                 icono = 0;
-            else if(textoNodo.contains("away"))
+            }
+            else if(textoNodo.contains("away")) {
                 icono = 1;
-            else if(textoNodo.contains("chat"))
+            }
+            else if(textoNodo.contains("chat")) {
                 icono = 2;
-            else if(textoNodo.contains("dnd"))
+            }
+            else if(textoNodo.contains("dnd")) {
                 icono = 3;
-            else if(textoNodo.contains("xa"))
+            }
+            else if(textoNodo.contains("xa")) {
                 icono = 4;
+            }
 
             // Recuperar el texto que hay que poner en el JLabel
             int posicion = textoNodo.indexOf("(");

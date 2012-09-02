@@ -18,6 +18,7 @@
 
 package org.jajim.controladores;
 
+import java.util.Observer;
 import org.jajim.excepciones.ContraseñaNoDisponibleException;
 import org.jajim.excepciones.ImposibleLoginException;
 import org.jajim.excepciones.NoHayCuentaException;
@@ -25,7 +26,6 @@ import org.jajim.excepciones.ServidorNoEncontradoException;
 import org.jajim.modelo.conexiones.ConjuntoDeOyentes;
 import org.jajim.modelo.conexiones.FactoriaDeConexiones;
 import org.jajim.utilidades.log.ManejadorDeLogs;
-import java.util.Observer;
 import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.SASLAuthentication;
 import org.jivesoftware.smack.XMPPConnection;
@@ -67,8 +67,9 @@ public class ConexionControlador{
         // Comprobar si hay cuenta activa
         CuentaControlador cc = CuentaControlador.getInstancia();
 
-        if(cc.getCuenta() == null)
+        if(cc.getCuenta() == null){
             throw new NoHayCuentaException();
+        }
 
         // Recuperar los datos del servidor para conseguir una conexión
         String servidor = cc.getServidor();
@@ -157,10 +158,12 @@ public class ConexionControlador{
      * rio.
      */
     public boolean isConectado(){
-        if(xc == null)
+        if(xc == null){
             return false;
-        else
+        }
+        else{
             return xc.isAuthenticated();
+        }
     }
 
     /**
@@ -219,8 +222,9 @@ public class ConexionControlador{
      */
     public static synchronized ConexionControlador getInstancia(){
 
-        if(instancia == null)
+        if(instancia == null) {
             instancia = new ConexionControlador();
+        }
 
         return instancia;
     }

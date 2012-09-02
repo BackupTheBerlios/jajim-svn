@@ -38,7 +38,7 @@ public class MensajesConversacionListener implements PacketListener{
      * Constructor de la clase. Inicializa las variables adecuadas.
      */
     public MensajesConversacionListener(){
-        cscs = new ColaSincronizadaConSobreescritura<Message>(5);
+        cscs = new ColaSincronizadaConSobreescritura<>(5);
     }
 
     /**
@@ -52,18 +52,20 @@ public class MensajesConversacionListener implements PacketListener{
         Message m = null;
         
         // Recuperar el mensaje
-        if(arg0 instanceof Message)
+        if(arg0 instanceof Message) {
             m = (Message) arg0;
-        else
+        }
+        else {
             return;
+        }
 
         // Comprobar si el mensaje es de chat privado
         String servicio = StringUtils.parseServer(m.getFrom());
         int posicion = servicio.indexOf('.');
         String s = servicio.substring(0,posicion);
 
-        if(s.compareTo("conf") == 0 || s.compareTo("conference") == 0 || s.compareTo("chat") == 0 || s.compareTo("muc") == 0)
-            return;
+        if(s.compareTo("conf") == 0 || s.compareTo("conference") == 0 || s.compareTo("chat") == 0 || s.compareTo("muc") == 0) {
+        }
         else{
             cscs.offer(m);
         }
@@ -83,10 +85,11 @@ public class MensajesConversacionListener implements PacketListener{
         while(!finalizado){
             if(!cscs.isEmpty()){
                 m = cscs.poll();
-                if(m.getThread() != null)
+                if(m.getThread() != null) {
                     if(idChat.compareTo(m.getThread()) == 0){
                         return m;
                     }
+                }
             }else{
                 finalizado = true;
             }

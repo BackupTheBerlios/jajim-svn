@@ -18,7 +18,6 @@
 
 package org.jajim.interfaz.dialogos;
 
-import org.jajim.main.Main;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
@@ -33,10 +32,11 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase que formulario en la que el usuario puede introducir la contraseña de la
  * cuenta en caso de ser necesaria.
  */

@@ -18,17 +18,17 @@
 
 package org.jajim.modelo.transferencias;
 
-import org.jajim.modelo.conexiones.EventosDeConexionEnumeracion;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import org.jajim.modelo.conexiones.EventosDeConexionEnumeracion;
 import org.jivesoftware.smackx.filetransfer.FileTransferListener;
 import org.jivesoftware.smackx.filetransfer.FileTransferRequest;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase que registra las peticiones de transferencia de ficheros provenientes de
  * otros contactos.
  */
@@ -43,7 +43,7 @@ public class RecepcionFicherosListener extends Observable implements FileTransfe
      */
     public RecepcionFicherosListener(Observer observer){
         ID = 0;
-        peticiones = new HashMap<Integer,FileTransferRequest>();
+        peticiones = new HashMap<>();
         this.addObserver(observer);
     }
 

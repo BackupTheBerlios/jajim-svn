@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Cuentas {
 
-    private List<Cuenta> cuentas = new ArrayList<Cuenta>();
+    private List<Cuenta> cuentas = new ArrayList<>();
     private Cuenta activa;
 
     /**
@@ -91,8 +91,9 @@ public class Cuentas {
             activa = c;
             return true;
         }
-        else
+        else {
             return false;
+        }
     }
 
     /**
@@ -117,8 +118,9 @@ public class Cuentas {
             activa = c;
             return true;
         }
-        else
+        else {
             return false;
+        }
     }
 
     /**
@@ -148,15 +150,19 @@ public class Cuentas {
             cuentasMatriz[i][0] = c.getIdentificador();
             cuentasMatriz[i][1] = c.getServidor();
             // Conseguir si tiene contraseña almacenada o no
-            if(c.getContrasena() == null)
+            if(c.getContrasena() == null) {
                 cuentasMatriz[i][2] = String.valueOf(false);
-            else
+            }
+            else {
                 cuentasMatriz[i][2] = String.valueOf(true);
+            }
             // Conseguir si es la cuenta activa o no
-            if(c == activa)
+            if(c == activa) {
                 cuentasMatriz[i][3] = String.valueOf(true);
-            else
+            }
+            else {
                 cuentasMatriz[i][3] = String.valueOf(false);
+            }
         }
 
         return cuentasMatriz;
@@ -227,8 +233,9 @@ public class Cuentas {
                     }
                 }
             }
-            else
+            else {
                 activa = null;
+            }
         }
 
         // Eliminarla de la lista de cuentas
@@ -295,8 +302,9 @@ public class Cuentas {
 
         for(int i = 0;i < cuentas.size();i++){
             c = cuentas.get(i);
-            if(c.getIdentificador().compareTo(identificador) == 0 && c.getServidor().compareTo(servidor) == 0)
+            if(c.getIdentificador().compareTo(identificador) == 0 && c.getServidor().compareTo(servidor) == 0) {
                 return c;
+            }
         }
 
         return null;

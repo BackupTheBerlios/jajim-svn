@@ -18,9 +18,6 @@
 
 package org.jajim.interfaz.dialogos;
 
-import org.jajim.interfaz.listeners.AñadirContactoAGrupoActionListener;
-import org.jajim.interfaz.utilidades.PanelContactos;
-import org.jajim.main.Main;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
@@ -37,6 +34,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import org.jajim.controladores.ContactosControlador;
+import org.jajim.interfaz.listeners.AñadirContactoAGrupoActionListener;
+import org.jajim.interfaz.utilidades.PanelContactos;
+import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
@@ -105,8 +105,9 @@ public class AñadirContactoAGrupoFormulario extends JDialog implements ActionLi
             // correcto
             else{
                 for(int j = 0;j < grupos.length;j++){
-                    if(grupos[j].compareTo("") == 0)
+                    if(grupos[j].compareTo("") == 0) {
                         grupos[j] = texto.getString("sin_nombre");
+                    }
                 }
             }
             listaDeGrupos = new JList(grupos);
@@ -122,8 +123,9 @@ public class AñadirContactoAGrupoFormulario extends JDialog implements ActionLi
         botones.setBorder(BorderFactory.createEmptyBorder(0,10,6,10));
         botones.setLayout(new FlowLayout(FlowLayout.RIGHT));
         botonAceptar = new JButton(OK);
-        if(sinGrupos)
+        if(sinGrupos) {
             botonAceptar.setEnabled(false);
+        }
         botonAceptar.addActionListener(new AñadirContactoAGrupoActionListener(this,contacto));
         botonCancelar = new JButton(cancelar);
         botonCancelar.addActionListener(this);
@@ -162,8 +164,9 @@ public class AñadirContactoAGrupoFormulario extends JDialog implements ActionLi
         // Extraer los valores del formulario
         Object[] valores = listaDeGrupos.getSelectedValues();
         campos = new String[valores.length];
-        for(int i = 0;i < valores.length;i++)
+        for(int i = 0;i < valores.length;i++) {
             campos[i] = (String) valores[i];
+        }
 
         return campos;
     }

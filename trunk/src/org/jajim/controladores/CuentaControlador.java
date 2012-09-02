@@ -18,8 +18,17 @@
 
 package org.jajim.controladores;
 
+import com.thoughtworks.xstream.XStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import org.jajim.excepciones.ContraseñaNoDisponibleException;
+import org.jajim.excepciones.CuentaExistenteException;
+import org.jajim.excepciones.ImposibleCifrarDescifrarException;
+import org.jajim.excepciones.ImposibleCifrarException;
 import org.jajim.excepciones.ImposibleCrearCuentaException;
+import org.jajim.excepciones.ImposibleDescifrarException;
 import org.jajim.excepciones.ImposibleEliminarCuentaException;
 import org.jajim.excepciones.ImposibleLoginException;
 import org.jajim.excepciones.ImposibleModificarContraseñaException;
@@ -29,12 +38,6 @@ import org.jajim.modelo.conexiones.FactoriaDeConexiones;
 import org.jajim.modelo.cuentas.Cuentas;
 import org.jajim.utilidades.cifrado.Cifrador;
 import org.jajim.utilidades.log.ManejadorDeLogs;
-import com.thoughtworks.xstream.XStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import org.jajim.excepciones.CuentaExistenteException;
 import org.jivesoftware.smack.AccountManager;
 import org.jivesoftware.smack.SASLAuthentication;
 import org.jivesoftware.smack.XMPPConnection;
@@ -134,8 +137,9 @@ public class CuentaControlador {
                 contraseña = c.cifrar(contraseña);
                 activa = cs.añadirCuenta(identificador, servidor, contraseña,true);
             }
-            else
+            else {
                 activa = cs.añadirCuenta(identificador, servidor);
+            }
         }catch(XMPPException xe){
             // En caso de que se produzca un error se escribe en el fichero
             // de log y se lanza una excepción
@@ -203,8 +207,9 @@ public class CuentaControlador {
                     contraseña = c.cifrar(contraseña);
                     activa = cs.añadirCuenta(identificador, servidor, contraseña, true);
                 }
-                else
+                else {
                     activa = cs.añadirCuenta(identificador, servidor);
+                }
             }
         }catch(XMPPException xe){
             // En caso de que se produzca un error se escribe en el fichero
@@ -287,15 +292,16 @@ public class CuentaControlador {
 
         // Si no se disponde de una contraseña almacenada se lanza la excepción
         // para que el sistema solicite la contraseña al usuario.
-        if(contraseña == null)
+        if(contraseña == null) {
             throw new ContraseñaNoDisponibleException();
+        }
 
         // Si la contraseña se guarda cifrada descifrarla
         if(cifrada){
             try{
                 Cifrador c = new Cifrador();
                 contraseña = c.descifrar(contraseña);
-            }catch(Exception idce){
+            }catch(ImposibleCifrarDescifrarException | ImposibleDescifrarException idce){
                 throw new ContraseñaNoDisponibleException();
             }
         }
@@ -421,14 +427,15 @@ public class CuentaControlador {
 
                 // Guardar la contraseña en el sistema
                 cs.modificarContraseña(identificador,servidor,contraseña,true);
-            }catch(Exception ice){
+            }catch(ImposibleCifrarDescifrarException | ImposibleCifrarException ice){
                 // si se produce un error de cifrado, guardar la contraseña sin
                 // cifrar
                 cs.modificarContraseña(identificador,servidor,contraseña,false);
             }
         }
-        else
+        else {
             cs.borrarContraseña(identificador,servidor);
+        }
     }
 
     /**
@@ -460,15 +467,16 @@ public class CuentaControlador {
 
         // Si no está almacena la contraseña, lanzar una excepción para que el
         // sistema se la solicite al usuario
-        if(contraseña == null)
+        if(contraseña == null) {
             throw new ContraseñaNoDisponibleException();
+        }
 
         // Si la contraseña se almacena cifrada, descifrala
         if(cifrada){
             try{
                 Cifrador c = new Cifrador();
                 contraseña = c.descifrar(contraseña);
-            }catch(Exception idce){
+            }catch(ImposibleCifrarDescifrarException | ImposibleDescifrarException idce){
                 throw new ContraseñaNoDisponibleException();
             }
         }
@@ -482,10 +490,12 @@ public class CuentaControlador {
      * @return La cuenta del usuario.
      */
     public String getCuenta(){
-        if(cs.getActiva() != null)
+        if(cs.getActiva() != null) {
             return this.getIdentificador() + "@" + this.getServidor();
-        else
+        }
+        else {
             return null;
+        }
     }
 
     /**
@@ -505,8 +515,9 @@ public class CuentaControlador {
     public static CuentaControlador getInstancia(){
 
         // Si la instancia es nula, crea una nueva. Si no retorna la ya existente
-        if(instancia == null)
+        if(instancia == null) {
             instancia = new CuentaControlador();
+        }
 
         return instancia;
     }

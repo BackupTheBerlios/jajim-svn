@@ -18,7 +18,6 @@
 
 package org.jajim.interfaz.utilidades;
 
-import org.jajim.main.Main;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -26,6 +25,7 @@ import java.awt.event.MouseListener;
 import java.util.ResourceBundle;
 import javax.swing.JLabel;
 import javax.swing.JWindow;
+import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
@@ -134,8 +134,9 @@ public abstract class VentanaPopup implements MouseListener, ActionListener{
         }
 
         // Si la ventana se selecciona devolver true
-        if(this.estado == VentanaPopup.SELECCIONADO)
+        if(this.estado == VentanaPopup.SELECCIONADO) {
             seleccionado = true;
+        }
 
         return seleccionado;
     }

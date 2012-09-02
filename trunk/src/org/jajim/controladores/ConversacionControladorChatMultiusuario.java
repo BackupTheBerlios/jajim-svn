@@ -19,22 +19,22 @@
 
 package org.jajim.controladores;
 
-import org.jajim.excepciones.ImposibleCrearChatMultiusuarioException;
-import org.jajim.excepciones.ImposibleEnviarMensajeException;
-import org.jajim.excepciones.ImposibleUnirseALaSalaException;
-import org.jajim.excepciones.ServicioDeChatMultiusuarioNoEncontradoException;
-import org.jajim.modelo.conversaciones.MensajesChatMultiusuarioListener;
-import org.jajim.modelo.conversaciones.ParticipantesListener;
-import org.jajim.modelo.conversaciones.RechazoInvitacionListener;
-import org.jajim.utilidades.log.ManejadorDeLogs;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Observer;
+import org.jajim.excepciones.ImposibleCrearChatMultiusuarioException;
+import org.jajim.excepciones.ImposibleEnviarMensajeException;
 import org.jajim.excepciones.ImposibleRecuperarParticipanteException;
+import org.jajim.excepciones.ImposibleUnirseALaSalaException;
 import org.jajim.excepciones.ImposibleVetarContactosException;
+import org.jajim.excepciones.ServicioDeChatMultiusuarioNoEncontradoException;
+import org.jajim.modelo.conversaciones.MensajesChatMultiusuarioListener;
+import org.jajim.modelo.conversaciones.ParticipantesListener;
+import org.jajim.modelo.conversaciones.RechazoInvitacionListener;
+import org.jajim.utilidades.log.ManejadorDeLogs;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Message;
@@ -134,7 +134,7 @@ public class ConversacionControladorChatMultiusuario extends ConversacionControl
                 }
             }
             submitForm.setAnswer("muc#roomconfig_allowinvites",true);
-            List<String> whoIs = new ArrayList<String>();
+            List<String> whoIs = new ArrayList<>();
             whoIs.add("anyone");
             submitForm.setAnswer("muc#roomconfig_whois",whoIs);
             conversacionMultiusuario.sendConfigurationForm(submitForm);
@@ -260,8 +260,9 @@ public class ConversacionControladorChatMultiusuario extends ConversacionControl
      */
     @Override
     public void cerrarConversacion(){
-        if(conversacionMultiusuario != null)
+        if(conversacionMultiusuario != null) {
             conversacionMultiusuario.leave();
+        }
     }
 
     /**

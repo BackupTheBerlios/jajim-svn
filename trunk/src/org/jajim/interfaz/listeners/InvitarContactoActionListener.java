@@ -18,12 +18,12 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.interfaz.dialogos.InvitarContactoFormulario;
-import org.jajim.interfaz.dialogos.MensajeError;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import org.jajim.controladores.ConversacionControladorChatMultiusuario;
 import org.jajim.controladores.ConversacionControlador;
+import org.jajim.controladores.ConversacionControladorChatMultiusuario;
+import org.jajim.interfaz.dialogos.InvitarContactoFormulario;
+import org.jajim.interfaz.dialogos.MensajeError;
 
 /**
  * @author Florencio Cañizal Calles

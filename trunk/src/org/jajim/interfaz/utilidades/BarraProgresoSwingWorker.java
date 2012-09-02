@@ -18,11 +18,11 @@
 
 package org.jajim.interfaz.utilidades;
 
-import org.jajim.controladores.TransferenciaFicherosControlador;
-import org.jajim.interfaz.ventanas.VentanaGestorDeTransferencias;
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
+import org.jajim.controladores.TransferenciaFicherosControlador;
+import org.jajim.interfaz.ventanas.VentanaGestorDeTransferencias;
 
 /**
  * @author Florencio Cañizal Calles
@@ -79,6 +79,7 @@ public class BarraProgresoSwingWorker extends SwingWorker{
             p *= 100;
             progreso = (int) p;
             SwingUtilities.invokeLater(new Runnable(){
+                @Override
                 public void run(){
                     barra.setValue(progreso);
                 }
@@ -101,8 +102,9 @@ public class BarraProgresoSwingWorker extends SwingWorker{
         if(!this.isCancelled()){
             // Cerrar la transferencia
             String[] datos = null;
-            if(!cancelada)
+            if(!cancelada) {
                 datos = TransferenciaFicherosControlador.getInstancia().cerrarTransferencia(idTransferencia);
+            }
 
             // Finalizar la misma a nivel de interfaz
             vgt.finalizarTransferencia(idTransferencia,tipo,datos);

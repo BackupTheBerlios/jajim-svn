@@ -18,8 +18,6 @@
 
 package org.jajim.interfaz.dialogos;
 
-import org.jajim.interfaz.listeners.VetarContactoActionListener;
-import org.jajim.main.Main;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
@@ -39,9 +37,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import org.jajim.controladores.ContactosControlador;
-import org.jajim.controladores.ConversacionControladorChatMultiusuario;
 import org.jajim.controladores.ConversacionControlador;
+import org.jajim.controladores.ConversacionControladorChatMultiusuario;
+import org.jajim.interfaz.listeners.VetarContactoActionListener;
 import org.jajim.interfaz.ventanas.VentanaConversacion;
+import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
@@ -106,7 +106,7 @@ public class VetarContactoFormulario extends JDialog implements ActionListener{
             }
             String[] contactos = ContactosControlador.getInstancia().getContactosPorNombre();
             List<String> aux = Arrays.asList(contactos);
-            List<String> listaContactos = new ArrayList<String>();
+            List<String> listaContactos = new ArrayList<>();
             listaContactos.addAll(aux);
             int k = 0;
             for(int j = 0;j < participantes.length;j++){
@@ -135,8 +135,9 @@ public class VetarContactoFormulario extends JDialog implements ActionListener{
         botones.setLayout(new FlowLayout(FlowLayout.RIGHT));
         botones.setBorder(BorderFactory.createEmptyBorder(0,10,6,10));
         botonAceptar = new JButton(OK);
-        if(sinContactos)
+        if(sinContactos) {
             botonAceptar.setEnabled(false);
+        }
         botonAceptar.addActionListener(new VetarContactoActionListener(this,vc.getCvc()));
         botonCancelar = new JButton(cancelar);
         botonCancelar.addActionListener(this);
@@ -174,8 +175,9 @@ public class VetarContactoFormulario extends JDialog implements ActionListener{
         // Extraer los valores del formulario
         Object[] valores = listaDeContactos.getSelectedValues();
         campos = new String[valores.length];
-        for(int i = 0;i < valores.length;i++)
+        for(int i = 0;i < valores.length;i++) {
             campos[i] = (String) valores[i];
+        }
 
         return campos;
     }

@@ -18,13 +18,12 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.interfaz.dialogos.IniciarChatMultiusuarioFormulario;
-import org.jajim.interfaz.dialogos.MensajeError;
-import org.jajim.interfaz.ventanas.VentanaPrincipal;
-import org.jajim.modelo.conversaciones.TiposDeChatEnumeracion;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import org.jajim.interfaz.dialogos.IniciarChatMultiusuarioFormulario;
+import org.jajim.interfaz.dialogos.MensajeError;
 import org.jajim.interfaz.ventanas.VentanaConversacionChatMultiusuario;
+import org.jajim.interfaz.ventanas.VentanaPrincipal;
 
 /**
  * @author Florencio Cañizal Calles

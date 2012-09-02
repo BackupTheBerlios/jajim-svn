@@ -18,9 +18,6 @@
 
 package org.jajim.interfaz.dialogos;
 
-import org.jajim.interfaz.listeners.ReubicarFicheroActionListener;
-import org.jajim.interfaz.ventanas.VentanaGestorDeTransferencias;
-import org.jajim.main.Main;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
@@ -36,10 +33,13 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import org.jajim.interfaz.listeners.ReubicarFicheroActionListener;
+import org.jajim.interfaz.ventanas.VentanaGestorDeTransferencias;
+import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase formulario en donde el usuario puede introducir la nueva ruta para el fi
  * chero que se desea mover.
  */
@@ -142,8 +142,9 @@ public class ReubicarFicheroFormulario extends JDialog implements ActionListener
             selector.setDialogType(JFileChooser.SAVE_DIALOG);
             selector.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             int valorDeRetorno = selector.showOpenDialog(this);
-            if(valorDeRetorno == JFileChooser.APPROVE_OPTION)
+            if(valorDeRetorno == JFileChooser.APPROVE_OPTION) {
                 camposDeTexto[0].setText(selector.getSelectedFile().getAbsolutePath());
+            }
         }
         else{
             // Cerrar el formulario
@@ -160,8 +161,9 @@ public class ReubicarFicheroFormulario extends JDialog implements ActionListener
         String[] campos = new String[etiquetas.length];
 
         // Extraer los valores del formulario
-        for(int i = 0;i < campos.length;i++)
+        for(int i = 0;i < campos.length;i++) {
             campos[i] = camposDeTexto[i].getText();
+        }
 
         return campos;
     }

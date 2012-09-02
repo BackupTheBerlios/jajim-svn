@@ -18,16 +18,6 @@
 
 package org.jajim.interfaz.utilidades;
 
-import org.jajim.interfaz.listeners.EliminarGrupoDeContactosActionListener;
-import org.jajim.interfaz.listeners.AñadirContactoAGrupoMenuActionListener;
-import org.jajim.interfaz.listeners.EliminarContactoActionListener;
-import org.jajim.interfaz.listeners.EliminarContactoDeGrupoActionListener;
-import org.jajim.interfaz.listeners.IniciarChatMultiusuarioMenuActionListener;
-import org.jajim.interfaz.listeners.IniciarChatPrivadoActionListener;
-import org.jajim.interfaz.listeners.ModificarGrupoDeContactosMenuActionListener;
-import org.jajim.interfaz.ventanas.VentanaPrincipal;
-import org.jajim.main.Main;
-import org.jajim.modelo.conexiones.EventosDeConexionEnumeracion;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -51,6 +41,16 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
+import org.jajim.interfaz.listeners.AñadirContactoAGrupoMenuActionListener;
+import org.jajim.interfaz.listeners.EliminarContactoActionListener;
+import org.jajim.interfaz.listeners.EliminarContactoDeGrupoActionListener;
+import org.jajim.interfaz.listeners.EliminarGrupoDeContactosActionListener;
+import org.jajim.interfaz.listeners.IniciarChatMultiusuarioMenuActionListener;
+import org.jajim.interfaz.listeners.IniciarChatPrivadoActionListener;
+import org.jajim.interfaz.listeners.ModificarGrupoDeContactosMenuActionListener;
+import org.jajim.interfaz.ventanas.VentanaPrincipal;
+import org.jajim.main.Main;
+import org.jajim.modelo.conexiones.EventosDeConexionEnumeracion;
 
 /**
  * @author Florencio Cañizal Calles
@@ -169,10 +169,12 @@ public class PanelContactos extends MouseAdapter implements Observer{
     public void cambiarCuenta(String idCuenta){
         // Si no se pasa null como argumentos se pone el nombre de la cuenta, en
         // caso contratio se informa de que no hay cuentas disponibles
-        if(idCuenta != null)
+        if(idCuenta != null) {
             cuenta.setText(idCuenta);
-        else
+        }
+        else {
             cuenta.setText(texto.getString("sin_cuentas_etiqueta"));
+        }
     }
 
     /**
@@ -210,8 +212,9 @@ public class PanelContactos extends MouseAdapter implements Observer{
             // Obtener como tenía el usuario los contactos ubicados
             TreePath tp = arbolContactos.getPathForRow(0);
             Enumeration<TreePath> enumeration = null;
-            if(tp != null)
+            if(tp != null) {
                 enumeration = arbolContactos.getExpandedDescendants(tp);
+            }
 
             // Obtener la matriz de contactos
             String[][] matrizContactos = (String[][]) arg;
@@ -225,10 +228,12 @@ public class PanelContactos extends MouseAdapter implements Observer{
             // Bucle que añade los contactos al árbol
             for(int i = 0;i < matrizContactos.length;i++){
                 DefaultMutableTreeNode grupo;
-                if(matrizContactos[i][0].compareTo("") != 0)
+                if(matrizContactos[i][0].compareTo("") != 0) {
                     grupo = new DefaultMutableTreeNode(matrizContactos[i][0]);
-                else
+                }
+                else {
                     grupo = new DefaultMutableTreeNode(texto.getString("sin_nombre"));
+                }
 
                 modelo.insertNodeInto(grupo,contactos,i);
                 for(int j = 1;j < matrizContactos[i].length;j++){
@@ -251,11 +256,13 @@ public class PanelContactos extends MouseAdapter implements Observer{
                     if(enumerationFinal != null){
                         while(enumerationFinal.hasMoreElements()){
                             TreePath pathAntiguo = enumerationFinal.nextElement();
-                            if(pathAntiguo.getPathCount() < 3)
+                            if(pathAntiguo.getPathCount() < 3) {
                                 continue;
+                            }
                             TreePath expandir = find(arbolContactos,pathAntiguo.getPath());
-                            if(expandir == null)
+                            if(expandir == null) {
                                 continue;
+                            }
                             expandAll(arbolContactos,expandir);
                             while(expandir.getPathCount() > 1){
                                 expandir = expandir.getParentPath();
@@ -323,8 +330,9 @@ public class PanelContactos extends MouseAdapter implements Observer{
                     path = path.pathByAddingChild(nodo);
                     break;
                 }
-                else if(j == nodo.getChildCount() - 1)
+                else if(j == nodo.getChildCount() - 1) {
                     return null;
+                }
             }
             i++;
         }
@@ -386,7 +394,6 @@ public class PanelContactos extends MouseAdapter implements Observer{
                 }
             }
             else{
-                return;
             }
         }
     }
@@ -401,10 +408,12 @@ public class PanelContactos extends MouseAdapter implements Observer{
 
         // Cerrar los menús popup si estaban abiertos
         if(e.getSource() instanceof JTree){
-            if(menuContactos.isVisible())
+            if(menuContactos.isVisible()) {
                 menuContactos.setVisible(false);
-            if(menuGrupos.isVisible())
+            }
+            if(menuGrupos.isVisible()) {
                 menuGrupos.setVisible(false);
+            }
         }
     }
 

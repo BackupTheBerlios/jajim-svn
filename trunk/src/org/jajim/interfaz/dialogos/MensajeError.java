@@ -18,7 +18,6 @@
 
 package org.jajim.interfaz.dialogos;
 
-import org.jajim.main.Main;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dialog;
@@ -33,10 +32,11 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Cuadro de diálogo que muestra los errores producidos al usuario.
  */
 public class MensajeError extends JDialog implements ActionListener{

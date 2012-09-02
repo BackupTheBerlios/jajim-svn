@@ -18,14 +18,14 @@
 
 package org.jajim.interfaz.listeners;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JMenuItem;
 import org.jajim.controladores.ContactosControlador;
 import org.jajim.excepciones.ImposibleAñadirContactoAGrupoException;
 import org.jajim.excepciones.ImposibleEliminarContactoDeGrupoException;
 import org.jajim.interfaz.dialogos.MensajeError;
 import org.jajim.interfaz.utilidades.PanelContactos;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JMenuItem;
 
 /**
  * @author Florencio Cañizal Calles

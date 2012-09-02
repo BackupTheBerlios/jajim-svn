@@ -18,15 +18,15 @@
 
 package org.jajim.interfaz.listeners;
 
-import org.jajim.interfaz.dialogos.ReubicarFicheroFormulario;
-import org.jajim.interfaz.ventanas.VentanaGestorDeTransferencias;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JTable;
+import org.jajim.interfaz.dialogos.ReubicarFicheroFormulario;
+import org.jajim.interfaz.ventanas.VentanaGestorDeTransferencias;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.1
  * Clase oyente que escucha los eventos de reubicación de fichero procedentes del
  * gestor de transferencias.
  */
@@ -57,8 +57,9 @@ public class ReubicarFicheroMenuActionListener implements ActionListener{
         // Recuperar el fichero seleccionado, si no hay ninguno se aborta la ope
         // ración.
         int filaSeleccionada = tablaDeFicheros.getSelectedRow();
-        if(filaSeleccionada == -1)
+        if(filaSeleccionada == -1) {
             return;
+        }
 
         // Lanzar el formulario
         new ReubicarFicheroFormulario(vgt,filaSeleccionada);

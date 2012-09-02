@@ -18,9 +18,6 @@
 
 package org.jajim.interfaz.dialogos;
 
-import org.jajim.interfaz.ventanas.VentanaPrincipal;
-import org.jajim.interfaz.listeners.BuscarContactoActionListener;
-import org.jajim.main.Main;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -41,6 +38,9 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import org.jajim.interfaz.listeners.BuscarContactoActionListener;
+import org.jajim.interfaz.ventanas.VentanaPrincipal;
+import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
@@ -162,8 +162,9 @@ public class BuscarContactoFormulario extends JDialog implements ActionListener{
     public void actionPerformed(ActionEvent e){
 
         // Cerrar el formulario
-        if(e.getActionCommand().compareTo("Cerrar") == 0)
+        if(e.getActionCommand().compareTo("Cerrar") == 0) {
             this.dispose();
+        }
         // Lanzar el formulario de solicitud de contacto
         else{
             // Extraer los valores de la tabla
@@ -212,8 +213,9 @@ public class BuscarContactoFormulario extends JDialog implements ActionListener{
         titulos = resultado[0];
         
         String[][] contenido = new String[(resultado.length) - 1][];
-        for(int i = 1;i < resultado.length;i++)
+        for(int i = 1;i < resultado.length;i++) {
             contenido[i - 1] = resultado[i];
+        }
 
         // Añadir los resultados a la tabla
         DefaultTableModel dtm = new DefaultTableModel(contenido,titulos){

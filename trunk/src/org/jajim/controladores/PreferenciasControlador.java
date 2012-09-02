@@ -468,8 +468,9 @@ public class PreferenciasControlador {
      */
     public static PreferenciasControlador getInstancia(){
 
-        if(instancia == null)
+        if(instancia == null) {
             instancia = new PreferenciasControlador();
+        }
 
         return instancia;
     }

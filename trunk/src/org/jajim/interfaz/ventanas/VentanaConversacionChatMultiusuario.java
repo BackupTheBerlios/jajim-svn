@@ -142,8 +142,9 @@ public class VentanaConversacionChatMultiusuario extends VentanaConversacion imp
         for(String participante : participantes){
 
             String n = StringUtils.parseResource(participante);
-            if(n == null)
+            if(n == null) {
                 continue;
+            }
 
             // Si no es el usuario actual
             if(n.compareTo(nick) != 0){
@@ -152,8 +153,9 @@ public class VentanaConversacionChatMultiusuario extends VentanaConversacion imp
                     etiquetaPrincipal.setText(etiquetaPrincipal.getText() + n);
                     primero = false;
                 }
-                else
+                else {
                     etiquetaPrincipal.setText(etiquetaPrincipal.getText() + ", " + n);
+                }
                 // Añadir el usuario y el nick a el panel de la conversación
                 // El formato es participante: misala83@conf.jabberes.org/fppfc83
                 //               n : fppfc83
@@ -202,11 +204,13 @@ public class VentanaConversacionChatMultiusuario extends VentanaConversacion imp
                 public void run(){
                     // Actualizar la etiqueta de participantes
                     if(etiquetaPrincipal.getText().compareTo(principal + " - ") != 0){
-                        if(!etiquetaPrincipal.getText().contains(nick))
+                        if(!etiquetaPrincipal.getText().contains(nick)) {
                             etiquetaPrincipal.setText(etiquetaPrincipal.getText() + ", " + nick);
+                        }
                     }
-                    else
+                    else {
                         etiquetaPrincipal.setText(etiquetaPrincipal.getText() + nick);
+                    }
                 }
             });
 
@@ -251,8 +255,9 @@ public class VentanaConversacionChatMultiusuario extends VentanaConversacion imp
                         etiquetaNueva = etiquetaNueva + trozos[i];
                         primero = false;
                     }
-                    else
+                    else {
                         etiquetaNueva = etiquetaNueva + ", " + trozos[i];
+                    }
                 }
             }
 

@@ -18,13 +18,6 @@
 
 package org.jajim.interfaz.ventanas;
 
-import org.jajim.controladores.CuentaControlador;
-import org.jajim.controladores.PreferenciasControlador;
-import org.jajim.interfaz.listeners.CambiarCuentaActionListener;
-import org.jajim.interfaz.listeners.CrearOAñadirActionListener;
-import org.jajim.interfaz.listeners.EliminarCuentaServidorActionListener;
-import org.jajim.interfaz.listeners.EliminarCuentaSistemaActionListener;
-import org.jajim.main.Main;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -49,6 +42,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import org.jajim.controladores.CuentaControlador;
+import org.jajim.controladores.PreferenciasControlador;
+import org.jajim.interfaz.listeners.CambiarCuentaActionListener;
+import org.jajim.interfaz.listeners.CrearOAñadirActionListener;
+import org.jajim.interfaz.listeners.EliminarCuentaServidorActionListener;
+import org.jajim.interfaz.listeners.EliminarCuentaSistemaActionListener;
+import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
@@ -56,7 +56,7 @@ import javax.swing.event.ListSelectionListener;
  * La interfaz a partir de la cual se le permite al usuario gestionar las cuentas
  * dadas de alta en el sistema.
  */
-public class VentanaGestorDeCuentas extends JFrame implements ListSelectionListener,ActionListener{
+public final class VentanaGestorDeCuentas extends JFrame implements ListSelectionListener,ActionListener{
 
     private ResourceBundle texto = ResourceBundle.getBundle("resources.Idioma",Main.loc);
 
@@ -233,14 +233,16 @@ public class VentanaGestorDeCuentas extends JFrame implements ListSelectionListe
         String[] informacionLista = new String[cuentas.length];
         for(int i = 0;i < informacionLista.length;i++){
             informacionLista[i] = cuentas[i][0] + "@" + cuentas[i][1];
-            if(Boolean.parseBoolean(cuentas[i][3]) == true)
+            if(Boolean.parseBoolean(cuentas[i][3]) == true) {
                 activa = i;
+            }
         }
 
         // Forzar a rellenar la información, cuando se añade una cuenta y no exis
         // tía ninguna previa, pues el valueChanged no funciona en esa situación
-        if(listaDeCuentas.getSelectedIndex() == -1)
+        if(listaDeCuentas.getSelectedIndex() == -1) {
             rellenarInformacion();
+        }
 
         listaDeCuentas.setListData(informacionLista);
         listaDeCuentas.setSelectedIndex(activa);
@@ -255,8 +257,9 @@ public class VentanaGestorDeCuentas extends JFrame implements ListSelectionListe
     public void valueChanged(ListSelectionEvent e) {
 
         if(activa != listaDeCuentas.getSelectedIndex()){
-            if(listaDeCuentas.getSelectedIndex() != -1)
+            if(listaDeCuentas.getSelectedIndex() != -1) {
                 activa = listaDeCuentas.getSelectedIndex();
+            }
             rellenarInformacion();
         }
     }
@@ -307,8 +310,9 @@ public class VentanaGestorDeCuentas extends JFrame implements ListSelectionListe
     public String[] getCuenta(){
 
         // Si no hay cuentas devolver null
-        if(cuentas.length == 0)
+        if(cuentas.length == 0) {
             return null;
+        }
 
         // Retornar el identificador y el servidor de la cuenta seleccionada.
         String[] cuenta = new String[2];

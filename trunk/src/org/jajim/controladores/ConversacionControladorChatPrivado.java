@@ -67,8 +67,9 @@ public class ConversacionControladorChatPrivado extends ConversacionControlador{
         conversacionPrivada = cl.getChat(idChat);
         conversacionPrivada.addMessageListener(mcpl);
         Message m = cl.getPrimerMensaje(idChat);
-        if(m != null)
+        if(m != null) {
             mcpl.processMessage(null,m);
+        }
     }
 
     /**
