@@ -23,9 +23,9 @@ import java.util.ResourceBundle;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import org.jajim.interfaz.ventanas.VentanaPrincipal;
-import org.jvnet.substance.SubstanceLookAndFeel;
-import org.jvnet.substance.fonts.FontPolicies;
-import org.jvnet.substance.skin.SubstanceMistSilverLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.skin.SubstanceMistSilverLookAndFeel;
+import org.pushingpixels.substance.internal.fonts.FontPolicies;
 
 /**
  * @author Florencio Cañizal Calles
