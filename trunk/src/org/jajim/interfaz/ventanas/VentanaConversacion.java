@@ -291,7 +291,7 @@ public class VentanaConversacion extends JFrame{
 
         // Iniciación de la interfaz
         Image image = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("icons/conversacion.png"));
-        this.setTitle(alias + " - JIM_1.1");
+        this.setTitle(alias + " - JAJIM_1.1");
         this.setIconImage(image);
         if(PreferenciasControlador.getInstancia().isVentanaConversacionMaximizada()) {
             this.setExtendedState(JFrame.MAXIMIZED_BOTH);
