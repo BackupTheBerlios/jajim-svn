@@ -21,7 +21,9 @@ package org.jajim.modelo.contactos;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
+import java.util.TreeMap;
 import org.jajim.modelo.conexiones.EventosDeConexionEnumeracion;
 import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.RosterEntry;
@@ -64,100 +66,52 @@ public class ContactosListener extends Observable implements RosterListener{
      */
     private void actualizarContactos(){
 
-        String matrizContactos[][];
-        int i = 0;
-        int j = 0;
-
-        Collection<RosterGroup> grupos = contactos.getGroups();
-
-        matrizContactos = new String[grupos.size()][];
-        for(RosterGroup rg: grupos){
-            Collection<RosterEntry> entradas = rg.getEntries();
-            matrizContactos[i] = new String[entradas.size() + 1];
-            matrizContactos[i][j++] = rg.getName();
-            for(RosterEntry re: entradas){
-                String alias = re.getName();
-                String presencia = "";
-                Presence presence = contactos.getPresence(re.getUser());
-                if(presence.isAvailable()){
-                    if(presence.getMode() == null) {
-                        presencia = "available";
-                    }
-                    else {
-                        presencia = presence.getMode().toString();
-                    }
-                }
-                else {
-                    presencia = "unavailable";
-                }
-                matrizContactos[i][j] = alias + "(" + presencia + ")";
-                j++;
-            }
-            i++;
-            j = 0;
-        }
-
-        // Mirar a ver si están todas las entradas en la matriz, se lleva a cabo
-        // porque algunos servidores no asignan un grupo por defecto para un con
-        // tacto al que no se ha asignado un grupo y puede ser que este no se mu
-        // estre.
-
-        // Contar si se han asignado todas las entradas
-        int asignadas = 0;
-        for(int k = 0;k < matrizContactos.length;k++) {
-            asignadas += matrizContactos[k].length - 1;
-        }
-
-        if(asignadas < contactos.getEntries().size()){
-
-            List<String> sinAsignar = new ArrayList<>();
-            sinAsignar.add("");
+        Map<String, List<String>> gruposContactos = new TreeMap<>();
+        
+        // Obtener todos los contactos disponibles
+        // Iterar sobre ellos y extraer el grupo al que pertenece y asociarlo
+        Collection<RosterEntry> rec =  contactos.getEntries();
+        for(RosterEntry re : rec){
             
-            // Comprobar que entradas están en la matriz, las que no estén asig
-            // narlas a la lista
-            Collection<RosterEntry> rec = contactos.getEntries();
-            for(RosterEntry re: rec){
-                String presencia = "";
-                Presence presence = contactos.getPresence(re.getUser());
-                if(presence.isAvailable()){
-                    if(presence.getMode() == null) {
-                        presencia = "available";
-                    }
-                    else {
-                        presencia = presence.getMode().toString();
-                    }
+            // Obtener el nombre y la disponibilidad del usuario
+            String nombre = re.getName();
+            String presencia = "";
+            Presence presence = contactos.getPresence(re.getUser());
+            if(presence.isAvailable()){
+                if(presence.getMode() == null) {
+                    presencia = "available";
                 }
                 else {
-                    presencia = "unavailable";
-                }
-                String comparar = re.getName() + "(" + presencia + ")";
-                boolean encontrado = false;
-                for(int k = 0;k < matrizContactos.length;k++){
-                    for(int l = 1;l < matrizContactos[k].length;l++){
-                        if(comparar.compareTo(matrizContactos[k][l]) == 0){
-                            encontrado = true;
-                            break;
-                        }
-                    }
-                }
-                if(encontrado) {
-                    encontrado = false;
-                }
-                else {
-                    sinAsignar.add(comparar);
+                    presencia = presence.getMode().toString();
                 }
             }
-            // Extraer las no asignadas y crear una nueva matriz de contactos con
-            // la información de la otra y las entradas no asignadas anteriormente
-            // en un grupo con nombre vacio.
-            String[][] nuevaMatriz = new String[matrizContactos.length + 1][];
-            System.arraycopy(matrizContactos, 0, nuevaMatriz, 0, matrizContactos.length);
-            nuevaMatriz[nuevaMatriz.length - 1] = sinAsignar.toArray(new String [0]);
-            matrizContactos = nuevaMatriz;
+            else {
+                presencia = "unavailable";
+            }
+            nombre += "(" + presencia + ")";
+            
+            // Recuperar los grupos a los que pertenece y asociarlo
+            Collection<RosterGroup> rgc = re.getGroups();
+            if(rgc.isEmpty()){
+                // Si no tiene grupos asociados añadir al grupo por defecto
+                if(!gruposContactos.containsKey("")){
+                    gruposContactos.put("", new ArrayList<String>());
+                }
+                gruposContactos.get("").add(nombre);
+            }
+            else{
+                for(RosterGroup rg : rgc){
+                    String grupo = rg.getName();
+                    if(!gruposContactos.containsKey(grupo)){
+                        gruposContactos.put(grupo, new ArrayList<String>());
+                    }
+                    gruposContactos.get(grupo).add(nombre);
+                }
+            }
         }
 
         this.setChanged();
-        this.notifyObservers(matrizContactos);
+        this.notifyObservers(gruposContactos);
     }
 
     /**

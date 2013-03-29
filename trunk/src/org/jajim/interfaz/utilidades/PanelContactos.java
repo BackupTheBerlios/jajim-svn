@@ -26,9 +26,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Enumeration;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
+import java.util.Set;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -217,29 +221,34 @@ public class PanelContactos extends MouseAdapter implements Observer{
             }
 
             // Obtener la matriz de contactos
-            String[][] matrizContactos = (String[][]) arg;
+            Map<String, List<String>> gruposContactos = (Map<String, List<String>>) arg;
 
             // Crear el árbol a partir de los contactos
             DefaultMutableTreeNode root = new DefaultMutableTreeNode();
             DefaultTreeModel modelo = new DefaultTreeModel(root);
             DefaultMutableTreeNode contactos = new DefaultMutableTreeNode(texto.getString("contactos_etiqueta"));
             modelo.insertNodeInto(contactos,root,0);
-
-            // Bucle que añade los contactos al árbol
-            for(int i = 0;i < matrizContactos.length;i++){
+            
+            // Recorrer los contactos y añadirlos al árbol
+            Set<Entry<String, List<String>>> entradas = gruposContactos.entrySet();
+            int i = 0;
+            for(Entry<String, List<String>> e : entradas){
                 DefaultMutableTreeNode grupo;
-                if(matrizContactos[i][0].compareTo("") != 0) {
-                    grupo = new DefaultMutableTreeNode(matrizContactos[i][0]);
+                if(e.getKey().compareTo("") != 0) {
+                    grupo = new DefaultMutableTreeNode(e.getKey());
                 }
                 else {
                     grupo = new DefaultMutableTreeNode(texto.getString("sin_nombre"));
                 }
-
-                modelo.insertNodeInto(grupo,contactos,i);
-                for(int j = 1;j < matrizContactos[i].length;j++){
-                     DefaultMutableTreeNode contact = new DefaultMutableTreeNode(matrizContactos[i][j]);
-                     modelo.insertNodeInto(contact,grupo,j - 1);
+                
+                modelo.insertNodeInto(grupo,contactos, i);
+                int j = 0;
+                for(String s : e.getValue()){
+                    DefaultMutableTreeNode contact = new DefaultMutableTreeNode(s);
+                    modelo.insertNodeInto(contact, grupo, j);
+                    j++;
                 }
+                i++;
             }
 
             // Los cambios realizados en la interfaz se realizan en el hilo de
