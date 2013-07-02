@@ -59,12 +59,15 @@ public class FactoriaDeConexiones {
     }
 
     /**
+     * Obsoleto hasta que Smack solucione los problemas al cerrar una conexión y
+     * volver a abrirla.
      * Método que devuelve una conexión con el servidor especificado.
      * @param servidor El servidor con el que se quiere realizar la conexión.
      * @return Una conexión xmpp.
      * @throws ServidorNoEncontradoException Si no encuentra el servidor del que
      * se quiere recuperar la conexión.
      */
+    @Deprecated
     public XMPPConnection getConexion(String servidor) throws ServidorNoEncontradoException{
 
         // Se busca en la caché una conexión con dicho servidor, si no esxiste se

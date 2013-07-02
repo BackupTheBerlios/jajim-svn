@@ -74,7 +74,9 @@ public class ConexionControlador{
         // Recuperar los datos del servidor para conseguir una conexión
         String servidor = cc.getServidor();
         try{
-            xc = FactoriaDeConexiones.getInstancia().getConexion(servidor);
+            // Siempre que se conecta crea una cuenta nueva, así se evita problemas
+            // de conexiones no reconocidas
+            xc = FactoriaDeConexiones.getInstancia().getConexionNueva(servidor);
         }catch(ServidorNoEncontradoException snee){
             throw snee;
         }
@@ -118,7 +120,7 @@ public class ConexionControlador{
 
         String servidor = cc.getServidor();
         try{
-            xc = FactoriaDeConexiones.getInstancia().getConexion(servidor);
+            xc = FactoriaDeConexiones.getInstancia().getConexionNueva(servidor);
         }catch(ServidorNoEncontradoException snee){
             throw snee;
         }
