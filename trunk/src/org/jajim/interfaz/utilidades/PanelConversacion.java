@@ -21,7 +21,9 @@ package org.jajim.interfaz.utilidades;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.io.BufferedInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -130,7 +132,9 @@ public class PanelConversacion implements Observer{
         // Iniciar los sonidos
         try{
             sonido = AudioSystem.getClip();
-            sonido.open(AudioSystem.getAudioInputStream(this.getClass().getResourceAsStream("/sounds/button-9.wav")));
+            InputStream audioSrc = this.getClass().getResourceAsStream("/sounds/button-9.wav");
+            InputStream bufferedIn = new BufferedInputStream(audioSrc);
+            sonido.open(AudioSystem.getAudioInputStream(bufferedIn));
         }catch(LineUnavailableException | UnsupportedAudioFileException | IOException e){
             // En caso de que se produzca un error se escribe en el fichero
             // de log.
