@@ -85,7 +85,7 @@ public class VentanaPopupConversacion extends VentanaPopup{
 
         // Crear la etiqueta del mensaje
         etiquetaInformacion = new JLabel(mensaje);
-        etiquetaInformacion.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK),"JAJIM 1.1",TitledBorder.LEFT,TitledBorder.TOP));
+        etiquetaInformacion.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK),"JAJIM 1.2",TitledBorder.LEFT,TitledBorder.TOP));
         etiquetaInformacion.setHorizontalAlignment(JLabel.CENTER);
         window.add(etiquetaInformacion);
 

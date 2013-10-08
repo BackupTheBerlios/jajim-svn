@@ -316,7 +316,7 @@ public class VentanaPrincipal extends JFrame{
 
         // Iniciación de la interfaz
         Image image = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("icons/jabber.png"));
-        this.setTitle("JAJIM 1.1");
+        this.setTitle("JAJIM 1.2");
         this.setIconImage(image);
         if(!PreferenciasControlador.getInstancia().isVentanaPrincipalMaximizada()){
             this.setLocation(PreferenciasControlador.getInstancia().getVentanaPrincipalX(),PreferenciasControlador.getInstancia().getVentanaPrincipalY());
@@ -336,7 +336,7 @@ public class VentanaPrincipal extends JFrame{
 
             // Añadir el icono al barra
             SystemTray barraHerramientas = SystemTray.getSystemTray();
-            iconoBarraHerramientas = new TrayIcon(image,"JAJIM_1.1");
+            iconoBarraHerramientas = new TrayIcon(image,"JAJIM_1.2");
             iconoBarraHerramientas.setImageAutoSize(true);
             try{
                 barraHerramientas.add(iconoBarraHerramientas);
