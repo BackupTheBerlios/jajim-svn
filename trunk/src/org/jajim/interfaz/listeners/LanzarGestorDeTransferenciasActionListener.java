@@ -25,20 +25,16 @@ import org.jajim.interfaz.ventanas.VentanaPrincipal;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase oyente que escucha los eventos para abrir el gestor de transferencias,
  * procedentes de la ventana principal de la aplicación.
  */
 public class LanzarGestorDeTransferenciasActionListener implements ActionListener{
 
-    private VentanaPrincipal vp;
-
     /**
      * Constuctor de la clase. Inicializa las variables necesarias.
-     * @param vp La ventana principal de la aplicación.
      */
-    public LanzarGestorDeTransferenciasActionListener(VentanaPrincipal vp){
-        this.vp = vp;
+    public LanzarGestorDeTransferenciasActionListener(){
     }
 
     /**
@@ -51,7 +47,7 @@ public class LanzarGestorDeTransferenciasActionListener implements ActionListene
     public void actionPerformed(ActionEvent e) {
         
         // Recuperar la ventana del gestor y hacerla visible
-        VentanaGestorDeTransferencias vgt = vp.getVgt();
+        VentanaGestorDeTransferencias vgt = VentanaPrincipal.getInstancia().getVgt();
         vgt.hacerVisible();
     }
 }

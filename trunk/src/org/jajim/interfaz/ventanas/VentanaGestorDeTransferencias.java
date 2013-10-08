@@ -58,7 +58,7 @@ import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Supone la interfaz del gestor de transferencias de la aplicación.
  */
 public class VentanaGestorDeTransferencias extends JFrame implements ActionListener{
@@ -126,9 +126,8 @@ public class VentanaGestorDeTransferencias extends JFrame implements ActionListe
     /**
      * Constructor de la clase. Inicializa las variables necesarias. Crea la inter
      * faz de usuario.
-     * @param vp La ventana principal de la aplicación.
      */
-    public VentanaGestorDeTransferencias(VentanaPrincipal vp){
+    public VentanaGestorDeTransferencias(){
 
         // Inicializar variables
         estado = VentanaGestorDeTransferencias.SIN_TRANSFERENCIAS;

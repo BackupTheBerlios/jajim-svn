@@ -24,10 +24,11 @@ import org.jajim.controladores.ContactosControlador;
 import org.jajim.excepciones.ImposibleEliminarContactoException;
 import org.jajim.interfaz.dialogos.MensajeError;
 import org.jajim.interfaz.utilidades.PanelContactos;
+import org.jajim.interfaz.ventanas.VentanaPrincipal;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase oyente que escucha las peticiones de eliminación de contactos provenien
  * tes del panel de contactos.
  */
@@ -50,6 +51,8 @@ public class EliminarContactoActionListener implements ActionListener{
      */
     @Override
     public void actionPerformed(ActionEvent e) {
+        
+        VentanaPrincipal vp = VentanaPrincipal.getInstancia();
 
         // Cerrar el popup y recuperar el contacto
         pc.cerrarPopupContactos();
@@ -59,7 +62,7 @@ public class EliminarContactoActionListener implements ActionListener{
 
         // Abortar las conversaciones y las transferencias mantenidas con este
         // usuario
-        AbortarOperaciones ao = new AbortarOperaciones(pc.getVp(),pc.getVp(),pc.getVp().getVgt());
+        AbortarOperaciones ao = new AbortarOperaciones(vp, vp.getVgt());
         ao.abortarConversaciones(contacto);
         ao.abortarTransferencias(contacto,true);
 
@@ -67,7 +70,7 @@ public class EliminarContactoActionListener implements ActionListener{
         try{
             ctc.eliminarContacto(contacto);
         }catch(ImposibleEliminarContactoException iece){
-            new MensajeError(pc.getVp(),"imposible_eliminar_contacto",MensajeError.ERR);
+            new MensajeError(vp, "imposible_eliminar_contacto",MensajeError.ERR);
         }
     }
 }

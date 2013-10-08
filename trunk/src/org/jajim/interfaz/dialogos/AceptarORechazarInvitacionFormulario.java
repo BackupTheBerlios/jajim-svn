@@ -36,7 +36,7 @@ import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase formulario, crea la interfaz para que el usuario pueda aceptar o rechazar
  * uan invitación a un chat multiusuario.
  */
@@ -56,7 +56,6 @@ public class AceptarORechazarInvitacionFormulario extends JDialog implements Act
     private JButton botonRechazar;
 
     // Elementos importantes
-    private VentanaPrincipal vp;
     private String idInvitacion;
     private String room;
     private String alias;
@@ -64,16 +63,15 @@ public class AceptarORechazarInvitacionFormulario extends JDialog implements Act
     /**
      * Constructor de la clase.Iniciliza las variables necesarias y crea la inter
      * faz de usuario.
-     * @param vp La ventana principal de la aplicación.
      * @param idInvitacion El identificador de la invitación.
      * @param room La sala a la que se nos invita.
      * @param contacto El usuario que realiza la invitación.
      */
-    public AceptarORechazarInvitacionFormulario(VentanaPrincipal vp,String idInvitacion,String room,String contacto){
+    public AceptarORechazarInvitacionFormulario(String idInvitacion, String room, String contacto){
 
         // Inicialización de variables
-        super(vp,true);
-        this.vp = vp;
+        super(VentanaPrincipal.getInstancia(), true);
+        VentanaPrincipal vp = VentanaPrincipal.getInstancia();
         this.idInvitacion = idInvitacion;
         this.room = room;
 
@@ -124,6 +122,6 @@ public class AceptarORechazarInvitacionFormulario extends JDialog implements Act
         // Cerrar el formulario y lanzar el formulario para la introducción del
         // nick
         this.dispose();
-        new IntroducirNickFormulario(vp,idInvitacion,room,alias);
+        new IntroducirNickFormulario(idInvitacion, room, alias);
     }
 }

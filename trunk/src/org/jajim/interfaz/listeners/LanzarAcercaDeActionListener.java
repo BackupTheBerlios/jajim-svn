@@ -21,24 +21,19 @@ package org.jajim.interfaz.listeners;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import org.jajim.interfaz.dialogos.AcercaDeFormulario;
-import org.jajim.interfaz.ventanas.VentanaPrincipal;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase oyente que escucha los eventos de petición de información acerca de la
  * herramienta. Lanza el formulario apropiado para visualizar dicha información
  */
 public class LanzarAcercaDeActionListener implements ActionListener{
 
-    private VentanaPrincipal vp;
-
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
-     * @param vp La ventana principal de la aplicación.
      */
-    public LanzarAcercaDeActionListener(VentanaPrincipal vp){
-        this.vp = vp;
+    public LanzarAcercaDeActionListener(){
     }
 
     /**
@@ -49,6 +44,6 @@ public class LanzarAcercaDeActionListener implements ActionListener{
      */
     @Override
     public void actionPerformed(ActionEvent arg0) {
-        new AcercaDeFormulario(vp);
+        new AcercaDeFormulario();
     }
 }

@@ -34,7 +34,7 @@ import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase diálogo que informa al usuario de que se ha acetado una petición de con
  * tacto iniciada por él.
  */
@@ -52,13 +52,13 @@ public class ConfirmarContactoFormulario extends JDialog implements ActionListen
 
     /**
      * Constructor de la clase. Inicializa la interfaz.
-     * @param vp La ventana principal de la aplicación.
      * @param contacto El contacto que ha aceptado nuestra petición de contacto.
      */
-    public ConfirmarContactoFormulario(VentanaPrincipal vp,String contacto){
+    public ConfirmarContactoFormulario(String contacto){
         
         // Inicialización
-        super(vp,true);
+        super(VentanaPrincipal.getInstancia(), true);
+        VentanaPrincipal vp = VentanaPrincipal.getInstancia();
         
         // Creación de la interfaz
         Container cp = this.getContentPane();

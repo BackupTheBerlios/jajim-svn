@@ -35,7 +35,7 @@ import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Formulario que informa al usuario de que se ha solicitado chatear con él. El
  * usuario puede aceptar o rechazar la solicitud.
  */
@@ -57,14 +57,14 @@ public class AceptarORechazarChatPrivadoFormulario extends JDialog{
     /**
      * Constructor de la clase. Inicializa la variables necesarias. Crea la inter
      * faz de usuario.
-     * @param vp La ventana principal de la aplicación.
      * @param idChat El identificador del chat.
      * @param contacto El contacto que ha realizado la petición.
      */
-    public AceptarORechazarChatPrivadoFormulario(VentanaPrincipal vp,String idChat,String contacto){
+    public AceptarORechazarChatPrivadoFormulario(String idChat, String contacto){
 
         // Inicialización de variables
-        super(vp,true);
+        super(VentanaPrincipal.getInstancia(), true);
+        VentanaPrincipal vp = VentanaPrincipal.getInstancia();
         int posicion = contacto.indexOf("/");
         contacto = contacto.substring(0,posicion);
 
@@ -82,7 +82,7 @@ public class AceptarORechazarChatPrivadoFormulario extends JDialog{
         JPanel botones = new JPanel(new FlowLayout(FlowLayout.CENTER));
         botones.setBorder(BorderFactory.createEmptyBorder(0,10,6,10));
         botonAceptar = new JButton(aceptar);
-        botonAceptar.addActionListener(new AceptarChatPrivadoActionListener(this,vp,idChat,alias));
+        botonAceptar.addActionListener(new AceptarChatPrivadoActionListener(this, idChat, alias));
         botonRechazar = new JButton(rechazar);
         botonRechazar.addActionListener(new RechazarChatPrivadoActionListener(this,idChat));
         botones.add(botonAceptar);

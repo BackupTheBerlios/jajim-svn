@@ -35,7 +35,7 @@ import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Oyente que recibe la petición de eliminar la cuenta seleccionada del servidor
  * en el que se encuentra almacenada.
  */
@@ -45,16 +45,13 @@ public class EliminarCuentaServidorActionListener implements ActionListener{
 
     // Variables
     private VentanaGestorDeCuentas vgc;
-    private VentanaPrincipal vp;
 
     /**
      * Constructor de la clase. Iniciliza las variables necesarias.
      * @param vgc Ventana del gestor de cuentas.
-     * @param vp Ventana principal de la aplicación.
      */
-    public EliminarCuentaServidorActionListener(VentanaGestorDeCuentas vgc,VentanaPrincipal vp){
+    public EliminarCuentaServidorActionListener(VentanaGestorDeCuentas vgc){
         this.vgc = vgc;
-        this.vp = vp;
     }
 
     /**
@@ -65,6 +62,8 @@ public class EliminarCuentaServidorActionListener implements ActionListener{
      */
     @Override
     public void actionPerformed(ActionEvent e){
+        
+        VentanaPrincipal vp = VentanaPrincipal.getInstancia();
 
         // Recuperar la información de la cuenta
         String[] cuenta = vgc.getCuenta();
@@ -84,7 +83,7 @@ public class EliminarCuentaServidorActionListener implements ActionListener{
         ConexionControlador cnc = ConexionControlador.getInstancia();
         if(activa.compareTo(identificador + "@" + servidor) == 0 && cnc.isConectado()){
             // Abortar la conexión antes de borrar la cuenta
-            AbortarOperaciones ao = new AbortarOperaciones(vgc,vp,vp.getVgt());
+            AbortarOperaciones ao = new AbortarOperaciones(vgc, vp.getVgt());
             if(!ao.abortarConexion()) {
                 return;
             }

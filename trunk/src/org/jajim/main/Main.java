@@ -29,7 +29,7 @@ import org.pushingpixels.substance.internal.fonts.FontPolicies;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase principal inicializa los objetos necesarios para la ejecución de la apli
  * cación.
  */
@@ -78,7 +78,7 @@ public class Main {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                VentanaPrincipal vp = new VentanaPrincipal();
+                VentanaPrincipal.getInstancia();
             }
         });
     }

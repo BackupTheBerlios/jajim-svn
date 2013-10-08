@@ -26,6 +26,7 @@ import org.jajim.excepciones.ImposibleEliminarContactoDeGrupoException;
 import org.jajim.excepciones.ImposibleEliminarGrupoPorDefectoException;
 import org.jajim.interfaz.dialogos.MensajeError;
 import org.jajim.interfaz.utilidades.PanelContactos;
+import org.jajim.interfaz.ventanas.VentanaPrincipal;
 
 /**
  * @author Florencio Cañizal Calles
@@ -69,11 +70,11 @@ public class EliminarGrupoDeContactosActionListener implements ActionListener{
         try{
             ctc.eliminarGrupoDeContactos(nombre);
         }catch(ImposibleAñadirContactoAGrupoException iacage){
-            new MensajeError(pc.getVp(),"imposible_añadir_contacto_a_grupo",MensajeError.ERR);
+            new MensajeError(VentanaPrincipal.getInstancia(), "imposible_añadir_contacto_a_grupo",MensajeError.ERR);
         }catch(ImposibleEliminarContactoDeGrupoException iecdge){
-            new MensajeError(pc.getVp(),"imposible_eliminar_contacto_de_grupo",MensajeError.ERR);
+            new MensajeError(VentanaPrincipal.getInstancia(), "imposible_eliminar_contacto_de_grupo",MensajeError.ERR);
         }catch(ImposibleEliminarGrupoPorDefectoException iegpde){
-            new MensajeError(pc.getVp(),"imposible_eliminar_grupo_por_defecto_error",MensajeError.WARNING);
+            new MensajeError(VentanaPrincipal.getInstancia(), "imposible_eliminar_grupo_por_defecto_error",MensajeError.WARNING);
         }
     }
 }

@@ -24,10 +24,11 @@ import javax.swing.JFrame;
 import org.jajim.interfaz.utilidades.PanelContactos;
 import org.jajim.interfaz.ventanas.VentanaConversacion;
 import org.jajim.interfaz.ventanas.VentanaConversacionChatPrivado;
+import org.jajim.interfaz.ventanas.VentanaPrincipal;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Oyente que escucha eventos procedentes de la opción de iniciar chat privados
  * del sistema.
  */
@@ -59,7 +60,7 @@ public class IniciarChatPrivadoActionListener implements ActionListener{
 
         // Si no hay ya un chat privado con ese usuario se comienza uno nuevo.
         if(!VentanaConversacion.hayChatPrivado(alias)){
-            new VentanaConversacionChatPrivado(pc.getVp(),alias);
+            new VentanaConversacionChatPrivado(alias);
         }
         else{
             // Recuperar la ventana del chat privado

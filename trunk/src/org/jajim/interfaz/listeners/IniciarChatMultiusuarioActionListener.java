@@ -23,29 +23,25 @@ import java.awt.event.ActionListener;
 import org.jajim.interfaz.dialogos.IniciarChatMultiusuarioFormulario;
 import org.jajim.interfaz.dialogos.MensajeError;
 import org.jajim.interfaz.ventanas.VentanaConversacionChatMultiusuario;
-import org.jajim.interfaz.ventanas.VentanaPrincipal;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase oyente que escucha los eventos de iniciación de chat multiusuario procen
  * dentes del formulario habilitado a tal efecto.
  */
 public class IniciarChatMultiusuarioActionListener implements ActionListener{
 
     private IniciarChatMultiusuarioFormulario icmf;
-    private VentanaPrincipal vp;
     private String alias;
 
     /**
      * Constructo de la clase. Inicializa las variables adecuadas.
      * @param icmf El formulario donde se introducen los datos.
-     * @param vp La ventana principal de la aplicación.
      * @param alias El alias del ontacto con el que se a realizar el chat.
      */
-    public IniciarChatMultiusuarioActionListener(IniciarChatMultiusuarioFormulario icmf,VentanaPrincipal vp,String alias){
+    public IniciarChatMultiusuarioActionListener(IniciarChatMultiusuarioFormulario icmf, String alias){
         this.icmf = icmf;
-        this.vp = vp;
         this.alias = alias;
     }
 
@@ -71,6 +67,6 @@ public class IniciarChatMultiusuarioActionListener implements ActionListener{
 
         // Cerrar el cuadro de diálogo y lanzar una nueva conversación
         icmf.dispose();
-        new VentanaConversacionChatMultiusuario(vp,alias,room,nick);
+        new VentanaConversacionChatMultiusuario(alias, room, nick);
     }
 }

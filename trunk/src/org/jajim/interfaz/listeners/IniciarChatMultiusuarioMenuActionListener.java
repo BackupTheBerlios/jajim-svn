@@ -56,6 +56,6 @@ public class IniciarChatMultiusuarioMenuActionListener implements ActionListener
         // Arrancar un formulario para que el usuario introduzca el nombre de la
         // sala y el nickname
         String contacto = e.getActionCommand();
-        new IniciarChatMultiusuarioFormulario(pc.getVp(),contacto);
+        new IniciarChatMultiusuarioFormulario(contacto);
     }
 }

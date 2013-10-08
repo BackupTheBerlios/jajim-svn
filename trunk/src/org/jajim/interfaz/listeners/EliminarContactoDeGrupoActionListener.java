@@ -26,10 +26,11 @@ import org.jajim.excepciones.ImposibleAñadirContactoAGrupoException;
 import org.jajim.excepciones.ImposibleEliminarContactoDeGrupoException;
 import org.jajim.interfaz.dialogos.MensajeError;
 import org.jajim.interfaz.utilidades.PanelContactos;
+import org.jajim.interfaz.ventanas.VentanaPrincipal;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Oyente que escucha los eventos de eliminación de un contacto de un grupo prove
  * nientes de el menú popup del panel de contactos.
  */
@@ -67,9 +68,9 @@ public class EliminarContactoDeGrupoActionListener implements ActionListener{
         try{
             ctc.eliminarContactoDeGrupo(contacto,grupo);
         }catch(ImposibleAñadirContactoAGrupoException iacage){
-            new MensajeError(pc.getVp(),"imposible_añadir_contacto_a_grupo",MensajeError.ERR);
+            new MensajeError(VentanaPrincipal.getInstancia(), "imposible_añadir_contacto_a_grupo",MensajeError.ERR);
         }catch(ImposibleEliminarContactoDeGrupoException iecdge){
-            new MensajeError(pc.getVp(),"imposible_eliminar_contacto_de_grupo",MensajeError.ERR);
+            new MensajeError(VentanaPrincipal.getInstancia(), "imposible_eliminar_contacto_de_grupo",MensajeError.ERR);
         }
     }
 }

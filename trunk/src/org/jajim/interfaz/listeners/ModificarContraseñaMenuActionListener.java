@@ -25,21 +25,17 @@ import org.jajim.interfaz.ventanas.VentanaPrincipal;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase oyente que lanza el cuadro de diálogo para introducir el nuevo valor de
  * la contraseña cuando el usuario selecciona la opción de modificar el valor de
  * la misma.
  */
 public class ModificarContraseñaMenuActionListener implements ActionListener{
-
-    private VentanaPrincipal vp;
     
     /**
      * Constructor de la clase. Iniciliza las variables necesarias.
-     * @param vp La ventana principal de la aplicación.
      */
-    public ModificarContraseñaMenuActionListener(VentanaPrincipal vp){
-        this.vp = vp;
+    public ModificarContraseñaMenuActionListener(){
     }
 
     /**
@@ -50,6 +46,6 @@ public class ModificarContraseñaMenuActionListener implements ActionListener{
      */
     @Override
     public void actionPerformed(ActionEvent e){
-        new ModificarContraseñaFormulario(vp);
+        new ModificarContraseñaFormulario();
     }
 }

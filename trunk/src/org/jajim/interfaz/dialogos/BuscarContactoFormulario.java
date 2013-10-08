@@ -44,7 +44,7 @@ import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Formulario en el que el usuario puede realizar búsquedas de contactos.
  */
 public class BuscarContactoFormulario extends JDialog implements ActionListener{
@@ -77,18 +77,15 @@ public class BuscarContactoFormulario extends JDialog implements ActionListener{
     private JButton botonBuscar;
     private JButton botonCerrar;
 
-    private VentanaPrincipal vp;
-
     /**
      * Constructor de la clase. Inicializa las variables necesarias. Crea la in
      * terfaz de usuario.
-     * @param vp Ventana principal de la aplicación.
      */
-    public BuscarContactoFormulario(VentanaPrincipal vp){
+    public BuscarContactoFormulario(){
 
         // Inicialización de variables
-        super(vp,true);
-        this.vp = vp;
+        super(VentanaPrincipal.getInstancia(), true);
+        VentanaPrincipal vp = VentanaPrincipal.getInstancia();
 
         // Creación de la interfaz
         Container cp = this.getContentPane();
@@ -182,7 +179,7 @@ public class BuscarContactoFormulario extends JDialog implements ActionListener{
                     break;
                 }
             }
-            new SolicitudDeContactoFormulario(this,vp,identificador,servidor);
+            new SolicitudDeContactoFormulario(this, identificador, servidor);
         }
     }
 

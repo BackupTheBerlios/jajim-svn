@@ -40,7 +40,7 @@ import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase diálogo que muestra los campos que el usuario puede introducir a la hora
  * de aceptar un usuario propuesto.
  */
@@ -73,13 +73,13 @@ public class AceptarContactoFormulario extends JDialog{
     /**
      * Constructor de la clase. Inicializa las variables y crea la interfaz del 
      * cuadro de diálogo.
-     * @param vp Ventana principal de la aplicación.
      * @param contacto El contacto que se va a aceptar.
      */
-    public AceptarContactoFormulario(VentanaPrincipal vp,String contacto){
+    public AceptarContactoFormulario(String contacto){
 
         // Inicialización de variables
-        super(vp,true);
+        super(VentanaPrincipal.getInstancia(), true);
+        VentanaPrincipal vp = VentanaPrincipal.getInstancia();
         this.contacto = contacto;
 
         // Creación de la interfaz

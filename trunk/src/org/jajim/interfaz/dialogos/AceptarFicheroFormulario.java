@@ -40,7 +40,7 @@ import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase diálogo que muestra recoge los datos necesarios para poder guardar el
  * fichero.
  */
@@ -66,21 +66,19 @@ public class AceptarFicheroFormulario extends JDialog implements ActionListener{
     private JButton botonCancelar;
 
     // Variable importantes
-    private VentanaPrincipal vp;
     private int idTransferencia;
-
+    
     /**
      * Constructor de la clase. Inicializa las variables necesarias y crea la in
      * terfaz del formulario.
-     * @param vp Ventana principal de la aplicación.
      * @param idTransferencia Identificador de la transferencia que se quiere lle
      * var a cabo.
      */
-    public AceptarFicheroFormulario(VentanaPrincipal vp,int idTransferencia){
+    public AceptarFicheroFormulario(int idTransferencia){
 
         // Inicialización de variables
-        super(vp,true);
-        this.vp = vp;
+        super(VentanaPrincipal.getInstancia(),true);
+        VentanaPrincipal vp = VentanaPrincipal.getInstancia();
         this.idTransferencia = idTransferencia;
 
         // Creación de la interfaz
@@ -115,7 +113,7 @@ public class AceptarFicheroFormulario extends JDialog implements ActionListener{
         botones.setLayout(new FlowLayout(FlowLayout.RIGHT));
         botones.setBorder(BorderFactory.createEmptyBorder(0,10,6,10));
         botonAceptar = new JButton(OK);
-        botonAceptar.addActionListener(new AceptarFicheroActionListener(this,vp.getVgt()));
+        botonAceptar.addActionListener(new AceptarFicheroActionListener(this, vp.getVgt()));
         botonCancelar = new JButton(cancelar);
         botonCancelar.addActionListener(new RechazarFicheroActionListener(this,idTransferencia));
         botones.add(botonAceptar);

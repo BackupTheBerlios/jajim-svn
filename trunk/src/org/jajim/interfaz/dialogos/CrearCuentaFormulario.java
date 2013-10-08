@@ -26,7 +26,7 @@ import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * La clase hereda de CuentaFormulario, añadiendo las operaciones especiales para
  * poder crear una nueva cuenta en un servidor.
  */
@@ -34,19 +34,16 @@ public class CrearCuentaFormulario extends CuentaFormulario{
 
     private ResourceBundle texto = ResourceBundle.getBundle("resources.Idioma",Main.loc);
 
-    private VentanaPrincipal vp;
     private VentanaGestorDeCuentas vgc;
 
     /**
      * Constructor de la clase. Gestiona la funcionalidad propia del formulario
      * de creación de cuentas.
-     * @param vp Ventana principal de la que depende el formulario
      */
-    public CrearCuentaFormulario(VentanaPrincipal vp){
+    public CrearCuentaFormulario(){
 
         // Inicializar el diálogo
-        super(vp);
-        this.vp = vp;
+        super(VentanaPrincipal.getInstancia());
         this.vgc = null;
         this.inicializar();
     }
@@ -54,12 +51,10 @@ public class CrearCuentaFormulario extends CuentaFormulario{
     /**
      * Constructor de la clase. Gestiona la funcionalidad propia del formulario
      * de creación de cuentas.
-     * @param vp Ventana principal de la que depende el formulario
      * @param vgc Gestor de cuentas del sistema.
      */
-    public CrearCuentaFormulario(VentanaPrincipal vp,VentanaGestorDeCuentas vgc){
+    public CrearCuentaFormulario(VentanaGestorDeCuentas vgc){
         super(vgc);
-        this.vp = vp;
         this.vgc = vgc;
         this.inicializar();
     }
@@ -74,15 +69,6 @@ public class CrearCuentaFormulario extends CuentaFormulario{
         // Asignar un oyente al botón de Aceptar
         botonAceptar.addActionListener(new CrearCuentaActionListener(this));
         this.setVisible(true);
-    }
-
-    /**
-     * Devuelve la ventana principal de la aplicación para propósitos de presenta
-     * ción.
-     * @return La ventana principal de la aplicación.
-     */
-    public VentanaPrincipal getVp(){
-        return vp;
     }
 
     /**

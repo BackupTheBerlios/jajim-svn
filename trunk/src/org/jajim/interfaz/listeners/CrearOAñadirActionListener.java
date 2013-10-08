@@ -22,26 +22,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import org.jajim.interfaz.dialogos.CrearOAñadirFormulario;
 import org.jajim.interfaz.ventanas.VentanaGestorDeCuentas;
-import org.jajim.interfaz.ventanas.VentanaPrincipal;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Oyente que se ejecuta cuando se selecciona la opción de crear o añadir una
  * nueva cuenta al sistema.
  */
 public class CrearOAñadirActionListener implements ActionListener{
 
     // Elementos importantes
-    private VentanaPrincipal vp;
     private VentanaGestorDeCuentas vgc;
 
     /**
      * Constructor de la clase. Iniciliza las variables adecuadas.
-     * @param vp Ventana principal de la aplicación.
      */
-    public CrearOAñadirActionListener(VentanaGestorDeCuentas vgc,VentanaPrincipal vp){
-        this.vp = vp;
+    public CrearOAñadirActionListener(VentanaGestorDeCuentas vgc){
         this.vgc = vgc;
     }
 
@@ -52,6 +48,6 @@ public class CrearOAñadirActionListener implements ActionListener{
      */
     @Override
     public void actionPerformed(ActionEvent e){
-        new CrearOAñadirFormulario(vp,vgc);
+        new CrearOAñadirFormulario(vgc);
     }
 }

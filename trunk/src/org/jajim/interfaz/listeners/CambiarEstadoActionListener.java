@@ -26,14 +26,13 @@ import org.jajim.interfaz.ventanas.VentanaPrincipal;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase oyente que se ejecuta cuando se modifica el estado de una conexión. En
  * vía su nuevo estado al resto de contactos.
  */
 public class CambiarEstadoActionListener implements ActionListener{
 
     // Variables importantes
-    private VentanaPrincipal vp;
     private int estadoActual = 0;
     private String[] valoresEstado ={
         "available",
@@ -45,10 +44,8 @@ public class CambiarEstadoActionListener implements ActionListener{
 
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
-     * @param vp Ventana principal de la aplicación.
      */
-    public CambiarEstadoActionListener(VentanaPrincipal vp){
-        this.vp = vp;
+    public CambiarEstadoActionListener(){
     }
 
     /**
@@ -59,6 +56,7 @@ public class CambiarEstadoActionListener implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e){
 
+        VentanaPrincipal vp = VentanaPrincipal.getInstancia();
         int a;
         ConexionControlador cnc = ConexionControlador.getInstancia();
 
@@ -93,7 +91,7 @@ public class CambiarEstadoActionListener implements ActionListener{
         // Hay que desconectar al usuario de la sesión.
         else{
             // Abortar la conexión antes de borrar la cuenta
-            AbortarOperaciones ao = new AbortarOperaciones(vp,vp,vp.getVgt());
+            AbortarOperaciones ao = new AbortarOperaciones(vp, vp.getVgt());
             // Si el usuario decide no abortar, dejar el combo como estaba.
             if(!ao.abortarConexion()){
                 estadoActual = a;

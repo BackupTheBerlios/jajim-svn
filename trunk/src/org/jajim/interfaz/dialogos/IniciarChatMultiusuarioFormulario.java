@@ -37,7 +37,7 @@ import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase formulario en la que el usuario puede introducir los datos apropiados an
  * tes de crear un chat multiusuario.,
  */
@@ -66,13 +66,13 @@ public class IniciarChatMultiusuarioFormulario extends JDialog implements Action
     /**
      * Constructor de la clase. Inicializa las varibles necesarias. Crea la inter
      * faz de usuario.
-     * @param vp La ventana principal de la aplicación.
      * @param contacto El contacto con el que se va a mantener la conversación.
      */
-    public IniciarChatMultiusuarioFormulario(VentanaPrincipal vp,String contacto){
+    public IniciarChatMultiusuarioFormulario(String contacto){
 
         // Inicialización
-        super(vp,true);
+        super(VentanaPrincipal.getInstancia(), true);
+        VentanaPrincipal vp = VentanaPrincipal.getInstancia();
 
         // Creación de la interfaz
         Container cp = this.getContentPane();
@@ -100,7 +100,7 @@ public class IniciarChatMultiusuarioFormulario extends JDialog implements Action
         botones.setLayout(new FlowLayout(FlowLayout.RIGHT));
         botones.setBorder(BorderFactory.createEmptyBorder(0,10,6,10));
         botonAceptar = new JButton(OK);
-        botonAceptar.addActionListener(new IniciarChatMultiusuarioActionListener(this,vp,contacto));
+        botonAceptar.addActionListener(new IniciarChatMultiusuarioActionListener(this, contacto));
         botones.add(botonAceptar);
         botonCancelar = new JButton(cancelar);
         botonCancelar.addActionListener(this);

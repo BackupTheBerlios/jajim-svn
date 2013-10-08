@@ -38,7 +38,7 @@ import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Cuadro de diálogo para introducir el núevo valor de la contraseña.
  */
 public class ModificarContraseñaFormulario extends JDialog implements ActionListener{
@@ -65,19 +65,15 @@ public class ModificarContraseñaFormulario extends JDialog implements ActionLis
     private JButton botonAceptar;
     private JButton botonCancelar;
 
-    // Ventana principal
-    private VentanaPrincipal vp;
-
     /**
      * Constructor de la clase. Inicializa las variables necesarias. Crea la in
      * terfaz del cuadro de diálogo.
-     * @param vp
      */
-    public ModificarContraseñaFormulario(VentanaPrincipal vp){
+    public ModificarContraseñaFormulario(){
 
         // Inicialización
-        super(vp,true);
-        this.vp = vp;
+        super(VentanaPrincipal.getInstancia(), true);
+        VentanaPrincipal vp = VentanaPrincipal.getInstancia();
 
         // Creación de la interfaz
         Container cp = this.getContentPane();

@@ -41,7 +41,7 @@ import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase diálogo que muestra un formulario para que el usuario introduzca los da
  * tos del contacto que quiere establecer. Controla la selección del botón Cance
  * lar cerrando el cuadro de diálogo en caso de que se produzca.
@@ -71,23 +71,20 @@ public class SolicitudDeContactoFormulario extends JDialog implements ActionList
     private JButton botonAceptar;
     private JButton botonCancelar;
 
-    private VentanaPrincipal vp;
     private String identificador;
     private String servidor;
 
     /**
      * Constructor de la clase. Crea la interfaz del cuadro de diálogo.
-     * @param vp Ventana principal de la aplicación.
      */
-    public SolicitudDeContactoFormulario(VentanaPrincipal vp){
+    public SolicitudDeContactoFormulario(){
 
         // Inicialización
-        super(vp,true);
-        this.vp = vp;
+        super(VentanaPrincipal.getInstancia(), true);
         this.identificador = null;
         this.servidor = null;
 
-        this.setLocationRelativeTo(vp);
+        this.setLocationRelativeTo(VentanaPrincipal.getInstancia());
 
         this.inicializar();
     }
@@ -99,11 +96,10 @@ public class SolicitudDeContactoFormulario extends JDialog implements ActionList
      * como contacto.
      * @param servidor El servidor de la cuenta que se quiere establecer como contacto.
      */
-    public SolicitudDeContactoFormulario(BuscarContactoFormulario bcf,VentanaPrincipal vp,String identificador,String servidor){
+    public SolicitudDeContactoFormulario(BuscarContactoFormulario bcf, String identificador, String servidor){
 
         // Inicialización
         super(bcf,true);
-        this.vp = vp;
         this.identificador = identificador;
         this.servidor = servidor;
 
@@ -175,7 +171,7 @@ public class SolicitudDeContactoFormulario extends JDialog implements ActionList
         // Opciones del cuadro de diálogo
         this.setSize(290,255);
         this.setResizable(false);
-        this.setLocationRelativeTo(vp);
+        this.setLocationRelativeTo(VentanaPrincipal.getInstancia());
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         this.setTitle(texto.getString("solicitud_contacto_formulario_title"));
         this.setVisible(true);

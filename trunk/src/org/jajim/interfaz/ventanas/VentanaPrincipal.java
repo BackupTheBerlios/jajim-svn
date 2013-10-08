@@ -67,7 +67,7 @@ import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Representa la ventana principal de la aplicación. Inicializa la interfaz y to
  * dos aquellos controladores necesarios para la llevar a cabo la funcionalidad
  * de la aplicación. También, muestra el roster del usuario en caso de que esté
@@ -75,6 +75,7 @@ import org.jajim.main.Main;
  */
 public class VentanaPrincipal extends JFrame{
     
+    private static VentanaPrincipal instancia;
     private ResourceBundle texto = ResourceBundle.getBundle("resources.Idioma",Main.loc);
 
     // Cadenas constantes para impresión
@@ -158,25 +159,25 @@ public class VentanaPrincipal extends JFrame{
     // ActionListeners de los menus
     private final ActionListener actionListenersMenu [][] = {
         {
-            new ConectarActionListener(this),
-            new DesconectarActionListener(this),
-            new ModificarContraseñaMenuActionListener(this),
-            new CrearGrupoDeContactosMenuActionListener(this),
-            new AñadirContactoMenuActionListener(this),
-            new BuscarContactoMenuActionListener(this)
+            new ConectarActionListener(),
+            new DesconectarActionListener(),
+            new ModificarContraseñaMenuActionListener(),
+            new CrearGrupoDeContactosMenuActionListener(),
+            new AñadirContactoMenuActionListener(),
+            new BuscarContactoMenuActionListener()
         },
         {
-            new LanzarGestorDeCuentasActionListener(this),
-            new LanzarGestorDeTransferenciasActionListener(this)
+            new LanzarGestorDeCuentasActionListener(),
+            new LanzarGestorDeTransferenciasActionListener()
         },
         {
-            new LanzarAyudaActionListener(this),
-            new LanzarAcercaDeActionListener(this)
+            new LanzarAyudaActionListener(),
+            new LanzarAcercaDeActionListener()
         }
     };
 
     private final ActionListener actionListenersMenuPopup[] = {
-        new VisualizarVentanaActionListener(this),
+        new VisualizarVentanaActionListener(),
         new SalirActionListener()
     };
 
@@ -299,7 +300,7 @@ public class VentanaPrincipal extends JFrame{
         cp.add(BorderLayout.PAGE_START,barraDeHerramientas);
 
         // Crear panel de contactos
-        pc = new PanelContactos(this);
+        pc = new PanelContactos(this.getContentPane());
 
         // Crear el combo box
         Integer[] intArray = new Integer[ComboBoxRenderer.getLongitud()];
@@ -345,7 +346,7 @@ public class VentanaPrincipal extends JFrame{
 
             if(iconoBarraHerramientas != null){
                 // Asignarle un oyente
-                iconoBarraHerramientas.addActionListener(new VisualizarVentanaActionListener(this));
+                iconoBarraHerramientas.addActionListener(new VisualizarVentanaActionListener());
                 // Asignarle un menú popup
                 popupMenu = new PopupMenu();
 
@@ -354,7 +355,7 @@ public class VentanaPrincipal extends JFrame{
                 for(int i = 0;i < itemsEstado.length;i++){
                     itemsEstado[i] = new MenuItem(estadosUsuario[i]);
                     menuEstado.add(itemsEstado[i]);
-                    itemsEstado[i].addActionListener(new CambiarEstadoActionListener(this));
+                    itemsEstado[i].addActionListener(new CambiarEstadoActionListener());
                     itemsEstado[i].setActionCommand(i + "");
                 }
                 popupMenu.add(menuEstado);
@@ -375,7 +376,7 @@ public class VentanaPrincipal extends JFrame{
         // Iniciación de los controladores
         CuentaControlador cc = CuentaControlador.getInstancia();
         if(cc.getCuenta() == null) {
-            new CrearOAñadirFormulario(this);
+            new CrearOAñadirFormulario();
         }
 
         // Poner la cuenta activa en el panel
@@ -383,14 +384,14 @@ public class VentanaPrincipal extends JFrame{
         pc.cambiarCuenta(idCuenta);
 
         // Iniciación del oyente de eventos
-        oc = new OyenteConexion(this);
+        oc = new OyenteConexion();
 
         // Iniciar el gestor de transfenrencias y el gestor de cuentas
-        vgt = new VentanaGestorDeTransferencias(this);
-        vgc = new VentanaGestorDeCuentas(this);
+        vgt = new VentanaGestorDeTransferencias();
+        vgc = new VentanaGestorDeCuentas();
 
         // Añadir el listener del combo
-        estado.addActionListener(new CambiarEstadoActionListener(this));
+        estado.addActionListener(new CambiarEstadoActionListener());
 
         // Añadir un oyente cuando se cierre la ventana, para guardar la informa
         // ción necesaria para la aplicación.
@@ -482,6 +483,20 @@ public class VentanaPrincipal extends JFrame{
         else {
             return false;
         }
+    }
+    
+    /**
+     * Método estático utilizado para implementar el Singleton.
+     * @return Retorna la única instancia que hay de la ventana principal.
+     */
+    public static VentanaPrincipal getInstancia(){
+
+        // Si la instancia es nula, crea una nueva. Si no retorna la ya existente
+        if(instancia == null) {
+            instancia = new VentanaPrincipal();
+        }
+
+        return instancia;
     }
 
     /**

@@ -21,24 +21,19 @@ package org.jajim.interfaz.listeners;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import org.jajim.interfaz.dialogos.BuscarContactoFormulario;
-import org.jajim.interfaz.ventanas.VentanaPrincipal;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase que escucha los eventos de búsqueda de usuarios procedentes del menú de
  * la ventana principal.
  */
 public class BuscarContactoMenuActionListener implements ActionListener{
 
-    private VentanaPrincipal vp;
-
     /**
      * Constructor de la clase. Inicializa las variables adecuadas.
-     * @param vp La ventana principal de la aplicación.
      */
-    public BuscarContactoMenuActionListener(VentanaPrincipal vp){
-        this.vp = vp;
+    public BuscarContactoMenuActionListener(){
     }
 
     /**
@@ -48,6 +43,6 @@ public class BuscarContactoMenuActionListener implements ActionListener{
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        new BuscarContactoFormulario(vp);
+        new BuscarContactoFormulario();
     }
 }

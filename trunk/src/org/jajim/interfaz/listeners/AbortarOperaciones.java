@@ -29,7 +29,7 @@ import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase que se encarga de abortar la conexión, las conversaciones y las transfe
  * rencias.
  */
@@ -38,17 +38,14 @@ public class AbortarOperaciones implements Runnable{
     private ResourceBundle texto = ResourceBundle.getBundle("resources.Idioma",Main.loc);
 
     private JFrame principal;
-    private VentanaPrincipal vp;
     private VentanaGestorDeTransferencias vgt;
 
     /**
      * Constructor de la clase. Inicializa las variables adecuadas.+
      * @param principal Ventana principal en este instante.
-     * @param cnc El controlador de la conexión.
      */
-    public AbortarOperaciones(JFrame principal,VentanaPrincipal vp,VentanaGestorDeTransferencias vgt){
+    public AbortarOperaciones(JFrame principal, VentanaGestorDeTransferencias vgt){
         this.principal = principal;
-        this.vp = vp;
         this.vgt = vgt;
     }
 
@@ -79,7 +76,7 @@ public class AbortarOperaciones implements Runnable{
                 // Abortar la conexión
                 Thread hilo = new Thread(this);
                 hilo.start();
-                vp.conexionCancelada();
+                VentanaPrincipal.getInstancia().conexionCancelada();
 
                 return true;
             }

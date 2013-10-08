@@ -33,7 +33,7 @@ import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase que representa un formulario en el que se informa al usuario de que una
  * petición de contacto que ha solicitdo ha sido rechazada.
  */
@@ -53,13 +53,13 @@ public class PeticionRechazadaFormulario extends JDialog{
     /**
      * Constructor de la clase. Inicializa las variables adecuadas. Crea la inter
      * faz del cuadro de diálogo.
-     * @param vp La ventana principal de la aplicación.
      * @param contacto El contacto que ha rechazado la petición.
      */
-    public PeticionRechazadaFormulario(VentanaPrincipal vp,String contacto){
+    public PeticionRechazadaFormulario(String contacto){
 
         // Inicialización de variables
-        super(vp,true);
+        super(VentanaPrincipal.getInstancia(),true);
+        VentanaPrincipal vp = VentanaPrincipal.getInstancia();
 
         // Creación de la interfaz
         Container cp = this.getContentPane();

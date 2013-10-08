@@ -40,7 +40,7 @@ import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase que crea un interfaz general para poder introducir los datos de una
  * cuenta. Se registra como oyente de eventos, aunque la información especifica
  * para cada evento la recoge cada una de las clases derivadas.
@@ -75,12 +75,12 @@ public class CuentaFormulario extends JDialog implements ActionListener{
     /**
      * Constructor de la clase. Crea la interfaz genérica para la introducción de
      * los datos de una cuenta.
-     * @param vp La ventana principal de la que depende el formulario.
+     * @param frame Ventana de la dependerá el formulario.
      */
-    public CuentaFormulario(JFrame vp){
+    public CuentaFormulario(JFrame frame){
 
         // Inicialización
-        super(vp,true);
+        super(frame, true);
 
         // Creación de la interfaz
         Container cp = this.getContentPane();
@@ -131,7 +131,7 @@ public class CuentaFormulario extends JDialog implements ActionListener{
         // Opciones del cuadro de diálogo
         this.setSize(340,270);
         this.setResizable(false);
-        this.setLocationRelativeTo(vp);
+        this.setLocationRelativeTo(frame);
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
     }
 

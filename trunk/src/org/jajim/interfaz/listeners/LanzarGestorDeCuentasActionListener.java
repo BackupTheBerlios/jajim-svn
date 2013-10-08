@@ -25,21 +25,16 @@ import org.jajim.interfaz.ventanas.VentanaPrincipal;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase oyente que lanza el gestor de cuentas, cuando el usuario selecciona la
  * opción de abrirlo.
  */
 public class LanzarGestorDeCuentasActionListener implements ActionListener{
 
-    // Variables importantes
-    private VentanaPrincipal vp;
-
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
-     * @param vp Ventana principal de la aplicación.
      */
-    public LanzarGestorDeCuentasActionListener(VentanaPrincipal vp){
-        this.vp = vp;
+    public LanzarGestorDeCuentasActionListener(){
     }
 
     /**
@@ -51,7 +46,7 @@ public class LanzarGestorDeCuentasActionListener implements ActionListener{
     public void actionPerformed(ActionEvent e){
 
         // Recuperar la ventana del gestor de cuentas
-        VentanaGestorDeCuentas vgc = vp.getVgc();
+        VentanaGestorDeCuentas vgc = VentanaPrincipal.getInstancia().getVgc();
 
         // Hacerla visible
         vgc.hacerVisible();

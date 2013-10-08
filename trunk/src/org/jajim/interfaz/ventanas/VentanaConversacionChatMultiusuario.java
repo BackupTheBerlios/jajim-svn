@@ -34,7 +34,7 @@ import org.jivesoftware.smack.util.StringUtils;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase que representa una ventana de un chat multiusuario. Inicializa la interfaz
  * necesaria para que el usuario dialogue con un contacto.
  */
@@ -46,15 +46,14 @@ public class VentanaConversacionChatMultiusuario extends VentanaConversacion imp
 
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
-     * @param vp La ventana principal de la aplicación.
      * @param alias El alias del usuario con el que se desea crea un chat multiusuario.
      * @param room La sala en la que va a tener lugar la charla.
      * @param nick El nick que va a utilizar nuestro usuario.
      */
-    public VentanaConversacionChatMultiusuario(VentanaPrincipal vp,String alias,String room,String nick){
+    public VentanaConversacionChatMultiusuario(String alias, String room, String nick){
 
         // LLamar al constructor del padre
-        super(vp,alias);
+        super(alias);
         
         String usuario = ContactosControlador.getInstancia().getContactoPorAlias(alias);
         cvc = new ConversacionControladorChatMultiusuario(usuario,this,conversacion);
@@ -101,16 +100,15 @@ public class VentanaConversacionChatMultiusuario extends VentanaConversacion imp
 
     /**
      * Constructor de la clase inicializa las variables necesarias.
-     * @param vp La ventana principal de la aplicación
      * @param alias El alias del contacto que nos invita
      * @param room La sala en la que tiene lugar la charla
      * @param nick El nick que vamos a utilizar durante el desarrollo de la misma
      * @param idInvitacion El identificador de la invitación recibida
      */
-    public VentanaConversacionChatMultiusuario(VentanaPrincipal vp,String alias,String room,String nick,String idInvitacion){
+    public VentanaConversacionChatMultiusuario(String alias, String room, String nick, String idInvitacion){
 
         // LLamar al constructor del padre
-        super(vp,alias);
+        super(alias);
         String usuario = ContactosControlador.getInstancia().getContactoPorAlias(alias);
         cvc = new ConversacionControladorChatMultiusuario(usuario,this,conversacion);
 

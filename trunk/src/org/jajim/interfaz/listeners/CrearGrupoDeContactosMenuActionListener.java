@@ -21,24 +21,19 @@ package org.jajim.interfaz.listeners;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import org.jajim.interfaz.dialogos.CrearGrupoDeContactosFormulario;
-import org.jajim.interfaz.ventanas.VentanaPrincipal;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase oyente que escucha los eventos procedentes de la opción de crear un nuevo
  * grupo activa en el menú de la aplicación.
  */
 public class CrearGrupoDeContactosMenuActionListener implements ActionListener{
 
-    private VentanaPrincipal vp;
-
     /**
      * Constructor de la clase. Inicializa las varibles necesarias.
-     * @param vp Ventana principal de la aplicación.
      */
-    public CrearGrupoDeContactosMenuActionListener(VentanaPrincipal vp){
-        this.vp = vp;
+    public CrearGrupoDeContactosMenuActionListener(){
     }
 
     /**
@@ -49,6 +44,6 @@ public class CrearGrupoDeContactosMenuActionListener implements ActionListener{
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        new CrearGrupoDeContactosFormulario(vp);
+        new CrearGrupoDeContactosFormulario();
     }
 }

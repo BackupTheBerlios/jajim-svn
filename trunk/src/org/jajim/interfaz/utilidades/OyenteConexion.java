@@ -43,23 +43,20 @@ import org.jajim.modelo.transferencias.RecepcionFicherosListener;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase que recibe los eventos que importantes que se reciben a través de la co
  * nexión.
  */
 public class OyenteConexion implements Observer{
 
-    private VentanaPrincipal vp;
     private String contacto;
     private int idTransferencia;
     private String[] informacion;
 
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
-     * @param vp La ventana principal de la aplicación.
      */
-    public OyenteConexion(VentanaPrincipal vp){
-        this.vp = vp;
+    public OyenteConexion(){
     }
 
     /**
@@ -69,7 +66,7 @@ public class OyenteConexion implements Observer{
      */
     @Override
     public void update(Observable o, Object arg) {
-
+        
         if(arg instanceof EventosDeConexionEnumeracion){
 
             final EventosDeConexionEnumeracion edce = (EventosDeConexionEnumeracion) arg;
@@ -78,7 +75,7 @@ public class OyenteConexion implements Observer{
             if(edce == EventosDeConexionEnumeracion.peticionDeSuscripcion){
                 PaquetePresenciaListener ppl = (PaquetePresenciaListener) o;
                 contacto = ppl.getOrigen();
-                final VentanaPopup vpp = new VentanaPopupConexion(edce,contacto,vp);
+                final VentanaPopup vpp = new VentanaPopupConexion(edce, contacto);
                 SwingUtilities.invokeLater(new Runnable(){
                     @Override
                     public void run(){
@@ -90,7 +87,7 @@ public class OyenteConexion implements Observer{
                     SwingUtilities.invokeLater(new Runnable(){
                         @Override
                         public void run() {
-                            new AceptarORechazarContactoFormulario(vp,contacto);
+                            new AceptarORechazarContactoFormulario(contacto);
                         }
                     });
                 }
@@ -98,7 +95,7 @@ public class OyenteConexion implements Observer{
             else if(edce == EventosDeConexionEnumeracion.confirmacionDeSuscripcion){
                 PaquetePresenciaListener ppl = (PaquetePresenciaListener) o;
                 contacto = ppl.getOrigen();
-                final VentanaPopup vpp = new VentanaPopupConexion(edce,contacto,vp);
+                final VentanaPopup vpp = new VentanaPopupConexion(edce, contacto);
                 SwingUtilities.invokeLater(new Runnable() {
                     @Override
                     public void run() {
@@ -111,7 +108,7 @@ public class OyenteConexion implements Observer{
                 // contacto del grupo
                 PaquetePresenciaListener ppl = (PaquetePresenciaListener) o;
                 contacto = ppl.getOrigen();
-                final VentanaPopup vpp = new VentanaPopupConexion(edce,contacto,vp);
+                final VentanaPopup vpp = new VentanaPopupConexion(edce, contacto);
                 SwingUtilities.invokeLater(new Runnable() {
                     @Override
                     public void run() {
@@ -122,7 +119,7 @@ public class OyenteConexion implements Observer{
                     SwingUtilities.invokeLater(new Runnable(){
                         @Override
                         public void run() {
-                            new PeticionRechazadaFormulario(vp,contacto);
+                            new PeticionRechazadaFormulario(contacto);
                         }
                     });
                 }
@@ -138,7 +135,7 @@ public class OyenteConexion implements Observer{
                 ChatListener cl = (ChatListener) o;
                 final String idChat = cl.getIdChat();
                 contacto = cl.getContacto(idChat);
-                final VentanaPopup vpp = new VentanaPopupConexion(edce,contacto,vp);
+                final VentanaPopup vpp = new VentanaPopupConexion(edce, contacto);
                 SwingUtilities.invokeLater(new Runnable(){
                     @Override
                     public void run(){
@@ -149,7 +146,7 @@ public class OyenteConexion implements Observer{
                     SwingUtilities.invokeLater(new Runnable(){
                         @Override
                         public void run(){
-                            new AceptarORechazarChatPrivadoFormulario(vp,idChat,contacto);
+                            new AceptarORechazarChatPrivadoFormulario(idChat, contacto);
                         }
                     });
                 }
@@ -165,7 +162,7 @@ public class OyenteConexion implements Observer{
                 informacion = il.getInformacion(idInvitacion);
                 final String room = informacion[0];
                 contacto = informacion[1];
-                final VentanaPopup vpp = new VentanaPopupConexion(edce,contacto + "&" + room,vp);
+                final VentanaPopup vpp = new VentanaPopupConexion(edce, contacto + "&" + room);
                 SwingUtilities.invokeLater(new Runnable(){
                     @Override
                     public void run(){
@@ -177,7 +174,7 @@ public class OyenteConexion implements Observer{
                     SwingUtilities.invokeLater(new Runnable(){
                         @Override
                         public void run(){
-                            new AceptarORechazarInvitacionFormulario(vp,idInvitacion,room,contacto);
+                            new AceptarORechazarInvitacionFormulario(idInvitacion, room, contacto);
                         }
                     });
                 }
@@ -191,7 +188,7 @@ public class OyenteConexion implements Observer{
                 RecepcionFicherosListener rfl = (RecepcionFicherosListener) o;
                 idTransferencia = rfl.getIdentificador();
                 informacion = rfl.getInformacion(idTransferencia);
-                final VentanaPopup vpp = new VentanaPopupConexion(edce,informacion[0],vp);
+                final VentanaPopup vpp = new VentanaPopupConexion(edce, informacion[0]);
                 SwingUtilities.invokeLater(new Runnable(){
                     @Override
                     public void run(){
@@ -202,7 +199,7 @@ public class OyenteConexion implements Observer{
                     SwingUtilities.invokeLater(new Runnable(){
                         @Override
                         public void run(){
-                            new AceptarORechazarFicheroFormulario(vp,idTransferencia,informacion);
+                            new AceptarORechazarFicheroFormulario(idTransferencia, informacion);
                         }
                     });
                 }
@@ -218,7 +215,7 @@ public class OyenteConexion implements Observer{
             else if(edce == EventosDeConexionEnumeracion.usuarioConectado){
                 ContactosListener cl = (ContactosListener) o;
                 final String alias = cl.getAliasModificado();
-                final VentanaPopup vpp = new VentanaPopupConexion(edce,alias,vp);
+                final VentanaPopup vpp = new VentanaPopupConexion(edce, alias);
                 SwingUtilities.invokeLater(new Runnable(){
                     @Override
                     public void run(){
@@ -239,7 +236,7 @@ public class OyenteConexion implements Observer{
             else if(edce == EventosDeConexionEnumeracion.usuarioDesconectado){
                 ContactosListener cl = (ContactosListener) o;
                 final String alias = cl.getAliasModificado();
-                final VentanaPrincipal vpFinal = this.vp;
+                final VentanaPrincipal vpFinal = VentanaPrincipal.getInstancia();
                 SwingUtilities.invokeLater(new Runnable(){
                     @Override
                     public void run(){
@@ -252,7 +249,7 @@ public class OyenteConexion implements Observer{
                         }
 
                         // Se abortan las transferencias
-                        AbortarOperaciones ao = new AbortarOperaciones(vpFinal, vpFinal, vpFinal.getVgt());
+                        AbortarOperaciones ao = new AbortarOperaciones(vpFinal, vpFinal.getVgt());
                         ao.abortarTransferencias(contacto,false);
                     }
                 });

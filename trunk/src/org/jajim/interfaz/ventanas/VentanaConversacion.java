@@ -64,7 +64,7 @@ import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase que representa una ventana de una conversación. Inicializa la interfaz
  * necesaria para que el usuario dialogue con un contacto.
  */
@@ -172,10 +172,9 @@ public class VentanaConversacion extends JFrame{
     /**
      * Constructor privado. Inicializa las variables importantes. Crea la interfaz
      * de usuario.
-     * @param vp Ventana principal de la aplicación.
      * @param alias Alias del contacto con el que se va a establecer la conversacion.
      */
-    public VentanaConversacion(VentanaPrincipal vp,String alias){
+    public VentanaConversacion(String alias){
 
         // Creación del menú de la aplicación
         barraMenu = new JMenuBar();
@@ -206,7 +205,7 @@ public class VentanaConversacion extends JFrame{
         this.setJMenuBar(barraMenu);
 
         // Inicialización de variables
-        vgt = vp.getVgt();
+        vgt = VentanaPrincipal.getInstancia().getVgt();
 
         // Creación de la interfaz
         Container cp = this.getContentPane();

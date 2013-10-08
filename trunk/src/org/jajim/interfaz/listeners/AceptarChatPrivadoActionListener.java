@@ -26,28 +26,25 @@ import org.jajim.interfaz.ventanas.VentanaPrincipal;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase oyente que escucha los eventos de aceptar conversación provenientes del
  * formulario correspondiente.
  */
 public class AceptarChatPrivadoActionListener implements ActionListener{
 
     private AceptarORechazarChatPrivadoFormulario acf;
-    private VentanaPrincipal vp;
     private String idChat;
     private String alias;
 
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
      * @param acf El formulario de aceptación de conversaciones.
-     * @param vp La ventana principal de la aplicación.
      * @param idChat El identificador del chat que se va a iniciar.
      * @param alias El alias del contacto con el que se quiere establecer una con
      * veración.
      */
-    public AceptarChatPrivadoActionListener(AceptarORechazarChatPrivadoFormulario acf,VentanaPrincipal vp,String idChat,String alias){
+    public AceptarChatPrivadoActionListener(AceptarORechazarChatPrivadoFormulario acf, String idChat, String alias){
         this.acf = acf;
-        this.vp = vp;
         this.idChat = idChat;
         this.alias = alias;
     }
@@ -65,6 +62,6 @@ public class AceptarChatPrivadoActionListener implements ActionListener{
         acf.dispose();
         // LLamar al constructor de las ventanas de la conversación para crear
         // una nueva
-        new VentanaConversacionChatPrivado(vp,alias,idChat);
+        new VentanaConversacionChatPrivado(alias, idChat);
     }
 }

@@ -35,7 +35,7 @@ import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase diálogo que pregunta al usuario si quiere aceptar o rechazar la petición
  * de contacto de un usuario.
  */
@@ -54,22 +54,19 @@ public class AceptarORechazarContactoFormulario extends JDialog implements Actio
     private JButton botonAceptar;
     private JButton botonRechazar;
 
-    // Ventana principal de la aplicación
-    private VentanaPrincipal vp;
     private String contacto;
 
     /**
      * Constructor de la clase. Inicializa las variables adecuadas. Crea la inter
      * faz. Registra los oyentes adecuados.
-     * @param vp Ventana principal de la aplicación.
      * @param contacto El usuario que desea establecer contacto con nuestro usua
      * rio
      */
-    public AceptarORechazarContactoFormulario(VentanaPrincipal vp,String contacto){
+    public AceptarORechazarContactoFormulario(String contacto){
 
         // Inicialización de variables
-        super(vp,true);
-        this.vp = vp;
+        super(VentanaPrincipal.getInstancia() ,true);
+        VentanaPrincipal vp = VentanaPrincipal.getInstancia();
         this.contacto = contacto;
 
         // Creación de la interfaz
@@ -112,6 +109,6 @@ public class AceptarORechazarContactoFormulario extends JDialog implements Actio
         // Llamar al cuadro de diálogo para que el usuario introduzca los datos
         // que se quieren dar al contacto.
         this.dispose();
-        new AceptarContactoFormulario(vp,contacto);
+        new AceptarContactoFormulario(contacto);
     }
 }

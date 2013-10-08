@@ -27,7 +27,7 @@ import org.jajim.modelo.conexiones.EventosDeConexionEnumeracion;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase que representa una ventana de un chat privado. Inicializa la interfaz
  * necesaria para que el usuario dialogue con un contacto.
  */
@@ -47,13 +47,12 @@ public class VentanaConversacionChatPrivado extends VentanaConversacion{
 
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
-     * @param vp La ventana principal de la aplicación.
      * @param alias El alias del contacto con el que se quiere iniciar el chat.
      */
-    public VentanaConversacionChatPrivado(VentanaPrincipal vp,String alias){
+    public VentanaConversacionChatPrivado(String alias){
 
         // LLamar al constructor del padre
-        super(vp,alias);
+        super(alias);
 
         // Crear el controlador de la conversacion
         String usuario = ContactosControlador.getInstancia().getContactoPorAlias(alias);
@@ -94,14 +93,13 @@ public class VentanaConversacionChatPrivado extends VentanaConversacion{
 
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
-     * @param vp La ventana principal de la aplicación
      * @param alias El alias del contacto
      * @param idChat El identificador de la petición de chat recibida
      */
-    public VentanaConversacionChatPrivado(VentanaPrincipal vp,String alias,String idChat){
+    public VentanaConversacionChatPrivado(String alias, String idChat){
 
         // LLamar al constructor del padre
-        super(vp,alias);
+        super(alias);
 
         // Crear el controlador de la conversacion
         String usuario = ContactosControlador.getInstancia().getContactoPorAlias(alias);

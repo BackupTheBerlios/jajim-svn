@@ -52,7 +52,7 @@ import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * La interfaz a partir de la cual se le permite al usuario gestionar las cuentas
  * dadas de alta en el sistema.
  */
@@ -95,9 +95,6 @@ public final class VentanaGestorDeCuentas extends JFrame implements ListSelectio
     private JLabel[] informacion = new JLabel[etiquetas.length];
     private JButton botonCerrar;
 
-    // Ventana principal
-    private VentanaPrincipal vp;
-
     // Listeners
     private ActionListener[] listeners = new ActionListener[botones.length];
 
@@ -108,16 +105,14 @@ public final class VentanaGestorDeCuentas extends JFrame implements ListSelectio
     /**
      * Constructor de la clase. Inicializa las variables necesarias. Crea la inter
      * faz de usuario.
-     * @param vp La ventana principal de la aplicación.
      */
-    public VentanaGestorDeCuentas(VentanaPrincipal vp){
-
+    public VentanaGestorDeCuentas(){
+        
         // Inicialización
-        this.vp = vp;
-        listeners[0] = new CrearOAñadirActionListener(this,vp);
-        listeners[1] = new CambiarCuentaActionListener(this,vp);
-        listeners[2] = new EliminarCuentaSistemaActionListener(this,vp);
-        listeners[3] = new EliminarCuentaServidorActionListener(this,vp);
+        listeners[0] = new CrearOAñadirActionListener(this);
+        listeners[1] = new CambiarCuentaActionListener(this);
+        listeners[2] = new EliminarCuentaSistemaActionListener(this);
+        listeners[3] = new EliminarCuentaServidorActionListener(this);
 
         // Creación de la interfaz
         Container cp = this.getContentPane();

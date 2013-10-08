@@ -26,23 +26,20 @@ import org.jajim.interfaz.ventanas.VentanaPrincipal;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase oyente que se activa cuando se selecciona la opción de activar cuenta.
  */
 public class CambiarCuentaActionListener implements ActionListener{
 
     // Variables importantes
     private VentanaGestorDeCuentas vgt;
-    private VentanaPrincipal vp;
 
     /**
      * Constructor de la clase. Inicializa las variables importantes.
      * @param vgt El gestor de las cuentas del sistema.
-     * @param vp Ventana principal de la aplicación.
      */
-    public CambiarCuentaActionListener(VentanaGestorDeCuentas vgt,VentanaPrincipal vp){
+    public CambiarCuentaActionListener(VentanaGestorDeCuentas vgt){
         this.vgt = vgt;
-        this.vp = vp;
     }
 
     /**
@@ -54,6 +51,7 @@ public class CambiarCuentaActionListener implements ActionListener{
     public void actionPerformed(ActionEvent e) {
 
         // Recuperar la cuenta que se va a activar
+        VentanaPrincipal vp = VentanaPrincipal.getInstancia();
         String cuenta[] = vgt.getCuenta();
 
         // Si devuelve null, no hay cuentas y se cierra la ejecución del método
@@ -73,7 +71,7 @@ public class CambiarCuentaActionListener implements ActionListener{
         }
 
         // Abortar la conexión si es necesario
-        AbortarOperaciones ao = new AbortarOperaciones(vgt,vp,vp.getVgt());
+        AbortarOperaciones ao = new AbortarOperaciones(vgt, vp.getVgt());
 
         if(!ao.abortarConexion()) {
             return;

@@ -36,7 +36,7 @@ import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase formulario que informa al usuario de la llegada de una petición de trans
  * ferencia e invita a éste a aceptarla o rechazarla.
  */
@@ -65,21 +65,19 @@ public class AceptarORechazarFicheroFormulario extends JDialog implements Action
 
     // Variables importantes
     private int idTransferencia;
-    private VentanaPrincipal vp;
 
     /**
      * Constructor de la clase. Inicializa las variables necesarias. Crea la inter
      * faz del cuadro de diálogo.
-     * @param vp Ventana principal de la aplicación.
      * @param idTransferencia Identificador de la transferencia.
      * @param informacion Información relevante de la transferencia.
      */
-    public AceptarORechazarFicheroFormulario(VentanaPrincipal vp,int idTransferencia,String[] informacion){
+    public AceptarORechazarFicheroFormulario(int idTransferencia, String[] informacion){
 
         // Inicialización de variables
-        super(vp,true);
+        super(VentanaPrincipal.getInstancia(),true);
+        VentanaPrincipal vp = VentanaPrincipal.getInstancia();
         this.idTransferencia = idTransferencia;
-        this.vp = vp;
 
         // Creación de la interfaz
         Container cp = this.getContentPane();
@@ -136,6 +134,6 @@ public class AceptarORechazarFicheroFormulario extends JDialog implements Action
 
         // Cerrar el formulario y abrir el formulario para introducir los datos.
         this.dispose();
-        new AceptarFicheroFormulario(vp,idTransferencia);
+        new AceptarFicheroFormulario(idTransferencia);
     }
 }

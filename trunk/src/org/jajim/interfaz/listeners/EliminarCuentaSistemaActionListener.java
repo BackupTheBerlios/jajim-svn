@@ -27,23 +27,20 @@ import org.jajim.interfaz.ventanas.VentanaPrincipal;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase oyente que se ejecuta cuando se desea eliminar una cuenta del sistema.
  */
 public class EliminarCuentaSistemaActionListener implements ActionListener{
 
     // Variables importantes
     private VentanaGestorDeCuentas vgc;
-    private VentanaPrincipal vp;
 
     /**
      * Constructor de la clase. Inicializa las variables adecuadas.
      * @param vgc El gestor de las cuentas del sistema.
-     * @param vp La ventana principal de la aplicación.
      */
-    public EliminarCuentaSistemaActionListener(VentanaGestorDeCuentas vgc,VentanaPrincipal vp){
+    public EliminarCuentaSistemaActionListener(VentanaGestorDeCuentas vgc){
         this.vgc = vgc;
-        this.vp = vp;
     }
 
     /**
@@ -55,6 +52,8 @@ public class EliminarCuentaSistemaActionListener implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        VentanaPrincipal vp = VentanaPrincipal.getInstancia();
+        
         // Recuperar la información de la cuenta
         String[] cuenta = vgc.getCuenta();
 
@@ -73,7 +72,7 @@ public class EliminarCuentaSistemaActionListener implements ActionListener{
         String activa = cc.getCuenta();
         if(activa.compareTo(identificador + "@" + servidor) == 0 && cnc.isConectado()){
             // Abortar la conexión antes de borrar la cuenta
-            AbortarOperaciones ao = new AbortarOperaciones(vgc,vp,vp.getVgt());
+            AbortarOperaciones ao = new AbortarOperaciones(vgc, vp.getVgt());
             if(!ao.abortarConexion()) {
                 return;
             }

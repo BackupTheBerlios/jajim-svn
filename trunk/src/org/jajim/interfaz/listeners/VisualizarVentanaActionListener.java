@@ -25,20 +25,16 @@ import org.jajim.interfaz.ventanas.VentanaPrincipal;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.2
  * Clase oyente que recoge los eventos que se producen en el icono de la barra
  * de herramientas y actúa en consecuencia.
  */
 public class VisualizarVentanaActionListener implements ActionListener{
 
-    private VentanaPrincipal vp;
-
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
-     * @param vp Ventana principal de la aplicación.
      */
-    public VisualizarVentanaActionListener(VentanaPrincipal vp){
-        this.vp = vp;
+    public VisualizarVentanaActionListener(){
     }
 
     /**
@@ -49,6 +45,7 @@ public class VisualizarVentanaActionListener implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e){
         // Comprobar el estado de la ventana
+        VentanaPrincipal vp = VentanaPrincipal.getInstancia();
         if(!vp.isVisible()){
           vp.setVisible(true);
           vp.setState(JFrame.NORMAL);

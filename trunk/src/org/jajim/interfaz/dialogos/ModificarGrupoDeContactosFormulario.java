@@ -33,11 +33,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import org.jajim.interfaz.listeners.ModificarGrupoDeContactosActionListener;
 import org.jajim.interfaz.utilidades.PanelContactos;
+import org.jajim.interfaz.ventanas.VentanaPrincipal;
 import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase formulario que recoge los datos que del grupo que el usuario desea modi
  * ficar.
  */
@@ -68,10 +69,10 @@ public class ModificarGrupoDeContactosFormulario extends JDialog implements Acti
      * @param pc El panel de contactos de la ventana principal.
      * @param grupo El grupo en el que se van a realizar los cambios.
      */
-    public ModificarGrupoDeContactosFormulario(PanelContactos pc,String grupo){
+    public ModificarGrupoDeContactosFormulario(PanelContactos pc, String grupo){
 
         // Inicialización
-        super(pc.getVp(),true);
+        super(VentanaPrincipal.getInstancia(), true);
 
         // Creación de la interfaz
         Container cp = this.getContentPane();
@@ -111,7 +112,7 @@ public class ModificarGrupoDeContactosFormulario extends JDialog implements Acti
         this.setTitle(texto.getString("modificar_grupo_de_contactos_formulario_title"));
         this.setSize(290,148);
         this.setResizable(false);
-        this.setLocationRelativeTo(pc.getVp());
+        this.setLocationRelativeTo(VentanaPrincipal.getInstancia());
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         this.setVisible(true);
     }

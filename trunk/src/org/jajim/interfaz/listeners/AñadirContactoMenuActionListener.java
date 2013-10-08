@@ -21,24 +21,19 @@ package org.jajim.interfaz.listeners;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import org.jajim.interfaz.dialogos.SolicitudDeContactoFormulario;
-import org.jajim.interfaz.ventanas.VentanaPrincipal;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase oyente que se ejecuta cuando el usuario selecciona la opción de Añadir
  * contacto. Crea un cuadro de diálogo para introducir los valores del contacto.
  */
 public class AñadirContactoMenuActionListener implements ActionListener{
 
-    private VentanaPrincipal vp;
-
     /**
      * Constructor de la clase. Inicializa los campos de la misma.
-     * @param vp Ventana principal de la aplicación.
      */
-    public AñadirContactoMenuActionListener(VentanaPrincipal vp){
-        this.vp = vp;
+    public AñadirContactoMenuActionListener(){
     }
 
     /**
@@ -48,6 +43,6 @@ public class AñadirContactoMenuActionListener implements ActionListener{
      */
     @Override
     public void actionPerformed(ActionEvent e){
-        new SolicitudDeContactoFormulario(vp);
+        new SolicitudDeContactoFormulario();
     }
 }

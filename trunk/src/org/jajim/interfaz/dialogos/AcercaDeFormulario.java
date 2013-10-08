@@ -40,7 +40,7 @@ import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase formulario que muestra información acerca de la herramienta.
  */
 public class AcercaDeFormulario extends JDialog implements ActionListener{
@@ -54,7 +54,7 @@ public class AcercaDeFormulario extends JDialog implements ActionListener{
         texto.getString("acerca_de_formulario_pagina")
     };
     private final String[] valores = {
-        "   1.1",
+        "   1.2",
         "   Florencio Cañizal Calles",
         "   http://developer.berlios.de/projects/jajim/"
     };
@@ -82,12 +82,12 @@ public class AcercaDeFormulario extends JDialog implements ActionListener{
     /**
      * Constructor de la clase. Inicializa las variables necesarias y crea la
      * interfaz de usuario.
-     * @param vp La ventana principal de la aplicación.
      */
-    public AcercaDeFormulario(VentanaPrincipal vp){
+    public AcercaDeFormulario(){
 
         // Inicialización de variables
-        super(vp,true);
+        super(VentanaPrincipal.getInstancia(), true);
+        VentanaPrincipal vp = VentanaPrincipal.getInstancia();
 
         // Creación de la interfaz
         Container cp = this.getContentPane();

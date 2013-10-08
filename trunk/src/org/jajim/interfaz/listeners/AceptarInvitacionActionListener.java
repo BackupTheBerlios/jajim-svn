@@ -23,11 +23,10 @@ import java.awt.event.ActionListener;
 import org.jajim.interfaz.dialogos.IntroducirNickFormulario;
 import org.jajim.interfaz.dialogos.MensajeError;
 import org.jajim.interfaz.ventanas.VentanaConversacionChatMultiusuario;
-import org.jajim.interfaz.ventanas.VentanaPrincipal;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase oyente que escucha los eventos de aceptación de invitación provenientes
  * de el formulario que permite intorducir el nick del usuario.
  *
@@ -35,7 +34,6 @@ import org.jajim.interfaz.ventanas.VentanaPrincipal;
 public class AceptarInvitacionActionListener implements ActionListener{
 
     private IntroducirNickFormulario inf;
-    private VentanaPrincipal vp;
     private String alias;
     private String idInvitacion;
     private String room;
@@ -43,14 +41,12 @@ public class AceptarInvitacionActionListener implements ActionListener{
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
      * @param inf El formulario en el que se introduce el nick.
-     * @param vp La ventana principal de la aplicación.
      * @param alias El alias del contacto que nos ha invitado.
      * @param idInvitacion El identificador de la invitación.
      * @param room La sala en la que se desarrolla la invitación.
      */
-    public AceptarInvitacionActionListener(IntroducirNickFormulario inf,VentanaPrincipal vp,String alias,String idInvitacion,String room){
+    public AceptarInvitacionActionListener(IntroducirNickFormulario inf, String alias, String idInvitacion, String room){
         this.inf = inf;
-        this.vp = vp;
         this.alias = alias;
         this.idInvitacion = idInvitacion;
         this.room = room;
@@ -77,6 +73,6 @@ public class AceptarInvitacionActionListener implements ActionListener{
 
         // Lanzar la conversación y cerrar el formulario
         inf.dispose();
-        new VentanaConversacionChatMultiusuario(vp,alias,room,nickname,idInvitacion);
+        new VentanaConversacionChatMultiusuario(alias, room, nickname, idInvitacion);
     }
 }

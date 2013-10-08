@@ -74,8 +74,8 @@ public class PreferenciasControlador {
 		p = p.node("/JAJIM");
 
         // Cargar las preferencias del usuario
-		ventanaPrincipalMaximizada = p.getBoolean("ventanaPrincipalMaximizada",false);
-		ventanaPrincipalX = p.getInt("ventanaPrincipalX",60);
+	ventanaPrincipalMaximizada = p.getBoolean("ventanaPrincipalMaximizada",false);
+	ventanaPrincipalX = p.getInt("ventanaPrincipalX",60);
         ventanaPrincipalY = p.getInt("ventanaPrincipalY",60);
         ventanaPrincipalAncho = p.getInt("ventanaPrincipalAncho",200);
         ventanaPrincipalLargo = p.getInt("ventanaPrincipalLargo",420);
@@ -103,7 +103,7 @@ public class PreferenciasControlador {
     public void guardarPreferencias(){
 
         // Guardar las preferencias en el sistema
-		p.putBoolean("ventanaPrincipalMaximizada",ventanaPrincipalMaximizada);
+	p.putBoolean("ventanaPrincipalMaximizada",ventanaPrincipalMaximizada);
         p.putInt("ventanaPrincipalX",ventanaPrincipalX);
         p.putInt("ventanaPrincipalY",ventanaPrincipalY);
         p.putInt("ventanaPrincipalAncho",ventanaPrincipalAncho);

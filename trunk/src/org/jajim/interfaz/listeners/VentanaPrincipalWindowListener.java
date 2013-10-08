@@ -32,7 +32,7 @@ import org.jajim.interfaz.ventanas.VentanaPrincipal;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Realiza todas las acciones necesarias para cerrar correctamente la aplicación:
  * guardado de cuentas de usuario.
  */
@@ -58,7 +58,7 @@ public class VentanaPrincipalWindowListener extends WindowAdapter{
 
         // Guardar las preferencias
         // Ventana principal
-        VentanaPrincipal vp = (VentanaPrincipal) e.getWindow();
+        VentanaPrincipal vp = VentanaPrincipal.getInstancia();
         PreferenciasControlador pfc = PreferenciasControlador.getInstancia();
         if(vp.getExtendedState() == JFrame.MAXIMIZED_BOTH) {
             pfc.setVentanaPrincipalMaximizada(true);
@@ -95,7 +95,7 @@ public class VentanaPrincipalWindowListener extends WindowAdapter{
     public void windowIconified(WindowEvent e){
 
         // Recuperar la ventana y hacerla invisible si se puede
-        VentanaPrincipal vp = (VentanaPrincipal) e.getWindow();
+        VentanaPrincipal vp = VentanaPrincipal.getInstancia();
         if(vp.isOcultable()) {
             vp.setVisible(false);
         }
@@ -110,7 +110,7 @@ public class VentanaPrincipalWindowListener extends WindowAdapter{
     public void windowDeactivated(WindowEvent e){
         
         // Recuperar el panel de contacto y ocultar los menús popup
-        VentanaPrincipal vp = (VentanaPrincipal) e.getWindow();
+        VentanaPrincipal vp = VentanaPrincipal.getInstancia();
         PanelContactos pc = vp.getPc();
         pc.cerrarPopupContactos();
         pc.cerrarPopupGrupos();

@@ -25,21 +25,16 @@ import org.jajim.interfaz.ventanas.VentanaPrincipal;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase oyente que se activa para realizar las operaciones relativas a la
  * desconexión del sistema.
  */
 public class DesconectarActionListener implements ActionListener,Runnable{
 
-    // Variables importantes
-    private VentanaPrincipal vp;
-
     /**
      * Constructor de la clase. Inicializa las variables importantes.
-     * @param vp Ventana principal de la aplicación.
      */
-    public DesconectarActionListener(VentanaPrincipal vp){
-        this.vp = vp;
+    public DesconectarActionListener(){
     }
 
     /**
@@ -52,7 +47,8 @@ public class DesconectarActionListener implements ActionListener,Runnable{
     public void actionPerformed(ActionEvent e){
 
         // Abortar las conversaciones y las trasferencias
-        AbortarOperaciones ao = new AbortarOperaciones(vp,vp,vp.getVgt());
+        VentanaPrincipal vp = VentanaPrincipal.getInstancia();
+        AbortarOperaciones ao = new AbortarOperaciones(vp, vp.getVgt());
         ao.abortarConversaciones();
         ao.abortarTransferencias();
 

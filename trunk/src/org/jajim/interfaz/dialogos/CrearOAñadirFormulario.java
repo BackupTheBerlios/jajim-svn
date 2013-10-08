@@ -38,7 +38,7 @@ import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase que crea un formulario en el que se le dan, al usuario, las opciones de
  * crear una nueva cuenta o añadir una existente.
  */
@@ -65,22 +65,19 @@ public class CrearOAñadirFormulario extends JDialog implements ActionListener{
     private JButton botonCancelar;
 
     // Atributos interesantes
-    private VentanaPrincipal vp;
     private VentanaGestorDeCuentas vgc;
 
 
     /**
      * Inicializa la interfaz del formulario y controla la selección de los boto
      * nes del mismo.
-     * @param vp Ventana desde la que se invoca el cuadro de diálogo.
      */
-    public CrearOAñadirFormulario(VentanaPrincipal vp){
+    public CrearOAñadirFormulario(){
 
         // Inicialización
-        super(vp,true);
-        this.vp = vp;
+        super(VentanaPrincipal.getInstancia(), true);
         this.vgc = null;
-        this.setLocationRelativeTo(vp);
+        this.setLocationRelativeTo(VentanaPrincipal.getInstancia());
 
         // Crear la interfaz
         this.inicilizarInterfaz();
@@ -89,14 +86,12 @@ public class CrearOAñadirFormulario extends JDialog implements ActionListener{
     /**
      * Inicializa la interfaz del formulario y controla la selección de los boto
      * nes del mismo.
-     * @param vp Ventana desde la que se invoca el cuadro de diálogo.
      * @param vgc El gestor de las cuentas del sistema.
      */
-    public CrearOAñadirFormulario(VentanaPrincipal vp,VentanaGestorDeCuentas vgc){
+    public CrearOAñadirFormulario(VentanaGestorDeCuentas vgc){
         
         // Inicailización
         super(vgc,true);
-        this.vp = vp;
         this.vgc = vgc;
         this.setLocationRelativeTo(vgc);
 
@@ -119,18 +114,18 @@ public class CrearOAñadirFormulario extends JDialog implements ActionListener{
         else if(opciones[0].isSelected()){
             this.dispose();
             if(vgc == null) {
-                new CrearCuentaFormulario(vp);
+                new CrearCuentaFormulario();
             }
             else {
-                new CrearCuentaFormulario(vp,vgc);
+                new CrearCuentaFormulario(vgc);
             }
         }else if(opciones[1].isSelected()){
             this.dispose();
             if(vgc == null) {
-                new AñadirCuentaFormulario(vp);
+                new AñadirCuentaFormulario();
             }
             else {
-                new AñadirCuentaFormulario(vp,vgc);
+                new AñadirCuentaFormulario(vgc);
             }
         }
     }
@@ -189,7 +184,7 @@ public class CrearOAñadirFormulario extends JDialog implements ActionListener{
             this.setLocationRelativeTo(vgc);
         }
         else {
-            this.setLocationRelativeTo(vp);
+            this.setLocationRelativeTo(VentanaPrincipal.getInstancia());
         }
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         this.setVisible(true);

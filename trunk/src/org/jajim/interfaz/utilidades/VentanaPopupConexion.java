@@ -34,27 +34,24 @@ import org.jivesoftware.smack.util.StringUtils;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Ventana pequeña que se muestra en la esquina inferior izquierda de la pantalla
  * para notificar eventos importantes para el sistema. Trabaja con los eventos que
  * se producen en la conexión del sistema a la red.
  */
 public class VentanaPopupConexion extends VentanaPopup{
 
-    private VentanaPrincipal vp;
     private EventosDeConexionEnumeracion edce;
 
     /**
      * Constructor de la clase. Iniciliza las variables necesarias.
      * @param edce El tipo de evento que se debe mostrar.
      * @param informacion Información adicional de presentación.
-     * @param vp La ventana principal de la aplicación.
      */
-    public VentanaPopupConexion(EventosDeConexionEnumeracion edce,String informacion,VentanaPrincipal vp){
+    public VentanaPopupConexion(EventosDeConexionEnumeracion edce, String informacion){
 
         super(informacion);
         // Iniciar
-        this.vp = vp;
         this.edce = edce;
     }
 
@@ -128,6 +125,8 @@ public class VentanaPopupConexion extends VentanaPopup{
      */
     @Override
     public void mouseClicked(MouseEvent e){
+        
+        VentanaPrincipal vp = VentanaPrincipal.getInstancia();
         super.mouseClicked(e);
 
         // Si se trata de un evento sobre la ventana principal, se hace visible y se restaura

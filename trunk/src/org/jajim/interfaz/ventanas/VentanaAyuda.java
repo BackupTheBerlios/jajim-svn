@@ -33,7 +33,7 @@ import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * La ventana con la ayuda de la aplicación.
  */
 public class VentanaAyuda extends JFrame implements HyperlinkListener{
@@ -45,9 +45,8 @@ public class VentanaAyuda extends JFrame implements HyperlinkListener{
     /**
      * Constructor de la clase. Inicializa las variables necesarias y crea la inter
      * faz de usuario.
-     * @param vp La ventana principal de la aplicación.
      */
-    public VentanaAyuda(VentanaPrincipal vp) throws ImposibleRecuperarAyudaException{
+    public VentanaAyuda() throws ImposibleRecuperarAyudaException{
 
         // Iniciar la interfaz
         contenidoAyuda = new JTextPane();
@@ -83,7 +82,7 @@ public class VentanaAyuda extends JFrame implements HyperlinkListener{
         this.setIconImage(image);
         this.setSize(800,600);
         this.setVisible(true);
-        this.setLocationRelativeTo(vp);
+        this.setLocationRelativeTo(VentanaPrincipal.getInstancia());
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 

@@ -27,10 +27,11 @@ import org.jajim.excepciones.ImposibleCrearCuentaException;
 import org.jajim.excepciones.ServidorNoEncontradoException;
 import org.jajim.interfaz.dialogos.CrearCuentaFormulario;
 import org.jajim.interfaz.dialogos.MensajeError;
+import org.jajim.interfaz.ventanas.VentanaPrincipal;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase que gestiona como se lleva a cabo la creación de la cuenta.
  */
 public class CrearCuentaActionListener implements ActionListener{
@@ -81,7 +82,7 @@ public class CrearCuentaActionListener implements ActionListener{
             // Si la cuenta se establece como la activa se modifica la etiqueta
             // de la ventana principal
             if(activa) {
-                ccf.getVp().cambiarCuenta(identificador + "@" + servidor);
+                VentanaPrincipal.getInstancia().cambiarCuenta(identificador + "@" + servidor);
             }
             if(ccf.getVgc() != null) {
                 ccf.getVgc().añadirCuentas();

@@ -37,7 +37,7 @@ import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase formulario que permite al usuario introducir el nick que va a utilizar
  * en una conversación.
  */
@@ -65,15 +65,15 @@ public class IntroducirNickFormulario extends JDialog{
     /**
      * Constructor de la clase. Inicializa las variables necesarias y crea la in
      * terfaz de usuario.
-     * @param vp La ventana principal de la aplicación.
      * @param idInvitacion El identificador de la invitación recibida.
      * @param room La sala en la que está teniendo lugar la conversación.
      * @param alias El alias del contacto que realizó la invitación.
      */
-    public IntroducirNickFormulario(VentanaPrincipal vp,String idInvitacion,String room,String alias){
+    public IntroducirNickFormulario(String idInvitacion, String room, String alias){
 
         // Inicialización de variables
-        super(vp,true);
+        super(VentanaPrincipal.getInstancia(), true);
+        VentanaPrincipal vp = VentanaPrincipal.getInstancia();
 
         // Creación de la interfaz
         Container cp = this.getContentPane();
@@ -101,7 +101,7 @@ public class IntroducirNickFormulario extends JDialog{
         botones.setBorder(BorderFactory.createEmptyBorder(0,10,6,10));
         botones.setLayout(new FlowLayout(FlowLayout.RIGHT));
         botonAceptar = new JButton(OK);
-        botonAceptar.addActionListener(new AceptarInvitacionActionListener(this,vp,alias,idInvitacion,room));
+        botonAceptar.addActionListener(new AceptarInvitacionActionListener(this, alias, idInvitacion, room));
         botonCancelar = new JButton(cancelar);
         botonCancelar.addActionListener(new RechazarInvitacionActionListener(this,ContactosControlador.getInstancia().getContactoPorAlias(alias),room));
         botones.add(botonAceptar);

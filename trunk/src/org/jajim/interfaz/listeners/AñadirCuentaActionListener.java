@@ -27,10 +27,11 @@ import org.jajim.excepciones.ImposibleValidarCuentaException;
 import org.jajim.excepciones.ServidorNoEncontradoException;
 import org.jajim.interfaz.dialogos.AñadirCuentaFormulario;
 import org.jajim.interfaz.dialogos.MensajeError;
+import org.jajim.interfaz.ventanas.VentanaPrincipal;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase que gestiona la acción de añadir una cuenta ya existente en el sistema.
  */
 public class AñadirCuentaActionListener implements ActionListener{
@@ -82,7 +83,7 @@ public class AñadirCuentaActionListener implements ActionListener{
             // Si la cuenta se establece como la activa se modifica la etiqueta
             // de la ventana principal
             if(activa) {
-                acf.getVp().cambiarCuenta(identificador + "@" + servidor);
+                VentanaPrincipal.getInstancia().cambiarCuenta(identificador + "@" + servidor);
             }
             if(acf.getVgc() != null){
                 acf.getVgc().añadirCuentas();

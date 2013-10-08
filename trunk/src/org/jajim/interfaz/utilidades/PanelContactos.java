@@ -52,13 +52,12 @@ import org.jajim.interfaz.listeners.EliminarGrupoDeContactosActionListener;
 import org.jajim.interfaz.listeners.IniciarChatMultiusuarioMenuActionListener;
 import org.jajim.interfaz.listeners.IniciarChatPrivadoActionListener;
 import org.jajim.interfaz.listeners.ModificarGrupoDeContactosMenuActionListener;
-import org.jajim.interfaz.ventanas.VentanaPrincipal;
 import org.jajim.main.Main;
 import org.jajim.modelo.conexiones.EventosDeConexionEnumeracion;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase que maneja los contactos a nivel de interfaz. Implementa el oyente del
  * roster para realizar los cambios oportunos.
  */
@@ -106,8 +105,6 @@ public class PanelContactos extends MouseAdapter implements Observer{
         new ModificarGrupoDeContactosMenuActionListener(this),
         new EliminarGrupoDeContactosActionListener(this)
     };
-
-    private VentanaPrincipal vp;
     
     // Panel principal
     private JPanel panelContactos;
@@ -120,15 +117,9 @@ public class PanelContactos extends MouseAdapter implements Observer{
     
     /**
      * Constructor de la clase inicializa los elementos de la interfaz necesarios.
-     * @param vp Ventana principal de la aplicación.
+     * @param cp El contenedor de la ventana para incluir los componentes del panel de contactos en él.
      */
-    public PanelContactos(VentanaPrincipal vp){
-
-        // Inicialización de variables
-        this.vp = vp;
-
-        // Creación de la interfaz
-        Container cp = vp.getContentPane();
+    public PanelContactos(Container cp){
 
         // Creación del panel central
         panelContactos = new JPanel(new BorderLayout());
@@ -424,13 +415,5 @@ public class PanelContactos extends MouseAdapter implements Observer{
                 menuGrupos.setVisible(false);
             }
         }
-    }
-
-    /**
-     * Retorna la ventana princiapal de la aplicación.
-     * @return La ventana principal de la aplicación.
-     */
-    public VentanaPrincipal getVp(){
-        return vp;
     }
 }

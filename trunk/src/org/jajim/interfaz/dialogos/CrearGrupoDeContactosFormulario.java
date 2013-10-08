@@ -41,7 +41,7 @@ import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase formulario que permite al usuario introducir los datos necesarios para
  * crear un nuevo grupo de contactos.
  */
@@ -70,20 +70,18 @@ public class CrearGrupoDeContactosFormulario extends JDialog implements ActionLi
 
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
-     * @param vp La ventana principal de la aplicación.
      */
-    public CrearGrupoDeContactosFormulario(VentanaPrincipal vp){
+    public CrearGrupoDeContactosFormulario(){
 
         // Inicialización
-        super(vp,true);
-        this.inicializar(vp);
+        super(VentanaPrincipal.getInstancia(), true);
+        this.inicializar();
     }
 
     /**
      * Crea la interfaz de usuario. La ventana principal de la aplicación.
-     * @param vp Ventana principal de la aplicación.
      */
-    private void inicializar(VentanaPrincipal vp){
+    private void inicializar(){
         // Creación de la interfaz
         Container cp = this.getContentPane();
 
@@ -138,7 +136,7 @@ public class CrearGrupoDeContactosFormulario extends JDialog implements ActionLi
         // Opciones del cuadro de diálogo
         this.setSize(320,270);
         this.setResizable(false);
-        this.setLocationRelativeTo(vp);
+        this.setLocationRelativeTo(VentanaPrincipal.getInstancia());
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         this.setTitle(texto.getString("crear_grupo_de_contactos_formulario_title"));
         this.setVisible(true);

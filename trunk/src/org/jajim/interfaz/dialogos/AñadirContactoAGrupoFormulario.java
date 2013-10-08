@@ -36,11 +36,12 @@ import javax.swing.ListSelectionModel;
 import org.jajim.controladores.ContactosControlador;
 import org.jajim.interfaz.listeners.AñadirContactoAGrupoActionListener;
 import org.jajim.interfaz.utilidades.PanelContactos;
+import org.jajim.interfaz.ventanas.VentanaPrincipal;
 import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase que representa el formulario en el que el usuario introduce los grupos
  * a los que se va a añadir un determinado contacto.
  */
@@ -71,10 +72,10 @@ public class AñadirContactoAGrupoFormulario extends JDialog implements ActionLi
      * @param pc El panel de contactos de la ventana principal.
      * @param contacto El contacto que se va a añadir al conjunto de grupos.
      */
-    public AñadirContactoAGrupoFormulario(PanelContactos pc,String contacto){
+    public AñadirContactoAGrupoFormulario(PanelContactos pc, String contacto){
 
         // Inicialización de variables
-        super(pc.getVp(),true);
+        super(VentanaPrincipal.getInstancia(), true);
 
          // Creación de la interfaz
         Container cp = this.getContentPane();
@@ -136,7 +137,7 @@ public class AñadirContactoAGrupoFormulario extends JDialog implements ActionLi
         // Opciones del cuadro de diálogo
         this.setSize(350,210);
         this.setResizable(false);
-        this.setLocationRelativeTo(pc.getVp());
+        this.setLocationRelativeTo(VentanaPrincipal.getInstancia());
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         this.setTitle(texto.getString("añadir_contacto_a_grupo_formulario_title"));
         this.setVisible(true);

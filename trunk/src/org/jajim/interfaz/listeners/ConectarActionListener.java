@@ -35,21 +35,17 @@ import org.jivesoftware.smack.Roster;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase que oyente que se activa cuando el usuario selecciona alguna de las opcio
  * nes para conectarse con el servidor. Gestiona el intercambio de información en
  * tre la interfaz y el controlador.
  */
 public class ConectarActionListener implements ActionListener{
 
-    private VentanaPrincipal vp;
-
     /**
      * Constructor de la calse. Inicializa los campos.
-     * @param vp Ventana principal de la aplicación.
      */
-    public ConectarActionListener(VentanaPrincipal vp){
-        this.vp = vp;
+    public ConectarActionListener(){
     }
 
     /**
@@ -61,6 +57,7 @@ public class ConectarActionListener implements ActionListener{
     public void actionPerformed(ActionEvent e){
 
         // Recupero los controladores necesarios
+        VentanaPrincipal vp = VentanaPrincipal.getInstancia();
         ConexionControlador ccn = ConexionControlador.getInstancia();
         ContactosControlador ctc = ContactosControlador.getInstancia();
         TransferenciaFicherosControlador tfc = TransferenciaFicherosControlador.getInstancia();

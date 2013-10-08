@@ -27,20 +27,16 @@ import org.jajim.interfaz.ventanas.VentanaPrincipal;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.0.1
+ * @version 1.2
  * Clase oyente que reacciona a los eventos de solicitud de ayuda procedentes de
  * la ventana principal de la aplicación.
  */
 public class LanzarAyudaActionListener implements ActionListener{
 
-    private VentanaPrincipal vp;
-
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
-     * @param vp La ventana principal de la aplicación.
      */
-    public LanzarAyudaActionListener(VentanaPrincipal vp){
-        this.vp = vp;
+    public LanzarAyudaActionListener(){
     }
 
     /**
@@ -51,10 +47,11 @@ public class LanzarAyudaActionListener implements ActionListener{
      */
     @Override
     public void actionPerformed(ActionEvent e) {
+        
         try{
-            new VentanaAyuda(vp);
+            new VentanaAyuda();
         }catch(ImposibleRecuperarAyudaException irae){
-            new MensajeError(vp,"imposible_recuperar_ayuda_error",MensajeError.ERR);
+            new MensajeError(VentanaPrincipal.getInstancia(), "imposible_recuperar_ayuda_error",MensajeError.ERR);
         }
     }
 
