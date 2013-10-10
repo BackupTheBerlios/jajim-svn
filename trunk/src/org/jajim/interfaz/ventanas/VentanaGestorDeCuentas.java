@@ -58,6 +58,7 @@ import org.jajim.main.Main;
  */
 public final class VentanaGestorDeCuentas extends JFrame implements ListSelectionListener,ActionListener{
 
+    private static VentanaGestorDeCuentas instancia;
     private ResourceBundle texto = ResourceBundle.getBundle("resources.Idioma",Main.loc);
 
     private final String[] titulos = {
@@ -109,10 +110,10 @@ public final class VentanaGestorDeCuentas extends JFrame implements ListSelectio
     public VentanaGestorDeCuentas(){
         
         // Inicialización
-        listeners[0] = new CrearOAñadirActionListener(this);
-        listeners[1] = new CambiarCuentaActionListener(this);
-        listeners[2] = new EliminarCuentaSistemaActionListener(this);
-        listeners[3] = new EliminarCuentaServidorActionListener(this);
+        listeners[0] = new CrearOAñadirActionListener();
+        listeners[1] = new CambiarCuentaActionListener();
+        listeners[2] = new EliminarCuentaSistemaActionListener();
+        listeners[3] = new EliminarCuentaServidorActionListener();
 
         // Creación de la interfaz
         Container cp = this.getContentPane();
@@ -324,5 +325,19 @@ public final class VentanaGestorDeCuentas extends JFrame implements ListSelectio
         // Colocar la ventana y hacerla visible
         this.setLocation(this.getX(),this.getY());
         this.setVisible(true);
+    }
+    
+    /**
+     * Método estático utilizado para implementar el Singleton.
+     * @return Retorna la única instancia que hay del gestor de cuentas.
+     */
+    public static VentanaGestorDeCuentas getInstancia(){
+
+        // Si la instancia es nula, crea una nueva. Si no retorna la ya existente
+        if(instancia == null) {
+            instancia = new VentanaGestorDeCuentas();
+        }
+
+        return instancia;
     }
 }

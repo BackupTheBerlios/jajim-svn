@@ -31,15 +31,10 @@ import org.jajim.interfaz.ventanas.VentanaPrincipal;
  */
 public class CambiarCuentaActionListener implements ActionListener{
 
-    // Variables importantes
-    private VentanaGestorDeCuentas vgt;
-
     /**
      * Constructor de la clase. Inicializa las variables importantes.
-     * @param vgt El gestor de las cuentas del sistema.
      */
-    public CambiarCuentaActionListener(VentanaGestorDeCuentas vgt){
-        this.vgt = vgt;
+    public CambiarCuentaActionListener(){
     }
 
     /**
@@ -52,6 +47,7 @@ public class CambiarCuentaActionListener implements ActionListener{
 
         // Recuperar la cuenta que se va a activar
         VentanaPrincipal vp = VentanaPrincipal.getInstancia();
+        VentanaGestorDeCuentas vgt = VentanaGestorDeCuentas.getInstancia();
         String cuenta[] = vgt.getCuenta();
 
         // Si devuelve null, no hay cuentas y se cierra la ejecución del método

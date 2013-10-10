@@ -43,15 +43,10 @@ public class EliminarCuentaServidorActionListener implements ActionListener{
 
      private ResourceBundle texto = ResourceBundle.getBundle("resources.Idioma",Main.loc);
 
-    // Variables
-    private VentanaGestorDeCuentas vgc;
-
     /**
      * Constructor de la clase. Iniciliza las variables necesarias.
-     * @param vgc Ventana del gestor de cuentas.
      */
-    public EliminarCuentaServidorActionListener(VentanaGestorDeCuentas vgc){
-        this.vgc = vgc;
+    public EliminarCuentaServidorActionListener(){
     }
 
     /**
@@ -64,6 +59,7 @@ public class EliminarCuentaServidorActionListener implements ActionListener{
     public void actionPerformed(ActionEvent e){
         
         VentanaPrincipal vp = VentanaPrincipal.getInstancia();
+        VentanaGestorDeCuentas vgc = VentanaGestorDeCuentas.getInstancia();
 
         // Recuperar la información de la cuenta
         String[] cuenta = vgc.getCuenta();

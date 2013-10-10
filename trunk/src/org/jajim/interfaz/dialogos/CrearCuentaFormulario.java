@@ -19,9 +19,8 @@
 package org.jajim.interfaz.dialogos;
 
 import java.util.ResourceBundle;
+import javax.swing.JFrame;
 import org.jajim.interfaz.listeners.CrearCuentaActionListener;
-import org.jajim.interfaz.ventanas.VentanaGestorDeCuentas;
-import org.jajim.interfaz.ventanas.VentanaPrincipal;
 import org.jajim.main.Main;
 
 /**
@@ -34,28 +33,15 @@ public class CrearCuentaFormulario extends CuentaFormulario{
 
     private ResourceBundle texto = ResourceBundle.getBundle("resources.Idioma",Main.loc);
 
-    private VentanaGestorDeCuentas vgc;
-
     /**
      * Constructor de la clase. Gestiona la funcionalidad propia del formulario
      * de creación de cuentas.
+     * @param ventana La ventana que abre el formulario.
      */
-    public CrearCuentaFormulario(){
+    public CrearCuentaFormulario(JFrame ventana){
 
         // Inicializar el diálogo
-        super(VentanaPrincipal.getInstancia());
-        this.vgc = null;
-        this.inicializar();
-    }
-
-    /**
-     * Constructor de la clase. Gestiona la funcionalidad propia del formulario
-     * de creación de cuentas.
-     * @param vgc Gestor de cuentas del sistema.
-     */
-    public CrearCuentaFormulario(VentanaGestorDeCuentas vgc){
-        super(vgc);
-        this.vgc = vgc;
+        super(ventana);
         this.inicializar();
     }
 
@@ -69,14 +55,5 @@ public class CrearCuentaFormulario extends CuentaFormulario{
         // Asignar un oyente al botón de Aceptar
         botonAceptar.addActionListener(new CrearCuentaActionListener(this));
         this.setVisible(true);
-    }
-
-    /**
-     * Devuelve el gestor de cuentas de la aplicación para propósitos de presenta
-     * ción.
-     * @return El gestor de cuentas de la aplicación.
-     */
-    public VentanaGestorDeCuentas getVgc(){
-        return vgc;
     }
 }

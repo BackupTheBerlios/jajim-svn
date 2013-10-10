@@ -210,7 +210,6 @@ public class VentanaPrincipal extends JFrame{
 
     // Gestor de transferencias y gestor de cuentas
     private VentanaGestorDeTransferencias vgt;
-    private VentanaGestorDeCuentas vgc;
 
     // Componentes de la interfaz
     // Menú
@@ -376,7 +375,7 @@ public class VentanaPrincipal extends JFrame{
         // Iniciación de los controladores
         CuentaControlador cc = CuentaControlador.getInstancia();
         if(cc.getCuenta() == null) {
-            new CrearOAñadirFormulario();
+            new CrearOAñadirFormulario(this);
         }
 
         // Poner la cuenta activa en el panel
@@ -388,7 +387,6 @@ public class VentanaPrincipal extends JFrame{
 
         // Iniciar el gestor de transfenrencias y el gestor de cuentas
         vgt = new VentanaGestorDeTransferencias();
-        vgc = new VentanaGestorDeCuentas();
 
         // Añadir el listener del combo
         estado.addActionListener(new CambiarEstadoActionListener());
@@ -522,14 +520,6 @@ public class VentanaPrincipal extends JFrame{
      */
     public VentanaGestorDeTransferencias getVgt(){
         return vgt;
-    }
-
-    /**
-     * Devuelve la ventana del gestor de cuentas.
-     * @return La ventana del gestor de cuentas.
-     */
-    public VentanaGestorDeCuentas getVgc(){
-        return vgc;
     }
 
     /**

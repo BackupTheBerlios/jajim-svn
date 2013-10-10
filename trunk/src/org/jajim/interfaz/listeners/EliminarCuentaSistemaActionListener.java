@@ -32,15 +32,10 @@ import org.jajim.interfaz.ventanas.VentanaPrincipal;
  */
 public class EliminarCuentaSistemaActionListener implements ActionListener{
 
-    // Variables importantes
-    private VentanaGestorDeCuentas vgc;
-
     /**
      * Constructor de la clase. Inicializa las variables adecuadas.
-     * @param vgc El gestor de las cuentas del sistema.
      */
-    public EliminarCuentaSistemaActionListener(VentanaGestorDeCuentas vgc){
-        this.vgc = vgc;
+    public EliminarCuentaSistemaActionListener(){
     }
 
     /**
@@ -53,6 +48,7 @@ public class EliminarCuentaSistemaActionListener implements ActionListener{
     public void actionPerformed(ActionEvent e) {
 
         VentanaPrincipal vp = VentanaPrincipal.getInstancia();
+        VentanaGestorDeCuentas vgc = VentanaGestorDeCuentas.getInstancia();
         
         // Recuperar la información de la cuenta
         String[] cuenta = vgc.getCuenta();

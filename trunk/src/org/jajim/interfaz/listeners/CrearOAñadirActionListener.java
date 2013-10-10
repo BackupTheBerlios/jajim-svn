@@ -31,14 +31,10 @@ import org.jajim.interfaz.ventanas.VentanaGestorDeCuentas;
  */
 public class CrearOAñadirActionListener implements ActionListener{
 
-    // Elementos importantes
-    private VentanaGestorDeCuentas vgc;
-
     /**
      * Constructor de la clase. Iniciliza las variables adecuadas.
      */
-    public CrearOAñadirActionListener(VentanaGestorDeCuentas vgc){
-        this.vgc = vgc;
+    public CrearOAñadirActionListener(){
     }
 
     /**
@@ -48,6 +44,6 @@ public class CrearOAñadirActionListener implements ActionListener{
      */
     @Override
     public void actionPerformed(ActionEvent e){
-        new CrearOAñadirFormulario(vgc);
+        new CrearOAñadirFormulario(VentanaGestorDeCuentas.getInstancia());
     }
 }

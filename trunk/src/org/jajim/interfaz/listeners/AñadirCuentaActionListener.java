@@ -27,6 +27,7 @@ import org.jajim.excepciones.ImposibleValidarCuentaException;
 import org.jajim.excepciones.ServidorNoEncontradoException;
 import org.jajim.interfaz.dialogos.AñadirCuentaFormulario;
 import org.jajim.interfaz.dialogos.MensajeError;
+import org.jajim.interfaz.ventanas.VentanaGestorDeCuentas;
 import org.jajim.interfaz.ventanas.VentanaPrincipal;
 
 /**
@@ -85,9 +86,8 @@ public class AñadirCuentaActionListener implements ActionListener{
             if(activa) {
                 VentanaPrincipal.getInstancia().cambiarCuenta(identificador + "@" + servidor);
             }
-            if(acf.getVgc() != null){
-                acf.getVgc().añadirCuentas();
-            }
+            
+            VentanaGestorDeCuentas.getInstancia().añadirCuentas();
             acf.dispose();
         }catch(ServidorNoEncontradoException snee){
             new MensajeError(acf,"servidor_no_encontrado_error",MensajeError.ERR);

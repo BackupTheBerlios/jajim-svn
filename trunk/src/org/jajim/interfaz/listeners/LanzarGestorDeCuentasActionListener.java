@@ -21,7 +21,6 @@ package org.jajim.interfaz.listeners;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import org.jajim.interfaz.ventanas.VentanaGestorDeCuentas;
-import org.jajim.interfaz.ventanas.VentanaPrincipal;
 
 /**
  * @author Florencio Cañizal Calles
@@ -45,10 +44,7 @@ public class LanzarGestorDeCuentasActionListener implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e){
 
-        // Recuperar la ventana del gestor de cuentas
-        VentanaGestorDeCuentas vgc = VentanaPrincipal.getInstancia().getVgc();
-
         // Hacerla visible
-        vgc.hacerVisible();
+        VentanaGestorDeCuentas.getInstancia().hacerVisible();
     }
 }
