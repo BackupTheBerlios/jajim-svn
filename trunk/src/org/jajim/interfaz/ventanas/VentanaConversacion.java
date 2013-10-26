@@ -141,9 +141,6 @@ public class VentanaConversacion extends JFrame{
     // Panel de conversaciones
     protected PanelConversacion conversacion;
 
-    // Gestor de transferencias
-    private VentanaGestorDeTransferencias vgt;
-
     // Componentes de la interfaz
     // Menú
     private JMenuBar barraMenu;
@@ -203,9 +200,6 @@ public class VentanaConversacion extends JFrame{
         }
 
         this.setJMenuBar(barraMenu);
-
-        // Inicialización de variables
-        vgt = VentanaPrincipal.getInstancia().getVgt();
 
         // Creación de la interfaz
         Container cp = this.getContentPane();
@@ -352,14 +346,6 @@ public class VentanaConversacion extends JFrame{
      */
     public ConversacionControlador getCvc(){
         return cvc;
-    }
-
-    /**
-     * Método que devuelve la ventana del gestor de transferencias.
-     * @return Ventana del gestor de transferencias.
-     */
-    public VentanaGestorDeTransferencias getVgt(){
-        return vgt;
     }
 
     /**

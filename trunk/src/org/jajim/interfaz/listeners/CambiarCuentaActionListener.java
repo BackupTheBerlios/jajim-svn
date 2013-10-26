@@ -47,8 +47,8 @@ public class CambiarCuentaActionListener implements ActionListener{
 
         // Recuperar la cuenta que se va a activar
         VentanaPrincipal vp = VentanaPrincipal.getInstancia();
-        VentanaGestorDeCuentas vgt = VentanaGestorDeCuentas.getInstancia();
-        String cuenta[] = vgt.getCuenta();
+        VentanaGestorDeCuentas vgc = VentanaGestorDeCuentas.getInstancia();
+        String cuenta[] = vgc.getCuenta();
 
         // Si devuelve null, no hay cuentas y se cierra la ejecución del método
         if(cuenta == null) {
@@ -67,7 +67,7 @@ public class CambiarCuentaActionListener implements ActionListener{
         }
 
         // Abortar la conexión si es necesario
-        AbortarOperaciones ao = new AbortarOperaciones(vgt, vp.getVgt());
+        AbortarOperaciones ao = new AbortarOperaciones(vgc);
 
         if(!ao.abortarConexion()) {
             return;

@@ -236,7 +236,6 @@ public class OyenteConexion implements Observer{
             else if(edce == EventosDeConexionEnumeracion.usuarioDesconectado){
                 ContactosListener cl = (ContactosListener) o;
                 final String alias = cl.getAliasModificado();
-                final VentanaPrincipal vpFinal = VentanaPrincipal.getInstancia();
                 SwingUtilities.invokeLater(new Runnable(){
                     @Override
                     public void run(){
@@ -249,7 +248,7 @@ public class OyenteConexion implements Observer{
                         }
 
                         // Se abortan las transferencias
-                        AbortarOperaciones ao = new AbortarOperaciones(vpFinal, vpFinal.getVgt());
+                        AbortarOperaciones ao = new AbortarOperaciones(VentanaPrincipal.getInstancia());
                         ao.abortarTransferencias(contacto,false);
                     }
                 });

@@ -33,7 +33,7 @@ import org.jajim.interfaz.ventanas.VentanaGestorDeTransferencias;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase oyente que interactua con el controlador de las transferencias para en
  * viar un fichero cuando se activa el botón Aceptar del formulario de envío de
  * ficheros.
@@ -42,18 +42,15 @@ public class EnviarFicheroActionListener implements ActionListener{
 
     private EnviarFicheroFormulario eff;
     private ConversacionControlador cvc;
-    private VentanaGestorDeTransferencias vgt;
 
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
      * @param eff El formulario de envío de ficheros.
      * @param cvc El controlador de la conversación actual
-     * @param vgt La ventana del gestor de transferencias.
      */
-    public EnviarFicheroActionListener(EnviarFicheroFormulario eff,ConversacionControlador cvc,VentanaGestorDeTransferencias vgt){
+    public EnviarFicheroActionListener(EnviarFicheroFormulario eff, ConversacionControlador cvc){
         this.eff = eff;
         this.cvc = cvc;
-        this.vgt = vgt;
     }
 
     /**
@@ -88,7 +85,7 @@ public class EnviarFicheroActionListener implements ActionListener{
             String id = tfc.enviarFichero(cvc,contactos,ruta,descripcion);
             int posicion = ruta.lastIndexOf(File.separator);
             String nombre = ruta.substring(posicion + 1);
-            vgt.añadirTransferenciaDeFichero(nombre,id,VentanaGestorDeTransferencias.EMISOR);
+            VentanaGestorDeTransferencias.getInstancia().añadirTransferenciaDeFichero(nombre,id,VentanaGestorDeTransferencias.EMISOR);
             //Cerrar el cuadro de diálogo
             eff.dispose();
         }catch(FicheroNoEncontradoException fnee){

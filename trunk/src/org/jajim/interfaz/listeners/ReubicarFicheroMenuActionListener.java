@@ -26,20 +26,16 @@ import org.jajim.interfaz.ventanas.VentanaGestorDeTransferencias;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase oyente que escucha los eventos de reubicación de fichero procedentes del
  * gestor de transferencias.
  */
 public class ReubicarFicheroMenuActionListener implements ActionListener{
 
-    private VentanaGestorDeTransferencias vgt;
-
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
-     * @param vgt La ventana del gestor de cuentas.
      */
-    public ReubicarFicheroMenuActionListener(VentanaGestorDeTransferencias vgt){
-        this.vgt = vgt;
+    public ReubicarFicheroMenuActionListener(){
     }
 
     /**
@@ -52,7 +48,7 @@ public class ReubicarFicheroMenuActionListener implements ActionListener{
     public void actionPerformed(ActionEvent e) {
 
         // Recuperar la tabla de ficheros descargados
-        JTable tablaDeFicheros = vgt.getTablaDeFicheros();
+        JTable tablaDeFicheros = VentanaGestorDeTransferencias.getInstancia().getTablaDeFicheros();
 
         // Recuperar el fichero seleccionado, si no hay ninguno se aborta la ope
         // ración.
@@ -62,6 +58,6 @@ public class ReubicarFicheroMenuActionListener implements ActionListener{
         }
 
         // Lanzar el formulario
-        new ReubicarFicheroFormulario(vgt,filaSeleccionada);
+        new ReubicarFicheroFormulario(filaSeleccionada);
     }
 }

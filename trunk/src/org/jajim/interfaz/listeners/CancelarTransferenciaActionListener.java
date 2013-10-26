@@ -25,23 +25,20 @@ import org.jajim.interfaz.ventanas.VentanaGestorDeTransferencias;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase oyente que escucha los eventos procedentes de la opción cancelar trans
  * ferencia disponible en la ventana del gestor de transferencias.
  */
 public class CancelarTransferenciaActionListener implements ActionListener{
 
-    private VentanaGestorDeTransferencias vgt;
     private String idTransferencia;
 
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
-     * @param vgt La ventana del gestor de transferencias.
      * @param idTransferencia El identificador de la transferencia que se desea
      * eliminar.
      */
-    public CancelarTransferenciaActionListener(VentanaGestorDeTransferencias vgt,String idTransferencia){
-        this.vgt = vgt;
+    public CancelarTransferenciaActionListener(String idTransferencia){
         this.idTransferencia = idTransferencia;
     }
 
@@ -59,6 +56,6 @@ public class CancelarTransferenciaActionListener implements ActionListener{
         tfc.cancelarTransferencia(idTransferencia);
 
         // Eliminar la transferencia del gestor de las mismas
-        vgt.eliminarTransferencia(idTransferencia);
+        VentanaGestorDeTransferencias.getInstancia().eliminarTransferencia(idTransferencia);
     }
 }

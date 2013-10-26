@@ -29,23 +29,20 @@ import org.jajim.interfaz.ventanas.VentanaGestorDeTransferencias;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase oyente que se activa cuando el usuario decide aceptar una tansferencia
  * de fichero.
  */
 public class AceptarFicheroActionListener implements ActionListener{
 
     private AceptarFicheroFormulario aff;
-    private VentanaGestorDeTransferencias vgt;
 
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
      * @param aff El formulario de aceptación del fichero.
-     * @param vgt La ventana del gestor de cuentas.
      */
-    public AceptarFicheroActionListener(AceptarFicheroFormulario aff,VentanaGestorDeTransferencias vgt){
+    public AceptarFicheroActionListener(AceptarFicheroFormulario aff){
         this.aff = aff;
-        this.vgt = vgt;
     }
 
     /**
@@ -73,7 +70,7 @@ public class AceptarFicheroActionListener implements ActionListener{
             TransferenciaFicherosControlador tfc = TransferenciaFicherosControlador.getInstancia();
             String[] valores = tfc.aceptarFichero(idTransferencia,ruta);
             aff.dispose();
-            vgt.añadirTransferenciaDeFichero(valores[0],valores[1],VentanaGestorDeTransferencias.RECEPTOR);
+            VentanaGestorDeTransferencias.getInstancia().añadirTransferenciaDeFichero(valores[0],valores[1],VentanaGestorDeTransferencias.RECEPTOR);
         }catch(RutaNoDisponibleException rnde){
             new MensajeError(aff,"ruta_no_disponible_error",MensajeError.WARNING);
         }catch(ImposibleRecibirFicheroException irfe){

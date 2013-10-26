@@ -113,9 +113,9 @@ public class AceptarFicheroFormulario extends JDialog implements ActionListener{
         botones.setLayout(new FlowLayout(FlowLayout.RIGHT));
         botones.setBorder(BorderFactory.createEmptyBorder(0,10,6,10));
         botonAceptar = new JButton(OK);
-        botonAceptar.addActionListener(new AceptarFicheroActionListener(this, vp.getVgt()));
+        botonAceptar.addActionListener(new AceptarFicheroActionListener(this));
         botonCancelar = new JButton(cancelar);
-        botonCancelar.addActionListener(new RechazarFicheroActionListener(this,idTransferencia));
+        botonCancelar.addActionListener(new RechazarFicheroActionListener(this, idTransferencia));
         botones.add(botonAceptar);
         botones.add(botonCancelar);
         cp.add(BorderLayout.SOUTH,botones);

@@ -91,7 +91,7 @@ public class CambiarEstadoActionListener implements ActionListener{
         // Hay que desconectar al usuario de la sesión.
         else{
             // Abortar la conexión antes de borrar la cuenta
-            AbortarOperaciones ao = new AbortarOperaciones(vp, vp.getVgt());
+            AbortarOperaciones ao = new AbortarOperaciones(vp);
             // Si el usuario decide no abortar, dejar el combo como estaba.
             if(!ao.abortarConexion()){
                 estadoActual = a;

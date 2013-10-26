@@ -37,7 +37,7 @@ import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase formulario que permite al usuario introducir un nuevo nombre para el fi
  * chero.
  */
@@ -65,13 +65,13 @@ public class RenombrarFicheroFormulario extends JDialog implements ActionListene
     /**
      * Constructor de la clase. Inicializa las variables necesarias y crea la in
      * terfaz de usuario.
-     * @param vgt La ventana del gestor de transferencias.
      * @param filaSeleccionada La fila que tiene seleccionada el usuario.
      */
-    public RenombrarFicheroFormulario(VentanaGestorDeTransferencias vgt,int filaSeleccionada){
+    public RenombrarFicheroFormulario(int filaSeleccionada){
 
         // Inicialización
-        super(vgt,true);
+        super(VentanaGestorDeTransferencias.getInstancia() ,true);
+        VentanaGestorDeTransferencias vgt = VentanaGestorDeTransferencias.getInstancia();
 
         // Creación de la interfaz
         Container cp = this.getContentPane();
@@ -100,7 +100,7 @@ public class RenombrarFicheroFormulario extends JDialog implements ActionListene
         botones.setLayout(new FlowLayout(FlowLayout.RIGHT));
         botones.setBorder(BorderFactory.createEmptyBorder(0,10,6,10));
         botonAceptar = new JButton(OK);
-        botonAceptar.addActionListener(new RenombrarFicheroActionListener(this,vgt,filaSeleccionada));
+        botonAceptar.addActionListener(new RenombrarFicheroActionListener(this, filaSeleccionada));
         botones.add(botonAceptar);
         botonCancelar = new JButton(cancelar);
         botonCancelar.addActionListener(this);

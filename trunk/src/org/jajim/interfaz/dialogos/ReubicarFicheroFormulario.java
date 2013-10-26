@@ -39,7 +39,7 @@ import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase formulario en donde el usuario puede introducir la nueva ruta para el fi
  * chero que se desea mover.
  */
@@ -67,13 +67,13 @@ public class ReubicarFicheroFormulario extends JDialog implements ActionListener
 
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
-     * @param vgt La ventana del gestor de transferencias.
      * @param filaSeleccionada La fila que el usuario a seleccionado.
      */
-    public ReubicarFicheroFormulario(VentanaGestorDeTransferencias vgt,int filaSeleccionada){
+    public ReubicarFicheroFormulario(int filaSeleccionada){
 
         // Inicialización de variables
-        super(vgt,true);
+        super(VentanaGestorDeTransferencias.getInstancia(), true);
+        VentanaGestorDeTransferencias vgt = VentanaGestorDeTransferencias.getInstancia();
 
         // Creación de la interfaz
         Container cp = this.getContentPane();
@@ -106,7 +106,7 @@ public class ReubicarFicheroFormulario extends JDialog implements ActionListener
         botones.setLayout(new FlowLayout(FlowLayout.RIGHT));
         botones.setBorder(BorderFactory.createEmptyBorder(0,10,6,10));
         botonAceptar = new JButton(OK);
-        botonAceptar.addActionListener(new ReubicarFicheroActionListener(this,vgt,filaSeleccionada));
+        botonAceptar.addActionListener(new ReubicarFicheroActionListener(this, filaSeleccionada));
         botonCancelar = new JButton(cancelar);
         botonCancelar.setActionCommand("cancelar");
         botonCancelar.addActionListener(this);

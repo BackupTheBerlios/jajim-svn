@@ -68,7 +68,7 @@ public class EliminarCuentaSistemaActionListener implements ActionListener{
         String activa = cc.getCuenta();
         if(activa.compareTo(identificador + "@" + servidor) == 0 && cnc.isConectado()){
             // Abortar la conexión antes de borrar la cuenta
-            AbortarOperaciones ao = new AbortarOperaciones(vgc, vp.getVgt());
+            AbortarOperaciones ao = new AbortarOperaciones(vgc);
             if(!ao.abortarConexion()) {
                 return;
             }

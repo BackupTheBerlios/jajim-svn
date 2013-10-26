@@ -62,7 +62,7 @@ public class EliminarContactoActionListener implements ActionListener{
 
         // Abortar las conversaciones y las transferencias mantenidas con este
         // usuario
-        AbortarOperaciones ao = new AbortarOperaciones(vp, vp.getVgt());
+        AbortarOperaciones ao = new AbortarOperaciones(vp);
         ao.abortarConversaciones(contacto);
         ao.abortarTransferencias(contacto,true);
 

@@ -77,8 +77,7 @@ public class VentanaPrincipalWindowListener extends WindowAdapter{
         pfc.setGestorDeCuentasX(p.x);
         pfc.setGestorDeCuentasY(p.y);
         // Gestor de transferencias
-        VentanaGestorDeTransferencias vgt = vp.getVgt();
-        p = vgt.getLocation();
+        p = VentanaGestorDeTransferencias.getInstancia().getLocation();
         pfc.setGestorDeTransferenciasX(p.x);
         pfc.setGestorDeTransferenciasY(p.y);
         pfc.guardarPreferencias();

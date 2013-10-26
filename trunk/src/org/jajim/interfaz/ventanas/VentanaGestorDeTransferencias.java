@@ -63,6 +63,7 @@ import org.jajim.main.Main;
  */
 public class VentanaGestorDeTransferencias extends JFrame implements ActionListener{
 
+    private static VentanaGestorDeTransferencias instancia;
     private ResourceBundle texto = ResourceBundle.getBundle("resources.Idioma",Main.loc);
 
     // Cadenas constantes
@@ -94,10 +95,10 @@ public class VentanaGestorDeTransferencias extends JFrame implements ActionListe
     };
 
     private final ActionListener[] actionListenersBarraDeAcciones = {
-        new VisualizarFicheroActionListener(this),
-        new BorrarFicheroActionListener(this),
-        new RenombrarFicheroMenuActionListener(this),
-        new ReubicarFicheroMenuActionListener(this)
+        new VisualizarFicheroActionListener(),
+        new BorrarFicheroActionListener(),
+        new RenombrarFicheroMenuActionListener(),
+        new ReubicarFicheroMenuActionListener()
     };
 
     // Elementos de la interfaz
@@ -262,11 +263,11 @@ public class VentanaGestorDeTransferencias extends JFrame implements ActionListe
         JPanel panelBarra = new JPanel(new BorderLayout());
         panelBarra.setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
         JProgressBar barraDeProgreso = new JProgressBar(0,100);        
-        BarraProgresoSwingWorker bpsw = new BarraProgresoSwingWorker(this,barraDeProgreso,idTransferencia,tipo);
+        BarraProgresoSwingWorker bpsw = new BarraProgresoSwingWorker(barraDeProgreso, idTransferencia,tipo);
         panelBarra.add(BorderLayout.CENTER,barraDeProgreso);
         transferencia.add(BorderLayout.CENTER,panelBarra);
         JButton botonCancelar = new JButton(new ImageIcon(ClassLoader.getSystemResource("icons/cancelar_transferencia.png")));
-        botonCancelar.addActionListener(new CancelarTransferenciaActionListener(this,idTransferencia));
+        botonCancelar.addActionListener(new CancelarTransferenciaActionListener(idTransferencia));
         transferencia.add(BorderLayout.EAST,botonCancelar);
 
         // Añadir al cuadro de transferencias
@@ -450,5 +451,19 @@ public class VentanaGestorDeTransferencias extends JFrame implements ActionListe
     @Override
     public void actionPerformed(ActionEvent e) {
         this.dispose();
+    }
+    
+    /**
+     * Método estático utilizado para implementar el Singleton.
+     * @return Retorna la única instancia que hay del gestor de transferencias.
+     */
+    public static VentanaGestorDeTransferencias getInstancia(){
+
+        // Si la instancia es nula, crea una nueva. Si no retorna la ya existente
+        if(instancia == null) {
+            instancia = new VentanaGestorDeTransferencias();
+        }
+
+        return instancia;
     }
 }

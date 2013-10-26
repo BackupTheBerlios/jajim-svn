@@ -29,20 +29,16 @@ import org.jajim.interfaz.ventanas.VentanaGestorDeTransferencias;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase oyente que escucha los eventos de borrado de ficheros procedentes de la
  * ventana del gestor de transferencia de ficheros.
  */
 public class BorrarFicheroActionListener implements ActionListener{
 
-    private VentanaGestorDeTransferencias vgt;
-
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
-     * @param vgt La ventana del gestor de cuentas.
      */
-    public BorrarFicheroActionListener(VentanaGestorDeTransferencias vgt){
-        this.vgt = vgt;
+    public BorrarFicheroActionListener(){
     }
 
     /**
@@ -55,6 +51,7 @@ public class BorrarFicheroActionListener implements ActionListener{
     public void actionPerformed(ActionEvent e) {
 
         // Recuperar la tabla de ficheros descargados
+        VentanaGestorDeTransferencias vgt = VentanaGestorDeTransferencias.getInstancia();
         JTable tablaDeFicheros = vgt.getTablaDeFicheros();
 
         // Recuperar el fichero seleccionado, si no hay ninguno se aborta la ope
@@ -73,7 +70,7 @@ public class BorrarFicheroActionListener implements ActionListener{
         try{
             tfc.borrarFichero(nombre,ruta);
         }catch(ImposibleBorrarFicheroException ibfe){
-            new MensajeError(vgt,"imposible_borrar_fichero_error",MensajeError.ERR);
+            new MensajeError(vgt, "imposible_borrar_fichero_error",MensajeError.ERR);
         }
         // Borrar el fichero de la lista de descargas
         dtm.removeRow(filaSeleccionada);

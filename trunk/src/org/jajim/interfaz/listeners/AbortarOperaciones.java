@@ -38,15 +38,13 @@ public class AbortarOperaciones implements Runnable{
     private ResourceBundle texto = ResourceBundle.getBundle("resources.Idioma",Main.loc);
 
     private JFrame principal;
-    private VentanaGestorDeTransferencias vgt;
 
     /**
      * Constructor de la clase. Inicializa las variables adecuadas.+
      * @param principal Ventana principal en este instante.
      */
-    public AbortarOperaciones(JFrame principal, VentanaGestorDeTransferencias vgt){
+    public AbortarOperaciones(JFrame principal){
         this.principal = principal;
-        this.vgt = vgt;
     }
 
     /**
@@ -124,6 +122,8 @@ public class AbortarOperaciones implements Runnable{
      * Cancela todas las transferencias activas.
      */
     public void abortarTransferencias(){
+        
+        VentanaGestorDeTransferencias vgt = VentanaGestorDeTransferencias.getInstancia();
 
         // Comprobar si hay transferencias
         if(vgt.getEstado() == VentanaGestorDeTransferencias.CON_TRANSFERENCIAS){
@@ -144,6 +144,8 @@ public class AbortarOperaciones implements Runnable{
      * o no.
      */
     public void abortarTransferencias(String contacto, boolean dialogo){
+        
+        VentanaGestorDeTransferencias vgt = VentanaGestorDeTransferencias.getInstancia();
 
         // Comprobar si hay transferencias
         if(vgt.getEstado() == VentanaGestorDeTransferencias.CON_TRANSFERENCIAS){

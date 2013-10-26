@@ -208,9 +208,6 @@ public class VentanaPrincipal extends JFrame{
     // Oyente de eventos de la conexión
     private OyenteConexion oc;
 
-    // Gestor de transferencias y gestor de cuentas
-    private VentanaGestorDeTransferencias vgt;
-
     // Componentes de la interfaz
     // Menú
     private JMenuBar barraMenu;
@@ -385,9 +382,6 @@ public class VentanaPrincipal extends JFrame{
         // Iniciación del oyente de eventos
         oc = new OyenteConexion();
 
-        // Iniciar el gestor de transfenrencias y el gestor de cuentas
-        vgt = new VentanaGestorDeTransferencias();
-
         // Añadir el listener del combo
         estado.addActionListener(new CambiarEstadoActionListener());
 
@@ -512,14 +506,6 @@ public class VentanaPrincipal extends JFrame{
      */
     public OyenteConexion getOc(){
         return oc;
-    }
-
-    /**
-     * Devuelve la ventana del gestor de transferencias.
-     * @return La ventana del gestor de transferencias.
-     */
-    public VentanaGestorDeTransferencias getVgt(){
-        return vgt;
     }
 
     /**

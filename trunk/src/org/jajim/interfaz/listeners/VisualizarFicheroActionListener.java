@@ -29,20 +29,16 @@ import org.jajim.interfaz.ventanas.VentanaGestorDeTransferencias;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase oyente que escucha los eventos de visualización de fichero procedentes
  * de la barra de acciones del gestor de ventanas.
  */
 public class VisualizarFicheroActionListener implements ActionListener{
 
-    private VentanaGestorDeTransferencias vgt;
-
     /**
      * Constructor de la clase. Iniciliza las variables necesarias.
-     * @param vgt La ventana del gestor de cuentas.
      */
-    public VisualizarFicheroActionListener(VentanaGestorDeTransferencias vgt){
-        this.vgt = vgt;
+    public VisualizarFicheroActionListener(){
     }
 
     /**
@@ -55,6 +51,7 @@ public class VisualizarFicheroActionListener implements ActionListener{
     public void actionPerformed(ActionEvent e) {
 
         // Recuperar la tabla de ficheros descargados
+        VentanaGestorDeTransferencias vgt = VentanaGestorDeTransferencias.getInstancia();
         JTable tablaDeFicheros = vgt.getTablaDeFicheros();
 
         // Recuperar el fichero seleccionado, si no hay ninguno se aborta la ope

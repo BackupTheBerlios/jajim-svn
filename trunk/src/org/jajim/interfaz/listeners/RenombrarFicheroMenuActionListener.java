@@ -26,20 +26,16 @@ import org.jajim.interfaz.ventanas.VentanaGestorDeTransferencias;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase oyente que escucha los eventos de renombrado de fichero procedentes de la
  * barra de herramientas de la ventana de gestión de transferencias.
  */
 public class RenombrarFicheroMenuActionListener implements ActionListener{
 
-    private VentanaGestorDeTransferencias vgt;
-
     /**
      * Consructor de la clase. Iniciliza las variables necesarias.
-     * @param vgt La ventana del gestor de transferencias.
      */
-    public RenombrarFicheroMenuActionListener(VentanaGestorDeTransferencias vgt){
-        this.vgt = vgt;
+    public RenombrarFicheroMenuActionListener(){
     }
 
     /**
@@ -53,7 +49,7 @@ public class RenombrarFicheroMenuActionListener implements ActionListener{
     public void actionPerformed(ActionEvent e) {
 
         // Recuperar la tabla de ficheros descargados
-        JTable tablaDeFicheros = vgt.getTablaDeFicheros();
+        JTable tablaDeFicheros = VentanaGestorDeTransferencias.getInstancia().getTablaDeFicheros();
 
         // Recuperar el fichero seleccionado, si no hay ninguno se aborta la ope
         // ración.
@@ -62,6 +58,6 @@ public class RenombrarFicheroMenuActionListener implements ActionListener{
             return;
 
         // Lanzar el formulario
-        new RenombrarFicheroFormulario(vgt,filaSeleccionada);
+        new RenombrarFicheroFormulario(filaSeleccionada);
     }
 }

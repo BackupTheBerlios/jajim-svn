@@ -48,7 +48,7 @@ public class DesconectarActionListener implements ActionListener,Runnable{
 
         // Abortar las conversaciones y las trasferencias
         VentanaPrincipal vp = VentanaPrincipal.getInstancia();
-        AbortarOperaciones ao = new AbortarOperaciones(vp, vp.getVgt());
+        AbortarOperaciones ao = new AbortarOperaciones(vp);
         ao.abortarConversaciones();
         ao.abortarTransferencias();
 

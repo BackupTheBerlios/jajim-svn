@@ -21,7 +21,6 @@ package org.jajim.interfaz.listeners;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import org.jajim.interfaz.ventanas.VentanaGestorDeTransferencias;
-import org.jajim.interfaz.ventanas.VentanaPrincipal;
 
 /**
  * @author Florencio Cañizal Calles
@@ -47,7 +46,6 @@ public class LanzarGestorDeTransferenciasActionListener implements ActionListene
     public void actionPerformed(ActionEvent e) {
         
         // Recuperar la ventana del gestor y hacerla visible
-        VentanaGestorDeTransferencias vgt = VentanaPrincipal.getInstancia().getVgt();
-        vgt.hacerVisible();
+        VentanaGestorDeTransferencias.getInstancia().hacerVisible();
     }
 }

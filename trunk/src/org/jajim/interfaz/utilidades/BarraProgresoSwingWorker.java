@@ -26,12 +26,11 @@ import org.jajim.interfaz.ventanas.VentanaGestorDeTransferencias;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Hilo que actualiza la barra de tarea a medida que avanza una transferencia.
  */
 public class BarraProgresoSwingWorker extends SwingWorker{
 
-    private VentanaGestorDeTransferencias vgt;
     private JProgressBar barra;
     private String idTransferencia;
     private int progreso;
@@ -42,9 +41,8 @@ public class BarraProgresoSwingWorker extends SwingWorker{
      * Constructor de la clase. Inicializa las variables necesarias.
      * @param barra La barra de progreso que se debe actualizar.
      */
-    public BarraProgresoSwingWorker(VentanaGestorDeTransferencias vgt,JProgressBar barra,String idTransferencia,int tipo){
+    public BarraProgresoSwingWorker(JProgressBar barra, String idTransferencia, int tipo){
         super();
-        this.vgt = vgt;
         this.barra = barra;
         this.idTransferencia = idTransferencia;
         this.tipo = tipo;
@@ -107,7 +105,7 @@ public class BarraProgresoSwingWorker extends SwingWorker{
             }
 
             // Finalizar la misma a nivel de interfaz
-            vgt.finalizarTransferencia(idTransferencia,tipo,datos);
+            VentanaGestorDeTransferencias.getInstancia().finalizarTransferencia(idTransferencia,tipo,datos);
         }
     }
 

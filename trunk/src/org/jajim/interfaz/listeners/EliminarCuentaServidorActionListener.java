@@ -79,7 +79,7 @@ public class EliminarCuentaServidorActionListener implements ActionListener{
         ConexionControlador cnc = ConexionControlador.getInstancia();
         if(activa.compareTo(identificador + "@" + servidor) == 0 && cnc.isConectado()){
             // Abortar la conexión antes de borrar la cuenta
-            AbortarOperaciones ao = new AbortarOperaciones(vgc, vp.getVgt());
+            AbortarOperaciones ao = new AbortarOperaciones(vgc);
             if(!ao.abortarConexion()) {
                 return;
             }
