@@ -52,6 +52,7 @@ public class OyenteConexion implements Observer{
     private String contacto;
     private int idTransferencia;
     private String[] informacion;
+    private static OyenteConexion instancia;
 
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
@@ -254,5 +255,19 @@ public class OyenteConexion implements Observer{
                 });
             }
         }
+    }
+    
+    /**
+     * Método estático utilizado para implementar el Singleton.
+     * @return Retorna la única instancia que hay del oyente de la conexión.
+     */
+    public static OyenteConexion getInstancia(){
+
+        // Si la instancia es nula, crea una nueva. Si no retorna la ya existente
+        if(instancia == null) {
+            instancia = new OyenteConexion();
+        }
+
+        return instancia;
     }
 }

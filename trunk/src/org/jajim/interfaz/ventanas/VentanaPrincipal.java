@@ -61,7 +61,6 @@ import org.jajim.interfaz.listeners.SalirActionListener;
 import org.jajim.interfaz.listeners.VentanaPrincipalWindowListener;
 import org.jajim.interfaz.listeners.VisualizarVentanaActionListener;
 import org.jajim.interfaz.utilidades.ComboBoxRenderer;
-import org.jajim.interfaz.utilidades.OyenteConexion;
 import org.jajim.interfaz.utilidades.PanelContactos;
 import org.jajim.main.Main;
 
@@ -204,9 +203,6 @@ public class VentanaPrincipal extends JFrame{
     // Barra de herramientas
     private JToolBar barraDeHerramientas;
     private JButton[] botonesBarraDeHerramientas = new JButton[itemsDeMenuCad[0].length];
-
-    // Oyente de eventos de la conexión
-    private OyenteConexion oc;
 
     // Componentes de la interfaz
     // Menú
@@ -379,9 +375,6 @@ public class VentanaPrincipal extends JFrame{
         String idCuenta = cc.getCuenta();
         pc.cambiarCuenta(idCuenta);
 
-        // Iniciación del oyente de eventos
-        oc = new OyenteConexion();
-
         // Añadir el listener del combo
         estado.addActionListener(new CambiarEstadoActionListener());
 
@@ -497,15 +490,6 @@ public class VentanaPrincipal extends JFrame{
      */
     public PanelContactos getPc(){
         return pc;
-    }
-
-    /**
-     * Devuelve el oyente que recibe los eventos importantes producidos durante
-     * una conexión.
-     * @return El oyente de la conexión.
-     */
-    public OyenteConexion getOc(){
-        return oc;
     }
 
     /**

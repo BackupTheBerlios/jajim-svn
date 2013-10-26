@@ -64,7 +64,6 @@ public class BarraProgresoSwingWorker extends SwingWorker{
         // Bucle que actualiza la barra
         do{
             // Solicitar el progreso de la transferencia
-
             double p = tfc.getProgresoTransferencia(idTransferencia);
             
             // Si se retorna -1 es que se ha rechazado la transferencia.

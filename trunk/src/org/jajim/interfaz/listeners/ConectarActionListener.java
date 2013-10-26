@@ -30,6 +30,7 @@ import org.jajim.excepciones.NoHayCuentaException;
 import org.jajim.excepciones.ServidorNoEncontradoException;
 import org.jajim.interfaz.dialogos.IntroducirContraseñaFormulario;
 import org.jajim.interfaz.dialogos.MensajeError;
+import org.jajim.interfaz.utilidades.OyenteConexion;
 import org.jajim.interfaz.ventanas.VentanaPrincipal;
 import org.jivesoftware.smack.Roster;
 
@@ -56,11 +57,12 @@ public class ConectarActionListener implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e){
 
-        // Recupero los controladores necesarios
+        // Recupero los controladores necesarios y el oyente de la conexión
         VentanaPrincipal vp = VentanaPrincipal.getInstancia();
         ConexionControlador ccn = ConexionControlador.getInstancia();
         ContactosControlador ctc = ContactosControlador.getInstancia();
         TransferenciaFicherosControlador tfc = TransferenciaFicherosControlador.getInstancia();
+        OyenteConexion oc = OyenteConexion.getInstancia();
 
         // Invocar al controlador de las coenxiones para que realice la operación
         Roster r = null;
@@ -68,14 +70,14 @@ public class ConectarActionListener implements ActionListener{
 
             // Si no se ha introducido la contraseña se busca en la información
             // de las cuentas. Si se ha introducido se pasa al controlador
-            r = ccn.conectar(vp.getOc());
+            r = ccn.conectar(oc);
 
             // Asignar el roster al controlador de los contactos
             vp.conexionEstablecida();
-            ctc.setListeners(vp.getPc(),vp.getOc());
+            ctc.setListeners(vp.getPc(), oc);
             ctc.setContactos(r);
-            ConversacionControlador.crearListener(vp.getOc());
-            tfc.crearManager(vp.getOc());
+            ConversacionControlador.crearListener(oc);
+            tfc.crearManager(oc);
         }catch(ServidorNoEncontradoException snee){
             new MensajeError(vp,"servidor_no_encontrado_error",MensajeError.ERR);
         }catch(ContraseñaNoDisponibleException cnde){
@@ -92,13 +94,13 @@ public class ConectarActionListener implements ActionListener{
             }while(contraseña.compareTo("") == 0);
 
             try{
-                r = ccn.conectar(contraseña,vp.getOc());
+                r = ccn.conectar(contraseña, oc);
                 // Asignar el roster al controlador de los contactos
                 vp.conexionEstablecida();
-                ctc.setListeners(vp.getPc(),vp.getOc());
+                ctc.setListeners(vp.getPc(), oc);
                 ctc.setContactos(r);
-                ConversacionControlador.crearListener(vp.getOc());
-                tfc.crearManager(vp.getOc());
+                ConversacionControlador.crearListener(oc);
+                tfc.crearManager(oc);
             }catch(ServidorNoEncontradoException snee){
                 new MensajeError(vp,"servidor_no_encontrado_error",MensajeError.ERR);
             }catch(ImposibleLoginException ile){
