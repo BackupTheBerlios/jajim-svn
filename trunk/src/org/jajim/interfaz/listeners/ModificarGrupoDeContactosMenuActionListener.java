@@ -25,20 +25,16 @@ import org.jajim.interfaz.utilidades.PanelContactos;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase oyente que escucha los eventos de modificación de grupo provenientes de
  * el menú popup de los grupos.
  */
 public class ModificarGrupoDeContactosMenuActionListener implements ActionListener{
 
-    private PanelContactos pc;
-
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
-     * @param pc El panel de los contactos de la ventana principal.
      */
-    public ModificarGrupoDeContactosMenuActionListener(PanelContactos pc){
-        this.pc = pc;
+    public ModificarGrupoDeContactosMenuActionListener(){
     }
 
     /**
@@ -51,10 +47,10 @@ public class ModificarGrupoDeContactosMenuActionListener implements ActionListen
     public void actionPerformed(ActionEvent e) {
 
         // Cerrar el menú popup
-        pc.cerrarPopupGrupos();
+        PanelContactos.getInstancia().cerrarPopupGrupos();
 
         // Lanzar un formulario para introducir los cambios
         String grupo = e.getActionCommand();
-        new ModificarGrupoDeContactosFormulario(pc,grupo);
+        new ModificarGrupoDeContactosFormulario(grupo);
     }
 }

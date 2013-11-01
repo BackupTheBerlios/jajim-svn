@@ -31,6 +31,7 @@ import org.jajim.excepciones.ServidorNoEncontradoException;
 import org.jajim.interfaz.dialogos.IntroducirContraseñaFormulario;
 import org.jajim.interfaz.dialogos.MensajeError;
 import org.jajim.interfaz.utilidades.OyenteConexion;
+import org.jajim.interfaz.utilidades.PanelContactos;
 import org.jajim.interfaz.ventanas.VentanaPrincipal;
 import org.jivesoftware.smack.Roster;
 
@@ -74,7 +75,7 @@ public class ConectarActionListener implements ActionListener{
 
             // Asignar el roster al controlador de los contactos
             vp.conexionEstablecida();
-            ctc.setListeners(vp.getPc(), oc);
+            ctc.setListeners(PanelContactos.getInstancia(), oc);
             ctc.setContactos(r);
             ConversacionControlador.crearListener(oc);
             tfc.crearManager(oc);
@@ -97,7 +98,7 @@ public class ConectarActionListener implements ActionListener{
                 r = ccn.conectar(contraseña, oc);
                 // Asignar el roster al controlador de los contactos
                 vp.conexionEstablecida();
-                ctc.setListeners(vp.getPc(), oc);
+                ctc.setListeners(PanelContactos.getInstancia(), oc);
                 ctc.setContactos(r);
                 ConversacionControlador.crearListener(oc);
                 tfc.crearManager(oc);

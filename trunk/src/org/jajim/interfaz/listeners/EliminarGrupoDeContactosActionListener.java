@@ -30,20 +30,16 @@ import org.jajim.interfaz.ventanas.VentanaPrincipal;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase oyente que escucha los eventos de eliminación de grupo provenientes del
  * panel de contactos.
  */
 public class EliminarGrupoDeContactosActionListener implements ActionListener{
 
-    private PanelContactos pc;
-
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
-     * @param pc Panel de contactos de la aplicación.
      */
-    public EliminarGrupoDeContactosActionListener(PanelContactos pc){
-        this.pc = pc;
+    public EliminarGrupoDeContactosActionListener(){
     }
 
     /**
@@ -56,7 +52,7 @@ public class EliminarGrupoDeContactosActionListener implements ActionListener{
     public void actionPerformed(ActionEvent e) {
 
         // Cerrar el menú popup
-        pc.cerrarPopupGrupos();
+        PanelContactos.getInstancia().cerrarPopupGrupos();
 
         // Recuperar el nombre del grupo
         String nombre = e.getActionCommand();

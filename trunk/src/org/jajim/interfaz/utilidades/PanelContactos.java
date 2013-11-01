@@ -64,6 +64,7 @@ import org.jajim.modelo.conexiones.EventosDeConexionEnumeracion;
 public class PanelContactos extends MouseAdapter implements Observer{
 
     private ResourceBundle texto = ResourceBundle.getBundle("resources.Idioma",Main.loc);
+    private static PanelContactos instancia;
 
     // Cadenas contactos
     private final String[] cadenasContactos = {
@@ -94,16 +95,16 @@ public class PanelContactos extends MouseAdapter implements Observer{
 
     // Listeners
     private final ActionListener[] contactosListeners = {
-        new IniciarChatPrivadoActionListener(this),
-        new IniciarChatMultiusuarioMenuActionListener(this),
-        new EliminarContactoActionListener(this),
-        new AñadirContactoAGrupoMenuActionListener(this),
-        new EliminarContactoDeGrupoActionListener(this)
+        new IniciarChatPrivadoActionListener(),
+        new IniciarChatMultiusuarioMenuActionListener(),
+        new EliminarContactoActionListener(),
+        new AñadirContactoAGrupoMenuActionListener(),
+        new EliminarContactoDeGrupoActionListener()
     };
 
     private final ActionListener[] gruposListeners = {
-        new ModificarGrupoDeContactosMenuActionListener(this),
-        new EliminarGrupoDeContactosActionListener(this)
+        new ModificarGrupoDeContactosMenuActionListener(),
+        new EliminarGrupoDeContactosActionListener()
     };
     
     // Panel principal
@@ -117,7 +118,7 @@ public class PanelContactos extends MouseAdapter implements Observer{
     
     /**
      * Constructor de la clase inicializa los elementos de la interfaz necesarios.
-     * @param cp El contenedor de la ventana para incluir los componentes del panel de contactos en él.
+     * @param cp El contenedor en el que se va a colocar el panel de contactos.
      */
     public PanelContactos(Container cp){
 
@@ -415,5 +416,28 @@ public class PanelContactos extends MouseAdapter implements Observer{
                 menuGrupos.setVisible(false);
             }
         }
+    }
+    
+    /**
+     * Método estático utilizado para implementar el Singleton.
+     * @return Retorna la única instancia que hay del oyente de la conexión.
+     */
+    public static PanelContactos getInstancia(){
+        return instancia;
+    }
+    
+    /**
+     * Método estático utilizado para implementar el Singleton.
+     * @param cp El contenedor en el que se va a poner el panel de contactos.
+     * @return Retorna la única instancia que hay del oyente de la conexión.
+     */
+    public static PanelContactos getInstancia(Container cp){
+
+        // Si la instancia es nula, crea una nueva. Si no retorna la ya existente
+        if(instancia == null) {
+            instancia = new PanelContactos(cp);
+        }
+
+        return instancia;
     }
 }

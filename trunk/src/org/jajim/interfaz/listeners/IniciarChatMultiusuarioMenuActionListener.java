@@ -25,20 +25,16 @@ import org.jajim.interfaz.utilidades.PanelContactos;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase oyente que se escucha eventos procedentes de la opción de crear un nuevo
  * chat multiusuario.
  */
 public class IniciarChatMultiusuarioMenuActionListener implements ActionListener{
 
-    private PanelContactos pc;
-
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
-     * @param pc El panel de contactos de la aplicación.
      */
-    public IniciarChatMultiusuarioMenuActionListener(PanelContactos pc){
-        this.pc = pc;
+    public IniciarChatMultiusuarioMenuActionListener(){
     }
 
     /**
@@ -51,7 +47,7 @@ public class IniciarChatMultiusuarioMenuActionListener implements ActionListener
     public void actionPerformed(ActionEvent e) {
 
         // Cerrar el menú popup del panel de contactos
-        pc.cerrarPopupContactos();
+        PanelContactos.getInstancia().cerrarPopupContactos();
 
         // Arrancar un formulario para que el usuario introduzca el nombre de la
         // sala y el nickname

@@ -211,9 +211,6 @@ public class VentanaPrincipal extends JFrame{
     private JMenuItem[][] itemsDeMenu = new JMenuItem[menusCad.length][];
     private JComboBox estado;
 
-    // Panel de contactos
-    private PanelContactos pc;
-
     // Icono de la barra de herramientas y su menú pop-up
     private TrayIcon iconoBarraHerramientas;
     private PopupMenu popupMenu;
@@ -292,7 +289,7 @@ public class VentanaPrincipal extends JFrame{
         cp.add(BorderLayout.PAGE_START,barraDeHerramientas);
 
         // Crear panel de contactos
-        pc = new PanelContactos(this.getContentPane());
+        PanelContactos.getInstancia(this.getContentPane());
 
         // Crear el combo box
         Integer[] intArray = new Integer[ComboBoxRenderer.getLongitud()];
@@ -373,7 +370,7 @@ public class VentanaPrincipal extends JFrame{
 
         // Poner la cuenta activa en el panel
         String idCuenta = cc.getCuenta();
-        pc.cambiarCuenta(idCuenta);
+        PanelContactos.getInstancia().cambiarCuenta(idCuenta);
 
         // Añadir el listener del combo
         estado.addActionListener(new CambiarEstadoActionListener());
@@ -388,7 +385,7 @@ public class VentanaPrincipal extends JFrame{
      * @param idCuenta Nuevo nombre para la cuenta activa.
      */
     public void cambiarCuenta(String idCuenta){
-        pc.cambiarCuenta(idCuenta);
+        PanelContactos.getInstancia().cambiarCuenta(idCuenta);
     }
 
     /**
@@ -429,7 +426,7 @@ public class VentanaPrincipal extends JFrame{
         TransferenciaFicherosControlador.getInstancia().desconectar();
 
         // Desctivar el roster
-        pc.conexionCancelada();
+        PanelContactos.getInstancia().conexionCancelada();
 
         // Desactivar el combo. Tener cuidado de no mandar mensajes de presencia
         // de más
@@ -482,14 +479,6 @@ public class VentanaPrincipal extends JFrame{
         }
 
         return instancia;
-    }
-
-    /**
-     * Devuelve el panel en el que se visualizan los contactos.
-     * @return Panel en el que se visualizan los contactos.
-     */
-    public PanelContactos getPc(){
-        return pc;
     }
 
     /**

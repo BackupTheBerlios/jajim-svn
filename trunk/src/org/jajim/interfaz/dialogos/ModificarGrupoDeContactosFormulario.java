@@ -32,7 +32,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import org.jajim.interfaz.listeners.ModificarGrupoDeContactosActionListener;
-import org.jajim.interfaz.utilidades.PanelContactos;
 import org.jajim.interfaz.ventanas.VentanaPrincipal;
 import org.jajim.main.Main;
 
@@ -66,10 +65,9 @@ public class ModificarGrupoDeContactosFormulario extends JDialog implements Acti
     /**
      * Constructor de la clase. Inicializa las variables necesarias. Crea la inter
      * faz del formulario.
-     * @param pc El panel de contactos de la ventana principal.
      * @param grupo El grupo en el que se van a realizar los cambios.
      */
-    public ModificarGrupoDeContactosFormulario(PanelContactos pc, String grupo){
+    public ModificarGrupoDeContactosFormulario(String grupo){
 
         // Inicialización
         super(VentanaPrincipal.getInstancia(), true);

@@ -24,7 +24,6 @@ import javax.swing.JFrame;
 import org.jajim.interfaz.utilidades.PanelContactos;
 import org.jajim.interfaz.ventanas.VentanaConversacion;
 import org.jajim.interfaz.ventanas.VentanaConversacionChatPrivado;
-import org.jajim.interfaz.ventanas.VentanaPrincipal;
 
 /**
  * @author Florencio Cañizal Calles
@@ -34,14 +33,10 @@ import org.jajim.interfaz.ventanas.VentanaPrincipal;
  */
 public class IniciarChatPrivadoActionListener implements ActionListener{
 
-    private PanelContactos pc;
-
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
-     * @param pc El panel de contactos de la aplicación.
      */
-    public IniciarChatPrivadoActionListener(PanelContactos pc){
-        this.pc = pc;
+    public IniciarChatPrivadoActionListener(){
     }
 
     /**
@@ -53,7 +48,7 @@ public class IniciarChatPrivadoActionListener implements ActionListener{
     public void actionPerformed(ActionEvent e) {
 
         // Cerrar el menú popup de los contactos
-        pc.cerrarPopupContactos();
+        PanelContactos.getInstancia().cerrarPopupContactos();
 
         // Recuperar el alias del contacto y lanzar una ventana de conversación
         String alias = e.getActionCommand();

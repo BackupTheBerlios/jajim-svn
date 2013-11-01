@@ -35,7 +35,6 @@ import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import org.jajim.controladores.ContactosControlador;
 import org.jajim.interfaz.listeners.AñadirContactoAGrupoActionListener;
-import org.jajim.interfaz.utilidades.PanelContactos;
 import org.jajim.interfaz.ventanas.VentanaPrincipal;
 import org.jajim.main.Main;
 
@@ -69,10 +68,9 @@ public class AñadirContactoAGrupoFormulario extends JDialog implements ActionLi
     /**
      * Constructor de la clase. Inicializa las variables necesarias. Crea la inter
      * faz de usuario.
-     * @param pc El panel de contactos de la ventana principal.
      * @param contacto El contacto que se va a añadir al conjunto de grupos.
      */
-    public AñadirContactoAGrupoFormulario(PanelContactos pc, String contacto){
+    public AñadirContactoAGrupoFormulario(String contacto){
 
         // Inicialización de variables
         super(VentanaPrincipal.getInstancia(), true);

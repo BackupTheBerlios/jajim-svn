@@ -34,14 +34,10 @@ import org.jajim.interfaz.ventanas.VentanaPrincipal;
  */
 public class EliminarContactoActionListener implements ActionListener{
 
-    private PanelContactos pc;
-
     /**
      * Constructor de la clase. Iniciliza las variables adecuadas.
-     * @param pc El panel de contactos de la aplicación.
      */
-    public EliminarContactoActionListener(PanelContactos pc){
-        this.pc = pc;
+    public EliminarContactoActionListener(){
     }
 
     /**
@@ -55,7 +51,7 @@ public class EliminarContactoActionListener implements ActionListener{
         VentanaPrincipal vp = VentanaPrincipal.getInstancia();
 
         // Cerrar el popup y recuperar el contacto
-        pc.cerrarPopupContactos();
+        PanelContactos.getInstancia().cerrarPopupContactos();
         String contacto = e.getActionCommand();
         ContactosControlador ctc = ContactosControlador.getInstancia();
         contacto = ctc.getContactoPorAlias(contacto);

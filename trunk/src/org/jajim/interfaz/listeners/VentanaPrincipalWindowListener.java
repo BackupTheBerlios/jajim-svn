@@ -109,7 +109,7 @@ public class VentanaPrincipalWindowListener extends WindowAdapter{
         
         // Recuperar el panel de contacto y ocultar los menús popup
         VentanaPrincipal vp = VentanaPrincipal.getInstancia();
-        PanelContactos pc = vp.getPc();
+        PanelContactos pc = PanelContactos.getInstancia();
         pc.cerrarPopupContactos();
         pc.cerrarPopupGrupos();
     }

@@ -25,20 +25,16 @@ import org.jajim.interfaz.utilidades.PanelContactos;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
+ * @version 1.2
  * Clase oyente que escucha los eventos de adición de contacto a un grupo proce+
  * dentes de el menu popup de los contactos.
  */
 public class AñadirContactoAGrupoMenuActionListener implements ActionListener{
 
-    private PanelContactos pc;
-
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
-     * @param pc El panel de contactos de la aplicación.
      */
-    public AñadirContactoAGrupoMenuActionListener(PanelContactos pc){
-        this.pc = pc;
+    public AñadirContactoAGrupoMenuActionListener(){
     }
 
     /**
@@ -51,10 +47,10 @@ public class AñadirContactoAGrupoMenuActionListener implements ActionListener{
     public void actionPerformed(ActionEvent e) {
 
         // Cerrar el menu popup
-        pc.cerrarPopupContactos();
+        PanelContactos.getInstancia().cerrarPopupContactos();
 
         // Recuperar el contacto y lanzar el formulario de selección
         String contacto = e.getActionCommand();
-        new AñadirContactoAGrupoFormulario(pc,contacto);
+        new AñadirContactoAGrupoFormulario(contacto);
     }
 }
