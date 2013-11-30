@@ -34,8 +34,6 @@ import org.jajim.excepciones.ImposibleCifrarException;
 import org.jajim.excepciones.ImposibleDescifrarException;
 import org.jajim.utilidades.log.ManejadorDeLogs;
 
-
-
 /**
  * @author Florencio Cañizal Calles
  * @version 1.2 Clase que cifra y descrifa cadenas de caracteres.
