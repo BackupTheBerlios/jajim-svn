@@ -1,21 +1,20 @@
 /*
-    Jabber client.
-    Copyright (C) 2010  Florencio Cañizal Calles
+ Jabber client.
+ Copyright (C) 2010  Florencio Cañizal Calles
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package org.jajim.interfaz.utilidades;
 
 import java.awt.Component;
@@ -28,14 +27,12 @@ import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
- * Clase necesaria para poder visualizar un icono y un texto a la vez en un JCom
- * boBox.
+ * @version 1.2 Clase necesaria para poder visualizar un icono y un texto a la vez en un JCom boBox.
  */
-public class ComboBoxRenderer extends JLabel implements ListCellRenderer{
-    
+public class ComboBoxRenderer extends JLabel implements ListCellRenderer {
+
     // Variables necesarias
-    private final static ResourceBundle texto = ResourceBundle.getBundle("resources.Idioma",Main.loc);
+    private final static ResourceBundle texto = ResourceBundle.getBundle("resources.Idioma", Main.loc);
 
     private static final String[] estadosUsuario = {
         texto.getString("en_linea_estado"),
@@ -58,7 +55,7 @@ public class ComboBoxRenderer extends JLabel implements ListCellRenderer{
     /**
      * Constructor de la clase.
      */
-    public ComboBoxRenderer(){
+    public ComboBoxRenderer() {
         this.setOpaque(true);
         this.setHorizontalAlignment(LEFT);
         this.setVerticalAlignment(CENTER);
@@ -66,24 +63,26 @@ public class ComboBoxRenderer extends JLabel implements ListCellRenderer{
 
     /**
      * Método que devuelve el elemento que debe ser visualizado en el JComboBox.
-     * @param list La lista que estamos pintando.
-     * @param value el valor retornado por list.getModel().getElementAt(index).
-     * @param index El índice de la celda.
-     * @param isSelected Verdadero si la celda especificada estaba seleccionada.
+     * <p>
+     * @param list         La lista que estamos pintando.
+     * @param value        el valor retornado por list.getModel().getElementAt(index).
+     * @param index        El índice de la celda.
+     * @param isSelected   Verdadero si la celda especificada estaba seleccionada.
      * @param cellHasFocus Verdadero si la celda tenía el foco.
      * @return Un componente cuyo método paint() renderizará el valor especificado.
      */
     @Override
-    public Component getListCellRendererComponent(JList list,Object value,int index,boolean isSelected,boolean cellHasFocus){
+    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
+        boolean cellHasFocus) {
 
         // Recuperar el índice seleccionado
-        int indiceSeleccionado = ((Integer)value).intValue();
+        int indiceSeleccionado = ((Integer) value).intValue();
 
-        if(isSelected){
+        if (isSelected) {
             setBackground(list.getSelectionBackground());
             setForeground(list.getSelectionForeground());
         }
-        else{
+        else {
             setBackground(list.getBackground());
             setForeground(list.getForeground());
         }
@@ -99,9 +98,10 @@ public class ComboBoxRenderer extends JLabel implements ListCellRenderer{
 
     /**
      * Retorna el número de estados del JComboBox.
+     * <p>
      * @return El número de estados del JComboBox.
      */
-    public static int getLongitud(){
+    public static int getLongitud() {
         return estadosUsuario.length;
     }
 }

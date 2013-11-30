@@ -1,21 +1,20 @@
 /*
-    Jabber client.
-    Copyright (C) 2010  Florencio Cañizal Calles
+ Jabber client.
+ Copyright (C) 2010  Florencio Cañizal Calles
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package org.jajim.interfaz.utilidades;
 
 import java.awt.BorderLayout;
@@ -57,13 +56,12 @@ import org.jajim.modelo.conexiones.EventosDeConexionEnumeracion;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.2
- * Clase que maneja los contactos a nivel de interfaz. Implementa el oyente del
- * roster para realizar los cambios oportunos.
+ * @version 1.2 Clase que maneja los contactos a nivel de interfaz. Implementa el oyente del roster para realizar los
+ * cambios oportunos.
  */
-public class PanelContactos extends MouseAdapter implements Observer{
+public class PanelContactos extends MouseAdapter implements Observer {
 
-    private ResourceBundle texto = ResourceBundle.getBundle("resources.Idioma",Main.loc);
+    private final ResourceBundle texto = ResourceBundle.getBundle("resources.Idioma", Main.loc);
     private static PanelContactos instancia;
 
     // Cadenas contactos
@@ -106,44 +104,46 @@ public class PanelContactos extends MouseAdapter implements Observer{
         new ModificarGrupoDeContactosMenuActionListener(),
         new EliminarGrupoDeContactosActionListener()
     };
-    
+
     // Panel principal
-    private JPanel panelContactos;
-    private JLabel cuenta;
-    private JTree arbolContactos;
-    private JPopupMenu menuContactos;
-    private JMenuItem[] itemsContactos = new JMenuItem[cadenasContactos.length];
-    private JPopupMenu menuGrupos;
-    private JMenuItem[] itemsGrupos = new JMenuItem[cadenasGrupos.length];
-    
+    private final JPanel panelContactos;
+    private final JLabel cuenta;
+    private final JTree arbolContactos;
+    private final JPopupMenu menuContactos;
+    private final JMenuItem[] itemsContactos = new JMenuItem[cadenasContactos.length];
+    private final JPopupMenu menuGrupos;
+    private final JMenuItem[] itemsGrupos = new JMenuItem[cadenasGrupos.length];
+
     /**
      * Constructor de la clase inicializa los elementos de la interfaz necesarios.
+     * <p>
      * @param cp El contenedor en el que se va a colocar el panel de contactos.
      */
-    public PanelContactos(Container cp){
+    public PanelContactos(Container cp) {
 
         // Creación del panel central
         panelContactos = new JPanel(new BorderLayout());
         panelContactos.setBackground(Color.WHITE);
-        cp.add(BorderLayout.CENTER,panelContactos);
+        cp.add(BorderLayout.CENTER, panelContactos);
 
         cuenta = new JLabel();
         cuenta.setHorizontalAlignment(JLabel.CENTER);
-        cuenta.setFont(new Font(Font.DIALOG,Font.BOLD,12));
-        panelContactos.add(BorderLayout.NORTH,cuenta);
+        cuenta.setFont(new Font(Font.DIALOG, Font.BOLD, 12));
+        panelContactos.add(BorderLayout.NORTH, cuenta);
 
         Object nada[] = new Object[0];
         arbolContactos = new JTree(nada);
-        arbolContactos.setBorder(BorderFactory.createEmptyBorder(15,10,0,0));
+        arbolContactos.setBorder(BorderFactory.createEmptyBorder(15, 10, 0, 0));
         arbolContactos.setCellRenderer(new TreeRenderer());
         arbolContactos.addMouseListener(this);
-        panelContactos.add(BorderLayout.CENTER,arbolContactos);
+        panelContactos.add(BorderLayout.CENTER, arbolContactos);
 
         // Crear menú Popup de contactos
         menuContactos = new JPopupMenu();
         menuContactos.setBorderPainted(true);
-        for(int i = 0;i < itemsContactos.length;i++){
-            itemsContactos[i] = new JMenuItem(cadenasContactos[i],new ImageIcon(ClassLoader.getSystemResource(iconosContactos[i])));
+        for (int i = 0; i < itemsContactos.length; i++) {
+            itemsContactos[i] = new JMenuItem(cadenasContactos[i], new ImageIcon(ClassLoader.getSystemResource(
+                iconosContactos[i])));
             itemsContactos[i].addActionListener(contactosListeners[i]);
             menuContactos.add(itemsContactos[i]);
         }
@@ -151,8 +151,9 @@ public class PanelContactos extends MouseAdapter implements Observer{
         // Crear menú Popup de grupos
         menuGrupos = new JPopupMenu();
         menuContactos.setBorderPainted(true);
-        for(int i = 0;i < itemsGrupos.length;i++){
-            itemsGrupos[i] = new JMenuItem(cadenasGrupos[i],new ImageIcon(ClassLoader.getSystemResource(iconosGrupos[i])));
+        for (int i = 0; i < itemsGrupos.length; i++) {
+            itemsGrupos[i] = new JMenuItem(cadenasGrupos[i], new ImageIcon(ClassLoader.
+                getSystemResource(iconosGrupos[i])));
             itemsGrupos[i].addActionListener(gruposListeners[i]);
             menuGrupos.add(itemsGrupos[i]);
         }
@@ -160,12 +161,13 @@ public class PanelContactos extends MouseAdapter implements Observer{
 
     /**
      * Modifica la cadena que contiene el nombre de la cuenta activa.
+     * <p>
      * @param idCuenta Nuevo nombre para la cuenta activa.
      */
-    public void cambiarCuenta(String idCuenta){
+    public void cambiarCuenta(String idCuenta) {
         // Si no se pasa null como argumentos se pone el nombre de la cuenta, en
         // caso contratio se informa de que no hay cuentas disponibles
-        if(idCuenta != null) {
+        if (idCuenta != null) {
             cuenta.setText(idCuenta);
         }
         else {
@@ -176,7 +178,7 @@ public class PanelContactos extends MouseAdapter implements Observer{
     /**
      * Resetea el árbol de contactos para dejarlo a nulo.
      */
-    public void conexionCancelada(){
+    public void conexionCancelada() {
         arbolContactos.setModel(null);
         arbolContactos.repaint();
     }
@@ -184,31 +186,32 @@ public class PanelContactos extends MouseAdapter implements Observer{
     /**
      * Oculta el menú popup de los contactos.
      */
-    public void cerrarPopupContactos(){
+    public void cerrarPopupContactos() {
         menuContactos.setVisible(false);
     }
 
     /**
      * Oculta el menú popup de los grupos.
      */
-    public void cerrarPopupGrupos(){
+    public void cerrarPopupGrupos() {
         menuGrupos.setVisible(false);
     }
 
     /**
      * Método que se ejecuta cada vez que un objeto observable modifica sus datos.
-     * @param o El objeto observable que ha modificado sus datos.
+     * <p>
+     * @param o   El objeto observable que ha modificado sus datos.
      * @param arg Un parámetro pasado por el objeto observable.
      */
     @Override
     public void update(Observable o, Object arg) {
 
-        if(!(arg instanceof EventosDeConexionEnumeracion)){
+        if (!(arg instanceof EventosDeConexionEnumeracion)) {
 
             // Obtener como tenía el usuario los contactos ubicados
             TreePath tp = arbolContactos.getPathForRow(0);
             Enumeration<TreePath> enumeration = null;
-            if(tp != null) {
+            if (tp != null) {
                 enumeration = arbolContactos.getExpandedDescendants(tp);
             }
 
@@ -219,23 +222,23 @@ public class PanelContactos extends MouseAdapter implements Observer{
             DefaultMutableTreeNode root = new DefaultMutableTreeNode();
             DefaultTreeModel modelo = new DefaultTreeModel(root);
             DefaultMutableTreeNode contactos = new DefaultMutableTreeNode(texto.getString("contactos_etiqueta"));
-            modelo.insertNodeInto(contactos,root,0);
-            
+            modelo.insertNodeInto(contactos, root, 0);
+
             // Recorrer los contactos y añadirlos al árbol
             Set<Entry<String, List<String>>> entradas = gruposContactos.entrySet();
             int i = 0;
-            for(Entry<String, List<String>> e : entradas){
+            for (Entry<String, List<String>> e : entradas) {
                 DefaultMutableTreeNode grupo;
-                if(e.getKey().compareTo("") != 0) {
+                if (e.getKey().compareTo("") != 0) {
                     grupo = new DefaultMutableTreeNode(e.getKey());
                 }
                 else {
                     grupo = new DefaultMutableTreeNode(texto.getString("sin_nombre"));
                 }
-                
-                modelo.insertNodeInto(grupo,contactos, i);
+
+                modelo.insertNodeInto(grupo, contactos, i);
                 int j = 0;
-                for(String s : e.getValue()){
+                for (String s : e.getValue()) {
                     DefaultMutableTreeNode contact = new DefaultMutableTreeNode(s);
                     modelo.insertNodeInto(contact, grupo, j);
                     j++;
@@ -247,25 +250,25 @@ public class PanelContactos extends MouseAdapter implements Observer{
             // java swing de este modo se evitan comportamientos anormales.
             final DefaultTreeModel modeloFinal = modelo;
             final Enumeration<TreePath> enumerationFinal = enumeration;
-            SwingUtilities.invokeLater(new Runnable(){
+            SwingUtilities.invokeLater(new Runnable() {
                 @Override
-                public void run(){
+                public void run() {
                     arbolContactos.setModel(modeloFinal);
 
                     // Dejar el árbol igual que estaba
                     boolean desplegado = false;
-                    if(enumerationFinal != null){
-                        while(enumerationFinal.hasMoreElements()){
+                    if (enumerationFinal != null) {
+                        while (enumerationFinal.hasMoreElements()) {
                             TreePath pathAntiguo = enumerationFinal.nextElement();
-                            if(pathAntiguo.getPathCount() < 3) {
+                            if (pathAntiguo.getPathCount() < 3) {
                                 continue;
                             }
-                            TreePath expandir = find(arbolContactos,pathAntiguo.getPath());
-                            if(expandir == null) {
+                            TreePath expandir = find(arbolContactos, pathAntiguo.getPath());
+                            if (expandir == null) {
                                 continue;
                             }
-                            expandAll(arbolContactos,expandir);
-                            while(expandir.getPathCount() > 1){
+                            expandAll(arbolContactos, expandir);
+                            while (expandir.getPathCount() > 1) {
                                 expandir = expandir.getParentPath();
                                 arbolContactos.expandPath(expandir);
                             }
@@ -274,8 +277,8 @@ public class PanelContactos extends MouseAdapter implements Observer{
                     }
 
                     // Expandir los grupos si no hay nada expandido o sólo ellos están expandidos.
-                    if(enumerationFinal == null || !desplegado){
-                        TreeNode nodo = (TreeNode)arbolContactos.getModel().getRoot();
+                    if (enumerationFinal == null || !desplegado) {
+                        TreeNode nodo = (TreeNode) arbolContactos.getModel().getRoot();
                         TreeNode nodoContactos = nodo.getChildAt(0);
                         TreePath pathContactos = new TreePath(nodo);
                         pathContactos = pathContactos.pathByAddingChild(nodoContactos);
@@ -288,15 +291,16 @@ public class PanelContactos extends MouseAdapter implements Observer{
 
     /**
      * Expande todos los nodos descendientes de un nodo de un árbol.
-     * @param tree El árbol de cual se quieren expandir los nodos.
+     * <p>
+     * @param tree   El árbol de cual se quieren expandir los nodos.
      * @param parent El padre de los nodos que se quieren expandir.
      */
     private void expandAll(JTree tree, TreePath parent) {
         // Recuperar los hijos del padre e intentar expandirlos.
-        TreeNode node = (TreeNode)parent.getLastPathComponent();
+        TreeNode node = (TreeNode) parent.getLastPathComponent();
         if (node.getChildCount() >= 0) {
-            for (Enumeration e=node.children(); e.hasMoreElements(); ) {
-                TreeNode n = (TreeNode)e.nextElement();
+            for (Enumeration e = node.children(); e.hasMoreElements();) {
+                TreeNode n = (TreeNode) e.nextElement();
                 TreePath path = parent.pathByAddingChild(n);
                 expandAll(tree, path);
             }
@@ -308,7 +312,8 @@ public class PanelContactos extends MouseAdapter implements Observer{
 
     /**
      * Devuelve el TreePath del árbol equivalente con el array de objetos.
-     * @param tree El árbol del que se quiere obtener el TreePath.
+     * <p>
+     * @param tree  El árbol del que se quiere obtener el TreePath.
      * @param nodes El array que representa el TreePath que se quiere obtener.
      * @return El TreePath correspondiente o null si no se localiza éste.
      */
@@ -318,20 +323,20 @@ public class PanelContactos extends MouseAdapter implements Observer{
         int longitud = nodes.length;
 
         // Consigue el nodo principal del arbol
-        TreeNode nodo = (TreeNode)tree.getModel().getRoot();
-        TreePath path = new TreePath((TreeNode)tree.getModel().getRoot());
+        TreeNode nodo = (TreeNode) tree.getModel().getRoot();
+        TreePath path = new TreePath((TreeNode) tree.getModel().getRoot());
 
         // Bucle de búsqueda
         int i = 1;
-        while(i < longitud){
-            for(int j = 0;j < nodo.getChildCount();j++){
+        while (i < longitud) {
+            for (int j = 0; j < nodo.getChildCount(); j++) {
                 TreeNode nodoAux = nodo.getChildAt(j);
-                if(nodoAux.toString().compareTo(nodes[i].toString()) == 0){
+                if (nodoAux.toString().compareTo(nodes[i].toString()) == 0) {
                     nodo = nodoAux;
                     path = path.pathByAddingChild(nodo);
                     break;
                 }
-                else if(j == nodo.getChildCount() - 1) {
+                else if (j == nodo.getChildCount() - 1) {
                     return null;
                 }
             }
@@ -341,100 +346,101 @@ public class PanelContactos extends MouseAdapter implements Observer{
         return path;
     }
 
-
     /**
-     * Método que se ejecuta cada vez que el usuario hace click con el ratón en
-     * el árbol de los contactos.
+     * Método que se ejecuta cada vez que el usuario hace click con el ratón en el árbol de los contactos.
+     * <p>
      * @param e El evento que produce la ejecución del método.
      */
     @Override
-    public void mouseClicked(MouseEvent e){
-        
+    public void mouseClicked(MouseEvent e) {
+
         // Si es no es instancia del menú popup
-        if(e.getSource() instanceof JTree){
-            if(e.getButton() == MouseEvent.BUTTON3){
+        if (e.getSource() instanceof JTree) {
+            if (e.getButton() == MouseEvent.BUTTON3) {
 
                 JTree jt = (JTree) e.getSource();
-                TreePath tp = jt.getClosestPathForLocation(e.getX(),e.getY());
+                TreePath tp = jt.getClosestPathForLocation(e.getX(), e.getY());
 
                 // Si se selecciona un grupo se visualiza el menu de grupos y se
                 // actualizan sus listeners
-                if(tp.getPathCount() == 3){
+                if (tp.getPathCount() == 3) {
 
-                    menuGrupos.setLocation(e.getXOnScreen(),e.getYOnScreen());
+                    menuGrupos.setLocation(e.getXOnScreen(), e.getYOnScreen());
                     menuGrupos.setVisible(true);
                     String grupo = tp.getLastPathComponent().toString();
-                    for(int k = 0;k < gruposListeners.length;k++){
+                    for (int k = 0; k < gruposListeners.length; k++) {
                         itemsGrupos[k].setActionCommand(grupo);
                     }
                 }
 
                 // Si se selecciona un grupo se visualiza el menu de contactos
                 // actualizan sus listeners
-                if(tp.getPathCount() == 4){
+                if (tp.getPathCount() == 4) {
 
-                    menuContactos.setLocation(e.getXOnScreen(),e.getYOnScreen());
+                    menuContactos.setLocation(e.getXOnScreen(), e.getYOnScreen());
                     menuContactos.setVisible(true);
                     String cadenaContacto = tp.getLastPathComponent().toString();
                     int posicion = cadenaContacto.indexOf("(");
-                    String s = cadenaContacto.substring(0,posicion);
+                    String s = cadenaContacto.substring(0, posicion);
                     String cadenaGrupo = tp.getPathComponent(2).toString();
                     // Si no se está conectado se deshabilita los botones de chat.
-                    if(cadenaContacto.contains("unavailable")){
+                    if (cadenaContacto.contains("unavailable")) {
                         itemsContactos[0].setEnabled(false);
                         itemsContactos[1].setEnabled(false);
                     }
-                    else{
+                    else {
                         itemsContactos[0].setEnabled(true);
                         itemsContactos[1].setEnabled(true);
                     }
-                    for(int k = 0;k < contactosListeners.length;k++){
+                    for (int k = 0; k < contactosListeners.length; k++) {
                         itemsContactos[k].setActionCommand(s);
                         itemsContactos[k].setName(cadenaGrupo);
                     }
                 }
             }
-            else{
+            else {
             }
         }
     }
 
     /**
-     * Método que se ejecuta cuando el usuario introduce el ratón en el árbol de
-     * contactos.
+     * Método que se ejecuta cuando el usuario introduce el ratón en el árbol de contactos.
+     * <p>
      * @param e El evento que produce la ejecución del método.
      */
     @Override
-    public void mouseEntered(MouseEvent e){
+    public void mouseEntered(MouseEvent e) {
 
         // Cerrar los menús popup si estaban abiertos
-        if(e.getSource() instanceof JTree){
-            if(menuContactos.isVisible()) {
+        if (e.getSource() instanceof JTree) {
+            if (menuContactos.isVisible()) {
                 menuContactos.setVisible(false);
             }
-            if(menuGrupos.isVisible()) {
+            if (menuGrupos.isVisible()) {
                 menuGrupos.setVisible(false);
             }
         }
     }
-    
+
     /**
      * Método estático utilizado para implementar el Singleton.
+     * <p>
      * @return Retorna la única instancia que hay del oyente de la conexión.
      */
-    public static PanelContactos getInstancia(){
+    public static PanelContactos getInstancia() {
         return instancia;
     }
-    
+
     /**
      * Método estático utilizado para implementar el Singleton.
+     * <p>
      * @param cp El contenedor en el que se va a poner el panel de contactos.
      * @return Retorna la única instancia que hay del oyente de la conexión.
      */
-    public static PanelContactos getInstancia(Container cp){
+    public static PanelContactos getInstancia(Container cp) {
 
         // Si la instancia es nula, crea una nueva. Si no retorna la ya existente
-        if(instancia == null) {
+        if (instancia == null) {
             instancia = new PanelContactos(cp);
         }
 

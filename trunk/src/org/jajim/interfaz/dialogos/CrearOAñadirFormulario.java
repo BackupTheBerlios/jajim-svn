@@ -1,21 +1,20 @@
 /*
-    Jabber client.
-    Copyright (C) 2010  Florencio Cañizal Calles
+ Jabber client.
+ Copyright (C) 2010  Florencio Cañizal Calles
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package org.jajim.interfaz.dialogos;
 
 import java.awt.BorderLayout;
@@ -37,13 +36,12 @@ import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.2
- * Clase que crea un formulario en el que se le dan, al usuario, las opciones de
- * crear una nueva cuenta o añadir una existente.
+ * @version 1.2 Clase que crea un formulario en el que se le dan, al usuario, las opciones de crear una nueva cuenta o
+ * añadir una existente.
  */
-public class CrearOAñadirFormulario extends JDialog implements ActionListener{
+public class CrearOAñadirFormulario extends JDialog implements ActionListener {
 
-    private ResourceBundle texto = ResourceBundle.getBundle("resources.Idioma",Main.loc);
+    private final ResourceBundle texto = ResourceBundle.getBundle("resources.Idioma", Main.loc);
 
     // Cadenas constantes
     private final String principal = texto.getString("crear_o_añadir_formulario_cadena_principal");
@@ -59,19 +57,18 @@ public class CrearOAñadirFormulario extends JDialog implements ActionListener{
     // Componentes de la interfaz
     private JLabel cadenaPrincipal;
     private ButtonGroup grupoDeBotones;
-    private JRadioButton[] opciones = new JRadioButton[etiquetas.length];
+    private final JRadioButton[] opciones = new JRadioButton[etiquetas.length];
     private JButton botonAceptar;
     private JButton botonCancelar;
-    
-    private JFrame ventana;
 
+    private final JFrame ventana;
 
     /**
-     * Inicializa la interfaz del formulario y controla la selección de los boto
-     * nes del mismo.
+     * Inicializa la interfaz del formulario y controla la selección de los boto nes del mismo.
+     * <p>
      * @param ventana La ventana que abre el formulario.
      */
-    public CrearOAñadirFormulario(JFrame ventana){
+    public CrearOAñadirFormulario(JFrame ventana) {
 
         // Inicialización
         super(ventana, true);
@@ -82,21 +79,22 @@ public class CrearOAñadirFormulario extends JDialog implements ActionListener{
     }
 
     /**
-     * Método de creación obligatoria por implementar la clase la interfaz Action
-     * Listener. Se ejecuta cuando se pulse culquiera de los botones del diálogo.
-     * Si se pulsa el botón de aceptar se realiza el siguiente paso a la hora de
+     * Método de creación obligatoria por implementar la clase la interfaz Action Listener. Se ejecuta cuando se pulse
+     * culquiera de los botones del diálogo. Si se pulsa el botón de aceptar se realiza el siguiente paso a la hora de
      * registrar la cuenta, si se pulsa el botón de cancelar se aborta la operación.
+     * <p>
      * @param e Evento que ha originado la activación del método.
      */
     @Override
-    public void actionPerformed(ActionEvent e){
-        if(e.getActionCommand().compareTo("Cancelar") == 0){
+    public void actionPerformed(ActionEvent e) {
+        if (e.getActionCommand().compareTo("Cancelar") == 0) {
             this.dispose();
         }
-        else if(opciones[0].isSelected()){
+        else if (opciones[0].isSelected()) {
             this.dispose();
             new CrearCuentaFormulario(ventana);
-        }else if(opciones[1].isSelected()){
+        }
+        else if (opciones[1].isSelected()) {
             this.dispose();
             new AñadirCuentaFormulario(ventana);
         }
@@ -105,38 +103,38 @@ public class CrearOAñadirFormulario extends JDialog implements ActionListener{
     /**
      * Método que crea la interfaz del cuadro de diálogo.
      */
-    private void inicilizarInterfaz(){
+    private void inicilizarInterfaz() {
         // Creación de la interfaz
         Container cp = this.getContentPane();
 
         // Añadir la etiqueta principal
         cadenaPrincipal = new JLabel(principal);
         cadenaPrincipal.setHorizontalAlignment(JLabel.CENTER);
-        cadenaPrincipal.setBorder(BorderFactory.createEmptyBorder(15,10,15,10));
-        cp.add(BorderLayout.NORTH,cadenaPrincipal);
+        cadenaPrincipal.setBorder(BorderFactory.createEmptyBorder(15, 10, 15, 10));
+        cp.add(BorderLayout.NORTH, cadenaPrincipal);
 
         // Añadir los radio buttons y las etiquetas
         JPanel central = new JPanel();
-        central.setLayout(new GridLayout(etiquetas.length,1));
-        central.setBorder(BorderFactory.createEmptyBorder(0,10,15,10));
+        central.setLayout(new GridLayout(etiquetas.length, 1));
+        central.setBorder(BorderFactory.createEmptyBorder(0, 10, 15, 10));
         grupoDeBotones = new ButtonGroup();
         boolean marcado = true;
-        for(int i = 0;i < etiquetas.length;i++){
+        for (int i = 0; i < etiquetas.length; i++) {
 
-            opciones[i] = new JRadioButton(etiquetas[i],marcado);
+            opciones[i] = new JRadioButton(etiquetas[i], marcado);
             grupoDeBotones.add(opciones[i]);
             central.add(opciones[i]);
 
-            if(marcado) {
+            if (marcado) {
                 marcado = false;
             }
         }
-        cp.add(BorderLayout.CENTER,central);
+        cp.add(BorderLayout.CENTER, central);
 
         // Añadir los botones y asignarles un oyente
         JPanel botones = new JPanel();
         botones.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        botones.setBorder(BorderFactory.createEmptyBorder(0,10,6,10));
+        botones.setBorder(BorderFactory.createEmptyBorder(0, 10, 6, 10));
         botonAceptar = new JButton(OK);
         botonAceptar.setActionCommand("Aceptar");
         botonAceptar.addActionListener(this);
@@ -145,12 +143,11 @@ public class CrearOAñadirFormulario extends JDialog implements ActionListener{
         botonCancelar.setActionCommand("Cancelar");
         botonCancelar.addActionListener(this);
         botones.add(botonCancelar);
-        cp.add(BorderLayout.SOUTH,botones);
-
+        cp.add(BorderLayout.SOUTH, botones);
 
         // Opciones del cuadro de diálogo
         this.setTitle(texto.getString("crear_o_añadir_formulario_title"));
-        this.setSize(450,180);
+        this.setSize(450, 180);
         this.setResizable(false);
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(ventana);

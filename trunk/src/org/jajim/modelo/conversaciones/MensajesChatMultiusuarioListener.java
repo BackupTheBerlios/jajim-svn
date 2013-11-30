@@ -1,21 +1,20 @@
 /*
-    Jabber client.
-    Copyright (C) 2010  Florencio Cañizal Calles
+ Jabber client.
+ Copyright (C) 2010  Florencio Cañizal Calles
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package org.jajim.modelo.conversaciones;
 
 import java.util.Observable;
@@ -26,26 +25,24 @@ import org.jivesoftware.smack.packet.Packet;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
- * Oyente que escucha los mensajes procendentes de un determinado chat multiusua
- * rio.
+ * @version 1.2 Oyente que escucha los mensajes procendentes de un determinado chat multiusua rio.
  */
-public class MensajesChatMultiusuarioListener extends Observable implements PacketListener{
+public class MensajesChatMultiusuarioListener extends Observable implements PacketListener {
 
     private String alias;
 
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
-     * @param observador El obsevador que será notificado de la llegada de mensa
-     * jes.
+     * <p>
+     * @param observador El obsevador que será notificado de la llegada de mensa jes.
      */
-    public MensajesChatMultiusuarioListener(Observer observador){
+    public MensajesChatMultiusuarioListener(Observer observador) {
         this.addObserver(observador);
     }
 
     /**
-     * Método de la interfaz PacketListener. Se ejecuta cuando se recibe un mensa
-     * je de chat multiusuario.
+     * Método de la interfaz PacketListener. Se ejecuta cuando se recibe un mensa je de chat multiusuario.
+     * <p>
      * @param arg0 El paquete recibido.
      */
     @Override
@@ -54,12 +51,12 @@ public class MensajesChatMultiusuarioListener extends Observable implements Pack
         // Hacer el casting y extraer los valores
         Message mensaje = (Message) arg0;
         String[] contenido;
-        if(mensaje.getProperty("fuente") == null){
+        if (mensaje.getProperty("fuente") == null) {
             contenido = new String[2];
             contenido[0] = mensaje.getFrom();
             contenido[1] = mensaje.getBody();
         }
-        else{
+        else {
             contenido = new String[9];
             contenido[0] = mensaje.getFrom();
             contenido[1] = mensaje.getBody();
@@ -73,7 +70,7 @@ public class MensajesChatMultiusuarioListener extends Observable implements Pack
         }
 
         // No publicar los mensajes provenientes del propio usuario
-        if(contenido[0].contains(alias)) {
+        if (contenido[0].contains(alias)) {
             return;
         }
 
@@ -84,9 +81,10 @@ public class MensajesChatMultiusuarioListener extends Observable implements Pack
 
     /**
      * Actualiza el valor del atributo alias.
+     * <p>
      * @param alias El valor del atributo alias.
      */
-    public void setAlias(String alias){
+    public void setAlias(String alias) {
         this.alias = alias;
     }
 }

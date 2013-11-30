@@ -1,21 +1,20 @@
 /*
-    Jabber client.
-    Copyright (C) 2010  Florencio Cañizal Calles
+ Jabber client.
+ Copyright (C) 2010  Florencio Cañizal Calles
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package org.jajim.interfaz.listeners;
 
 import java.awt.event.ActionEvent;
@@ -25,27 +24,26 @@ import org.jajim.interfaz.ventanas.VentanaGestorDeTransferencias;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.2
- * Clase oyente que escucha los eventos procedentes de la opción cancelar trans
- * ferencia disponible en la ventana del gestor de transferencias.
+ * @version 1.2 Clase oyente que escucha los eventos procedentes de la opción cancelar trans ferencia disponible en la
+ * ventana del gestor de transferencias.
  */
-public class CancelarTransferenciaActionListener implements ActionListener{
+public class CancelarTransferenciaActionListener implements ActionListener {
 
-    private String idTransferencia;
+    private final String idTransferencia;
 
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
-     * @param idTransferencia El identificador de la transferencia que se desea
-     * eliminar.
+     * <p>
+     * @param idTransferencia El identificador de la transferencia que se desea eliminar.
      */
-    public CancelarTransferenciaActionListener(String idTransferencia){
+    public CancelarTransferenciaActionListener(String idTransferencia) {
         this.idTransferencia = idTransferencia;
     }
 
     /**
-     * Método que se ejecuta cuando se selecciona la opción de cancelar transfe
-     * rencia de la ventana del gestor de las mismas. Utiliza el controlador de
-     * las transferencias para llevar a cabo la operación.
+     * Método que se ejecuta cuando se selecciona la opción de cancelar transfe rencia de la ventana del gestor de las
+     * mismas. Utiliza el controlador de las transferencias para llevar a cabo la operación.
+     * <p>
      * @param e El evento que produce la ejecución del método.
      */
     @Override

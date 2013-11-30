@@ -1,21 +1,20 @@
 /*
-    Jabber client.
-    Copyright (C) 2010  Florencio Cañizal Calles
+ Jabber client.
+ Copyright (C) 2010  Florencio Cañizal Calles
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package org.jajim.interfaz.listeners;
 
 import java.awt.event.ActionEvent;
@@ -25,22 +24,20 @@ import org.jajim.interfaz.utilidades.PanelContactos;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.2
- * Clase oyente que se escucha eventos procedentes de la opción de crear un nuevo
- * chat multiusuario.
+ * @version 1.2 Clase oyente que se escucha eventos procedentes de la opción de crear un nuevo chat multiusuario.
  */
-public class IniciarChatMultiusuarioMenuActionListener implements ActionListener{
+public class IniciarChatMultiusuarioMenuActionListener implements ActionListener {
 
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
      */
-    public IniciarChatMultiusuarioMenuActionListener(){
+    public IniciarChatMultiusuarioMenuActionListener() {
     }
 
     /**
-     * Método que se ejecuta cuando el usuario selecciona la opción de crear un
-     * chat multiusuario de la herramienta. Lanza un formulario en el que el usua
-     * rio introduce sus datos para el multichat.
+     * Método que se ejecuta cuando el usuario selecciona la opción de crear un chat multiusuario de la herramienta.
+     * Lanza un formulario en el que el usua rio introduce sus datos para el multichat.
+     * <p>
      * @param e El evento que produce la ejecución del método.
      */
     @Override

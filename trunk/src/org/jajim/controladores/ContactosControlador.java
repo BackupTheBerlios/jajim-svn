@@ -1,21 +1,20 @@
 /*
-    Jabber client.
-    Copyright (C) 2010  Florencio Cañizal Calles
+ Jabber client.
+ Copyright (C) 2010  Florencio Cañizal Calles
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package org.jajim.controladores;
 
 import java.util.ArrayList;
@@ -50,35 +49,33 @@ import org.jivesoftware.smackx.search.UserSearchManager;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
- * Clase que controla las operaciones realizadas sobre los contactos de una cuen
- * ta.
+ * @version 1.2 Clase que controla las operaciones realizadas sobre los contactos de una cuen ta.
  */
 public class ContactosControlador {
 
     private static ContactosControlador instancia;
     private Roster contactos;
-    private ContactosListener cl;
+    private final ContactosListener cl;
 
     /**
      * Constructor de la clase.
      */
-    private ContactosControlador(){
+    private ContactosControlador() {
         cl = new ContactosListener();
         Roster.setDefaultSubscriptionMode(Roster.SubscriptionMode.manual);
     }
 
     /**
-     * Realiza las operaciones necesarias para realizar un contacto con el usua
-     * rio especificado.
+     * Realiza las operaciones necesarias para realizar un contacto con el usua rio especificado.
+     * <p>
      * @param identificador El identificador del usuario.
-     * @param servidor El servidor donde se encuentra registrado.
-     * @param alias El alias que se le quiere dar al usuario.
-     * @param grupo El grupo al que se quiere que pertenezca.
-     * @throws ImposibleSolicitarContactoException Si el sistema no puede solicitar
-     * el contacto con otro usuario.
+     * @param servidor      El servidor donde se encuentra registrado.
+     * @param alias         El alias que se le quiere dar al usuario.
+     * @param grupo         El grupo al que se quiere que pertenezca.
+     * @throws ImposibleSolicitarContactoException Si el sistema no puede solicitar el contacto con otro usuario.
      */
-    public void solicitarContacto(String identificador,String servidor,String alias,String grupo) throws ImposibleSolicitarContactoException{
+    public void solicitarContacto(String identificador, String servidor, String alias, String grupo) throws
+        ImposibleSolicitarContactoException {
 
         // Llama al roster para que realiza la operación
         String usuario = identificador + "@" + servidor;
@@ -86,15 +83,18 @@ public class ContactosControlador {
         grupos[0] = grupo;
 
         // Si no se ha seleccionado ningún grupo, asignarlo a grupo por defecto
-        if(contactos.getGroup(grupo) == null){
-            try{
-                this.crearGrupoDeContactos(grupo,null);
-            }catch(ImposibleAñadirContactoAGrupoException iacage){}
+        if (contactos.getGroup(grupo) == null) {
+            try {
+                this.crearGrupoDeContactos(grupo, null);
+            }
+            catch (ImposibleAñadirContactoAGrupoException iacage) {
+            }
         }
 
-        try{
-            contactos.createEntry(usuario,alias,grupos);
-        }catch(XMPPException xe){
+        try {
+            contactos.createEntry(usuario, alias, grupos);
+        }
+        catch (XMPPException xe) {
             // En caso de que se produzca un error se escribe en el fichero
             // de log y se lanza una excepción
             ManejadorDeLogs mdl = ManejadorDeLogs.getManejadorDeLogs();
@@ -104,30 +104,32 @@ public class ContactosControlador {
     }
 
     /**
-     * Método que hace las operaciones necesarias para aceptar un contacto que ha
-     * sido solicitado por otro usuario.
+     * Método que hace las operaciones necesarias para aceptar un contacto que ha sido solicitado por otro usuario.
+     * <p>
      * @param contacto Cadena con el contacto que ha solicitado la conexión.
-     * @param alias El alias que se le desea dar al contacto.
-     * @param grupo El grupo al que va a pertenecer el contacto.
-     * @throws ImposibleAñadirContactoException Si no se puede añadir el contacto
-     * a nuestra lista de contactos.
+     * @param alias    El alias que se le desea dar al contacto.
+     * @param grupo    El grupo al que va a pertenecer el contacto.
+     * @throws ImposibleAñadirContactoException Si no se puede añadir el contacto a nuestra lista de contactos.
      */
-    public void aceptarContacto(String contacto,String alias,String grupo) throws ImposibleAñadirContactoException{
+    public void aceptarContacto(String contacto, String alias, String grupo) throws ImposibleAñadirContactoException {
 
         // Crear una entrada en el roster
         String grupos[] = new String[1];
         grupos[0] = grupo;
 
         // Si no se ha seleccionado ningún grupo, asignarlo a grupo por defecto
-        if(contactos.getGroup(grupo) == null){
-            try{
-                this.crearGrupoDeContactos(grupo,null);
-            }catch(ImposibleAñadirContactoAGrupoException iacage){}
+        if (contactos.getGroup(grupo) == null) {
+            try {
+                this.crearGrupoDeContactos(grupo, null);
+            }
+            catch (ImposibleAñadirContactoAGrupoException iacage) {
+            }
         }
 
-        try{
-            contactos.createEntry(contacto,alias,grupos);
-        }catch(XMPPException xe){
+        try {
+            contactos.createEntry(contacto, alias, grupos);
+        }
+        catch (XMPPException xe) {
             // En caso de que se produzca un error se escribe en el fichero
             // de log y se lanza una excepción
             ManejadorDeLogs mdl = ManejadorDeLogs.getManejadorDeLogs();
@@ -143,11 +145,11 @@ public class ContactosControlador {
     }
 
     /**
-     * Método que rechaza una petición de contacto recibida por el contacto pasa
-     * do como parámetro.
+     * Método que rechaza una petición de contacto recibida por el contacto pasa do como parámetro.
+     * <p>
      * @param contacto El contracto que solicitó la petción de contacto.
      */
-    public void rechazarContacto(String contacto){
+    public void rechazarContacto(String contacto) {
 
         // Crear un paquete de presencia de tipo rechazo
         Presence presenciaUnsubscribed = new Presence(Presence.Type.unsubscribed);
@@ -158,37 +160,41 @@ public class ContactosControlador {
         cnc.enviarPaquete(presenciaUnsubscribed);
 
         // Dormir un poco
-        try{
+        try {
             Thread.sleep(500);
-        }catch(Exception e){}
+        }
+        catch (InterruptedException e) {
+        }
 
         // Se elimina el contacto si este se ha añadido por error, se realiza por
         // problemas con servidores tipo openfire
-        if(contactos.getEntry(contacto) != null){
-            try{
+        if (contactos.getEntry(contacto) != null) {
+            try {
                 this.eliminarContacto(contacto);
-            }catch(ImposibleEliminarContactoException iece){}
+            }
+            catch (ImposibleEliminarContactoException iece) {
+            }
         }
     }
 
     /**
      * Elimina el contacto de la lista de contactos.
+     * <p>
      * @param contacto El contacto que se desea eliminar.
-     * @throws ImposibleEliminarContactoException Si no se puede eliminar el con
-     * tacto de nuestra lista de contactos.
+     * @throws ImposibleEliminarContactoException Si no se puede eliminar el con tacto de nuestra lista de contactos.
      */
-    public void eliminarContacto(String contacto) throws ImposibleEliminarContactoException{
+    public void eliminarContacto(String contacto) throws ImposibleEliminarContactoException {
 
         // Recuperar la entrada del roster y eliminarla
-        try{
+        try {
             RosterEntry entry = contactos.getEntry(contacto);
 
             // Si no se puede encontrar la entrada es que se suministró por nombre
             // y hay que buscarla.
-            if(entry == null){
+            if (entry == null) {
                 Collection<RosterEntry> cre = contactos.getEntries();
-                for(RosterEntry re : cre){
-                    if(contacto.compareTo(re.getName()) == 0){
+                for (RosterEntry re : cre) {
+                    if (contacto.compareTo(re.getName()) == 0) {
                         entry = re;
                         break;
                     }
@@ -196,7 +202,8 @@ public class ContactosControlador {
             }
 
             contactos.removeEntry(entry);
-        }catch(Exception e){
+        }
+        catch (XMPPException e) {
             // En caso de que se produzca un error se escribe en el fichero
             // de log y se lanza una excepción
             ManejadorDeLogs mdl = ManejadorDeLogs.getManejadorDeLogs();
@@ -206,34 +213,38 @@ public class ContactosControlador {
     }
 
     /**
-     * Retorna aquellos usuarios del servidor, cuyo nombre se pasa como parámetro
-     * , que tienen alguna coincidencia con la cadena suministrada.
-     * @param cadena La cadena que se debe buscar.
+     * Retorna aquellos usuarios del servidor, cuyo nombre se pasa como parámetro , que tienen alguna coincidencia con
+     * la cadena suministrada.
+     * <p>
+     * @param cadena   La cadena que se debe buscar.
      * @param servidor El servidor donde se encuentra alojado el contacto.
      * @return Matriz con los resultados obtenidos.
-     * @throws ServidorNoEncontradoException Si no se puede loclizar el servidor
-     * con el que se iba a realizar la conexión
-     * @throws ImposibleLoginException Si no se puede hacer login con el servidor.
-     * @throws ServicioDeBusquedaNoEncontradoException Si no se puede localizar el
-     * servicio de búsqueda en el servidor.
-     * @throws ImposibleLoginException Si no se puede llevar a cabo la búsqueda.
+     * <p>
+     * @throws ServidorNoEncontradoException           Si no se puede loclizar el servidor con el que se iba a realizar
+     *                                                 la conexión
+     * @throws ImposibleLoginException                 Si no se puede hacer login con el servidor.
+     * @throws ServicioDeBusquedaNoEncontradoException Si no se puede localizar el servicio de búsqueda en el servidor.
+     * @throws ImposibleRealizarBusquedaException      Si no se puede realizar la búsqueda.
      */
-    public String[][] buscarContacto(String cadena,String servidor) throws ServidorNoEncontradoException,ImposibleLoginException,ServicioDeBusquedaNoEncontradoException,ImposibleRealizarBusquedaException{
+    public String[][] buscarContacto(String cadena, String servidor) throws ServidorNoEncontradoException,
+        ImposibleLoginException, ServicioDeBusquedaNoEncontradoException, ImposibleRealizarBusquedaException {
 
         String[][] resultado = null;
 
         // Recuperar una conexión al servidor
         XMPPConnection xc = null;
-        try{
+        try {
             xc = FactoriaDeConexiones.getInstancia().getConexion(servidor);
-        }catch(ServidorNoEncontradoException snee){
+        }
+        catch (ServidorNoEncontradoException snee) {
             throw snee;
         }
 
         // Realizar una búsqueda de los servicios ofrecidos por el servidor
-        try{
+        try {
             xc.loginAnonymously();
-        }catch(XMPPException e){
+        }
+        catch (XMPPException e) {
             // En caso de que se produzca un error se escribe en el fichero
             // de log y se lanza una excepción
             ManejadorDeLogs mdl = ManejadorDeLogs.getManejadorDeLogs();
@@ -243,24 +254,25 @@ public class ContactosControlador {
 
         UserSearchManager userSearch = new UserSearchManager(xc);
         String servicio = null;
-        try{
+        try {
             Collection servicios = userSearch.getSearchServices();
             Iterator iterator = servicios.iterator();
-            while(iterator.hasNext()){
+            while (iterator.hasNext()) {
                 String s = (String) iterator.next();
-                if(s.contains("search")){
+                if (s.contains("search")) {
                     servicio = s;
                     break;
                 }
             }
-        }catch(XMPPException e){
+        }
+        catch (XMPPException e) {
             ManejadorDeLogs mdl = ManejadorDeLogs.getManejadorDeLogs();
             mdl.escribir("No se puede localizar el servicio de búsqueda en el servidor: " + servidor);
             throw new ServicioDeBusquedaNoEncontradoException();
         }
 
         // Si no se encuentra el servicio lanzar una excepción
-        if(servicio == null){
+        if (servicio == null) {
             ManejadorDeLogs mdl = ManejadorDeLogs.getManejadorDeLogs();
             mdl.escribir("No se puede localizar el servicio de búsqueda en el servidor: " + servidor);
             throw new ServicioDeBusquedaNoEncontradoException();
@@ -268,19 +280,20 @@ public class ContactosControlador {
 
         // Recuperar que tipo de atributo puedo solicitar y crear la consulta
         ReportedData datos = null;
-        try{
+        try {
             Form searchForm = userSearch.getSearchForm(servicio);
             Form answerForm = searchForm.createAnswerForm();
-            answerForm.setAnswer("search",cadena);
+            answerForm.setAnswer("search", cadena);
             Iterator<FormField> iterator = searchForm.getFields();
-            while(iterator.hasNext()){
+            while (iterator.hasNext()) {
                 FormField ff = iterator.next();
-                if(ff.getType().compareTo("boolean") == 0){
-                    answerForm.setAnswer(ff.getVariable(),true);
+                if (ff.getType().compareTo("boolean") == 0) {
+                    answerForm.setAnswer(ff.getVariable(), true);
                 }
             }
-            datos = userSearch.getSearchResults(answerForm,servicio);
-        }catch(XMPPException e){
+            datos = userSearch.getSearchResults(answerForm, servicio);
+        }
+        catch (XMPPException e) {
             ManejadorDeLogs mdl = ManejadorDeLogs.getManejadorDeLogs();
             mdl.escribir("No se puede realizar la búsqueda en el servidor: " + servidor);
             throw new ImposibleRealizarBusquedaException();
@@ -289,37 +302,37 @@ public class ContactosControlador {
         // Extraer los resultados
         Iterator<Column> columns = datos.getColumns();
         ArrayList<String> columnas = new ArrayList<>();
-        while(columns.hasNext()){
+        while (columns.hasNext()) {
             String s = columns.next().getVariable();
             columnas.add(s);
         }
 
         Iterator<Row> rows = datos.getRows();
         ArrayList<String> filas = new ArrayList<>();
-        while(rows.hasNext()){
+        while (rows.hasNext()) {
             Row row = rows.next();
 
             Iterator[] iteradores = new Iterator[columnas.size()];
-            for(int i = 0;i < iteradores.length;i++){
+            for (int i = 0; i < iteradores.length; i++) {
                 iteradores[i] = row.getValues(columnas.get(i));
             }
 
-            while(iteradores[0].hasNext()){
-                for(int i = 0;i < iteradores.length;i++){
-                    filas.add((String)iteradores[i].next());
+            while (iteradores[0].hasNext()) {
+                for (Iterator iteradore : iteradores) {
+                    filas.add((String) iteradore.next());
                 }
             }
         }
 
         resultado = new String[(filas.size() / columnas.size()) + 1][columnas.size()];
 
-        for(int i = 0;i < columnas.size();i++){
+        for (int i = 0; i < columnas.size(); i++) {
             resultado[0][i] = columnas.get(i);
         }
 
         int contadorFilas = 0;
-        for(int i = 1;i < resultado.length;i++){
-            for(int j = 0;j < resultado[0].length;j++){
+        for (int i = 1; i < resultado.length; i++) {
+            for (int j = 0; j < resultado[0].length; j++) {
                 resultado[i][j] = filas.get(contadorFilas);
                 contadorFilas++;
             }
@@ -330,22 +343,24 @@ public class ContactosControlador {
 
     /**
      * Crea un nuevo grupo de contactos y le añade los contactos especificados.
-     * @param nombre El nombre del nuevo grupo de contactos.
+     * <p>
+     * @param nombre           El nombre del nuevo grupo de contactos.
      * @param contactosDeGrupo Los contactos que se van a añadir al grupo.
-     * @throws ImposibleAñadirContactoAGrupoException Si no se puede añadir el con
-     * tacto al grupo.
+     * @throws ImposibleAñadirContactoAGrupoException Si no se puede añadir el con tacto al grupo.
      */
-    public void crearGrupoDeContactos(String nombre,String[] contactosDeGrupo) throws ImposibleAñadirContactoAGrupoException{
+    public void crearGrupoDeContactos(String nombre, String[] contactosDeGrupo) throws
+        ImposibleAñadirContactoAGrupoException {
 
         // Crear grupo de contactos
         contactos.createGroup(nombre);
 
         // Asignar cada contacto al grupo nuevo
-        if(contactosDeGrupo != null){
-            for(String contacto: contactosDeGrupo){
-                try{
-                    añadirContactoAGrupo(contacto,nombre);
-                }catch(ImposibleAñadirContactoAGrupoException iacage){
+        if (contactosDeGrupo != null) {
+            for (String contacto : contactosDeGrupo) {
+                try {
+                    añadirContactoAGrupo(contacto, nombre);
+                }
+                catch (ImposibleAñadirContactoAGrupoException iacage) {
                     throw iacage;
                 }
             }
@@ -353,17 +368,16 @@ public class ContactosControlador {
     }
 
     /**
-     * Elimina un grupo de contactos de la lista de contactos. Los contactos del
-     * grupo se añaden al grupo por defecto, si sólo pertenecían a este grupo.
+     * Elimina un grupo de contactos de la lista de contactos. Los contactos del grupo se añaden al grupo por defecto,
+     * si sólo pertenecían a este grupo.
+     * <p>
      * @param nombre El nombre del grupo que se desea eliminar.
-     * @throws ImposibleAñadirContactoAGrupoException Si no se puede añadir el con
-     * tacto al grupo.
-     * @throws ImposibleEliminarContactoDeGrupoException Si no se puede eliminar
-     * el contacto del grupo.
-     * @throws ImposibleEliminarGrupoPorDefectoException Si no se puede eliminar
-     * el grupo por defecto.
+     * @throws ImposibleAñadirContactoAGrupoException    Si no se puede añadir el con tacto al grupo.
+     * @throws ImposibleEliminarContactoDeGrupoException Si no se puede eliminar el contacto del grupo.
+     * @throws ImposibleEliminarGrupoPorDefectoException Si no se puede eliminar el grupo por defecto.
      */
-    public void eliminarGrupoDeContactos(String nombre) throws ImposibleAñadirContactoAGrupoException,ImposibleEliminarContactoDeGrupoException,ImposibleEliminarGrupoPorDefectoException{
+    public void eliminarGrupoDeContactos(String nombre) throws ImposibleAñadirContactoAGrupoException,
+        ImposibleEliminarContactoDeGrupoException, ImposibleEliminarGrupoPorDefectoException {
 
         // Para borrar el grupo de contactos hay que eliminar todos los contactos
         // de que dispone
@@ -373,9 +387,9 @@ public class ContactosControlador {
 
         // Si se quiere eliminar el grupo por defecto, comprobar que todos los ele
         // mentos del mismo están en otro grupo, si no es así cancelar la operación.
-        if(nombre.compareTo("") == 0){
-            for(RosterEntry re : conjuntoContactos){
-                if(re.getGroups().size() == 1){
+        if (nombre.compareTo("") == 0) {
+            for (RosterEntry re : conjuntoContactos) {
+                if (re.getGroups().size() == 1) {
                     // Lanzar excepcion
                     throw new ImposibleEliminarGrupoPorDefectoException();
                 }
@@ -384,30 +398,32 @@ public class ContactosControlador {
 
         // Para cada entrada eliminarla del grupo y añadirla al grupo por defecto
         // si no pertenece a ningún otro grupo
-        for(RosterEntry re : conjuntoContactos){
+        for (RosterEntry re : conjuntoContactos) {
 
             // Recuperar el número de grupos al que pertenece
             Collection<RosterGroup> conjuntoGrupos = re.getGroups();
             int numeroDeGrupos = conjuntoGrupos.size();
 
             // Si sólo pertenece a un grupo añadirlo al grupo por defecto
-            if(numeroDeGrupos == 1){
+            if (numeroDeGrupos == 1) {
                 RosterGroup grupoPorDefecto = contactos.getGroup("");
                 // Si el grupo por defecto no existe crear uno
-                if(grupoPorDefecto == null){
+                if (grupoPorDefecto == null) {
                     grupoPorDefecto = contactos.createGroup("");
                 }
-                try{
-                    this.añadirContactoAGrupo(re.getUser(),"");
-                }catch(ImposibleAñadirContactoAGrupoException iacage){
+                try {
+                    this.añadirContactoAGrupo(re.getUser(), "");
+                }
+                catch (ImposibleAñadirContactoAGrupoException iacage) {
                     throw iacage;
                 }
             }
 
             // Eliminar el contacto del grupo
-            try{
+            try {
                 grupo.removeEntry(re);
-            }catch(XMPPException e){
+            }
+            catch (XMPPException e) {
                 ManejadorDeLogs mdl = ManejadorDeLogs.getManejadorDeLogs();
                 mdl.escribir("No se puede eliminar el contacto: " + re.getUser() + ", del grupo: " + nombre);
                 throw new ImposibleEliminarContactoDeGrupoException();
@@ -417,10 +433,11 @@ public class ContactosControlador {
 
     /**
      * Modifica el nombre de un grupo de contacto en el servidor.
-     * @param grupo El nombre del grupo que se va a modificar.
+     * <p>
+     * @param grupo  El nombre del grupo que se va a modificar.
      * @param nombre El nuevo nombre para el grupo.
      */
-    public void modificarGrupoDeContactos(String grupo,String nombre){
+    public void modificarGrupoDeContactos(String grupo, String nombre) {
 
         // Recuperar el grupo y cambiar su nombre
         RosterGroup rg = contactos.getGroup(grupo);
@@ -429,23 +446,24 @@ public class ContactosControlador {
 
     /**
      * Mueve un contacto del grupo que lo contenía al grupo especificado.
+     * <p>
      * @param contacto Nombre del contacto que se desea mover.
-     * @param grupo Nombre del grupo al que se desea mover.
-     * @throws ImposibleAñadirContactoAGrupoException Si no se puede añadir el con
-     * tacto al grupo.
+     * @param grupo    Nombre del grupo al que se desea mover.
+     * @throws ImposibleAñadirContactoAGrupoException Si no se puede añadir el con tacto al grupo.
      */
-    public void añadirContactoAGrupo(String contacto,String grupo) throws ImposibleAñadirContactoAGrupoException{
+    public void añadirContactoAGrupo(String contacto, String grupo) throws ImposibleAñadirContactoAGrupoException {
 
         // Recuperar el contacto y el grupo al que se va a añadir
         RosterEntry re = contactos.getEntry(contacto);
-        if(re == null) {
+        if (re == null) {
             re = contactos.getEntry(this.getContactoPorAlias(contacto));
         }
         RosterGroup grupoAAñadir = contactos.getGroup(grupo);
 
-        try{
+        try {
             grupoAAñadir.addEntry(re);
-        }catch(XMPPException e){
+        }
+        catch (XMPPException e) {
             ManejadorDeLogs mdl = ManejadorDeLogs.getManejadorDeLogs();
             mdl.escribir("No se puede añadir el contacto: " + contacto + ", al grupo: " + grupo);
             throw new ImposibleAñadirContactoAGrupoException();
@@ -454,38 +472,40 @@ public class ContactosControlador {
 
     /**
      * Elimina el contacto especificado del grupo pasado como parámetro.
+     * <p>
      * @param contacto El contacto que se desea eliminar.
-     * @param grupo El grupo del que se va a eliminar.
-     * @throws ImposibleAñadirContactoAGrupoException Si no se puede añadir el con
-     * tacto al grupo.
-     * @throws ImposibleEliminarContactoDeGrupoException Si no se puede eliminar
-     * el contacto del grupo.
+     * @param grupo    El grupo del que se va a eliminar.
+     * @throws ImposibleAñadirContactoAGrupoException    Si no se puede añadir el con tacto al grupo.
+     * @throws ImposibleEliminarContactoDeGrupoException Si no se puede eliminar el contacto del grupo.
      */
-    public void eliminarContactoDeGrupo(String contacto,String grupo) throws ImposibleAñadirContactoAGrupoException,ImposibleEliminarContactoDeGrupoException{
+    public void eliminarContactoDeGrupo(String contacto, String grupo) throws ImposibleAñadirContactoAGrupoException,
+        ImposibleEliminarContactoDeGrupoException {
 
         // Recuperar el contacto
         RosterEntry re = contactos.getEntry(this.getContactoPorAlias(contacto));
 
         // Si la entrada sólo pertenece a este grupo añadirla al grupo por defecto
-        if(re.getGroups().size() == 1){
+        if (re.getGroups().size() == 1) {
 
             RosterGroup porDefecto = contactos.getGroup("");
-            if(porDefecto == null) {
+            if (porDefecto == null) {
                 porDefecto = contactos.createGroup("");
             }
 
-            try{
-                this.añadirContactoAGrupo(contacto,"");
-            }catch(ImposibleAñadirContactoAGrupoException iacage){
+            try {
+                this.añadirContactoAGrupo(contacto, "");
+            }
+            catch (ImposibleAñadirContactoAGrupoException iacage) {
                 throw iacage;
             }
         }
 
         // Recuperar el grupo y borrar el contacto
         RosterGroup rg = contactos.getGroup(grupo);
-        try{
+        try {
             rg.removeEntry(re);
-        }catch(Exception e){
+        }
+        catch (XMPPException e) {
             ManejadorDeLogs mdl = ManejadorDeLogs.getManejadorDeLogs();
             mdl.escribir("No se puede eliminar el contacto: " + re.getUser() + ", del grupo: " + grupo);
             throw new ImposibleEliminarContactoDeGrupoException();
@@ -493,10 +513,9 @@ public class ContactosControlador {
     }
 
     /**
-     * Limpiar la información necesaria en el controlador para poder hacer otra
-     * conexión.
+     * Limpiar la información necesaria en el controlador para poder hacer otra conexión.
      */
-    public void desconectar(){
+    public void desconectar() {
 
         // Dejar de escuchar el roster
         cl.desconectar();
@@ -505,16 +524,17 @@ public class ContactosControlador {
 
     /**
      * Devuelve una array con el nombre de los grupos de la cuenta.
+     * <p>
      * @return Array con el nombre de los grupos de la cuenta.
      */
-    public String[] getGrupos(){
+    public String[] getGrupos() {
 
         // Recuperar la lista de grupos del roster
         Collection<RosterGroup> coleccion = contactos.getGroups();
         String[] grupos = new String[coleccion.size()];
         int i = 0;
 
-        for(RosterGroup rg: coleccion){
+        for (RosterGroup rg : coleccion) {
             grupos[i] = rg.getName();
             i++;
         }
@@ -524,11 +544,11 @@ public class ContactosControlador {
 
     /**
      * Retorna un array con los grupos a los que pertenece este contacto.
-     * @param contacto El contacto del que se quieren recuperar los grupos a los
-     * que no pertnence.
+     * <p>
+     * @param contacto El contacto del que se quieren recuperar los grupos a los que no pertnence.
      * @return Un array con los grupos a los que no pertenece el contacto.
      */
-    public String[] getGrupos(String contacto){
+    public String[] getGrupos(String contacto) {
 
         // Conseguir los grupos totales y los grupos a los que pertenece el usuario
         Collection<RosterGroup> gruposTotales = contactos.getGroups();
@@ -542,7 +562,7 @@ public class ContactosControlador {
         gruposT.removeAll(gruposDeContactos);
         String[] grupos = new String[gruposT.size()];
         Object[] sinContacto = gruposT.toArray();
-        for(int i = 0;i < sinContacto.length;i++){
+        for (int i = 0; i < sinContacto.length; i++) {
             RosterGroup rg = (RosterGroup) sinContacto[i];
             grupos[i] = rg.getName();
         }
@@ -552,16 +572,17 @@ public class ContactosControlador {
 
     /**
      * Devuelve un array con el nombre de los contactos de la cuenta.
+     * <p>
      * @return Array con el nombre de los contactos de la cuenta.
      */
-    public String[] getContactosPorNombre(){
+    public String[] getContactosPorNombre() {
 
         // Recuperar la lista de contactos del roster.
         Collection<RosterEntry> coleccion = contactos.getEntries();
         String[] nombresContactos = new String[coleccion.size()];
         int i = 0;
 
-        for(RosterEntry re: coleccion){
+        for (RosterEntry re : coleccion) {
             nombresContactos[i] = re.getUser();
             i++;
         }
@@ -570,17 +591,17 @@ public class ContactosControlador {
     }
 
     /**
-     * Devuelve el "identificador@servidor" de un contacto a través del alias del
-     * mismo.
+     * Devuelve el "identificador@servidor" de un contacto a través del alias del mismo.
+     * <p>
      * @param alias el alias del contacto.
      * @return La cadena mencionada.
      */
-    public String getContactoPorAlias(String alias){
+    public String getContactoPorAlias(String alias) {
 
         Collection<RosterEntry> coleccion = contactos.getEntries();
 
-        for(RosterEntry re: coleccion){
-           if(re.getName().compareTo(alias) == 0) {
+        for (RosterEntry re : coleccion) {
+            if (re.getName().compareTo(alias) == 0) {
                 return re.getUser();
             }
         }
@@ -590,10 +611,11 @@ public class ContactosControlador {
 
     /**
      * Recupera el alias de un determinado contacto.
+     * <p>
      * @param contacto El nombre del contacto.
      * @return El alias del contacto.
      */
-    public String getAliasPorContacto(String contacto){
+    public String getAliasPorContacto(String contacto) {
 
         // Recuperar la entrada con el contactoy devolverla
         RosterEntry re = contactos.getEntry(contacto);
@@ -603,32 +625,36 @@ public class ContactosControlador {
 
     /**
      * Devuelve el nombre completo del usuario: identificador'@'servidor/recurso.
+     * <p>
      * @param contacto El usuario del que se quiere recuperar el JID.
      * @return El JID del usuario.
      */
-    public String getJID(String contacto){
+    public String getJID(String contacto) {
         Presence presence = null;
-        try{
+        try {
             Thread.sleep(200);
- 	        presence = contactos.getPresence(contacto);
-        }catch(Exception e){}
+            presence = contactos.getPresence(contacto);
+        }
+        catch (InterruptedException e) {
+        }
 
-        return presence.getFrom();
+        return (presence != null) ? presence.getFrom() : "";
     }
-
 
     /**
      * Establece el oyente al que comunicarle los eventos del roster.
+     * <p>
      * @param pc Oyente que está interesado en los eventos del roster.
      * @param oc Oyente de la conexión para recibir notificaciones de conexiones.
      */
-    public void setListeners(Observer pc,Observer oc){
+    public void setListeners(Observer pc, Observer oc) {
         cl.addObserver(pc);
         cl.addObserver(oc);
     }
 
     /**
      * Devuelve la lista de grupos y contactos del usuario.
+     * <p>
      * @return La lista de grupos y contactos.
      */
     public Roster getContactos() {
@@ -637,6 +663,7 @@ public class ContactosControlador {
 
     /**
      * Establece una nueva lista de grupos y contactos.
+     * <p>
      * @param contactos La nueva lista de grupos y contactos.
      */
     public void setContactos(Roster contactos) {
@@ -646,11 +673,12 @@ public class ContactosControlador {
 
     /**
      * Método para implementar el patrón Singleton
+     * <p>
      * @return La única instancia del sistema del controlador de contactos.
      */
-    public static ContactosControlador getInstancia(){
+    public static ContactosControlador getInstancia() {
 
-        if(instancia == null) {
+        if (instancia == null) {
             instancia = new ContactosControlador();
         }
 

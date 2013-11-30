@@ -1,21 +1,20 @@
 /*
-    Jabber client.
-    Copyright (C) 2010  Florencio Cañizal Calles
+ Jabber client.
+ Copyright (C) 2010  Florencio Cañizal Calles
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package org.jajim.interfaz.listeners;
 
 import java.awt.event.ActionEvent;
@@ -32,28 +31,28 @@ import org.jajim.interfaz.ventanas.VentanaPrincipal;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.2
- * Clase que gestiona la acción de añadir una cuenta ya existente en el sistema.
+ * @version 1.2 Clase que gestiona la acción de añadir una cuenta ya existente en el sistema.
  */
-public class AñadirCuentaActionListener implements ActionListener{
+public class AñadirCuentaActionListener implements ActionListener {
 
-    private AñadirCuentaFormulario acf;
+    private final AñadirCuentaFormulario acf;
 
     /**
      * Constructor de la clase. Iniciliza los elementos necesarios
+     * <p>
      * @param acf El formulario de adición de cuentas
      */
-    public AñadirCuentaActionListener(AñadirCuentaFormulario acf){
+    public AñadirCuentaActionListener(AñadirCuentaFormulario acf) {
         this.acf = acf;
     }
 
     /**
-     * Método que se ejecuta cuando se produce el evento que invita a añadir la
-     * nueva cuenta.
+     * Método que se ejecuta cuando se produce el evento que invita a añadir la nueva cuenta.
+     * <p>
      * @param e Evento que provoca la ejecución del método.
      */
     @Override
-    public void actionPerformed(ActionEvent e){
+    public void actionPerformed(ActionEvent e) {
 
         // Recuperar el valor de los campos del formulario
         List<String> campos = acf.getCampos();
@@ -63,37 +62,40 @@ public class AñadirCuentaActionListener implements ActionListener{
         String confirmarContraseña = campos.get(3);
         boolean guardarContraseña = Boolean.parseBoolean(campos.get(4));
 
-        if(identificador.compareTo("") == 0 || servidor.compareTo("") == 0 || contraseña.compareTo("") == 0 || confirmarContraseña.compareTo("") == 0){
-            new MensajeError(acf,"campos_invalidos_error",MensajeError.WARNING);
+        if (identificador.compareTo("") == 0 || servidor.compareTo("") == 0 || contraseña.compareTo("") == 0
+            || confirmarContraseña.compareTo("") == 0) {
+            new MensajeError(acf, "campos_invalidos_error", MensajeError.WARNING);
             return;
         }
 
         // Comprobar si la contraseña y su confirmación coinciden
-        if(contraseña.compareTo(confirmarContraseña) != 0){
+        if (contraseña.compareTo(confirmarContraseña) != 0) {
             // Mostrar mensaje de error y salir
-            new MensajeError(acf,"confirmacion_no_valida_error",MensajeError.WARNING);
+            new MensajeError(acf, "confirmacion_no_valida_error", MensajeError.WARNING);
             return;
         }
 
-
         // Llamar al controlador para que gestione la operación de añadir la cuen
         // ta.
-        try{
+        try {
             CuentaControlador cc = CuentaControlador.getInstancia();
-            boolean activa = cc.añadirCuenta(identificador,servidor,contraseña,guardarContraseña);
+            boolean activa = cc.añadirCuenta(identificador, servidor, contraseña, guardarContraseña);
             // Si la cuenta se establece como la activa se modifica la etiqueta
             // de la ventana principal
-            if(activa) {
+            if (activa) {
                 VentanaPrincipal.getInstancia().cambiarCuenta(identificador + "@" + servidor);
             }
-            
+
             VentanaGestorDeCuentas.getInstancia().añadirCuentas();
             acf.dispose();
-        }catch(ServidorNoEncontradoException snee){
-            new MensajeError(acf,"servidor_no_encontrado_error",MensajeError.ERR);
-        }catch(ImposibleValidarCuentaException ivce){
-            new MensajeError(acf,"cuenta_no_valida",MensajeError.ERR);
-        }catch(CuentaExistenteException cee){
+        }
+        catch (ServidorNoEncontradoException snee) {
+            new MensajeError(acf, "servidor_no_encontrado_error", MensajeError.ERR);
+        }
+        catch (ImposibleValidarCuentaException ivce) {
+            new MensajeError(acf, "cuenta_no_valida", MensajeError.ERR);
+        }
+        catch (CuentaExistenteException cee) {
             new MensajeError(acf, "cuenta_existente_error", MensajeError.WARNING);
         }
     }

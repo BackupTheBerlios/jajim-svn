@@ -1,21 +1,20 @@
 /*
-    Jabber client.
-    Copyright (C) 2010  Florencio Cañizal Calles
+ Jabber client.
+ Copyright (C) 2010  Florencio Cañizal Calles
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package org.jajim.interfaz.ventanas;
 
 import java.awt.AWTException;
@@ -66,25 +65,23 @@ import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.2
- * Representa la ventana principal de la aplicación. Inicializa la interfaz y to
- * dos aquellos controladores necesarios para la llevar a cabo la funcionalidad
- * de la aplicación. También, muestra el roster del usuario en caso de que esté
- * conectado.
+ * @version 1.2 Representa la ventana principal de la aplicación. Inicializa la interfaz y to dos aquellos controladores
+ * necesarios para la llevar a cabo la funcionalidad de la aplicación. También, muestra el roster del usuario en caso de
+ * que esté conectado.
  */
-public class VentanaPrincipal extends JFrame{
-    
+public class VentanaPrincipal extends JFrame {
+
     private static VentanaPrincipal instancia;
-    private ResourceBundle texto = ResourceBundle.getBundle("resources.Idioma",Main.loc);
+    private final ResourceBundle texto = ResourceBundle.getBundle("resources.Idioma", Main.loc);
 
     // Cadenas constantes para impresión
-    private final String [] menusCad = {
+    private final String[] menusCad = {
         texto.getString("acciones_menu"),
         texto.getString("gestores_menu"),
         texto.getString("ayuda_menu")
     };
 
-    private final String [][] itemsDeMenuCad = {
+    private final String[][] itemsDeMenuCad = {
         {
             texto.getString("conectar_item_menu"),
             texto.getString("desconectar_item_menu"),
@@ -156,7 +153,7 @@ public class VentanaPrincipal extends JFrame{
     };
 
     // ActionListeners de los menus
-    private final ActionListener actionListenersMenu [][] = {
+    private final ActionListener actionListenersMenu[][] = {
         {
             new ConectarActionListener(),
             new DesconectarActionListener(),
@@ -182,58 +179,56 @@ public class VentanaPrincipal extends JFrame{
 
     // Matriz que determina si los botones están activados
     private final boolean sinConexion[][] = {
-        {true,false,false,false,false,false},
-        {true,true},
-        {true,true}
+        {true, false, false, false, false, false},
+        {true, true},
+        {true, true}
     };
 
     private final boolean conConexion[][] = {
-        {false,true,true,true,true,true},
-        {true,true},
-        {true,true}
+        {false, true, true, true, true, true},
+        {true, true},
+        {true, true}
     };
 
     // Matriz que determina donde colocar separadores y donde no
     private final boolean separadores[][] = {
-        {false,true,true,false,false,false},
-        {false,false},
-        {false,false}
+        {false, true, true, false, false, false},
+        {false, false},
+        {false, false}
     };
 
     // Barra de herramientas
-    private JToolBar barraDeHerramientas;
-    private JButton[] botonesBarraDeHerramientas = new JButton[itemsDeMenuCad[0].length];
+    private final JToolBar barraDeHerramientas;
+    private final JButton[] botonesBarraDeHerramientas = new JButton[itemsDeMenuCad[0].length];
 
     // Componentes de la interfaz
     // Menú
-    private JMenuBar barraMenu;
-    private JMenu menus[] = new JMenu[menusCad.length];
-    private JMenuItem[][] itemsDeMenu = new JMenuItem[menusCad.length][];
-    private JComboBox estado;
+    private final JMenuBar barraMenu;
+    private final JMenu menus[] = new JMenu[menusCad.length];
+    private final JMenuItem[][] itemsDeMenu = new JMenuItem[menusCad.length][];
+    private final JComboBox estado;
 
     // Icono de la barra de herramientas y su menú pop-up
     private TrayIcon iconoBarraHerramientas;
     private PopupMenu popupMenu;
-    private MenuItem[] itemsPopup = new MenuItem[itemsDeMenuPopupCad.length];
+    private final MenuItem[] itemsPopup = new MenuItem[itemsDeMenuPopupCad.length];
     private Menu menuEstado;
-    private MenuItem[] itemsEstado = new MenuItem[estadosUsuario.length];
+    private final MenuItem[] itemsEstado = new MenuItem[estadosUsuario.length];
 
     // Control de la ocultación de la ventana por el uso de la barra de herramientas
-    private int ocultable;
+    private final int ocultable;
     public static int OCULTABLE = 0;
     public static int NO_OCULTABLE = 1;
 
-
     /**
-     * Constructor de la clase. Crea la interfaz básica e inicializa las variables
-     * necesarias.
+     * Constructor de la clase. Crea la interfaz básica e inicializa las variables necesarias.
      */
-    public VentanaPrincipal(){
+    public VentanaPrincipal() {
 
         // Creación del menú de la aplicación
         barraMenu = new JMenuBar();
 
-        for(int i = 0;i < menus.length;i++){
+        for (int i = 0; i < menus.length; i++) {
 
             // Crear un nuevo menu y añadirlo a la barra
             menus[i] = new JMenu(menusCad[i]);
@@ -241,25 +236,28 @@ public class VentanaPrincipal extends JFrame{
 
             // Crear los items de menú y añadirlos al menú
             itemsDeMenu[i] = new JMenuItem[itemsDeMenuCad[i].length];
-            for(int j = 0;j < itemsDeMenu[i].length;j++){
-                itemsDeMenu[i][j] = new JMenuItem(itemsDeMenuCad[i][j],new ImageIcon(ClassLoader.getSystemResource(iconos[i][j])));
+            for (int j = 0; j < itemsDeMenu[i].length; j++) {
+                itemsDeMenu[i][j] = new JMenuItem(itemsDeMenuCad[i][j], new ImageIcon(ClassLoader.getSystemResource(
+                    iconos[i][j])));
                 itemsDeMenu[i][j].addActionListener(actionListenersMenu[i][j]);
 
                 // Añadir aceleradores de teclado
-                if(i == 0) {
-                    itemsDeMenu[i][j].setAccelerator(KeyStroke.getKeyStroke(aceleradoresDeTeclado[i][j],ActionEvent.CTRL_MASK));
+                if (i == 0) {
+                    itemsDeMenu[i][j].setAccelerator(KeyStroke.getKeyStroke(aceleradoresDeTeclado[i][j],
+                        ActionEvent.CTRL_MASK));
                 }
-                else if(i == 1) {
-                    itemsDeMenu[i][j].setAccelerator(KeyStroke.getKeyStroke(aceleradoresDeTeclado[i][j],ActionEvent.CTRL_MASK | ActionEvent.SHIFT_MASK));
+                else if (i == 1) {
+                    itemsDeMenu[i][j].setAccelerator(KeyStroke.getKeyStroke(aceleradoresDeTeclado[i][j],
+                        ActionEvent.CTRL_MASK | ActionEvent.SHIFT_MASK));
                 }
                 else {
-                    itemsDeMenu[i][j].setAccelerator(KeyStroke.getKeyStroke(aceleradoresDeTeclado[i][j],0));
+                    itemsDeMenu[i][j].setAccelerator(KeyStroke.getKeyStroke(aceleradoresDeTeclado[i][j], 0));
                 }
-                
+
                 itemsDeMenu[i][j].setEnabled(sinConexion[i][j]);
                 menus[i].add(itemsDeMenu[i][j]);
                 // Añadir el separador
-                if(separadores[i][j]) {
+                if (separadores[i][j]) {
                     menus[i].addSeparator();
                 }
             }
@@ -273,27 +271,27 @@ public class VentanaPrincipal extends JFrame{
         // Crear la barra de menú
         barraDeHerramientas = new JToolBar();
         barraDeHerramientas.setFloatable(false);
-        
-        for(int i = 0;i < botonesBarraDeHerramientas.length;i++){
+
+        for (int i = 0; i < botonesBarraDeHerramientas.length; i++) {
 
             botonesBarraDeHerramientas[i] = new JButton(new ImageIcon(ClassLoader.getSystemResource(iconos[0][i])));
             botonesBarraDeHerramientas[i].setToolTipText(itemsDeMenuCad[0][i]);
             botonesBarraDeHerramientas[i].addActionListener(actionListenersMenu[0][i]);
             botonesBarraDeHerramientas[i].setEnabled(sinConexion[0][i]);
             barraDeHerramientas.add(botonesBarraDeHerramientas[i]);
-            if(i == 1 || i == 2){
+            if (i == 1 || i == 2) {
                 barraDeHerramientas.addSeparator();
             }
         }
 
-        cp.add(BorderLayout.PAGE_START,barraDeHerramientas);
+        cp.add(BorderLayout.PAGE_START, barraDeHerramientas);
 
         // Crear panel de contactos
         PanelContactos.getInstancia(this.getContentPane());
 
         // Crear el combo box
         Integer[] intArray = new Integer[ComboBoxRenderer.getLongitud()];
-        for(int i = 0;i < intArray.length;i++) {
+        for (int i = 0; i < intArray.length; i++) {
             intArray[i] = new Integer(i);
         }
         estado = new JComboBox(intArray);
@@ -301,39 +299,42 @@ public class VentanaPrincipal extends JFrame{
         estado.setRenderer(cbr);
         estado.setSelectedIndex(ComboBoxRenderer.getLongitud() - 1);
         estado.setEnabled(false);
-        cp.add(BorderLayout.SOUTH,estado);
+        cp.add(BorderLayout.SOUTH, estado);
 
         // Iniciación de la interfaz
         Image image = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("icons/jabber.png"));
         this.setTitle("JAJIM 1.2");
         this.setIconImage(image);
-        if(!PreferenciasControlador.getInstancia().isVentanaPrincipalMaximizada()){
-            this.setLocation(PreferenciasControlador.getInstancia().getVentanaPrincipalX(),PreferenciasControlador.getInstancia().getVentanaPrincipalY());
-            this.setSize(PreferenciasControlador.getInstancia().getVentanaPrincipalAncho(),PreferenciasControlador.getInstancia().getVentanaPrincipalLargo());
+        if (!PreferenciasControlador.getInstancia().isVentanaPrincipalMaximizada()) {
+            this.setLocation(PreferenciasControlador.getInstancia().getVentanaPrincipalX(), PreferenciasControlador.
+                getInstancia().getVentanaPrincipalY());
+            this.setSize(PreferenciasControlador.getInstancia().getVentanaPrincipalAncho(), PreferenciasControlador.
+                getInstancia().getVentanaPrincipalLargo());
         }
         else {
             this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         }
-        
+
         this.setVisible(true);
 
         // Iniciación del icono en la barra de herramientas
-        if(SystemTray.isSupported()){
+        if (SystemTray.isSupported()) {
 
             // Activarla como ocultable
             this.ocultable = VentanaPrincipal.OCULTABLE;
 
             // Añadir el icono al barra
             SystemTray barraHerramientas = SystemTray.getSystemTray();
-            iconoBarraHerramientas = new TrayIcon(image,"JAJIM_1.2");
+            iconoBarraHerramientas = new TrayIcon(image, "JAJIM_1.2");
             iconoBarraHerramientas.setImageAutoSize(true);
-            try{
+            try {
                 barraHerramientas.add(iconoBarraHerramientas);
-            }catch(AWTException ae){
+            }
+            catch (AWTException ae) {
                 iconoBarraHerramientas = null;
             }
 
-            if(iconoBarraHerramientas != null){
+            if (iconoBarraHerramientas != null) {
                 // Asignarle un oyente
                 iconoBarraHerramientas.addActionListener(new VisualizarVentanaActionListener());
                 // Asignarle un menú popup
@@ -341,7 +342,7 @@ public class VentanaPrincipal extends JFrame{
 
                 menuEstado = new Menu(texto.getString("estado_menu"));
                 menuEstado.setEnabled(false);
-                for(int i = 0;i < itemsEstado.length;i++){
+                for (int i = 0; i < itemsEstado.length; i++) {
                     itemsEstado[i] = new MenuItem(estadosUsuario[i]);
                     menuEstado.add(itemsEstado[i]);
                     itemsEstado[i].addActionListener(new CambiarEstadoActionListener());
@@ -349,7 +350,7 @@ public class VentanaPrincipal extends JFrame{
                 }
                 popupMenu.add(menuEstado);
 
-                for(int i = 0;i < itemsDeMenuPopupCad.length;i++){
+                for (int i = 0; i < itemsDeMenuPopupCad.length; i++) {
                     itemsPopup[i] = new MenuItem(itemsDeMenuPopupCad[i]);
                     itemsPopup[i].addActionListener(actionListenersMenuPopup[i]);
                     popupMenu.add(itemsPopup[i]);
@@ -357,14 +358,14 @@ public class VentanaPrincipal extends JFrame{
                 }
             }
         }
-        else{
+        else {
             this.ocultable = VentanaPrincipal.NO_OCULTABLE;
             iconoBarraHerramientas = null;
         }
 
         // Iniciación de los controladores
         CuentaControlador cc = CuentaControlador.getInstancia();
-        if(cc.getCuenta() == null) {
+        if (cc.getCuenta() == null) {
             new CrearOAñadirFormulario(this);
         }
 
@@ -382,31 +383,32 @@ public class VentanaPrincipal extends JFrame{
 
     /**
      * Modifica la cadena que contiene el nombre de la cuenta activa.
+     * <p>
      * @param idCuenta Nuevo nombre para la cuenta activa.
      */
-    public void cambiarCuenta(String idCuenta){
+    public void cambiarCuenta(String idCuenta) {
         PanelContactos.getInstancia().cambiarCuenta(idCuenta);
     }
 
     /**
      * Realiza la operaciones necesarias una vez que la conexión se ha establecido
      */
-    public void conexionEstablecida(){
+    public void conexionEstablecida() {
 
         // Activar el combo
         estado.setEnabled(true);
         estado.setSelectedIndex(0);
 
         // Activar el menú de la barra de herramientas
-        if(this.isOcultable()) {
+        if (this.isOcultable()) {
             menuEstado.setEnabled(true);
         }
 
         // Activar y desactivar los botones adecuados
-        for(int i = 0;i < menus.length;i++){
-            for(int j = 0;j < itemsDeMenu[i].length;j++){
+        for (int i = 0; i < menus.length; i++) {
+            for (int j = 0; j < itemsDeMenu[i].length; j++) {
                 itemsDeMenu[i][j].setEnabled(conConexion[i][j]);
-                if(i == 0) {
+                if (i == 0) {
                     botonesBarraDeHerramientas[j].setEnabled(conConexion[i][j]);
                 }
             }
@@ -416,7 +418,7 @@ public class VentanaPrincipal extends JFrame{
     /**
      * Realiza las operaciones necesarias una vez que la conexión se ha cancelado.
      */
-    public void conexionCancelada(){
+    public void conexionCancelada() {
 
         // Desvincular al controlador de contactos de la conexión
         ContactosControlador ctc = ContactosControlador.getInstancia();
@@ -437,15 +439,15 @@ public class VentanaPrincipal extends JFrame{
         estado.setEnabled(false);
 
         // Desactivar el menú de la barra de herramientas
-        if(this.isOcultable()) {
+        if (this.isOcultable()) {
             menuEstado.setEnabled(false);
         }
 
         // Activar y desactivar los botones adecuados
-        for(int i = 0;i < menus.length;i++){
-            for(int j = 0;j < itemsDeMenu[i].length;j++){
+        for (int i = 0; i < menus.length; i++) {
+            for (int j = 0; j < itemsDeMenu[i].length; j++) {
                 itemsDeMenu[i][j].setEnabled(sinConexion[i][j]);
-                if(i == 0 && j < 3){
+                if (i == 0 && j < 3) {
                     botonesBarraDeHerramientas[j].setEnabled(sinConexion[i][j]);
                 }
             }
@@ -453,28 +455,25 @@ public class VentanaPrincipal extends JFrame{
     }
 
     /**
-     * Retorna verdadero si la ventana es ocultable por el hecho de existir barra
-     * de herramientas y falso en caso contrario.
-     * @return verdadero si la ventana es ocultable por el hecho de existir barra
-     * de herramientas y falso en caso contrario.
+     * Retorna verdadero si la ventana es ocultable por el hecho de existir barra de herramientas y falso en caso
+     * contrario.
+     * <p>
+     * @return verdadero si la ventana es ocultable por el hecho de existir barra de herramientas y falso en caso
+     *         contrario.
      */
-    public boolean isOcultable(){
-        if(ocultable == VentanaPrincipal.OCULTABLE) {
-            return true;
-        }
-        else {
-            return false;
-        }
+    public boolean isOcultable() {
+        return ocultable == VentanaPrincipal.OCULTABLE;
     }
-    
+
     /**
      * Método estático utilizado para implementar el Singleton.
+     * <p>
      * @return Retorna la única instancia que hay de la ventana principal.
      */
-    public static VentanaPrincipal getInstancia(){
+    public static VentanaPrincipal getInstancia() {
 
         // Si la instancia es nula, crea una nueva. Si no retorna la ya existente
-        if(instancia == null) {
+        if (instancia == null) {
             instancia = new VentanaPrincipal();
         }
 
@@ -483,9 +482,10 @@ public class VentanaPrincipal extends JFrame{
 
     /**
      * Devuelve el ComboBox de los estados.
+     * <p>
      * @return El ComboBox de los estados.
      */
-    public JComboBox getComboBox(){
+    public JComboBox getComboBox() {
         return estado;
     }
 }

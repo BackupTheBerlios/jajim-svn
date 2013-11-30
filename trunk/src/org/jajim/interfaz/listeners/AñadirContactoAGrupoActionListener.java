@@ -1,21 +1,20 @@
 /*
-    Jabber client.
-    Copyright (C) 2010  Florencio Cañizal Calles
+ Jabber client.
+ Copyright (C) 2010  Florencio Cañizal Calles
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package org.jajim.interfaz.listeners;
 
 import java.awt.event.ActionEvent;
@@ -27,30 +26,29 @@ import org.jajim.interfaz.dialogos.MensajeError;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
- * Clase oyente que escucha los eventos de adición de usuarios a grupos proveni
- * entes del formulario correspondiente.
+ * @version 1.2 Clase oyente que escucha los eventos de adición de usuarios a grupos proveni entes del formulario
+ * correspondiente.
  */
-public class AñadirContactoAGrupoActionListener implements ActionListener{
+public class AñadirContactoAGrupoActionListener implements ActionListener {
 
-    private AñadirContactoAGrupoFormulario acagf;
-    private String contacto;
+    private final AñadirContactoAGrupoFormulario acagf;
+    private final String contacto;
 
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
-     * @param acagf El formulario de adición de contactos.
-     * @param contacto El contacto que se va a añadir a los grupos correspondien
-     * tes.
+     * <p>
+     * @param acagf    El formulario de adición de contactos.
+     * @param contacto El contacto que se va a añadir a los grupos correspondien tes.
      */
-    public AñadirContactoAGrupoActionListener(AñadirContactoAGrupoFormulario acagf,String contacto){
+    public AñadirContactoAGrupoActionListener(AñadirContactoAGrupoFormulario acagf, String contacto) {
         this.acagf = acagf;
         this.contacto = contacto;
     }
 
     /**
-     * Método que se ejecuta cuando se selecciona la opción Aceptar del formulario
-     * de adición de contactos. Intenta añadir el contacto a la lista de grupos
-     * proporcionada en colaboración con el controlador de contactos.
+     * Método que se ejecuta cuando se selecciona la opción Aceptar del formulario de adición de contactos. Intenta
+     * añadir el contacto a la lista de grupos proporcionada en colaboración con el controlador de contactos.
+     * <p>
      * @param e El evento que produce la ejecución del método.
      */
     @Override
@@ -60,18 +58,17 @@ public class AñadirContactoAGrupoActionListener implements ActionListener{
         String[] grupos = acagf.getCampos();
 
         // Comprobar si los campos son inválidos
-        if(grupos == null || grupos.length == 0){
-            new MensajeError(acagf,"campos_invalidos_error",MensajeError.WARNING);
+        if (grupos == null || grupos.length == 0) {
+            new MensajeError(acagf, "campos_invalidos_error", MensajeError.WARNING);
             return;
         }
-
-        // Añadir el contacto a cada uno de los grupos especificados
-        for(int i = 0;i < grupos.length;i++){
-            try{
+        for (String grupo : grupos) {
+            try {
                 ContactosControlador ctc = ContactosControlador.getInstancia();
-                ctc.añadirContactoAGrupo(contacto,grupos[i]);
-            }catch(ImposibleAñadirContactoAGrupoException iacage){
-                new MensajeError(acagf,"imposible_añadir_contacto_a_grupo",MensajeError.ERR);
+                ctc.añadirContactoAGrupo(contacto, grupo);
+            }
+            catch (ImposibleAñadirContactoAGrupoException iacage) {
+                new MensajeError(acagf, "imposible_añadir_contacto_a_grupo", MensajeError.ERR);
             }
         }
 

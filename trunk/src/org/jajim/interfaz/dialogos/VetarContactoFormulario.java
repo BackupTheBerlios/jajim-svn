@@ -1,21 +1,20 @@
 /*
-    Jabber client.
-    Copyright (C) 2010  Florencio Cañizal Calles
+ Jabber client.
+ Copyright (C) 2010  Florencio Cañizal Calles
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package org.jajim.interfaz.dialogos;
 
 import java.awt.BorderLayout;
@@ -45,13 +44,12 @@ import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
- * Formulario en el que el usuario introduce aquellos contactos que desea que no
- * se incorporen a la conversación.
+ * @version 1.2 Formulario en el que el usuario introduce aquellos contactos que desea que no se incorporen a la
+ * conversación.
  */
-public class VetarContactoFormulario extends JDialog implements ActionListener{
+public class VetarContactoFormulario extends JDialog implements ActionListener {
 
-    private ResourceBundle texto = ResourceBundle.getBundle("resources.Idioma",Main.loc);
+    private final ResourceBundle texto = ResourceBundle.getBundle("resources.Idioma", Main.loc);
 
     // Cadenas constantes
     private final String principal = texto.getString("vetar_contacto_formulario_principal");
@@ -64,43 +62,43 @@ public class VetarContactoFormulario extends JDialog implements ActionListener{
     private final String cancelar = texto.getString("cancelar");
 
     // Componentes de la interfaz
-    private JLabel cadenaPrincipal;
-    private JLabel[] grupoDeEtiquetas = new JLabel[etiquetas.length];
+    private final JLabel cadenaPrincipal;
+    private final JLabel[] grupoDeEtiquetas = new JLabel[etiquetas.length];
     private JList listaDeContactos;
-    private JButton botonAceptar;
-    private JButton botonCancelar;
+    private final JButton botonAceptar;
+    private final JButton botonCancelar;
 
     /**
-     * Constructor de la clase. Inicializa las variables necesarias. Crea la inter
-     * faz de usuario.
+     * Constructor de la clase. Inicializa las variables necesarias. Crea la inter faz de usuario.
+     * <p>
      * @param vc La ventana de la conversación.
      */
-    public VetarContactoFormulario(VentanaConversacion vc){
+    public VetarContactoFormulario(VentanaConversacion vc) {
 
         // Inicialización de variables
-        super(vc,true);
+        super(vc, true);
 
-         // Creación de la interfaz
+        // Creación de la interfaz
         Container cp = this.getContentPane();
 
         // Creación del mensaje principal
         cadenaPrincipal = new JLabel(principal);
         cadenaPrincipal.setHorizontalAlignment(JLabel.CENTER);
-        cadenaPrincipal.setBorder(BorderFactory.createEmptyBorder(15,10,15,10));
-        cp.add(BorderLayout.NORTH,cadenaPrincipal);
+        cadenaPrincipal.setBorder(BorderFactory.createEmptyBorder(15, 10, 15, 10));
+        cp.add(BorderLayout.NORTH, cadenaPrincipal);
 
         // Creación del formulario
         boolean sinContactos = false;
         JPanel formulario = new JPanel();
-        formulario.setBorder(BorderFactory.createEmptyBorder(0,10,15,10));
-        formulario.setLayout(new GridLayout(etiquetas.length,2,5,10));
-        for(int i = 0;i < etiquetas.length;i++){
+        formulario.setBorder(BorderFactory.createEmptyBorder(0, 10, 15, 10));
+        formulario.setLayout(new GridLayout(etiquetas.length, 2, 5, 10));
+        for (int i = 0; i < etiquetas.length; i++) {
             grupoDeEtiquetas[i] = new JLabel(etiquetas[i]);
             grupoDeEtiquetas[i].setHorizontalAlignment(JLabel.CENTER);
             formulario.add(grupoDeEtiquetas[i]);
             String[] participantes = null;
             ConversacionControlador cvc = vc.getCvc();
-            if(cvc instanceof ConversacionControladorChatMultiusuario){
+            if (cvc instanceof ConversacionControladorChatMultiusuario) {
                 ConversacionControladorChatMultiusuario cccm = (ConversacionControladorChatMultiusuario) cvc;
                 participantes = cccm.getParticipantesComoJID();
             }
@@ -109,15 +107,15 @@ public class VetarContactoFormulario extends JDialog implements ActionListener{
             List<String> listaContactos = new ArrayList<>();
             listaContactos.addAll(aux);
             int k = 0;
-            for(int j = 0;j < participantes.length;j++){
-                if(listaContactos.contains(participantes[j])){
-                    int indice = listaContactos.indexOf(participantes[j]);
+            for (String participante : participantes) {
+                if (listaContactos.contains(participante)) {
+                    int indice = listaContactos.indexOf(participante);
                     listaContactos.remove(indice);
                 }
             }
             String[] sinParticipar = listaContactos.toArray(new String[0]);
 
-            if(sinParticipar.length == 0){
+            if (sinParticipar.length == 0) {
                 sinParticipar = new String[1];
                 sinParticipar[0] = texto.getString("invitar_contacto_formulario_sin_contactos");
                 sinContactos = true;
@@ -128,25 +126,25 @@ public class VetarContactoFormulario extends JDialog implements ActionListener{
             JScrollPane scrollPane = new JScrollPane(listaDeContactos);
             formulario.add(scrollPane);
         }
-        cp.add(BorderLayout.CENTER,formulario);
+        cp.add(BorderLayout.CENTER, formulario);
 
         // Crear los botones y añadirle el oyente
         JPanel botones = new JPanel();
         botones.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        botones.setBorder(BorderFactory.createEmptyBorder(0,10,6,10));
+        botones.setBorder(BorderFactory.createEmptyBorder(0, 10, 6, 10));
         botonAceptar = new JButton(OK);
-        if(sinContactos) {
+        if (sinContactos) {
             botonAceptar.setEnabled(false);
         }
-        botonAceptar.addActionListener(new VetarContactoActionListener(this,vc.getCvc()));
+        botonAceptar.addActionListener(new VetarContactoActionListener(this, vc.getCvc()));
         botonCancelar = new JButton(cancelar);
         botonCancelar.addActionListener(this);
         botones.add(botonAceptar);
         botones.add(botonCancelar);
-        cp.add(BorderLayout.SOUTH,botones);
+        cp.add(BorderLayout.SOUTH, botones);
 
         // Opciones del cuadro de diálogo
-        this.setSize(350,210);
+        this.setSize(350, 210);
         this.setResizable(false);
         this.setLocationRelativeTo(vc);
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -155,8 +153,8 @@ public class VetarContactoFormulario extends JDialog implements ActionListener{
     }
 
     /**
-     * Método que se ejecuta cuando el usuario selecciona el botón Cancelar del
-     * formulario. Cierra el mismo.
+     * Método que se ejecuta cuando el usuario selecciona el botón Cancelar del formulario. Cierra el mismo.
+     * <p>
      * @param e El evento que produce la ejecución del método.
      */
     @Override
@@ -166,16 +164,17 @@ public class VetarContactoFormulario extends JDialog implements ActionListener{
 
     /**
      * Devuelve el valor de los campos introducidos por el usuario.
+     * <p>
      * @return El valor de los campos introducidos por el usuario.
      */
-    public String[] getCampos(){
+    public String[] getCampos() {
 
         String[] campos = null;
 
         // Extraer los valores del formulario
         Object[] valores = listaDeContactos.getSelectedValues();
         campos = new String[valores.length];
-        for(int i = 0;i < valores.length;i++) {
+        for (int i = 0; i < valores.length; i++) {
             campos[i] = (String) valores[i];
         }
 

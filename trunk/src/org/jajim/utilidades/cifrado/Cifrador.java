@@ -1,21 +1,20 @@
 /*
-    Jabber client.
-    Copyright (C) 2010  Florencio Cañizal Calles
+ Jabber client.
+ Copyright (C) 2010  Florencio Cañizal Calles
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package org.jajim.utilidades.cifrado;
 
 import java.io.IOException;
@@ -38,22 +37,21 @@ import sun.misc.BASE64Encoder;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
- * Clase que cifra y descrifa cadenas de caracteres.
+ * @version 1.2 Clase que cifra y descrifa cadenas de caracteres.
  */
-public class Cifrador{
+public class Cifrador {
 
     private SecretKey sk;
     private Cipher cifrado;
 
     /**
      * Constructor de la clase. Inicializa el cifrador.
-     * @throws ImposibleCifrarDescifrarException Si no se puede instanciar un ci
-     * frador adecuado.
+     * <p>
+     * @throws ImposibleCifrarDescifrarException Si no se puede instanciar un ci frador adecuado.
      */
-    public Cifrador() throws ImposibleCifrarDescifrarException{
+    public Cifrador() throws ImposibleCifrarDescifrarException {
 
-        try{
+        try {
             // Inicialización de la clave
             SecretKeyFactory skf = SecretKeyFactory.getInstance("DES");
             String clave = "cjliamve";
@@ -61,7 +59,8 @@ public class Cifrador{
             sk = skf.generateSecret(kspec);
             // Inicialización del cifrador
             cifrado = Cipher.getInstance("DES");
-        }catch(NoSuchAlgorithmException | InvalidKeyException | InvalidKeySpecException | NoSuchPaddingException e){
+        }
+        catch (NoSuchAlgorithmException | InvalidKeyException | InvalidKeySpecException | NoSuchPaddingException e) {
             // En caso de que se produzca un error se escribe en el fichero
             // de log y se lanza una excepción
             ManejadorDeLogs mdl = ManejadorDeLogs.getManejadorDeLogs();
@@ -72,22 +71,25 @@ public class Cifrador{
 
     /**
      * Cifra la cadena que se le suministra como parámetro.
+     * <p>
      * @param cadena Cadena que se desea cifrar.
      * @return Resultado de la cadena cifrada.
+     * <p>
      * @throws ImposibleCifrarException Si no se puede cifrar la cadena.
      */
-    public String cifrar(String cadena) throws ImposibleCifrarException{
+    public String cifrar(String cadena) throws ImposibleCifrarException {
 
         byte[] bloque_cifrado = null;
         String c = null;
 
-        try{
+        try {
             // Arrancar en modo cifrar
-            cifrado.init(Cipher.ENCRYPT_MODE,sk);
+            cifrado.init(Cipher.ENCRYPT_MODE, sk);
             // Cifrar
-            bloque_cifrado = cifrado.doFinal(cadena.getBytes(),0,cadena.getBytes().length);
+            bloque_cifrado = cifrado.doFinal(cadena.getBytes(), 0, cadena.getBytes().length);
             c = new BASE64Encoder().encode(bloque_cifrado);
-        }catch(InvalidKeyException | IllegalBlockSizeException | BadPaddingException e){
+        }
+        catch (InvalidKeyException | IllegalBlockSizeException | BadPaddingException e) {
             // En caso de que se produzca un error se escribe en el fichero
             // de log y se lanza una excepción
             ManejadorDeLogs mdl = ManejadorDeLogs.getManejadorDeLogs();
@@ -95,28 +97,30 @@ public class Cifrador{
             throw new ImposibleCifrarException();
         }
 
-
         return c;
     }
 
     /**
      * Descrifra la cadena que se le suministra como parámetro.
+     * <p>
      * @param cadena Cadena que se desea descrifrar.
      * @return Resultado con la cadena descifrada.
-     * @throws Si no se puede descifrar la cadena.
+     * <p>
+     * @throws ImposibleDescifrarException Si no se puede descifrar la cadena.
      */
-    public String descifrar(String cadena) throws ImposibleDescifrarException{
+    public String descifrar(String cadena) throws ImposibleDescifrarException {
 
         byte[] bloque_descifrado = null;
         String c = null;
 
-        try{
+        try {
             // Arrancar en modo descifrar
-            cifrado.init(Cipher.DECRYPT_MODE,sk);
+            cifrado.init(Cipher.DECRYPT_MODE, sk);
             // Descifrar
             bloque_descifrado = cifrado.doFinal(new BASE64Decoder().decodeBuffer(cadena));
-            c = new String(bloque_descifrado,"ISO-8859-1");
-        }catch(InvalidKeyException | IOException | IllegalBlockSizeException | BadPaddingException e){
+            c = new String(bloque_descifrado, "ISO-8859-1");
+        }
+        catch (InvalidKeyException | IOException | IllegalBlockSizeException | BadPaddingException e) {
             // En caso de que se produzca un error se escribe en el fichero
             // de log y se lanza una excepción
             ManejadorDeLogs mdl = ManejadorDeLogs.getManejadorDeLogs();

@@ -1,22 +1,20 @@
 /*
-    Jabber client.
-    Copyright (C) 2010  Florencio Cañizal Calles
+ Jabber client.
+ Copyright (C) 2010  Florencio Cañizal Calles
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-
 package org.jajim.controladores;
 
 import java.util.ArrayList;
@@ -48,26 +46,25 @@ import org.jivesoftware.smackx.packet.DiscoverItems;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
- * Clase que gestiona todas aquellas operaciones relacionadas con las conversacio
- * nes llevadas a cabo en un chat multiusuario.
+ * @version 1.2 Clase que gestiona todas aquellas operaciones relacionadas con las conversacio nes llevadas a cabo en un
+ * chat multiusuario.
  */
-public class ConversacionControladorChatMultiusuario extends ConversacionControlador{
+public class ConversacionControladorChatMultiusuario extends ConversacionControlador {
 
     private MultiUserChat conversacionMultiusuario;
-    private MensajesChatMultiusuarioListener mcml;
-    private ParticipantesListener pl;
-    private RechazoInvitacionListener ril;
+    private final MensajesChatMultiusuarioListener mcml;
+    private final ParticipantesListener pl;
+    private final RechazoInvitacionListener ril;
 
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
-     * @param usuario El usuario que encadena la creación del chat multiusuario.
-     * @param observadorDeConversacion El observador de los mensajes ocurridos 
-     * durante la conversación.
-     * @param observadorDeMensajes El observador de los mensajes intercambiados
-     * durante la conversacion.
+     * <p>
+     * @param usuario                  El usuario que encadena la creación del chat multiusuario.
+     * @param observadorDeConversacion El observador de los mensajes ocurridos durante la conversación.
+     * @param observadorDeMensajes     El observador de los mensajes intercambiados durante la conversacion.
      */
-    public ConversacionControladorChatMultiusuario(String usuario,Observer observadorDeConversacion,Observer observadorDeMensajes){
+    public ConversacionControladorChatMultiusuario(String usuario, Observer observadorDeConversacion,
+        Observer observadorDeMensajes) {
 
         // Inicialización de variables
         super(usuario);
@@ -78,14 +75,15 @@ public class ConversacionControladorChatMultiusuario extends ConversacionControl
 
     /**
      * Método que crea un nuevo chat multiusuario.
+     * <p>
      * @param room La sala en la que se va a desarrollar el chat.
      * @param nick El nick que va a utilizar el usuario.
-     * @throws ServicioDeChatMultiusuarioNoEncontradoException Si no se puede
-     * localizar el servicio de chat multiusuario en el servidor.
-     * @throws ImposibleCrearChatMultiusuarioException Si no se puede crear un
-     * nuevo chat multiusuario.
+     * @throws ServicioDeChatMultiusuarioNoEncontradoException Si no se puede localizar el servicio de chat multiusuario
+     *                                                         en el servidor.
+     * @throws ImposibleCrearChatMultiusuarioException         Si no se puede crear un nuevo chat multiusuario.
      */
-    public void crearChatMultiusuario(String room,String nick)throws ServicioDeChatMultiusuarioNoEncontradoException,ImposibleCrearChatMultiusuarioException{
+    public void crearChatMultiusuario(String room, String nick) throws ServicioDeChatMultiusuarioNoEncontradoException,
+        ImposibleCrearChatMultiusuarioException {
 
         // Obtener un ServiceDiscoveryManager asociado a la conexión.
         ConexionControlador cnc = ConexionControlador.getInstancia();
@@ -93,11 +91,13 @@ public class ConversacionControladorChatMultiusuario extends ConversacionControl
 
         // Descubrir los servicios asociados al servidor
         DiscoverItems discoItems = null;
-        try{
+        try {
             discoItems = discoManager.discoverItems(cnc.getXc().getHost());
-        }catch(XMPPException e){
+        }
+        catch (XMPPException e) {
             ManejadorDeLogs mdl = ManejadorDeLogs.getManejadorDeLogs();
-            mdl.escribir("No se puede localizar el servicio de conversación multiusuario en el servidor: " + cnc.getXc().getHost());
+            mdl.escribir("No se puede localizar el servicio de conversación multiusuario en el servidor: "
+                + cnc.getXc().getHost());
             throw new ServicioDeChatMultiusuarioNoEncontradoException();
         }
 
@@ -107,38 +107,40 @@ public class ConversacionControladorChatMultiusuario extends ConversacionControl
         while (it.hasNext()) {
             DiscoverItems.Item item = (DiscoverItems.Item) it.next();
             String s = item.getEntityID();
-            if(s.contains("conf") || s.contains("chat") || s.contains("muc")){
+            if (s.contains("conf") || s.contains("chat") || s.contains("muc")) {
                 servicio = s;
                 break;
             }
         }
 
         // Si no se encuentra el servicio, se lanza una excepción
-        if(servicio == null){
+        if (servicio == null) {
             ManejadorDeLogs mdl = ManejadorDeLogs.getManejadorDeLogs();
-            mdl.escribir("No se puede localizar el servicio de conversación multiusuario en el servidor: " + cnc.getXc().getHost());
+            mdl.escribir("No se puede localizar el servicio de conversación multiusuario en el servidor: "
+                + cnc.getXc().getHost());
             throw new ServicioDeChatMultiusuarioNoEncontradoException();
         }
 
         // Crear un chat multiusuario instantáneo
-        conversacionMultiusuario = new MultiUserChat(cnc.getXc(),room + "@" + servicio);
+        conversacionMultiusuario = new MultiUserChat(cnc.getXc(), room + "@" + servicio);
 
-        try{
+        try {
             conversacionMultiusuario.create(nick);
             Form form = conversacionMultiusuario.getConfigurationForm();
             Form submitForm = form.createAnswerForm();
             for (Iterator fields = form.getFields(); fields.hasNext();) {
                 FormField field = (FormField) fields.next();
                 if (!FormField.TYPE_HIDDEN.equals(field.getType()) && field.getVariable() != null) {
-                  submitForm.setDefaultAnswer(field.getVariable());
+                    submitForm.setDefaultAnswer(field.getVariable());
                 }
             }
-            submitForm.setAnswer("muc#roomconfig_allowinvites",true);
+            submitForm.setAnswer("muc#roomconfig_allowinvites", true);
             List<String> whoIs = new ArrayList<>();
             whoIs.add("anyone");
-            submitForm.setAnswer("muc#roomconfig_whois",whoIs);
+            submitForm.setAnswer("muc#roomconfig_whois", whoIs);
             conversacionMultiusuario.sendConfigurationForm(submitForm);
-        }catch(XMPPException e){
+        }
+        catch (XMPPException e) {
             ManejadorDeLogs mdl = ManejadorDeLogs.getManejadorDeLogs();
             mdl.escribir("No se puede crear una sala multiusuario");
             throw new ImposibleCrearChatMultiusuarioException();
@@ -152,26 +154,28 @@ public class ConversacionControladorChatMultiusuario extends ConversacionControl
         // Invitar al usuario al chat
         mcml.setAlias(nick);
         conversacionMultiusuario.addMessageListener(mcml);
-        conversacionMultiusuario.invite(ContactosControlador.getInstancia().getJID(usuario),"");
+        conversacionMultiusuario.invite(ContactosControlador.getInstancia().getJID(usuario), "");
     }
 
     /**
      * Método que permite unirse a un chat multiusuario.
+     * <p>
      * @param room La sala a la que se va a unir al usuario.
      * @param nick El nick que va a utilizar durante la conversación.
      * @throws ImposibleUnirseALaSalaException Si no se puede unir a la sala.
      */
-    public void unirseChatMultiusuario(String room,String nick) throws ImposibleUnirseALaSalaException{
+    public void unirseChatMultiusuario(String room, String nick) throws ImposibleUnirseALaSalaException {
 
         // Crear un chat multiusuario
         ConexionControlador cnc = ConexionControlador.getInstancia();
         XMPPConnection xc = cnc.getXc();
-        conversacionMultiusuario = new MultiUserChat(xc,room);
+        conversacionMultiusuario = new MultiUserChat(xc, room);
 
         // Unir al usuario a la conversación
-        try{
+        try {
             conversacionMultiusuario.join(nick);
-        }catch(XMPPException xe){
+        }
+        catch (XMPPException xe) {
             ManejadorDeLogs mdl = ManejadorDeLogs.getManejadorDeLogs();
             mdl.escribir("No se puede inir a la sala: " + room);
             throw new ImposibleUnirseALaSalaException();
@@ -188,65 +192,65 @@ public class ConversacionControladorChatMultiusuario extends ConversacionControl
 
     /**
      * Envia un mensaje a través del chat privado
+     * <p>
      * @param mensaje El mensaje que se desea enviar.
-     * @throws ImposibleEnviarMensajeException Si no se puede enviar el mensaje
-     * al otro usuario de la conversación.
+     * @throws ImposibleEnviarMensajeException Si no se puede enviar el mensaje al otro usuario de la conversación.
      */
     @Override
-    public void enviarMensaje(String mensaje) throws ImposibleEnviarMensajeException{
+    public void enviarMensaje(String mensaje) throws ImposibleEnviarMensajeException {
 
         // Construir el mensaje
         Message m = new Message();
         m.setBody(mensaje);
-        m.setProperty("fuente",preferencias[0]);
-        m.setProperty("tamaño",preferencias[1]);
-        m.setProperty("colorRojo",preferencias[2]);
-        m.setProperty("colorVerde",preferencias[3]);
-        m.setProperty("colorAzul",preferencias[4]);
-        m.setProperty("negrita",preferencias[5]);
-        m.setProperty("cursiva",preferencias[6]);
+        m.setProperty("fuente", preferencias[0]);
+        m.setProperty("tamaño", preferencias[1]);
+        m.setProperty("colorRojo", preferencias[2]);
+        m.setProperty("colorVerde", preferencias[3]);
+        m.setProperty("colorAzul", preferencias[4]);
+        m.setProperty("negrita", preferencias[5]);
+        m.setProperty("cursiva", preferencias[6]);
 
         // Utilizar el Chat para mandar el mensaje
-        try{
+        try {
             m.setTo(conversacionMultiusuario.getRoom());
             m.setType(Message.Type.groupchat);
             conversacionMultiusuario.sendMessage(m);
-        }catch(XMPPException xe){
+        }
+        catch (XMPPException xe) {
             // En caso de que se produzca un error se escribe en el fichero
             // de log y se lanza una excepción
             ManejadorDeLogs mdl = ManejadorDeLogs.getManejadorDeLogs();
-            mdl.escribir("No se puede enviar el mensaje: " + mensaje + "- Conversación: " + conversacionMultiusuario.getRoom());
+            mdl.escribir("No se puede enviar el mensaje: " + mensaje + "- Conversación: " + conversacionMultiusuario.
+                getRoom());
             throw new ImposibleEnviarMensajeException();
         }
     }
 
     /**
      * Invita a la conversación a un conjunto de contactos
-     * @param contactos Array con los contactos que se van a invitar a la conver
-     * sación.
+     * <p>
+     * @param contactos Array con los contactos que se van a invitar a la conver sación.
      */
-    public void invitarContactos(String[] contactos){
-
-        // Inivitar uno a uno los contactos a la conversación
-        for(int i = 0;i < contactos.length;i++){
-            conversacionMultiusuario.invite(ContactosControlador.getInstancia().getJID(contactos[i]),"");
+    public void invitarContactos(String[] contactos) {
+        for (String contacto : contactos) {
+            conversacionMultiusuario.invite(ContactosControlador.getInstancia().getJID(contacto), "");
         }
     }
 
     /**
-     * Vetar a los usuario seleccionados para que no puedan pariticipar en la con
-     * versación.
+     * Vetar a los usuario seleccionados para que no puedan pariticipar en la con versación.
+     * <p>
      * @param contactos Array con los contactos que se desea vetar.
-     * @throws ImposibleVetarContactosException Si la operación de vetado de con
-     * tactos no se puede llevar a cabo.
+     * @throws ImposibleVetarContactosException Si la operación de vetado de con tactos no se puede llevar a cabo.
      */
-    public void vetarContactos(String[] contactos) throws ImposibleVetarContactosException{
+    public void vetarContactos(String[] contactos) throws ImposibleVetarContactosException {
 
         // Vetar los contactos para la conversación
         Collection<String> jids = Arrays.asList(contactos);
-        try{
+        try {
             conversacionMultiusuario.banUsers(jids);
-        }catch(XMPPException e){
+        }
+        catch (XMPPException e) {
             // En caso de que se produzca un error se escribe en el fichero
             // de log y se lanza una excepción
             ManejadorDeLogs mdl = ManejadorDeLogs.getManejadorDeLogs();
@@ -259,18 +263,19 @@ public class ConversacionControladorChatMultiusuario extends ConversacionControl
      * Cierra un chat multiusuario de manera correcta en el sistema.
      */
     @Override
-    public void cerrarConversacion(){
-        if(conversacionMultiusuario != null) {
+    public void cerrarConversacion() {
+        if (conversacionMultiusuario != null) {
             conversacionMultiusuario.leave();
         }
     }
 
     /**
      * Retorna la lista de participantes del chat.
+     * <p>
      * @return La lista de participantes del chat.
      */
     @Override
-    public String[] getParticipantes(){
+    public String[] getParticipantes() {
 
         String[] participantes = null;
 
@@ -278,9 +283,9 @@ public class ConversacionControladorChatMultiusuario extends ConversacionControl
         Iterator<String> listaDeOcupantes = conversacionMultiusuario.getOccupants();
         participantes = new String[conversacionMultiusuario.getOccupantsCount() - 1];
         int i = 0;
-        while(listaDeOcupantes.hasNext()){
+        while (listaDeOcupantes.hasNext()) {
             String nick = StringUtils.parseResource(listaDeOcupantes.next());
-            if(nick.compareTo(conversacionMultiusuario.getNickname()) != 0){
+            if (nick.compareTo(conversacionMultiusuario.getNickname()) != 0) {
                 participantes[i] = nick;
                 i++;
             }
@@ -291,14 +296,16 @@ public class ConversacionControladorChatMultiusuario extends ConversacionControl
 
     /**
      * Retorna el JID de los participantes de un chat multiusuario.
+     * <p>
+     * @return Un array con todos los participantes en formato JID.
      */
-    public String[] getParticipantesComoJID(){
+    public String[] getParticipantesComoJID() {
 
         String[] participantes = new String[conversacionMultiusuario.getOccupantsCount()];
 
         Iterator<String> iterator = conversacionMultiusuario.getOccupants();
         int i = 0;
-        while(iterator.hasNext()){
+        while (iterator.hasNext()) {
             Occupant o = conversacionMultiusuario.getOccupant(iterator.next());
             participantes[i] = StringUtils.parseBareAddress(o.getJid());
             i++;
@@ -308,11 +315,12 @@ public class ConversacionControladorChatMultiusuario extends ConversacionControl
     }
 
     /**
-     * Método que retorna los participantes de una conversación con su nombre com
-     * pleto. Sólo válido para conversaciones multiusuario.
+     * Método que retorna los participantes de una conversación con su nombre com pleto. Sólo válido para conversaciones
+     * multiusuario.
+     * <p>
      * @return El nombre completo de los participantes.
      */
-    public String[] getParticipantesComoRecurso(){
+    public String[] getParticipantesComoRecurso() {
 
         String[] participantes = null;
 
@@ -320,7 +328,7 @@ public class ConversacionControladorChatMultiusuario extends ConversacionControl
         Iterator<String> listaDeOcupantes = conversacionMultiusuario.getOccupants();
         participantes = new String[conversacionMultiusuario.getOccupantsCount()];
         int i = 0;
-        while(listaDeOcupantes.hasNext()){
+        while (listaDeOcupantes.hasNext()) {
             String nick = listaDeOcupantes.next();
             participantes[i] = nick;
             i++;
@@ -330,14 +338,14 @@ public class ConversacionControladorChatMultiusuario extends ConversacionControl
     }
 
     /**
-     * Devuelve el jid del participante cuyo nick se corresponde con el suministra
-     * do.
+     * Devuelve el jid del participante cuyo nick se corresponde con el suministra do.
+     * <p>
      * @param nick El nick del participante del que se quiere recuperar el nick.
      * @return Retorna una cadena con el JID del usuario.
-     * @throws ImposibleRecuperarParticipanteException Si no se pued recuperar el
-     * JID del participante.
+     * <p>
+     * @throws ImposibleRecuperarParticipanteException Si no se pued recuperar el JID del participante.
      */
-    public String getJIDParticipante(String nick) throws ImposibleRecuperarParticipanteException{
+    public String getJIDParticipante(String nick) throws ImposibleRecuperarParticipanteException {
 
         String JID = null;
 
@@ -346,7 +354,7 @@ public class ConversacionControladorChatMultiusuario extends ConversacionControl
         JID = o.getJid();
 
         // Si no se ha podido recuperar lanzar una excepción.
-        if(JID == null){
+        if (JID == null) {
             ManejadorDeLogs mdl = ManejadorDeLogs.getManejadorDeLogs();
             mdl.escribir("No se puede recuperar el JID de el usuario: " + nick);
             throw new ImposibleRecuperarParticipanteException();
@@ -356,17 +364,16 @@ public class ConversacionControladorChatMultiusuario extends ConversacionControl
     }
 
     /**
-     * Método estático que se ejecuta para rechazar una invitación a un chat mul
-     * tiusuario generada por un contacto.
-     * @param cnc El controlador de la conexión actual.
+     * Método estático que se ejecuta para rechazar una invitación a un chat mul tiusuario generada por un contacto.
+     * <p>
      * @param contacto El contacto que nos envió la invitación.
-     * @param room La sala en la que tiene lugar la conversación.
+     * @param room     La sala en la que tiene lugar la conversación.
      */
-    public static void rechazarInvitacion(String contacto,String room){
+    public static void rechazarInvitacion(String contacto, String room) {
 
         // Recuperar la conexión y rechazar la invitación.
         ConexionControlador cnc = ConexionControlador.getInstancia();
         XMPPConnection xc = cnc.getXc();
-        MultiUserChat.decline(xc,room,contacto,"");
+        MultiUserChat.decline(xc, room, contacto, "");
     }
 }

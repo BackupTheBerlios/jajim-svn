@@ -1,21 +1,20 @@
 /*
-    Jabber client.
-    Copyright (C) 2010  Florencio Cañizal Calles
+ Jabber client.
+ Copyright (C) 2010  Florencio Cañizal Calles
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package org.jajim.interfaz.listeners;
 
 import java.awt.Dimension;
@@ -29,36 +28,35 @@ import org.jajim.interfaz.ventanas.VentanaConversacionChatPrivado;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.1
- * Clase que escucha los eventos que proceden de una de las ventanas de una con
- * versación.
+ * @version 1.2 Clase que escucha los eventos que proceden de una de las ventanas de una con versación.
  */
-public class VentanaConversacionWindowListener extends WindowAdapter{
+public class VentanaConversacionWindowListener extends WindowAdapter {
 
-    private VentanaConversacion vc;
+    private final VentanaConversacion vc;
 
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
+     * <p>
      * @param vc Ventana de una conversación.
      */
-    public VentanaConversacionWindowListener(VentanaConversacion vc){
+    public VentanaConversacionWindowListener(VentanaConversacion vc) {
         this.vc = vc;
     }
 
     /**
-     * Método que se ejecuta cuando se cierra la ventana de conversación a la que
-     * está asociada el listener.
+     * Método que se ejecuta cuando se cierra la ventana de conversación a la que está asociada el listener.
+     * <p>
      * @param e El evento que poduce la ejecución del método.
      */
     @Override
-    public void windowClosing(WindowEvent e){
+    public void windowClosing(WindowEvent e) {
 
         // Guardar las preferencias de la ventana
         PreferenciasControlador pfc = PreferenciasControlador.getInstancia();
-        if(vc.getExtendedState() == JFrame.MAXIMIZED_BOTH) {
+        if (vc.getExtendedState() == JFrame.MAXIMIZED_BOTH) {
             pfc.setVentanaConversacionMaximizada(true);
         }
-        else{
+        else {
             pfc.setVentanaConversacionMaximizada(false);
             Point p = vc.getLocation();
             pfc.setVentanaConversacionX(p.x);
@@ -69,7 +67,7 @@ public class VentanaConversacionWindowListener extends WindowAdapter{
         }
 
         // Esconder la ventana y marcarla como oculta
-        if(vc instanceof VentanaConversacionChatPrivado){
+        if (vc instanceof VentanaConversacionChatPrivado) {
             vc.setVisible(false);
             VentanaConversacionChatPrivado vccp = (VentanaConversacionChatPrivado) vc;
             vccp.setEstado(VentanaConversacionChatPrivado.OCULTA);

@@ -1,21 +1,20 @@
 /*
-    Jabber client.
-    Copyright (C) 2010  Florencio Cañizal Calles
+ Jabber client.
+ Copyright (C) 2010  Florencio Cañizal Calles
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package org.jajim.interfaz.dialogos;
 
 import java.awt.BorderLayout;
@@ -36,13 +35,12 @@ import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.2
- * Clase formulario que informa al usuario de la llegada de una petición de trans
- * ferencia e invita a éste a aceptarla o rechazarla.
+ * @version 1.2 Clase formulario que informa al usuario de la llegada de una petición de trans ferencia e invita a éste
+ * a aceptarla o rechazarla.
  */
-public class AceptarORechazarFicheroFormulario extends JDialog implements ActionListener{
+public class AceptarORechazarFicheroFormulario extends JDialog implements ActionListener {
 
-    private ResourceBundle texto = ResourceBundle.getBundle("resources.Idioma",Main.loc);
+    private final ResourceBundle texto = ResourceBundle.getBundle("resources.Idioma", Main.loc);
 
     // Cadenas constantes
     private final String cadenaPrincipal = texto.getString("aceptar_o_rechazar_fichero_formulario_cadena_principal");
@@ -58,24 +56,24 @@ public class AceptarORechazarFicheroFormulario extends JDialog implements Action
     private final String rechazar = texto.getString("rechazar_fichero_formulario_cadena");
 
     // Componentes de la interfaz
-    private JLabel principal;
-    private JLabel[][] cadenasEtiquetas = new JLabel[etiquetas.length][2];
-    private JButton botonAceptar;
-    private JButton botonRechazar;
+    private final JLabel principal;
+    private final JLabel[][] cadenasEtiquetas = new JLabel[etiquetas.length][2];
+    private final JButton botonAceptar;
+    private final JButton botonRechazar;
 
     // Variables importantes
-    private int idTransferencia;
+    private final int idTransferencia;
 
     /**
-     * Constructor de la clase. Inicializa las variables necesarias. Crea la inter
-     * faz del cuadro de diálogo.
+     * Constructor de la clase. Inicializa las variables necesarias. Crea la inter faz del cuadro de diálogo.
+     * <p>
      * @param idTransferencia Identificador de la transferencia.
-     * @param informacion Información relevante de la transferencia.
+     * @param informacion     Información relevante de la transferencia.
      */
-    public AceptarORechazarFicheroFormulario(int idTransferencia, String[] informacion){
+    public AceptarORechazarFicheroFormulario(int idTransferencia, String[] informacion) {
 
         // Inicialización de variables
-        super(VentanaPrincipal.getInstancia(),true);
+        super(VentanaPrincipal.getInstancia(), true);
         VentanaPrincipal vp = VentanaPrincipal.getInstancia();
         this.idTransferencia = idTransferencia;
 
@@ -85,15 +83,15 @@ public class AceptarORechazarFicheroFormulario extends JDialog implements Action
         // Añadir etiqueta principal
         principal = new JLabel(cadenaPrincipal);
         principal.setHorizontalAlignment(JLabel.CENTER);
-        principal.setBorder(BorderFactory.createEmptyBorder(15,10,15,10));
-        cp.add(BorderLayout.NORTH,principal);
+        principal.setBorder(BorderFactory.createEmptyBorder(15, 10, 15, 10));
+        cp.add(BorderLayout.NORTH, principal);
 
         // Añadir la información del fichero
-        JPanel panelInformacion = new JPanel(new GridLayout(etiquetas.length,2,5,10));
-        panelInformacion.setBorder(BorderFactory.createEmptyBorder(0,10,15,10));
-        for(int i = 0;i < etiquetas.length;i++){
-            for(int j = 0;j < 2;j++){
-                if(j == 0) {
+        JPanel panelInformacion = new JPanel(new GridLayout(etiquetas.length, 2, 5, 10));
+        panelInformacion.setBorder(BorderFactory.createEmptyBorder(0, 10, 15, 10));
+        for (int i = 0; i < etiquetas.length; i++) {
+            for (int j = 0; j < 2; j++) {
+                if (j == 0) {
                     cadenasEtiquetas[i][j] = new JLabel(etiquetas[i]);
                 }
                 else {
@@ -102,18 +100,18 @@ public class AceptarORechazarFicheroFormulario extends JDialog implements Action
                 panelInformacion.add(cadenasEtiquetas[i][j]);
             }
         }
-        cp.add(BorderLayout.CENTER,panelInformacion);
+        cp.add(BorderLayout.CENTER, panelInformacion);
 
         // Añadir los botones
         JPanel botones = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        botones.setBorder(BorderFactory.createEmptyBorder(0,10,6,10));
+        botones.setBorder(BorderFactory.createEmptyBorder(0, 10, 6, 10));
         botonAceptar = new JButton(aceptar);
         botonAceptar.addActionListener(this);
         botonRechazar = new JButton(rechazar);
-        botonRechazar.addActionListener(new RechazarFicheroActionListener(this,idTransferencia));
+        botonRechazar.addActionListener(new RechazarFicheroActionListener(this, idTransferencia));
         botones.add(botonAceptar);
         botones.add(botonRechazar);
-        cp.add(BorderLayout.SOUTH,botones);
+        cp.add(BorderLayout.SOUTH, botones);
 
         // Opciones del cuadro de diálogo
         this.setTitle(texto.getString("aceptar_o_rechazar_fichero_formulario_title"));
@@ -125,8 +123,9 @@ public class AceptarORechazarFicheroFormulario extends JDialog implements Action
     }
 
     /**
-     * Método que se ejecuta cuando se acepta la transferencia del fichero. Abre
-     * un formulario para introducir los campos necesarios.
+     * Método que se ejecuta cuando se acepta la transferencia del fichero. Abre un formulario para introducir los
+     * campos necesarios.
+     * <p>
      * @param e El evento que produjo la activación del método.
      */
     @Override

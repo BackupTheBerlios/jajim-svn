@@ -1,21 +1,20 @@
 /*
-    Jabber client.
-    Copyright (C) 2010  Florencio Cañizal Calles
+ Jabber client.
+ Copyright (C) 2010  Florencio Cañizal Calles
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package org.jajim.interfaz.dialogos;
 
 import java.awt.BorderLayout;
@@ -41,14 +40,13 @@ import org.jajim.main.Main;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.2
- * Clase diálogo que muestra un formulario para que el usuario introduzca los da
- * tos del contacto que quiere establecer. Controla la selección del botón Cance
- * lar cerrando el cuadro de diálogo en caso de que se produzca.
+ * @version 1.2 Clase diálogo que muestra un formulario para que el usuario introduzca los da tos del contacto que
+ * quiere establecer. Controla la selección del botón Cance lar cerrando el cuadro de diálogo en caso de que se
+ * produzca.
  */
-public class SolicitudDeContactoFormulario extends JDialog implements ActionListener{
+public class SolicitudDeContactoFormulario extends JDialog implements ActionListener {
 
-    private ResourceBundle texto = ResourceBundle.getBundle("resources.Idioma",Main.loc);
+    private final ResourceBundle texto = ResourceBundle.getBundle("resources.Idioma", Main.loc);
 
     // Cadenas constantes
     private final String principal = texto.getString("solicitud_contacto_formulario_principal");
@@ -65,19 +63,19 @@ public class SolicitudDeContactoFormulario extends JDialog implements ActionList
 
     // Componentes de la interfaz
     private JLabel cadenaPrincipal;
-    private JLabel[] grupoDeEtiquetas = new JLabel[etiquetas.length];
-    private JTextField[] grupoDeCampos = new JTextField[etiquetas.length - 1];
+    private final JLabel[] grupoDeEtiquetas = new JLabel[etiquetas.length];
+    private final JTextField[] grupoDeCampos = new JTextField[etiquetas.length - 1];
     private JComboBox grupos;
     private JButton botonAceptar;
     private JButton botonCancelar;
 
-    private String identificador;
-    private String servidor;
+    private final String identificador;
+    private final String servidor;
 
     /**
      * Constructor de la clase. Crea la interfaz del cuadro de diálogo.
      */
-    public SolicitudDeContactoFormulario(){
+    public SolicitudDeContactoFormulario() {
 
         // Inicialización
         super(VentanaPrincipal.getInstancia(), true);
@@ -91,15 +89,15 @@ public class SolicitudDeContactoFormulario extends JDialog implements ActionList
 
     /**
      * Constructor de la clase. Inicializa las variables necesarias.
-     * @param bcf El formulario de busqueda de contactos.
-     * @param identificador El identificador de la cuenta que se quiere establecer
-     * como contacto.
-     * @param servidor El servidor de la cuenta que se quiere establecer como contacto.
+     * <p>
+     * @param bcf           El formulario de busqueda de contactos.
+     * @param identificador El identificador de la cuenta que se quiere establecer como contacto.
+     * @param servidor      El servidor de la cuenta que se quiere establecer como contacto.
      */
-    public SolicitudDeContactoFormulario(BuscarContactoFormulario bcf, String identificador, String servidor){
+    public SolicitudDeContactoFormulario(BuscarContactoFormulario bcf, String identificador, String servidor) {
 
         // Inicialización
-        super(bcf,true);
+        super(bcf, true);
         this.identificador = identificador;
         this.servidor = servidor;
 
@@ -111,7 +109,7 @@ public class SolicitudDeContactoFormulario extends JDialog implements ActionList
     /**
      * Inicializa la interfaz de la aplicación.
      */
-    private void inicializar(){
+    private void inicializar() {
 
         // Creación de la interfaz
         Container cp = this.getContentPane();
@@ -119,27 +117,27 @@ public class SolicitudDeContactoFormulario extends JDialog implements ActionList
         // Creación del mensaje principal
         cadenaPrincipal = new JLabel(principal);
         cadenaPrincipal.setHorizontalAlignment(JLabel.CENTER);
-        cadenaPrincipal.setBorder(BorderFactory.createEmptyBorder(15,10,15,10));
-        cp.add(BorderLayout.NORTH,cadenaPrincipal);
+        cadenaPrincipal.setBorder(BorderFactory.createEmptyBorder(15, 10, 15, 10));
+        cp.add(BorderLayout.NORTH, cadenaPrincipal);
 
         // Creación del formulario
         JPanel formulario = new JPanel();
-        formulario.setBorder(BorderFactory.createEmptyBorder(0,10,15,10));
-        formulario.setLayout(new GridLayout(etiquetas.length,2,5,10));
-        for(int i = 0;i < etiquetas.length;i++){
+        formulario.setBorder(BorderFactory.createEmptyBorder(0, 10, 15, 10));
+        formulario.setLayout(new GridLayout(etiquetas.length, 2, 5, 10));
+        for (int i = 0; i < etiquetas.length; i++) {
             grupoDeEtiquetas[i] = new JLabel(etiquetas[i]);
             formulario.add(grupoDeEtiquetas[i]);
-            switch(i){
+            switch (i) {
                 case 0:
                 case 1:
                 case 2:
                     grupoDeCampos[i] = new JTextField();
-                    if(identificador != null && servidor != null){
-                        if(i == 0){
+                    if (identificador != null && servidor != null) {
+                        if (i == 0) {
                             grupoDeCampos[i].setText(identificador);
                             grupoDeCampos[i].setEnabled(false);
                         }
-                        if(i == 1){
+                        if (i == 1) {
                             grupoDeCampos[i].setText(servidor);
                             grupoDeCampos[i].setEnabled(false);
                         }
@@ -153,12 +151,12 @@ public class SolicitudDeContactoFormulario extends JDialog implements ActionList
                     break;
             }
         }
-        cp.add(BorderLayout.CENTER,formulario);
+        cp.add(BorderLayout.CENTER, formulario);
 
         // Crear los botones y añadirle el oyente
         JPanel botones = new JPanel();
-         botones.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        botones.setBorder(BorderFactory.createEmptyBorder(0,10,6,10));
+        botones.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        botones.setBorder(BorderFactory.createEmptyBorder(0, 10, 6, 10));
         botonAceptar = new JButton(OK);
         botonAceptar.addActionListener(new SolicitudDeContactoActionListener(this));
         botonCancelar = new JButton(cancelar);
@@ -166,10 +164,10 @@ public class SolicitudDeContactoFormulario extends JDialog implements ActionList
         botonCancelar.setActionCommand("Cancelar");
         botones.add(botonAceptar);
         botones.add(botonCancelar);
-        cp.add(BorderLayout.SOUTH,botones);
+        cp.add(BorderLayout.SOUTH, botones);
 
         // Opciones del cuadro de diálogo
-        this.setSize(290,255);
+        this.setSize(290, 255);
         this.setResizable(false);
         this.setLocationRelativeTo(VentanaPrincipal.getInstancia());
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -178,35 +176,35 @@ public class SolicitudDeContactoFormulario extends JDialog implements ActionList
     }
 
     /**
-     * Método que se ejecuta despueés de la recpeción de un evento para los que
-     * estaba registrado. Cierra el cuadro de diálogo.
+     * Método que se ejecuta despueés de la recpeción de un evento para los que estaba registrado. Cierra el cuadro de
+     * diálogo.
+     * <p>
      * @param e Evento que ha producido la ejecución del método.
      */
     @Override
-    public void actionPerformed(ActionEvent e){
+    public void actionPerformed(ActionEvent e) {
         this.dispose();
     }
 
     /**
      * Devuelve el valor de los campos introducidos en el formulario.
+     * <p>
      * @return Lista con el valor de los campos del formulario.
      */
-    public List<String> getCampos(){
+    public List<String> getCampos() {
 
         List<String> campos = new ArrayList<>();
-
-        // Extraer los campos del formulario y añadirlos a la lista
-        for(int i = 0;i < grupoDeCampos.length;i++){
-            campos.add(grupoDeCampos[i].getText());
+        for (JTextField grupoDeCampo : grupoDeCampos) {
+            campos.add(grupoDeCampo.getText());
         }
 
-        if(grupos.getSelectedIndex() != -1) {
+        if (grupos.getSelectedIndex() != -1) {
             campos.add(grupos.getSelectedItem().toString());
         }
         else {
             campos.add("");
         }
-        
+
         return campos;
     }
 }
