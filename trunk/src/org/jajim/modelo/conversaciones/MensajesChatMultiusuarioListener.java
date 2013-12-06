@@ -25,7 +25,7 @@ import org.jivesoftware.smack.packet.Packet;
 
 /**
  * @author Florencio Cañizal Calles
- * @version 1.2 Oyente que escucha los mensajes procendentes de un determinado chat multiusua rio.
+ * @version 1.2 Oyente que escucha los mensajes procendentes de un determinado chat multiusuario.
  */
 public class MensajesChatMultiusuarioListener extends Observable implements PacketListener {
 
